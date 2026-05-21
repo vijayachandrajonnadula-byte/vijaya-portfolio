@@ -1,0 +1,18 @@
+export const profile = {
+  name: 'Vijaya Chandra Jonnadula',
+  shortName: 'Vijay',
+  title: 'UX/UI Product Designer',
+  location: 'Hyderabad, India',
+  email: 'vijayachandrajonnadula@gmail.com',
+  linkedin: 'https://linkedin.com/in/vijayachandrajonnadula',
+  github: 'https://github.com/vijayachandrajonnadula',
+  portfolio: 'vijayachandrajonnadula.design',
+  tagline: 'I design digital products faster with research, UX judgement, AI-assisted workflows, and working prototypes.',
+  bio: "I'm Vijaya Chandra Jonnadula, a UX/UI product designer based in Hyderabad, India. I combine product thinking, design systems, AI-assisted workflows, responsive QA, and working prototypes to help teams move from idea to testable product faster.",
+  aboutHeading: "I care about the unglamorous parts of UX — the flow that almost works, the edge case that breaks trust, and the screen that needs one clearer decision.",
+  aboutBody: "I'm Vijaya Chandra Jonnadula, a UX/UI product designer based in Hyderabad, India. I focus on practical product design: understanding the problem, simplifying the journey, creating reusable UI patterns, validating the experience, and preparing work for implementation.",
+  status: 'Open to UX/UI and Product Design roles',
+  focus: 'UX/UI · Product flows · Design systems',
+  strength: 'Research to working prototypes',
+  workflow: 'Human-led UX · AI-assisted delivery',
+} as const;
