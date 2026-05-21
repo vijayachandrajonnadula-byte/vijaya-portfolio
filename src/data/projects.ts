@@ -27,7 +27,7 @@ export const projects: Project[] = [
     href: '/projects/riverside-general',
     prototypeUrl: 'https://hospital-booking-portfolio.vercel.app/',
     githubUrl: 'https://github.com/vijayachandrajonnadula',
-    image: '/images/projects/riverside/home.png',
+    image: '/images/projects/riverside/clean/desktop-home.png',
     category: 'Healthcare',
     year: '2026',
     sprint: '14-day sprint',

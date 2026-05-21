@@ -10,7 +10,7 @@ const navItems = [
   { id: 'early-structure', label: 'Early structure' },
   { id: 'decisions', label: 'Key UX decisions' },
   { id: 'design-system', label: 'Design system' },
-  { id: 'screenshots', label: 'Final UI screens' },
+  { id: 'screenshots', label: 'Desktop screens' },
   { id: 'mobile-screens', label: 'Mobile screens' },
   { id: 'ai-workflow', label: 'AI-assisted workflow' },
   { id: 'technical', label: 'Technical implementation' },

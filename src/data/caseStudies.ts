@@ -300,21 +300,21 @@ export const riversideCaseStudy = {
   ],
 
   desktopScreenshots: [
-    { src: "/images/projects/riverside/ui-screens/hi-home.png", caption: "Home" },
-    { src: "/images/projects/riverside/ui-screens/hi-find-doctors.png", caption: "Find Doctors" },
-    { src: "/images/projects/riverside/ui-screens/hi-doctor-profile.png", caption: "Doctor Profile" },
-    { src: "/images/projects/riverside/ui-screens/hi-book-appointment.png", caption: "Book Appointment" },
-    { src: "/images/projects/riverside/ui-screens/hi-confirmation.png", caption: "Confirmation" },
-    { src: "/images/projects/riverside/ui-screens/hi-manage.png", caption: "Manage Appointment" },
+    { src: "/images/projects/riverside/clean/desktop-home.png", caption: "Home" },
+    { src: "/images/projects/riverside/clean/desktop-find-doctors.png", caption: "Find Doctors" },
+    { src: "/images/projects/riverside/clean/desktop-doctor-profile.png", caption: "Doctor Profile" },
+    { src: "/images/projects/riverside/clean/desktop-booking.png", caption: "Book Appointment" },
+    { src: "/images/projects/riverside/clean/desktop-confirmation.png", caption: "Confirmation" },
+    { src: "/images/projects/riverside/clean/desktop-manage.png", caption: "Manage Appointment" },
   ],
 
   mobileScreenshots: [
-    { src: "/images/projects/riverside/mobile/hi-m-home.png", caption: "Mobile Home" },
-    { src: "/images/projects/riverside/mobile/hi-m-find-doctors.png", caption: "Mobile Find Doctors" },
-    { src: "/images/projects/riverside/mobile/hi-m-doctor-profile.png", caption: "Mobile Doctor Profile" },
-    { src: "/images/projects/riverside/mobile/hi-m-book-appointment.png", caption: "Mobile Booking" },
-    { src: "/images/projects/riverside/mobile/hi-m-confirmation.png", caption: "Mobile Confirmation" },
-    { src: "/images/projects/riverside/mobile/hi-m-manage.png", caption: "Mobile Manage" },
+    { src: "/images/projects/riverside/clean/mobile-home.png", caption: "Home" },
+    { src: "/images/projects/riverside/clean/mobile-find-doctors.png", caption: "Find Doctors" },
+    { src: "/images/projects/riverside/clean/mobile-doctor-profile.png", caption: "Doctor Profile" },
+    { src: "/images/projects/riverside/clean/mobile-booking.png", caption: "Booking" },
+    { src: "/images/projects/riverside/clean/mobile-confirmation.png", caption: "Confirmation" },
+    { src: "/images/projects/riverside/clean/mobile-manage.png", caption: "Manage" },
   ],
 
   wireframeImages: [

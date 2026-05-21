@@ -221,20 +221,20 @@ export default function CaseStudyPage() {
               </div>
             </section>
 
-            {/* 12. FINAL UI SCREENS */}
+            {/* 12. DESKTOP PROTOTYPE SCREENS */}
             <section className="cs-section" id="screenshots">
-              <h2 className="cs-section__title">Final UI screens — desktop</h2>
+              <h2 className="cs-section__title">Desktop prototype screens</h2>
               <p className="cs-section__body">
-                High-fidelity screens from the built React prototype covering every step of the booking journey. These are screens from the live deployed application, not static mockups. Each screen was refined through multiple critique and iteration rounds.
+                Screens from the built React prototype covering every step of the booking journey — deployed to Vercel and functional end-to-end, not static mockups. Each screen was refined through multiple critique and iteration rounds.
               </p>
               <ScreenshotGallery images={cs.desktopScreenshots} />
             </section>
 
-            {/* 13. MOBILE SCREENS */}
+            {/* 13. MOBILE PROTOTYPE SCREENS */}
             <section className="cs-section" id="mobile-screens">
-              <h2 className="cs-section__title">Final UI screens — mobile</h2>
+              <h2 className="cs-section__title">Mobile prototype screens</h2>
               <p className="cs-section__body">
-                Responsive screens tested at 430px and 390px. Single-column layout, stacked forms, tappable slot picker, compact progress indicator, and hamburger navigation. Each mobile screen was reviewed for usable touch targets, readable text, and no horizontal overflow.
+                Responsive screens validated at 430px and 390px. Single-column layout, stacked forms, tappable slot picker, compact progress indicator, and bottom tab navigation. Each screen was reviewed for usable touch targets, readable text, and no horizontal overflow.
               </p>
               <ScreenshotGallery images={cs.mobileScreenshots} mobile />
             </section>
