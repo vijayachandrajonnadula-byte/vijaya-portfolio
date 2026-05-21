@@ -137,7 +137,17 @@ export const riversideCaseStudy = {
   designSystemDescription:
     "The design system kept the prototype visually consistent while screens were being rebuilt and refined through multiple iterations. Reusable tokens for colour, spacing, and typography were defined early and applied consistently. Components were built to be composable so that the booking flow could be assembled from shared parts rather than custom-coded per screen.",
 
+  earlyStructureIntro:
+    "Before any visual decisions were made, the booking experience was structured around three questions: what is the user trying to do, in what order should the screens appear, and what is each screen responsible for. The user flow mapped the end-to-end journey. The information architecture separated browsing from booking. The wireframes defined page layout and content responsibility — not how anything looked.",
+
+  iaDescription:
+    "The IA separated general hospital navigation (Find Doctors, Departments) from the focused appointment booking flow (Doctor Profile → Book → Confirm → Manage). The booking journey is kept linear and focused. The IA keeps the appointment path separate from general hospital content so users are never pulled out of the task flow mid-booking.",
+
+  wireframesDescription:
+    "Early wireframes explored page responsibility, layout hierarchy, and booking flow structure before any visual design decisions were made. The goal was to establish what each screen should do and in what order, not how it should look. Find Doctors was designed for comparison. Doctor Profile handled evaluation and slot selection. Booking collected patient details. Confirmation reduced uncertainty.",
+
   designSystemImages: [
+    { src: "/images/projects/riverside/design-system/00-cover.png", label: "Design system overview" },
     { src: "/images/projects/riverside/design-system/01-color-palette.png", label: "Colour palette" },
     { src: "/images/projects/riverside/design-system/02-typography.png", label: "Typography" },
     { src: "/images/projects/riverside/design-system/03-buttons.png", label: "Buttons" },
