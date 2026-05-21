@@ -112,9 +112,12 @@ export default function CaseStudyPage() {
               </div>
             </section>
 
-            {/* 7. USER JOURNEY + FLOWCHART */}
-            <section className="cs-section" id="journey">
-              <h2 className="cs-section__title">User journey and flow</h2>
+            {/* 7. EARLY STRUCTURE: WIREFRAMES, IA, AND FLOW MAPPING */}
+            <section className="cs-section" id="early-structure">
+              <h2 className="cs-section__title">Early structure: wireframes, IA, and flow mapping</h2>
+              <p className="cs-section__body">{cs.earlyStructureIntro}</p>
+
+              <h3 className="cs-section__subtitle">User flow</h3>
               <p className="cs-section__body">{cs.userJourneyDescription}</p>
               <div className="journey-flow">
                 {cs.userJourneySteps.map((step, i) => (
@@ -136,14 +139,9 @@ export default function CaseStudyPage() {
                   />
                 </div>
               )}
-            </section>
 
-            {/* 8. INFORMATION ARCHITECTURE */}
-            <section className="cs-section" id="ia">
-              <h2 className="cs-section__title">Information architecture</h2>
-              <p className="cs-section__body">
-                The navigation structure separates browsing (Find Doctors, Departments) from the transactional flow (Book, Confirmation, Manage). Top navigation stays simple. The booking journey is kept linear and focused. The IA keeps the appointment path separate from general hospital content so users are never pulled out of the task flow.
-              </p>
+              <h3 className="cs-section__subtitle">Information architecture</h3>
+              <p className="cs-section__body">{cs.iaDescription}</p>
               {cs.iaImage && (
                 <div className="cs-image-wrap">
                   <img
@@ -168,14 +166,9 @@ export default function CaseStudyPage() {
                   ))}
                 </div>
               </div>
-            </section>
 
-            {/* 9. EARLY WIREFRAMES */}
-            <section className="cs-section" id="wireframes">
-              <h2 className="cs-section__title">Early wireframes and flow mapping</h2>
-              <p className="cs-section__body">
-                Early wireframes explored page responsibility, layout hierarchy, and booking flow structure before any visual design decisions were made. The goal was to establish what each screen should do and in what order, not how it should look. These low-fidelity frames shaped the final screen structure.
-              </p>
+              <h3 className="cs-section__subtitle">Wireframes</h3>
+              <p className="cs-section__body">{cs.wireframesDescription}</p>
               {cs.wireframeImages.length > 0 && (
                 <div className="wireframes-grid">
                   {cs.wireframeImages.map(img => (
@@ -230,18 +223,18 @@ export default function CaseStudyPage() {
 
             {/* 12. FINAL UI SCREENS */}
             <section className="cs-section" id="screenshots">
-              <h2 className="cs-section__title">Final UI screens</h2>
+              <h2 className="cs-section__title">Final UI screens — desktop</h2>
               <p className="cs-section__body">
-                Designed UI screens covering the complete booking journey from home page through to appointment management.
+                High-fidelity screens from the built React prototype covering every step of the booking journey. These are screens from the live deployed application, not static mockups. Each screen was refined through multiple critique and iteration rounds.
               </p>
               <ScreenshotGallery images={cs.desktopScreenshots} />
             </section>
 
             {/* 13. MOBILE SCREENS */}
             <section className="cs-section" id="mobile-screens">
-              <h2 className="cs-section__title">Mobile screens</h2>
+              <h2 className="cs-section__title">Final UI screens — mobile</h2>
               <p className="cs-section__body">
-                Responsive screens tested at 430px and 390px. Single-column layout, stacked forms, tappable slot picker, and compact progress indicator.
+                Responsive screens tested at 430px and 390px. Single-column layout, stacked forms, tappable slot picker, compact progress indicator, and hamburger navigation. Each mobile screen was reviewed for usable touch targets, readable text, and no horizontal overflow.
               </p>
               <ScreenshotGallery images={cs.mobileScreenshots} mobile />
             </section>
