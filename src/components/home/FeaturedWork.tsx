@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import Button from '../ui/Button';
 import Tag from '../ui/Tag';
 import SectionHeading from '../ui/SectionHeading';
