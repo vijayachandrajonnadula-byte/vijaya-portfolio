@@ -288,10 +288,11 @@ export default function CaseStudyPage() {
                 The full booking flow was tested end-to-end before each share. Manual testing followed the complete user path:
               </p>
               <div className="journey-flow" style={{ marginBottom: 'var(--space-6)' }}>
-                {cs.testingFlow.split(' ').map((part, i) => (
-                  part === '→'
-                    ? <span key={i} className="journey-flow__arrow">&#x2192;</span>
-                    : <span key={i} className="journey-flow__label">{part}</span>
+                {cs.testingFlow.split(' → ').map((step, i, arr) => (
+                  <div key={step} className="journey-flow__step">
+                    <span className="journey-flow__label">{step}</span>
+                    {i < arr.length - 1 && <span className="journey-flow__arrow">&#x2192;</span>}
+                  </div>
                 ))}
               </div>
               <Checklist items={cs.testingChecklist} />
