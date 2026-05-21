@@ -5,9 +5,9 @@ const stages = [
   { name: 'Research framing', tools: 'ChatGPT · Claude · Perplexity', active: true },
   { name: 'Journey mapping', tools: 'Miro · FigJam', active: true },
   { name: 'UI exploration', tools: 'Figma · Figma AI · Claude Design', active: true },
-  { name: 'Prototype build', tools: 'Roo Code · Cline · Codex · React · TypeScript', active: true },
-  { name: 'Review and QA', tools: 'GitHub PRs · Manual UX review · Responsive testing', active: false },
-  { name: 'Preview handoff', tools: 'GitHub · Shareable prototype', active: false },
+  { name: 'Prototype build', tools: 'Claude · Roo Code · Cline · Codex · React · TypeScript', active: true },
+  { name: 'Review and QA', tools: 'GitHub PRs · Storybook · Maze · Manual UX review', active: false },
+  { name: 'Preview handoff', tools: 'Preview environment · Shareable prototype', active: false },
 ];
 
 export default function Hero() {

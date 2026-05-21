@@ -30,7 +30,7 @@ const cards = [
     stage: '04 — Build',
     title: 'Working prototype',
     task: 'Scope and implement React prototype',
-    ai: 'Roo Code · Cline · Codex · React · TypeScript',
+    ai: 'Claude · Roo Code · Cline · Codex · React · TypeScript',
     output: 'Working React prototype',
   },
   {
