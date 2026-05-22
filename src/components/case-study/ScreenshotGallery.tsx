@@ -7,7 +7,7 @@ interface ScreenshotGalleryProps {
 
 export default function ScreenshotGallery({ images, mobile = false }: ScreenshotGalleryProps) {
   return (
-    <div className="screenshot-gallery">
+    <div className={`screenshot-gallery${!mobile ? ' screenshot-gallery--desktop' : ''}`}>
       {images.map(img => (
         <div key={img.caption} className="screenshot-item">
           <div className={`screenshot-item__frame${mobile ? ' screenshot-item__frame--mobile' : ''}`}>

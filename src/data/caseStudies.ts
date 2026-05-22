@@ -20,16 +20,17 @@ export interface Iteration {
 export const riversideCaseStudy = {
   id: "riverside-general",
   title: "Riverside General — Hospital Appointment Booking Platform",
-  subtitle: "A healthcare UX/UI case study focused on helping patients find doctors, review availability, select an appointment slot, and confirm appointments online with less confusion.",
-  tags: ["UX/UI Design", "Healthcare", "React Prototype", "Design System", "Testing & Iteration", "AI-assisted Workflow", "GitHub Workflow", "Responsive QA"],
+  subtitle: "A healthcare UX/UI case study covering how patients find doctors, compare availability, select a slot, and confirm an appointment — designed as a working React prototype.",
+  tags: ["UX/UI Design", "Healthcare", "React Prototype", "Design System", "Testing & Iteration", "AI-assisted Workflow", "Responsive QA"],
   prototypeUrl: "https://hospital-booking-portfolio.vercel.app/",
-  githubUrl: "https://github.com/vijayachandrajonnadula",
+  githubUrl: "https://github.com/vijayachandrajonnadula-byte/hospital-booking-portfolio",
 
   snapshot: {
     role: "UX/UI Designer, product thinker, prototype builder",
     timeline: "14-day portfolio sprint",
     platform: "Responsive web app",
-    tools: "Figma, Claude Design, React, TypeScript, MUI, GitHub, Codex, Roo Code, Cline, Vercel",
+    tools: "Figma, Claude Design, React, TypeScript, MUI, GitHub, Vercel",
+    focus: "Healthcare booking flow, doctor discovery, slot selection, and confirmation clarity",
   },
 
   demonstrates: [
@@ -300,21 +301,87 @@ export const riversideCaseStudy = {
   ],
 
   desktopScreenshots: [
-    { src: "/images/projects/riverside/clean/desktop-home.png", caption: "Home" },
-    { src: "/images/projects/riverside/clean/desktop-find-doctors.png", caption: "Find Doctors" },
-    { src: "/images/projects/riverside/clean/desktop-doctor-profile.png", caption: "Doctor Profile" },
-    { src: "/images/projects/riverside/clean/desktop-booking.png", caption: "Book Appointment" },
-    { src: "/images/projects/riverside/clean/desktop-confirmation.png", caption: "Confirmation" },
-    { src: "/images/projects/riverside/clean/desktop-manage.png", caption: "Manage Appointment" },
+    {
+      src: "/images/projects/riverside/clean/desktop-home.png",
+      caption: "Home",
+      title: "Home",
+      purpose: "Introduce the booking service, surface the primary action immediately, and provide quick department navigation without burying the patient in hospital content.",
+      uxNote: "Single prominent CTA above the fold competes with nothing. The hero card shows today's appointment schedule as a live product signal.",
+    },
+    {
+      src: "/images/projects/riverside/clean/desktop-find-doctors.png",
+      caption: "Find Doctors",
+      title: "Find Doctors",
+      purpose: "Allow patients to browse and compare available doctors by specialty, availability, location, and rating before opening a full profile.",
+      uxNote: "Listing designed for comparison — specialty, next available slot, location, and rating shown together. Full slot selection is intentionally deferred to the profile page.",
+    },
+    {
+      src: "/images/projects/riverside/clean/desktop-doctor-profile.png",
+      caption: "Doctor Profile",
+      title: "Doctor Profile",
+      purpose: "Give patients the context needed to evaluate a specific doctor and select a time slot in a single, linear top-to-bottom interaction.",
+      uxNote: "Credentials and availability shown together. Slot picker sits directly below the doctor summary so selection follows evaluation, not the reverse.",
+    },
+    {
+      src: "/images/projects/riverside/clean/desktop-booking.png",
+      caption: "Book Appointment",
+      title: "Book Appointment",
+      purpose: "Collect patient details to complete the booking, with the appointment summary kept persistently visible to reduce second-guessing mid-form.",
+      uxNote: "Persistent booking summary stays in view throughout form entry. A progress indicator shows the patient exactly where they are in the booking flow.",
+    },
+    {
+      src: "/images/projects/riverside/clean/desktop-confirmation.png",
+      caption: "Confirmation",
+      title: "Booking Confirmation",
+      purpose: "Resolve all post-booking uncertainty by providing a complete appointment summary, a before-visit checklist, and immediate next-step actions in one place.",
+      uxNote: "Reference number, date, doctor, location, checklist, and options to add to calendar or manage the booking — everything the patient needs, nothing more.",
+    },
+    {
+      src: "/images/projects/riverside/clean/desktop-manage.png",
+      caption: "Manage Appointment",
+      title: "Manage Appointment",
+      purpose: "Allow patients to retrieve, review, reschedule, or cancel an existing appointment from a single focused screen reachable from confirmation or main navigation.",
+      uxNote: "Reschedule and cancel actions are clearly separated. Cancel is guarded by an explicit confirmation step to prevent accidental loss of a booked appointment.",
+    },
   ],
 
   mobileScreenshots: [
-    { src: "/images/projects/riverside/clean/mobile-home.png", caption: "Home" },
-    { src: "/images/projects/riverside/clean/mobile-find-doctors.png", caption: "Find Doctors" },
-    { src: "/images/projects/riverside/clean/mobile-doctor-profile.png", caption: "Doctor Profile" },
-    { src: "/images/projects/riverside/clean/mobile-booking.png", caption: "Booking" },
-    { src: "/images/projects/riverside/clean/mobile-confirmation.png", caption: "Confirmation" },
-    { src: "/images/projects/riverside/clean/mobile-manage.png", caption: "Manage" },
+    {
+      src: "/images/projects/riverside/clean/mobile-home.png",
+      caption: "Home",
+      title: "Home",
+      uxNote: "Header collapses to hamburger. Department icons scroll horizontally. Primary CTA remains prominent at the top of the single-column layout.",
+    },
+    {
+      src: "/images/projects/riverside/clean/mobile-find-doctors.png",
+      caption: "Find Doctors",
+      title: "Find Doctors",
+      uxNote: "Single-column listing with tappable cards. Specialty, next available, and rating visible without opening the profile. Filters accessible via a sticky chip row.",
+    },
+    {
+      src: "/images/projects/riverside/clean/mobile-doctor-profile.png",
+      caption: "Doctor Profile",
+      title: "Doctor Profile",
+      uxNote: "Slot picker adapts to a vertical scrollable date and time selection. Book button anchored to the bottom of the screen for reliable one-thumb reach.",
+    },
+    {
+      src: "/images/projects/riverside/clean/mobile-booking.png",
+      caption: "Book Appointment",
+      title: "Book Appointment",
+      uxNote: "Appointment summary shown as a compact card above the form. All fields are full-width with 44px minimum tap height throughout.",
+    },
+    {
+      src: "/images/projects/riverside/clean/mobile-confirmation.png",
+      caption: "Confirmation",
+      title: "Booking Confirmation",
+      uxNote: "Actions rendered as full-width 48px buttons. Reference number displayed prominently. Before-visit checklist stacks cleanly below the appointment summary.",
+    },
+    {
+      src: "/images/projects/riverside/clean/mobile-manage.png",
+      caption: "Manage",
+      title: "Manage Appointment",
+      uxNote: "Reschedule and cancel are clearly separated. Cancel requires confirmation before proceeding to prevent accidental appointment removal.",
+    },
   ],
 
   wireframeImages: [

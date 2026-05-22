@@ -2,8 +2,8 @@ import { profile } from '../../data/profile';
 
 const links = [
   { icon: '✉️', label: 'Email', value: profile.email, href: `mailto:${profile.email}` },
-  { icon: '💼', label: 'LinkedIn', value: 'linkedin.com/in/vijayachandrajonnadula', href: profile.linkedin, external: true },
-  { icon: '💻', label: 'GitHub', value: 'github.com/vijayachandrajonnadula', href: profile.github, external: true },
+  { icon: '💼', label: 'LinkedIn', value: 'linkedin.com/in/vijaya-chandra', href: profile.linkedin, external: true },
+  { icon: '💻', label: 'GitHub', value: 'github.com/vijayachandrajonnadula-byte', href: profile.github, external: true },
   { icon: '🌐', label: 'Portfolio', value: profile.portfolio, href: `https://${profile.portfolio}` },
 ];
 
