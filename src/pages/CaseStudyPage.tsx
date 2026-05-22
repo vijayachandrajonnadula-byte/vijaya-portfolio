@@ -4,7 +4,6 @@ import CaseStudyHero from '../components/case-study/CaseStudyHero';
 import SnapshotGrid from '../components/case-study/SnapshotGrid';
 import CaseStudyNav from '../components/case-study/CaseStudyNav';
 import Timeline from '../components/case-study/Timeline';
-import ScreenshotGallery from '../components/case-study/ScreenshotGallery';
 import IterationLog from '../components/case-study/IterationLog';
 import ResponsiveQA from '../components/case-study/ResponsiveQA';
 import Button from '../components/ui/Button';
@@ -34,6 +33,9 @@ export default function CaseStudyPage() {
           tags={cs.tags}
           prototypeUrl={cs.prototypeUrl}
           githubUrl={cs.githubUrl}
+          heroImage="/images/projects/riverside/clean/desktop-home.png"
+          heroImageAlt="Riverside General homepage — hospital appointment booking"
+          prototypeUrlLabel="hospital-booking-portfolio.vercel.app"
         />
 
         <div className="cs-layout">
@@ -152,20 +154,6 @@ export default function CaseStudyPage() {
                   />
                 </div>
               )}
-              <div className="ia-structure">
-                <div className="ia-col">
-                  <div className="ia-col__label">Main navigation</div>
-                  {['Home', 'Find Doctors', 'Departments', 'Manage Appointment', 'Help'].map(item => (
-                    <div key={item} className="ia-col__item">{item}</div>
-                  ))}
-                </div>
-                <div className="ia-col">
-                  <div className="ia-col__label">Booking flow</div>
-                  {['Home', 'Find Doctors', 'Doctor Profile', 'Book Appointment', 'Confirmation', 'Manage Appointment'].map(item => (
-                    <div key={item} className="ia-col__item">{item}</div>
-                  ))}
-                </div>
-              </div>
 
               <h3 className="cs-section__subtitle">Wireframes</h3>
               <p className="cs-section__body">{cs.wireframesDescription}</p>
@@ -225,18 +213,54 @@ export default function CaseStudyPage() {
             <section className="cs-section" id="screenshots">
               <h2 className="cs-section__title">Desktop prototype screens</h2>
               <p className="cs-section__body">
-                Screens from the built React prototype covering every step of the booking journey — deployed to Vercel and functional end-to-end, not static mockups. Each screen was refined through multiple critique and iteration rounds.
+                Six screens from the built React prototype covering every step of the booking journey — deployed to Vercel and functional end-to-end, not static mockups. Each screen was refined through multiple critique and iteration rounds.
               </p>
-              <ScreenshotGallery images={cs.desktopScreenshots} />
+              {cs.desktopScreenshots.map((s, i) => (
+                <div key={s.title} className="renewly-screen-entry">
+                  <div className="renewly-screen-entry__header">
+                    <div className="renewly-screen-entry__meta">
+                      <span className="renewly-screen-entry__counter">{String(i + 1).padStart(2, '0')} / {String(cs.desktopScreenshots.length).padStart(2, '0')}</span>
+                    </div>
+                    <h3 className="renewly-screen-entry__title">{s.title}</h3>
+                    <p className="renewly-screen-entry__purpose">{s.purpose}</p>
+                    <div className="renewly-screen-entry__note">{s.uxNote}</div>
+                  </div>
+                  <div className="renewly-browser-chrome">
+                    <div className="renewly-browser-bar">
+                      <span className="renewly-browser-dot" />
+                      <span className="renewly-browser-dot" />
+                      <span className="renewly-browser-dot" />
+                      <span className="renewly-browser-url-bar">hospital-booking-portfolio.vercel.app</span>
+                    </div>
+                    <div className="renewly-browser-body renewly-browser-body--full">
+                      <img src={s.src} alt={s.title} className="renewly-browser-img"
+                        onError={e => { (e.target as HTMLImageElement).style.display = 'none'; }} />
+                    </div>
+                  </div>
+                </div>
+              ))}
             </section>
 
             {/* 13. MOBILE PROTOTYPE SCREENS */}
             <section className="cs-section" id="mobile-screens">
               <h2 className="cs-section__title">Mobile prototype screens</h2>
               <p className="cs-section__body">
-                Responsive screens validated at 430px and 390px. Single-column layout, stacked forms, tappable slot picker, compact progress indicator, and bottom tab navigation. Each screen was reviewed for usable touch targets, readable text, and no horizontal overflow.
+                Responsive screens validated at 430px and 390px. Single-column layout, stacked forms, tappable slot picker, compact progress indicator, and bottom tab navigation.
               </p>
-              <ScreenshotGallery images={cs.mobileScreenshots} mobile />
+              <div className="renewly-mobile-gallery renewly-mobile-gallery--3col">
+                {cs.mobileScreenshots.map(s => (
+                  <div key={s.title} className="renewly-mobile-item">
+                    <div className="renewly-mobile-caption">
+                      <div className="renewly-mobile-caption__title">{s.title}</div>
+                      <div className="renewly-mobile-caption__note">{s.uxNote}</div>
+                    </div>
+                    <div className="renewly-mobile-frame">
+                      <img src={s.src} alt={s.title} className="renewly-mobile-img"
+                        onError={e => { (e.target as HTMLImageElement).style.display = 'none'; }} />
+                    </div>
+                  </div>
+                ))}
+              </div>
             </section>
 
             {/* 14. AI-ASSISTED WORKFLOW */}

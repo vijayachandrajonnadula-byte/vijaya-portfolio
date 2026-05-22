@@ -1,4 +1,3 @@
-import VJLogo from '../ui/VJLogo';
 import Tag from '../ui/Tag';
 import { profile } from '../../data/profile';
 
@@ -15,7 +14,14 @@ export default function AboutSection() {
       <div className="container">
         <div className="about__grid">
           <div className="about__profile-card">
-            <VJLogo size={64} />
+            <div className="about__profile-photo-wrap">
+              <img
+                src="/images/profile.png"
+                alt={profile.name}
+                className="about__profile-photo"
+                onError={e => { (e.target as HTMLImageElement).style.display = 'none'; }}
+              />
+            </div>
             <div>
               <div className="about__profile-name">{profile.name}</div>
               <div className="about__profile-role">{profile.title}</div>
@@ -35,7 +41,6 @@ export default function AboutSection() {
                 <a href={`mailto:${profile.email}`} className="about__profile-detail-text" style={{ color: 'var(--color-accent)' }}>{profile.email}</a>
               </div>
             </div>
-            <p className="about__profile-note">A professional photo can replace the VJ mark above.</p>
           </div>
 
           <div className="about__content">

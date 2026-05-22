@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 
-const navItems = [
+interface NavItem { id: string; label: string; }
+
+const defaultNavItems: NavItem[] = [
   { id: 'snapshot', label: 'Project snapshot' },
   { id: 'demonstrates', label: 'What this demonstrates' },
   { id: 'overview', label: 'Overview' },
@@ -25,7 +27,8 @@ const navItems = [
   { id: 'reflection', label: 'Reflection' },
 ];
 
-export default function CaseStudyNav() {
+export default function CaseStudyNav({ items }: { items?: NavItem[] }) {
+  const navItems = items ?? defaultNavItems;
   const [active, setActive] = useState('');
 
   useEffect(() => {
@@ -40,7 +43,7 @@ export default function CaseStudyNav() {
       if (el) obs.observe(el);
     });
     return () => obs.disconnect();
-  }, []);
+  }, [navItems]);
 
   return (
     <nav className="cs-nav" aria-label="Case study sections">
