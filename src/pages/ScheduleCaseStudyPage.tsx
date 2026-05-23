@@ -278,7 +278,7 @@ export default function ScheduleCaseStudyPage() {
             {/* 3. WHAT THIS DEMONSTRATES */}
             <section className="cs-section" id="demonstrates">
               <h2 className="cs-section__title">What this case study demonstrates</h2>
-              <p className="cs-section__body">Skills and thinking visible across this enterprise scheduling project.</p>
+              <p className="cs-section__body">Design decisions and UX thinking that show up across this scheduling feature.</p>
               <div className="demonstrates-cards-grid">
                 {cs.demonstrates.map(d => (
                   <div key={d.title} className="demonstrates-card">
@@ -330,7 +330,7 @@ export default function ScheduleCaseStudyPage() {
             {/* 6. USERS AND TASKS */}
             <section className="cs-section" id="users">
               <h2 className="cs-section__title">Users and tasks</h2>
-              <p className="cs-section__body">Two user types interact with ZoomInfo Schedule: the sales rep configuring their own scheduling page, and the operations team managing scheduling at a team or workflow level.</p>
+              <p className="cs-section__body">Two people use this feature: the sales rep setting up their own scheduling page, and the ops team managing it at a team or workflow level.</p>
               <div className="afs-users-grid">
                 {cs.users.map(user => (
                   <div key={user.type} className="afs-user-card">
@@ -358,7 +358,7 @@ export default function ScheduleCaseStudyPage() {
 
               <h3 className="cs-section__subtitle">ZoomInfo Marketing — navigation and settings structure</h3>
               <p className="cs-section__body" style={{ fontSize: 'var(--text-sm)', color: 'var(--color-text-muted)', fontStyle: 'italic' }}>
-                Reconstructed from the visible top navigation and Settings tab structure. Calendar Settings is the entry point for the scheduling feature.
+                Reconstructed from the visible top nav and Settings tab structure. Calendar Settings is where the scheduling feature lives.
               </p>
 
               <div className="afs-feature-tree">
@@ -412,7 +412,7 @@ export default function ScheduleCaseStudyPage() {
             {/* 9. WIREFRAME RECONSTRUCTION */}
             <section className="cs-section" id="wireframes">
               <h2 className="cs-section__title">Wireframe reconstruction</h2>
-              <p className="cs-section__body">Structural wireframes breaking down the layout logic and component hierarchy of the key scheduling screens. These CSS reconstructions show how the interface is composed at a structural level, based on the real Figma screens in the UI walkthrough section.</p>
+              <p className="cs-section__body">CSS reconstructions of the key screens — stripping the visual polish to show the layout structure and component hierarchy underneath. Based on the real Figma screens in the UI walkthrough below.</p>
 
               <div className="afs-wireframes-grid">
                 <div className="afs-wireframe-card">
@@ -450,7 +450,7 @@ export default function ScheduleCaseStudyPage() {
             {/* 10. KEY UX DECISIONS */}
             <section className="cs-section" id="decisions">
               <h2 className="cs-section__title">Key UX decisions</h2>
-              <p className="cs-section__body">Design decisions visible from the UI structure and component choices. Each reflects a deliberate trade-off between simplicity, flexibility, and guidance.</p>
+              <p className="cs-section__body">Design decisions visible in the UI — each one a trade-off between keeping the form simple and giving users enough control to do what they actually need.</p>
               <div className="cs-cards-grid cs-cards-grid--decisions">
                 {cs.decisions.map(d => (
                   <div key={d.num} className="cs-card">
@@ -653,7 +653,7 @@ export default function ScheduleCaseStudyPage() {
             {/* 12. UI SCREEN WALKTHROUGH */}
             <section className="cs-section" id="screens">
               <h2 className="cs-section__title">UI screen walkthrough</h2>
-              <p className="cs-section__body">All 12 screens below are real Figma exports from the ZoomInfo Schedule project. They cover the complete workflow in two phases: managing default availability (screens 01-04) and creating a meeting type end-to-end including email customisation, discard confirmation, and the final meeting type card (screens 05-12).</p>
+              <p className="cs-section__body">All 12 screens are real Figma exports. Screens 01–04 cover availability setup; screens 05–12 walk through creating a meeting type from empty form to the final card with the booking URL.</p>
               <div className="afs-confidentiality-note" style={{marginBottom:'var(--space-6)'}}>
                 <div className="afs-confidentiality-note__icon">
                   <svg width="18" height="18" viewBox="0 0 20 20" fill="none">
@@ -719,7 +719,7 @@ export default function ScheduleCaseStudyPage() {
             {/* 13. COMPONENT PATTERNS */}
             <section className="cs-section" id="components">
               <h2 className="cs-section__title">Component patterns</h2>
-              <p className="cs-section__body">Recurring patterns identified from the visible UI. These components form the building blocks of the scheduling configuration experience.</p>
+              <p className="cs-section__body">Recurring UI patterns from the screens — the building blocks that show up across availability setup, meeting type creation, and the reminder email flow.</p>
               <div className="cs-cards-grid">
                 {cs.componentPatterns.map(comp => (
                   <div key={comp.name} className="cs-card">
@@ -737,7 +737,7 @@ export default function ScheduleCaseStudyPage() {
             {/* 14. ACCESSIBILITY */}
             <section className="cs-section" id="accessibility">
               <h2 className="cs-section__title">Accessibility and usability considerations</h2>
-              <p className="cs-section__body">Based on the visible UI patterns. Items marked "Recommended" represent standard implementation checks for this type of configuration interface.</p>
+              <p className="cs-section__body">Based on visible UI patterns. Items marked "Recommended" are standard checks for this type of configuration form that are not directly verifiable from the screens alone.</p>
               <div className="limitations-box">
                 <div className="limitations-list">
                   {cs.accessibility.map(item => (
@@ -756,7 +756,7 @@ export default function ScheduleCaseStudyPage() {
             {/* 15. HANDOFF */}
             <section className="cs-section" id="handoff">
               <h2 className="cs-section__title">Handoff and implementation thinking</h2>
-              <p className="cs-section__body">Implementation considerations visible from the design and screen structure. These notes surface the questions that would need answers before development begins.</p>
+              <p className="cs-section__body">Questions the design raises that would need clear answers before development starts — mostly around state, edge cases, and backend behaviour not visible in the UI.</p>
               <div className="cs-cards-grid cs-cards-grid--2">
                 {cs.handoff.map(card => (
                   <div key={card.title} className="cs-card">
@@ -770,7 +770,7 @@ export default function ScheduleCaseStudyPage() {
             {/* 16. LIMITATIONS */}
             <section className="cs-section" id="limitations">
               <h2 className="cs-section__title">Limitations</h2>
-              <p className="cs-section__body">Honest documentation of what this case study can and cannot show, given the available material and confidentiality constraints.</p>
+              <p className="cs-section__body">What this case study can and can't show — given that it's reconstructed from final screens without the full project context behind them.</p>
               <div className="limitations-box">
                 <div className="limitations-list">
                   {cs.limitations.map(item => (

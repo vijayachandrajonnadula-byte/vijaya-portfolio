@@ -34,7 +34,7 @@ export const scheduleCaseStudy = {
   id: 'zoominfo-schedule',
   title: 'ZoomInfo Schedule',
   subtitle:
-    'Enterprise scheduling configuration embedded inside ZoomInfo Marketing. Availability management, meeting type creation, and email reminder customisation for sales and marketing teams.',
+    "ZoomInfo's answer to Calendly — scheduling built directly into ZoomInfo Marketing. Availability setup, meeting types, and email reminders for sales and RevOps teams.",
   tags: [
     'Enterprise UX',
     'Scheduling',
@@ -62,39 +62,39 @@ export const scheduleCaseStudy = {
   demonstrates: [
     {
       title: 'Enterprise scheduling UX',
-      body: 'Designed a scheduling configuration experience embedded within a larger go-to-market platform. ZoomInfo Schedule lives alongside Audiences, Advertising, and other Marketing modules, requiring the feature to feel native to that product context rather than a standalone add-on.',
+      body: 'ZoomInfo Schedule lives in the same nav as Audiences, Advertising, and Buying Signals. The feature had to feel like it belonged there — not like a Calendly widget dropped into a B2B platform.',
     },
     {
       title: 'Two-phase setup flow',
-      body: 'Availability management and meeting type creation are distinct but connected tasks. The system pre-configures default availability so users can skip directly to creating their first meeting type if standard business hours work for them.',
+      body: 'Availability and meeting types are separate concerns that reference each other. Default availability is pre-set so users can skip straight to creating their first meeting type if Mon–Fri 9–5 already matches their schedule.',
     },
     {
       title: 'Smart defaults and guided setup',
-      body: 'Default availability is pre-configured (Mon-Fri 9-5). Default email reminders are pre-added. A data-backed nudge ("reduces no-shows up to 60%") gives users a reason to engage with reminders before dismissing the section.',
+      body: 'Mon–Fri 9–5 is set before you touch anything. A 30-minute reminder is already added. The email reminders section leads with "Adding a reminder can reduce no-shows up to 60%" — a reason to actually read it instead of skipping straight to Save.',
     },
     {
       title: 'Constraint communication at the boundary',
-      body: 'The 3-reminder limit is not stated upfront in the form. It surfaces only when the user tries to add a fourth, via a tooltip on the disabled add action. This avoids cluttering the UI with rules most users will never hit.',
+      body: "The 3-reminder cap doesn't appear in the form. You only see it when you try to add a fourth — the link is disabled and a tooltip explains why. No need to flag limits to users who'll never reach them.",
     },
     {
       title: 'Destructive action protection',
-      body: 'Clicking Cancel on a partially completed meeting type triggers a "Discard Meeting Type?" confirmation modal. The pattern protects users from accidentally losing work without requiring an auto-save system.',
+      body: "Hitting Cancel on a partially completed meeting type shows a confirmation: \"Discard Meeting Type? Your changes won't be saved.\" One accidental tap shouldn't wipe out a form someone just spent five minutes filling in.",
     },
     {
       title: 'Email customisation with live preview',
-      body: 'The Customize Reminder Email modal shows a live rendered preview panel alongside the editor. Users see exactly how the final email looks to recipients as they edit, eliminating the need for a "send test" round-trip.',
+      body: 'Edit the reminder email on the left, see what the recipient gets on the right. The preview updates as you type. No sending yourself a test email to check how the formatting landed.',
     },
   ] as ScheduleDemonstratesItem[],
 
   overview:
-    'ZoomInfo Schedule is a scheduling feature built natively into the ZoomInfo Marketing application, serving the same purpose as Calendly or Chili Piper but within the ZoomInfo ecosystem. It allows sales and marketing professionals to configure their availability, create named meeting types with specific video conferencing links, set automated email reminders, and share booking URLs with prospects. The feature lives inside Calendar Settings within the Settings area of ZoomInfo Marketing.',
+    "ZoomInfo Schedule is essentially Calendly inside ZoomInfo Marketing. Sales reps and account executives configure their availability, create named meeting types, set up email reminders, and share booking links with prospects — without switching to a separate tool. The feature sits in Calendar Settings, one of four sub-tabs under Settings.",
 
   problem: {
-    main: 'Sales and marketing teams using ZoomInfo need to get meetings booked with prospects and customers. Without an integrated scheduling tool, teams rely on third-party services (Calendly, Chili Piper) that sit outside the ZoomInfo workflow and require prospects to navigate away from the engagement context.',
+    main: 'Teams using ZoomInfo still needed a scheduling tool. Without one built in, they were sending prospects to Calendly or Chili Piper — separate products that break the flow of an outreach sequence and add another thing to manage.',
     detail:
-      'Bringing scheduling natively into ZoomInfo Marketing closes this gap. Users can configure availability and meeting types without leaving the platform, and booking URLs can be shared directly from within ZoomInfo workflows. The UX challenge is making configuration feel lightweight — setup should take minutes and feel familiar to anyone who has used a modern scheduling tool.',
+      "A native scheduling tool fixes this. Booking links can be shared directly from ZoomInfo workflows, and reps don't need to jump between products to get a meeting on the calendar. The design challenge was keeping setup fast — someone who has used Calendly before should be up and running in a few minutes, not an afternoon.",
     highlight:
-      'A scheduling tool that takes too long to configure is one people set up once and never revisit. First-time setup must be fast; returning edits must be obvious.',
+      'A scheduling tool that takes too long to set up is one people configure once and never touch again. Getting started needs to be fast; coming back to edit needs to be obvious.',
   },
 
   users: [
@@ -102,7 +102,7 @@ export const scheduleCaseStudy = {
       type: 'Primary',
       label: 'Sales representatives and account executives',
       description:
-        'Users who configure their personal scheduling page and share booking links with prospects during outreach. They need to set up availability and meeting types quickly and get back to selling.',
+        'Users who configure their own scheduling page and share booking links with prospects during outreach. They need to set up availability and meeting types quickly and get back to selling.',
       tasks: [
         'Set or review default availability (work hours, time zone)',
         'Adjust split-shift availability if needed',
@@ -117,7 +117,7 @@ export const scheduleCaseStudy = {
       type: 'Secondary',
       label: 'Marketing operations and RevOps teams',
       description:
-        'Users who configure scheduling for team-wide use or integrate booking URLs into ZoomInfo Marketing Workflows and campaign sequences.',
+        'Users who configure scheduling for team-wide use or embed booking URLs into ZoomInfo Marketing Workflows and campaign sequences.',
       tasks: [
         'Configure default availability for a team or workspace',
         'Create standardised meeting types for consistent outreach',
@@ -128,7 +128,7 @@ export const scheduleCaseStudy = {
   ],
 
   iaDescription:
-    'ZoomInfo Schedule lives within Settings in ZoomInfo Marketing. Calendar Settings is one of four sub-tabs alongside My Account, Integrations, and Customisation. The feature has two primary entry points from the Calendar Settings landing: Manage Availability and Create Meeting Type. Meeting types created are listed as cards with direct action buttons.',
+    'ZoomInfo Schedule sits under Settings → Calendar Settings, alongside My Account, Integrations, and Customisation. From the Calendar Settings landing you can go to Manage Availability or Create a Meeting Type. Created meeting types show up as cards with sharing actions directly on each card.',
 
   iaTree: [
     { label: 'ZoomInfo Marketing', level: 0 },
@@ -161,7 +161,7 @@ export const scheduleCaseStudy = {
   ],
 
   userFlowDescription:
-    'Two parallel flows branch from the Calendar Settings landing. Availability setup is a prerequisite the system handles by default — users can skip it or adjust it. Meeting type creation is the primary goal and references the configured availability.',
+    'Two paths from Calendar Settings. Availability is pre-configured by default — skip it or adjust it. Creating a meeting type is the main task and references whatever availability is set.',
 
   userFlowAvailability: [
     'Calendar Settings',
@@ -189,49 +189,49 @@ export const scheduleCaseStudy = {
     {
       num: '01',
       title: 'Default availability pre-configured removes the blank-state setup blocker',
-      body: 'New users arrive at Calendar Settings with Mon-Fri 9:00 AM - 5:00 PM already set in their detected time zone. The empty state message tells them availability is ready and offers an inline link to edit if needed.',
-      why: 'Most sales reps share standard business hours. Requiring every user to configure availability from scratch before creating their first meeting type adds unnecessary friction. The default lets users skip directly to meeting type creation if it works for them.',
+      body: 'New users arrive at Calendar Settings with Mon-Fri 9:00 AM - 5:00 PM already set in their detected time zone. The empty state tells them availability is ready and includes an inline link to edit if needed.',
+      why: 'Most sales reps work standard business hours. Forcing every user to configure availability from scratch before creating their first meeting type is unnecessary friction. The default lets people skip straight to meeting type creation if it already fits their schedule.',
     },
     {
       num: '02',
       title: 'Split-shift availability supports flexible and blocked schedules',
       body: 'Each day supports multiple time slots, stacked vertically under the day label. Users add slots with a + button and remove individual slots with a trash icon without affecting other rows.',
-      why: 'Enterprise users often have midday breaks, internal meeting blocks, or flexible hours across time zones. A single start/end time per day would force users to either over-expose availability or block time they are actually free.',
+      why: 'Enterprise users often have midday breaks, internal meeting blocks, or split hours across time zones. A single start/end time per day would force users to either over-expose their availability or block off time they are actually free.',
     },
     {
       num: '03',
       title: 'Email reminder toggle anchored to a no-show reduction stat',
-      body: 'The Email Reminders section leads with "Adding a reminder can reduce no-shows up to 60%" directly below the section label. The toggle is on by default with a 30-minute reminder pre-configured.',
-      why: 'Left as a plain toggle, most users skip or dismiss the section. Anchoring it to a measurable business outcome (60% reduction in no-shows) gives users a reason to engage with the setting rather than default to "off".',
+      body: 'The Email Reminders section leads with "Adding a reminder can reduce no-shows up to 60%" directly below the section label. The toggle is on by default with a 30-minute reminder already configured.',
+      why: "Left as a plain toggle, most users skip past it. Pairing it with a concrete business outcome gives people a reason to actually engage with the setting rather than switch it off and move on.",
     },
     {
       num: '04',
       title: 'Reminder limit communicated at the boundary, not upfront',
       body: 'The maximum of 3 reminders is not stated in the form. When the user tries to add a fourth, the add link becomes disabled and a tooltip reads "Only 3 reminders are possible".',
-      why: 'Stating limits upfront ("maximum 3 reminders") adds noise for users who never reach the limit. Showing the constraint only at the point of violation keeps the form clean and surfaces information exactly when it is relevant.',
+      why: 'Stating limits upfront adds noise for users who never reach them. Showing the constraint only when it becomes relevant keeps the form clean and puts the information exactly where it is needed.',
     },
     {
       num: '05',
-      title: 'Live email preview eliminates the test-send round-trip',
-      body: 'The Customize Reminder Email modal shows a rendered preview alongside the editor. Changes update the preview in real time — users see exactly what recipients will receive without sending a test email.',
-      why: 'Email configuration without preview requires users to hold a mental model of how tokens and formatting will render. Live preview removes that cognitive load and shortens the editing loop significantly.',
+      title: 'Live email preview cuts out the test-send step',
+      body: 'The Customize Reminder Email modal shows a rendered preview alongside the editor. Changes update in real time — you see what recipients will receive without sending a test email to yourself.',
+      why: 'Editing email templates without a preview means holding a mental model of how tokens and formatting will render. Seeing it live removes that guesswork and makes the editing loop much shorter.',
     },
     {
       num: '06',
       title: 'Discard confirmation protects unsaved work on accidental cancel',
-      body: 'Clicking Cancel on a partially completed Create Meeting Type form triggers a modal: "Discard Meeting Type? The changes you have made won\'t be saved." Users must explicitly choose to discard or return to the form.',
-      why: 'Cancel on a configuration form is an easy accidental tap. A confirmation modal prevents data loss without requiring an auto-save system. The two-button pattern (Cancel / Discard) makes each action unambiguous.',
+      body: "Clicking Cancel on a partially completed Create Meeting Type form triggers a modal: \"Discard Meeting Type? The changes you have made won't be saved.\" Users must explicitly choose to discard or return to the form.",
+      why: 'Cancel on a configuration form is an easy accidental tap. A confirmation modal keeps someone from losing work without needing an auto-save system. Cancel / Discard makes each action clear — no ambiguity about which button does what.',
     },
     {
       num: '07',
       title: 'Booking URL and Share slots surface as primary actions on the card',
       body: 'After a meeting type is created, "Share slots" and "Copy booking URL" appear directly on the card in the list view — not inside an edit flow or settings drawer.',
-      why: 'The most common action after creating a meeting type is sharing it with a prospect. One-click access to the booking URL from the list means users do not navigate into the meeting type just to complete the actual goal.',
+      why: "The most common thing you do after creating a meeting type is share it. One-click access to the booking URL from the list means you don't have to go back into the meeting type settings just to get a link.",
     },
   ] as ScheduleDecision[],
 
   designSystemDescription:
-    'Component patterns extracted from the ZoomInfo Schedule UI screens. The visual language is distinct from the Admin Portal used in the AFS case study — lighter, form-forward, and closer in feel to a consumer scheduling tool, despite being embedded in an enterprise B2B platform.',
+    'The visual language here is noticeably lighter than the Admin Portal in the AFS case study — more form-focused, almost consumer-grade in feel despite the B2B context. These are the component patterns visible across the screens.',
 
   designSystemColors: [
     { name: 'ZoomInfo blue', hex: '#1B7AFF', usage: 'CTAs, active pill states, links, toggle on, focus rings' },
@@ -259,7 +259,7 @@ export const scheduleCaseStudy = {
         '"Create Meeting Type" CTA at centre and top right',
         '"Manage Availability" outline button at top right',
       ],
-      uxNote: 'The empty state does double duty: it drives the primary action (Create Meeting Type) while also surfacing that default availability is ready to use. The inline "edit" link inside the body copy is an escape hatch for users who need to adjust their hours first, without competing with the main CTA.',
+      uxNote: 'The empty state pulls two jobs at once — it makes Create Meeting Type the obvious next step while quietly telling you availability is already set. The "edit" link in the body copy gives you an out if your hours are different, without it competing with the main button for attention.',
       src: '/images/projects/schedule/screens/schedule-01-empty-state.png',
     },
     {
@@ -278,13 +278,13 @@ export const scheduleCaseStudy = {
         'Buffer time: toggle ON, set to 24 Hours',
         'Meeting buffers: toggle ON, Before: 5 Mins, After: 5 Mins',
       ],
-      uxNote: 'The day pill pattern (filled/empty circle per day) allows faster scanning than a checkbox list for a small, fixed set of items. "Apply to all" on the Monday row lets users broadcast a single schedule across all active days in one click, cutting repetitive input for the most common setup case.',
+      uxNote: 'The day pill pattern (filled/empty circle per day) scans faster than a checkbox list for a small, fixed set of items. "Apply to all" on the Monday row broadcasts a single schedule across all active days in one click — cuts out the repetitive input for the most common setup.',
       src: '/images/projects/schedule/screens/schedule-02-availability-default.png',
     },
     {
       num: '03',
       title: 'Manage Default Availability — split shifts added',
-      purpose: 'Same availability screen after a second time slot has been added to each active day, creating a split schedule with a midday gap visible to prospects.',
+      purpose: 'Same availability screen after a second time slot has been added to each active day, showing a split schedule with a midday gap visible to prospects.',
       keyElements: [
         'Each active day (Mon-Fri) shows two stacked time slot rows',
         'Morning slot: 9:00 AM - 12:00 PM',
@@ -293,7 +293,7 @@ export const scheduleCaseStudy = {
         'Slots stack vertically under the day label without horizontal crowding',
         'Buffer time section visible at the scroll bottom',
       ],
-      uxNote: 'Stacking multiple slots under a single day label keeps the availability grid readable regardless of how many windows are added per day. Individual trash icons per slot (rather than a "remove row" action on the day) make it clear that specific time windows can be removed independently.',
+      uxNote: 'Stacking multiple slots under a single day label keeps the grid readable no matter how many windows are added. Individual trash icons per slot make it clear you can remove a specific time window without touching the rest of the day.',
       src: '/images/projects/schedule/screens/schedule-03-availability-split.png',
     },
     {
@@ -307,7 +307,7 @@ export const scheduleCaseStudy = {
         '"Create Meeting Type" CTA still prominent — clear next step in the flow',
         'No data loss or navigation disruption on return',
       ],
-      uxNote: 'Returning to the same empty state after saving confirms the task completed without a separate "saved" confirmation page. The toast provides closure without interrupting the flow, and users land exactly where they need to be to start the next task: creating a meeting type.',
+      uxNote: 'Saving availability brings you back to the Calendar Settings landing — not a dedicated confirmation page. The toast tells you it worked, and you land exactly where the next task starts: creating a meeting type.',
       src: '/images/projects/schedule/screens/schedule-04-availability-saved.png',
     },
     {
@@ -320,7 +320,7 @@ export const scheduleCaseStudy = {
         '"Manage Availability" accessible if the user wants to revisit hours',
         'Clean state with no pending notifications',
       ],
-      uxNote: 'The modular design of the two flows (availability + creation) is visible here: arriving from an availability edit or from a fresh session lands users in the same clear starting state. The empty state message re-establishes context and keeps the primary action accessible.',
+      uxNote: "Whether you just saved availability or loaded the page fresh, you end up in the same place — the empty state with Create Meeting Type front and centre. There's no dependency on how you got here.",
       src: '/images/projects/schedule/screens/schedule-05-pre-create.png',
     },
     {
@@ -337,7 +337,7 @@ export const scheduleCaseStudy = {
         'Availability card: "Edit default availability" link, description text',
         'Checkbox: Include cancel and reschedule links (pre-checked, labelled recommended)',
       ],
-      uxNote: 'The disabled Save button communicates required fields exist without triggering validation errors on load. Pre-adding a 30-minute reminder and pre-checking the cancel/reschedule checkbox nudges users toward best-practice configuration without forcing it — both can be changed or removed.',
+      uxNote: 'Save is greyed out on load — it tells you required fields still need filling without spraying the form with red errors on arrival. The pre-added 30-minute reminder and pre-checked reschedule link are suggestions, not mandates. Both can be removed.',
       src: '/images/projects/schedule/screens/schedule-06-create-empty.png',
     },
     {
@@ -352,7 +352,7 @@ export const scheduleCaseStudy = {
         'Tooltip on disabled "+ Add new reminder": "Only 3 reminders are possible"',
         'Save button now active blue — validation passes',
       ],
-      uxNote: 'The constraint tooltip appears only when the limit is reached, not before. The disabled state on the add link is the visual cue; the tooltip provides the explanation on demand. Users who never add 3 reminders never see this message — the form stays clean for the majority case.',
+      uxNote: 'The constraint tooltip only appears when you hit the limit, not before. The disabled state on the add link is the visual signal; the tooltip gives the reason. Users who add two reminders and stop never see this message — the form stays clean for the common case.',
       src: '/images/projects/schedule/screens/schedule-07-create-filled.png',
     },
     {
@@ -369,20 +369,20 @@ export const scheduleCaseStudy = {
         '"Reset to suggested default" link for safety net',
         'Cancel | Save buttons',
       ],
-      uxNote: 'The split editor/preview eliminates the need for a "send test email" step. Users see how their email renders to recipients in real time as they edit. "Reset to suggested default" is the safety net — users can experiment freely knowing they can restore the original template without starting over.',
+      uxNote: 'Edit on the left, see what the recipient gets on the right. "Reset to suggested default" is the safety net — you can rewrite freely knowing you can get back to the original without starting over.',
       src: '/images/projects/schedule/screens/schedule-08-email-editor-1.png',
     },
     {
       num: '09',
       title: 'Customize Reminder Email — second reminder state',
-      purpose: 'The same email editor modal opened for a second reminder in the sequence, showing consistent structure across different reminder templates.',
+      purpose: 'The same email editor modal opened for a second reminder, showing consistent structure across different reminder templates.',
       keyElements: [
         'Same modal structure as Screen 08',
         'Subject and body content may differ for this reminder',
         '"Reset to suggested default" available for this template',
         'Live preview updated for this reminder content',
       ],
-      uxNote: 'Maintaining the same editor structure across all reminders makes editing predictable. Each reminder can have a distinct template (e.g. a brief 30-minute reminder vs a more detailed 24-hour one) while the interaction pattern stays consistent throughout.',
+      uxNote: 'Same modal regardless of which reminder you are editing. You can write a brief 30-minute heads-up or a more detailed 24-hour notice — each gets its own template, but the editing experience never changes.',
       src: '/images/projects/schedule/screens/schedule-09-email-editor-2.png',
     },
     {
@@ -392,11 +392,11 @@ export const scheduleCaseStudy = {
       keyElements: [
         'Form shows "Product Related Queries" and the filled configuration',
         'Email Reminders: "Edit custom email" label (was "Edit default email")',
-        'Label change confirms the custom template is saved and is what will be edited next',
+        'Label change confirms the custom template is saved and active',
         'Availability section shows "Edit Default Availability" (capitalised)',
         'Save button active — form ready to finalise',
       ],
-      uxNote: '"Edit custom email" vs "Edit default email" is a subtle but important distinction. It confirms to the user that their customised version is saved, and that clicking again will edit their version rather than reset to a system default. This prevents the anxiety of "will this overwrite my changes?"',
+      uxNote: 'The label flipping from "Edit default email" to "Edit custom email" is a small thing that matters. It tells you your version is saved and that clicking again opens what you wrote — not a reset to the system template.',
       src: '/images/projects/schedule/screens/schedule-10-create-custom-email.png',
     },
     {
@@ -411,7 +411,7 @@ export const scheduleCaseStudy = {
         'Discard — confirms exit without saving',
         'Clean two-action layout with clear labels',
       ],
-      uxNote: 'The Cancel/Discard button pair avoids the common modal ambiguity where "Cancel" could mean either "cancel this modal" or "cancel the underlying action". Here: Cancel returns to the form, Discard confirms the exit. The labels answer the modal\'s question directly.',
+      uxNote: 'Cancel and Discard do exactly what they say — Cancel puts you back in the form, Discard confirms you want to leave. No ambiguity about which button closes the modal versus which one abandons the work.',
       src: '/images/projects/schedule/screens/schedule-11-discard-modal.png',
     },
     {
@@ -428,7 +428,7 @@ export const scheduleCaseStudy = {
         'Success toast: "Meeting Type has been discarded successfully" (a subsequent draft was discarded)',
         '"Create Meeting Type" button still accessible — 2 more allowed',
       ],
-      uxNote: '"Share slots" and "Copy booking URL" are the most common post-creation actions, so they live directly on the card rather than inside an edit flow. The 1/3 counter signals remaining capacity within the plan, setting expectations before users create more meeting types.',
+      uxNote: '"Share slots" and "Copy booking URL" are on the card because that\'s what you do immediately after creating a meeting type. You shouldn\'t have to open an edit flow just to grab a link. The 1/3 counter sets expectations on remaining capacity before someone tries to create a fourth.',
       src: '/images/projects/schedule/screens/schedule-12-meeting-created.png',
     },
   ] as ScheduleScreen[],
@@ -437,42 +437,42 @@ export const scheduleCaseStudy = {
     {
       name: 'Day toggle pills',
       description: 'A horizontal row of day abbreviations (Sun-Sat). Active days render as a blue filled circle with white text; inactive days show a bordered circle with grey text.',
-      usage: 'Availability configuration. Pill format is faster to scan and toggle than checkboxes for a fixed, short set of named options.',
+      usage: 'Availability days selection. Faster to scan and tap than a checkbox list for seven fixed options with clear active/inactive states.',
     },
     {
       name: 'Time slot row',
       description: 'A day label followed by Start Time and End Time dropdowns, a + button to add another slot for the same day, and a trash icon to remove the current slot.',
-      usage: 'Core availability pattern. Multiple rows stack under a single day label to represent split-shift schedules without horizontal crowding.',
+      usage: 'Core of the availability form. Multiple rows under one day label handle split shifts cleanly — no horizontal crowding.',
     },
     {
       name: 'Reminder row',
-      description: '"Send email [number spinner] [Minutes/Hours dropdown] before" with an edit email link and a trash icon. The unit dropdown handles short and long lead times in a single compact row.',
-      usage: 'Email Reminders configuration. Up to 3 rows can be added per meeting type.',
+      description: '"Send email [number spinner] [Minutes/Hours dropdown] before" with an edit email link and a trash icon. The unit dropdown handles both short and long lead times in a single compact row.',
+      usage: 'Email Reminders section. Up to 3 per meeting type, each independently configurable and editable.',
     },
     {
       name: 'Constraint tooltip at boundary',
       description: 'Tooltip on a disabled action link appearing only when the user has reached the maximum allowed items ("Only 3 reminders are possible").',
-      usage: 'Limit communication without upfront noise. The rule surfaces only when it is relevant — at the point of violation.',
+      usage: 'The 3-reminder cap only shows up when you hit it. No reason to mention it before that point.',
     },
     {
       name: 'Conversion nudge helper text',
       description: 'A data-backed sentence immediately below a section title: "Adding a reminder can reduce no-shows up to 60%". Pairs with the toggle to create a meaningful decision point.',
-      usage: 'Email Reminders section — converts a binary toggle into a choice with a visible outcome.',
+      usage: 'Email Reminders toggle. Turns an easy "skip" into a deliberate decision by giving users a reason to engage.',
     },
     {
       name: 'Split editor/preview modal',
       description: 'A modal with an editable content area on the left and a live rendered preview on the right. Changes update the preview in real time.',
-      usage: 'Customize Reminder Email flow. Eliminates the send-test-email round-trip by showing the outcome inline with editing.',
+      usage: 'Customize Reminder Email. You see what the recipient gets as you type — no test sends needed.',
     },
     {
       name: 'Meeting type card',
       description: 'A list card showing meeting name, description, metadata chips (video platform, reminder count, duration), and inline action buttons (Share slots, Copy booking URL, overflow menu).',
-      usage: 'Primary management surface for created meeting types. Primary sharing actions are on the card to minimise clicks.',
+      usage: 'Main view for created meeting types. Sharing actions sit directly on the card because that is the most common thing you do right after creating one.',
     },
     {
       name: 'Dark action toast',
       description: 'A dark-background notification at the bottom left of the screen. Green check icon for success states. Includes an X dismiss. Appears after saves and destructive confirmations.',
-      usage: 'Confirms async and destructive actions (availability saved, meeting type discarded) without a full-page confirmation state.',
+      usage: 'Confirms saves and discards without a full page reload or dedicated confirmation screen.',
     },
   ] as ScheduleComponentPattern[],
 
@@ -492,27 +492,27 @@ export const scheduleCaseStudy = {
   handoff: [
     {
       title: 'Time zone detection and defaults',
-      body: 'The time zone selector defaults to the detected browser locale. The handoff should document what happens if detection fails (explicit selection required), how timezone changes affect existing meeting types, and whether booking links display times in the host or guest time zone.',
+      body: 'The time zone selector defaults to browser locale. Open questions for handoff: what happens if detection fails, whether timezone changes update existing meeting types retroactively, and whose timezone shows on the booking page — the host\'s or the guest\'s.',
     },
     {
       title: 'Dynamic email tokens',
-      body: 'The reminder email editor uses tokens (Meeting_Title, date/time, etc.) rendered as tag chips. The handoff should define the full token set, how they render in the sent email, and what happens when a token value is missing at send time.',
+      body: 'The email editor uses tokens rendered as tag chips — Meeting_Title and others. The handoff needs to define the full token list, what happens if a token value is empty when the reminder fires, and how they render in the actual sent email.',
     },
     {
       title: 'Slot conflict validation',
-      body: 'Multiple time slots per day can create overlapping windows. The handoff should specify validation rules, when validation fires (on blur, on save), how conflicts are surfaced (inline error or toast), and whether overlaps are blocked or warned.',
+      body: 'Multiple slots per day can overlap. The handoff needs to define when validation runs (on blur or on save), how conflicts are surfaced, and whether overlapping windows are blocked entirely or just warned.',
     },
     {
       title: 'Meeting type plan limit (3 of 3)',
-      body: 'The "0/3 Created" counter indicates a plan-level cap. The handoff should document the state when all 3 are used (CTA disabled or hidden), the upgrade path, and whether deleting a meeting type frees the count.',
+      body: 'The 0/3 counter is a plan-level cap. What happens when all three slots are used — is the CTA disabled, hidden, or does it prompt an upgrade? And does deleting a meeting type free the count back up?',
     },
     {
       title: 'Booking URL routing',
-      body: '"Copy booking URL" generates a shareable link to the prospect-facing booking page. The handoff should document the URL structure, how it routes to the correct meeting type, session handling for the guest, and the booking confirmation flow.',
+      body: '"Copy booking URL" generates a shareable link to the prospect-facing booking page. The handoff needs URL structure, how it routes to the right meeting type, guest session handling, and what the confirmation flow looks like after a slot is booked.',
     },
     {
       title: 'Reminder email delivery',
-      body: 'Reminders trigger at configured intervals before the meeting. The handoff should document the sending infrastructure, how reminders behave if the meeting is rescheduled or cancelled, and unsubscribe handling.',
+      body: 'Reminders fire at configured intervals. The handoff needs to clarify what happens when a meeting is rescheduled or cancelled after reminders are set, how unsubscribes work, and what sending infrastructure backs this.',
     },
   ] as ScheduleHandoffCard[],
 
@@ -526,5 +526,5 @@ export const scheduleCaseStudy = {
   ],
 
   reflection:
-    'ZoomInfo Schedule demonstrates how a well-established product category (scheduling) can be embedded into a larger platform without feeling bolted-on. The design does several things well: it pre-configures defaults so first-time setup is optional, it anchors the email reminder toggle to a concrete business outcome, and it surfaces constraints only at the point where they become relevant rather than upfront. The discard confirmation is a pragmatic solution to unsaved state — effective without requiring an auto-save system. The post-creation card design gets the priority right: the goal after creating a meeting type is sharing it, and the card makes that a single click. Together these small decisions add up to a feature that feels considered rather than functional.',
+    "The interesting challenge here wasn't scheduling itself — Calendly figured that out years ago. It was making a familiar product feel like it belonged inside a platform where scheduling was never the main feature. A few decisions land well: defaults that skip the blank-slate problem on first load, a reminder section that gives you a reason to configure it rather than dismiss it, constraints that stay out of sight until you actually hit them. The discard modal is probably the least glamorous thing in the product and the most important — one mis-tap on Cancel shouldn't wipe out someone's work. The card design gets the post-creation priority right too: you built the meeting type to share it, and that's the first thing the card lets you do. Small calls, but they add up.",
 };
