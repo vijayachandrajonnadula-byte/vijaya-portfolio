@@ -498,9 +498,9 @@ export default function AfsCaseStudyPage() {
             {/* 9. WIREFRAME RECONSTRUCTION */}
             <section className="cs-section" id="wireframes">
               <h2 className="cs-section__title">Wireframe reconstruction</h2>
-              <p className="cs-section__body">Six screens reconstructed from the Figma file's canvas structure, frame names, and the single available screenshot. These represent the screen's layout logic and component purpose — not the original wireframing process, which was not available for this portfolio case study.</p>
+              <p className="cs-section__body">Structural wireframes that break down the layout logic of the key AFS screens. These CSS reconstructions show the component hierarchy, spacing relationships, and interaction patterns without the visual polish of the final UI — useful for understanding how the interface is composed at a structural level.</p>
               <p className="cs-section__body" style={{ fontSize: 'var(--text-sm)', color: 'var(--color-text-muted)', fontStyle: 'italic' }}>
-                Screen 01 (Configure CRM) is the only screen reconstructed from a real Figma screenshot. Screens 02–06 are inferred from frame names, metadata, and the Admin Portal design language visible in Screen 01.
+                Based on the real Figma screens visible in the UI walkthrough section. Screens 01–04 (landing, Quickstart, import modal, configure CRM) are fully covered by real screenshots. Screens shown below document the structural logic and components for the complete flow including the CSV path, Retrain, and system state screens not included in the reference set.
               </p>
 
               <div className="afs-wireframes-grid">
@@ -735,7 +735,7 @@ export default function AfsCaseStudyPage() {
             {/* 12. UI SCREEN WALKTHROUGH */}
             <section className="cs-section" id="screens">
               <h2 className="cs-section__title">UI screen walkthrough</h2>
-              <p className="cs-section__body">The screens below walk through the full AFS workflow from first-time setup to model retraining. Screen 01 is a real Figma export — the main configuration screen. Screens 02–06 are wireframe reconstructions inferred from the Figma canvas structure, frame names, and the Admin Portal design language visible in Screen 01.</p>
+              <p className="cs-section__body">All 12 screens below are real Figma exports from the AFS project. They walk through the complete workflow end-to-end: unconfigured landing state, Quickstart onboarding, data source selection, CRM condition configuration with live preview, inline condition editing, naming, model training with status feedback, email notification, results dashboard, and active configuration management. Screen 04 (Configure CRM) includes numbered annotations identifying the key components and UX patterns.</p>
               <div className="afs-confidentiality-note" style={{marginBottom:'var(--space-6)'}}>
                 <div className="afs-confidentiality-note__icon">
                   <svg width="18" height="18" viewBox="0 0 20 20" fill="none">
@@ -744,8 +744,8 @@ export default function AfsCaseStudyPage() {
                   </svg>
                 </div>
                 <div className="afs-confidentiality-note__content">
-                  <div className="afs-confidentiality-note__title">Why only one real screenshot?</div>
-                  <p className="afs-confidentiality-note__body">The Figma MCP used to access this file runs on a Starter plan with rate limits. Only two screenshots could be downloaded before the limit was reached — the configure screen (used here) and the project cover (contains team names, omitted from portfolio). All other screens are wireframe reconstructions from Figma metadata: canvas coordinates, frame names, and node IDs from a full XML parse of the file. The reconstructions reflect the actual Figma canvas structure, not guesswork.</p>
+                  <div className="afs-confidentiality-note__title">What you'll see in these screens</div>
+                  <p className="afs-confidentiality-note__body">The workspace label "Cyberlock" visible in the Admin Portal header is a client identifier — presented as-is rather than digitally altered, as noted in the confidentiality section above. "Bob" in the Quickstart panel and email is a Figma placeholder name. Company names (Amazon, NVIDIA, Ford, etc.) and account counts (296 accounts, 355 found) visible in the preview and processing screens are demo data, not real client records.</p>
                 </div>
               </div>
 
@@ -757,76 +757,63 @@ export default function AfsCaseStudyPage() {
                       <div className="afs-screen-entry__title">{screen.title}</div>
                       <div className="afs-screen-entry__purpose">{screen.purpose}</div>
                     </div>
-                    {!screen.src && (
-                      <span className="afs-screen-entry__badge">Wireframe reconstruction</span>
-                    )}
                   </div>
 
-                  {/* Real screenshot — screen 01 */}
+                  {/* Real screenshot — all screens */}
                   {screen.src && (
-                    <>
-                      <div className="afs-screen-frame">
-                        <div className="afs-screen-frame__bar">
-                          <span className="afs-screen-frame__dot" />
-                          <span className="afs-screen-frame__dot" />
-                          <span className="afs-screen-frame__dot" />
-                          <span className="afs-screen-frame__url">ZoomInfo Admin Portal</span>
-                          <span className="afs-screen-frame__confidential">client identifier visible — company project</span>
-                        </div>
-                        <div className="afs-screen-frame__body">
-                          <img
-                            src={screen.src}
-                            alt={screen.title}
-                            className="afs-screen-frame__img"
-                            onError={e => { (e.target as HTMLImageElement).style.display = 'none'; }}
-                          />
-                        </div>
+                    <div className="afs-screen-frame">
+                      <div className="afs-screen-frame__bar">
+                        <span className="afs-screen-frame__dot" />
+                        <span className="afs-screen-frame__dot" />
+                        <span className="afs-screen-frame__dot" />
+                        <span className="afs-screen-frame__url">ZoomInfo Admin Portal</span>
+                        <span className="afs-screen-frame__confidential">client identifier visible — company project</span>
                       </div>
-
-                      {/* Annotated screenshot */}
-                      <div style={{ marginTop: 'var(--space-8)' }}>
-                        <h3 className="cs-section__subtitle">Annotated: key UI elements identified</h3>
-                        <p className="cs-section__body" style={{ fontSize: 'var(--text-sm)', color: 'var(--color-text-muted)', fontStyle: 'italic' }}>
-                          Numbered callouts identify the key components and patterns visible in the configure screen.
-                        </p>
-                        <div className="afs-annotated">
-                          <img
-                            src={screen.src}
-                            alt="Configure AFS screen with numbered callout annotations"
-                          />
-                          {cs.annotationCallouts.map(c => (
-                            <div
-                              key={c.id}
-                              className="afs-annotated__dot"
-                              style={{ left: c.left, top: c.top }}
-                              title={c.label}
-                            >
-                              {c.id}
-                            </div>
-                          ))}
-                        </div>
-                        <div className="afs-annotation-legend">
-                          {cs.annotationCallouts.map(c => (
-                            <div key={c.id} className="afs-annotation-legend__item">
-                              <div className="afs-annotation-legend__num">{c.id}</div>
-                              <div>
-                                <span className="afs-annotation-legend__label">{c.label}</span>
-                                <span className="afs-annotation-legend__desc">{c.desc}</span>
-                              </div>
-                            </div>
-                          ))}
-                        </div>
+                      <div className="afs-screen-frame__body">
+                        <img
+                          src={screen.src}
+                          alt={screen.title}
+                          className="afs-screen-frame__img"
+                          onError={e => { (e.target as HTMLImageElement).style.display = 'none'; }}
+                        />
                       </div>
-                    </>
+                    </div>
                   )}
 
-                  {/* Inline wireframe — screens 02–06 */}
-                  {!screen.src && screen.wireframeKey && (
-                    <div className="afs-screen-entry__wireframe-wrap">
-                      {renderWireframe(screen.wireframeKey)}
-                      <p className="afs-screen-entry__wireframe-note">
-                        Wireframe reconstruction — inferred from Figma frame name and Admin Portal design language
+                  {/* Annotated screenshot — configure screen only */}
+                  {screen.src && screen.annotated && (
+                    <div style={{ marginTop: 'var(--space-8)' }}>
+                      <h3 className="cs-section__subtitle">Annotated: key UI elements identified</h3>
+                      <p className="cs-section__body" style={{ fontSize: 'var(--text-sm)', color: 'var(--color-text-muted)', fontStyle: 'italic' }}>
+                        Numbered callouts identify the key components and patterns visible in the configure screen.
                       </p>
+                      <div className="afs-annotated">
+                        <img
+                          src={screen.src}
+                          alt="Configure AFS screen with numbered callout annotations"
+                        />
+                        {cs.annotationCallouts.map(c => (
+                          <div
+                            key={c.id}
+                            className="afs-annotated__dot"
+                            style={{ left: c.left, top: c.top }}
+                            title={c.label}
+                          >
+                            {c.id}
+                          </div>
+                        ))}
+                      </div>
+                      <div className="afs-annotation-legend">
+                        {cs.annotationCallouts.map(c => (
+                          <div key={c.id} className="afs-annotation-legend__item">
+                            <div className="afs-annotation-legend__num">{c.id}</div>
+                            <div>
+                              <span className="afs-annotation-legend__label">{c.label}</span>
+                              <span className="afs-annotation-legend__desc">{c.desc}</span>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
                     </div>
                   )}
 
