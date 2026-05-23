@@ -2,11 +2,11 @@ import SectionHeading from '../ui/SectionHeading';
 import Button from '../ui/Button';
 
 const steps = [
-  { n: '01', title: 'Frame the problem', desc: 'Understand the user problem, define scope, and challenge assumptions before opening a design tool.', tools: ['ChatGPT', 'Claude', 'Perplexity'] },
-  { n: '02', title: 'Map the journey', desc: 'Build a user flow and information architecture to align on what the product needs to do.', tools: ['Miro', 'FigJam'] },
-  { n: '03', title: 'Design the system', desc: 'Create reusable UI patterns, components, and a design language that scales across screens.', tools: ['Figma', 'Figma AI', 'Claude Design'] },
-  { n: '04', title: 'Prototype the flow', desc: 'Build a working React prototype that lets the team test the real flow, not just screenshots.', tools: ['Claude', 'Roo Code', 'Cline', 'Codex', 'React'] },
-  { n: '05', title: 'Test, refine, hand off', desc: 'Review the full flow, test on mobile, iterate on issues, and prepare for implementation handoff.', tools: ['GitHub PRs', 'Manual QA', 'Responsive testing'] },
+  { n: '01', title: 'Frame the problem', desc: 'Get clear on the actual problem before opening any tool. What is the user trying to do? What is in scope and what is not?', tools: ['ChatGPT', 'Claude', 'Perplexity'] },
+  { n: '02', title: 'Map the journey', desc: 'Build a user flow and IA map before touching UI. This is where the real product decisions get made.', tools: ['Miro', 'FigJam'] },
+  { n: '03', title: 'Design the system', desc: 'Design a component system that works across all screens. Components and patterns first, full pages second.', tools: ['Figma', 'Figma AI', 'Claude Design'] },
+  { n: '04', title: 'Prototype the flow', desc: 'Build a working React prototype with real screens and real interactions. Something you can actually open and use.', tools: ['Claude', 'Roo Code', 'Cline', 'Codex', 'React'] },
+  { n: '05', title: 'Test, refine, hand off', desc: 'Go through the full flow, test on mobile, fix what is broken, and document the work properly for the handoff.', tools: ['GitHub PRs', 'Manual QA', 'Responsive testing'] },
 ];
 
 export default function ProcessSection() {
@@ -15,7 +15,7 @@ export default function ProcessSection() {
       <div className="container">
         <SectionHeading
           label="My product process"
-          title="Not just visual design — a repeatable product workflow."
+          title="How I approach every project."
         />
         <div className="process__grid">
           {steps.map(s => (
@@ -30,7 +30,7 @@ export default function ProcessSection() {
           ))}
         </div>
         <div className="process__cta">
-          <p className="process__cta-text">Want to see how this actually plays out — from brief to deployed prototype?</p>
+          <p className="process__cta-text">Want to see how this works from start to finish?</p>
           <Button href="/projects/ai-assisted-product-workflow" variant="secondary" size="md">
             See the full workflow case study →
           </Button>

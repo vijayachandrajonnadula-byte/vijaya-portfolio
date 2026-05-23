@@ -19,8 +19,8 @@ export interface Iteration {
 
 export const riversideCaseStudy = {
   id: "riverside-general",
-  title: "Riverside General — Hospital Appointment Booking Platform",
-  subtitle: "A healthcare UX/UI case study covering how patients find doctors, compare availability, select a slot, and confirm an appointment — designed as a working React prototype.",
+  title: "Riverside General Hospital Booking",
+  subtitle: "A healthcare UX/UI case study. Patients search for doctors, check availability, pick a slot, and confirm an appointment. Built and deployed as a working React prototype.",
   tags: ["UX/UI Design", "Healthcare", "React Prototype", "Design System", "Testing & Iteration", "AI-assisted Workflow", "Responsive QA"],
   prototypeUrl: "https://hospital-booking-portfolio.vercel.app/",
   githubUrl: "https://github.com/vijayachandrajonnadula-byte/hospital-booking-portfolio",
@@ -61,7 +61,7 @@ export const riversideCaseStudy = {
   ] as DemonstratesItem[],
 
   overview:
-    "Riverside General is a responsive hospital appointment booking prototype designed to help patients find doctors, compare availability, select an appointment slot, enter patient details, and receive a clear confirmation online. The project focuses on a common healthcare UX problem: patients arrive at hospital websites with a simple goal — book an appointment — but are forced to navigate competing pathways before they can complete it. The prototype covers the full journey from the homepage through to appointment management, with each screen carrying a single clear responsibility. The project was built as a working React prototype and deployed to Vercel so recruiters can test the live flow directly.",
+    "Riverside General is a responsive hospital appointment booking prototype. It helps patients find doctors, check availability, pick a slot, enter their details, and get a clear confirmation. The project focuses on a common healthcare UX problem: people arrive at hospital websites wanting to book an appointment but are forced through competing navigation before they can get there. The prototype covers the full journey from the homepage through to appointment management, with each screen carrying a single clear job. It was built as a working React prototype and deployed to Vercel so recruiters can test the live flow directly.",
 
   problem:
     "Hospital websites often contain competing content: departments, emergency information, visitor guidance, locations, health resources, patient portals, and appointment options. For a patient who simply wants to book an appointment, this creates unnecessary friction. The user must decide which pathway leads to booking before the task has even started. This problem is compounded when doctor availability is hidden behind multiple steps, or when the booking form appears before the user has confirmed that a suitable slot even exists.",
@@ -88,7 +88,7 @@ export const riversideCaseStudy = {
     {
       title: "Users need a clear booking entry point",
       issue:
-        "Hospital homepages compete with departments, emergency information, and visitor guidance. Users with a single goal — booking — must scan through unrelated content before finding the path forward. Competing navigation items force a decision before the primary task has started.",
+        "Hospital homepages compete with departments, emergency information, and visitor guidance. Users who just want to book an appointment have to scan through unrelated content before finding the path forward. Competing navigation items force a decision before the primary task has started.",
       response:
         "Surface a single prominent booking action at the homepage level. Reduce navigation competition on the primary task path and eliminate intermediary pages before the user reaches the Find Doctors flow.",
     },
@@ -110,7 +110,7 @@ export const riversideCaseStudy = {
 
   userJourneySteps: ["Home", "Find Doctors", "Doctor Profile", "Select Slot", "Book Appointment", "Confirmation", "Manage Appointment"],
   userJourneyDescription:
-    "The early flow separated the experience into discovery, evaluation, booking, confirmation, and post-booking management. This helped avoid overloading the doctor listing page with full scheduling controls. Each stage has a single primary action, and passing state forward — selected doctor, date, and time — ensures the user never has to re-enter choices they already made.",
+    "The early flow separated the experience into discovery, evaluation, booking, confirmation, and post-booking management. This helped avoid overloading the doctor listing page with full scheduling controls. Each stage has a single primary action. Selected doctor, date, and time pass forward automatically so the user never has to re-enter choices they already made.",
 
   uxDecisions: [
     {
@@ -127,7 +127,7 @@ export const riversideCaseStudy = {
     },
     {
       title: "Confirmation reduces uncertainty",
-      body: "The confirmation screen provides a booking reference number, full appointment summary, before-visit checklist, copy and download actions, add-to-calendar option, and a clear path to the Manage Appointment screen. The goal is to leave the user with zero open questions. A confirmation screen should function as proof — not just a receipt page.",
+      body: "The confirmation screen provides a booking reference number, full appointment summary, before-visit checklist, copy and download actions, add-to-calendar option, and a clear path to the Manage Appointment screen. The goal is to leave the user with zero open questions. A confirmation screen should feel like proof, not just a receipt.",
     },
     {
       title: "Manage Appointment gives control",
@@ -139,7 +139,7 @@ export const riversideCaseStudy = {
     "The design system kept the prototype visually consistent while screens were being rebuilt and refined through multiple iterations. Reusable tokens for colour, spacing, and typography were defined early and applied consistently. Components were built to be composable so that the booking flow could be assembled from shared parts rather than custom-coded per screen.",
 
   earlyStructureIntro:
-    "Before any visual decisions were made, the booking experience was structured around three questions: what is the user trying to do, in what order should the screens appear, and what is each screen responsible for. The user flow mapped the end-to-end journey. The information architecture separated browsing from booking. The wireframes defined page layout and content responsibility — not how anything looked.",
+    "Before any visual decisions were made, the booking experience was structured around three questions: what is the user trying to do, in what order should the screens appear, and what is each screen responsible for. The user flow mapped the end-to-end journey. The information architecture separated browsing from booking. The wireframes defined page layout and content responsibility, not how anything looked.",
 
   iaDescription:
     "The IA separated general hospital navigation (Find Doctors, Departments) from the focused appointment booking flow (Doctor Profile → Book → Confirm → Manage). The booking journey is kept linear and focused. The IA keeps the appointment path separate from general hospital content so users are never pulled out of the task flow mid-booking.",
@@ -313,7 +313,7 @@ export const riversideCaseStudy = {
       caption: "Find Doctors",
       title: "Find Doctors",
       purpose: "Allow patients to browse and compare available doctors by specialty, availability, location, and rating before opening a full profile.",
-      uxNote: "Listing designed for comparison — specialty, next available slot, location, and rating shown together. Full slot selection is intentionally deferred to the profile page.",
+      uxNote: "Listing designed for comparison. Specialty, next available slot, location, and rating shown together. Full slot selection is intentionally deferred to the profile page.",
     },
     {
       src: "/images/projects/riverside/clean/desktop-doctor-profile.png",
@@ -334,7 +334,7 @@ export const riversideCaseStudy = {
       caption: "Confirmation",
       title: "Booking Confirmation",
       purpose: "Resolve all post-booking uncertainty by providing a complete appointment summary, a before-visit checklist, and immediate next-step actions in one place.",
-      uxNote: "Reference number, date, doctor, location, checklist, and options to add to calendar or manage the booking — everything the patient needs, nothing more.",
+      uxNote: "Reference number, date, doctor, location, checklist, and options to add to calendar or manage the booking. Everything the patient needs, nothing more.",
     },
     {
       src: "/images/projects/riverside/clean/desktop-manage.png",
@@ -385,35 +385,35 @@ export const riversideCaseStudy = {
   ],
 
   wireframeImages: [
-    { src: "/images/projects/riverside/wireframes/wireframe-home.png", label: "Home — layout exploration" },
-    { src: "/images/projects/riverside/wireframes/wireframe-find-doctors.png", label: "Find Doctors — comparison layout" },
-    { src: "/images/projects/riverside/wireframes/wireframe-booking-flow.png", label: "Booking flow — page structure" },
+    { src: "/images/projects/riverside/wireframes/wireframe-home.png", label: "Home: layout exploration" },
+    { src: "/images/projects/riverside/wireframes/wireframe-find-doctors.png", label: "Find Doctors: comparison layout" },
+    { src: "/images/projects/riverside/wireframes/wireframe-booking-flow.png", label: "Booking flow: page structure" },
   ],
 
   iaImage: "/images/projects/riverside/wireframes/ia-map.png",
   flowImage: "/images/projects/riverside/wireframes/flow-map.png",
 
   accessibilityChecklist: [
-    "Visible form labels on all inputs — no placeholder-only labelling",
+    "Visible form labels on all inputs, no placeholder-only labelling",
     "Inline validation messages triggered on blur and on submit",
     "Keyboard-navigable focus states on all interactive elements",
     "Selected and disabled states clearly distinguished on slot picker",
     "Confirmation dialog shown before appointment cancellation action",
-    "Large tap targets on mobile — minimum 44x44px touch areas",
-    "Readable mobile typography — minimum 14px body text size",
+    "Large tap targets on mobile, minimum 44x44px touch areas",
+    "Readable mobile typography, minimum 14px body text size",
   ],
 
   techStack: [
     { label: "Frontend", value: "React 18, TypeScript 5, Vite 5" },
     { label: "UI library", value: "MUI components, custom CSS, design tokens" },
-    { label: "Data", value: "Mock doctor and appointment data — no backend" },
-    { label: "Routing", value: "React Router v6 — multi-page SPA with deep links" },
-    { label: "Version control", value: "GitHub — feature branches and PR workflow" },
-    { label: "Deployment", value: "Vercel — live portfolio demo, SPA routing configured" },
+    { label: "Data", value: "Mock doctor and appointment data, no backend" },
+    { label: "Routing", value: "React Router v6, multi-page SPA with deep links" },
+    { label: "Version control", value: "GitHub, feature branches and PR workflow" },
+    { label: "Deployment", value: "Vercel, live portfolio demo, SPA routing configured" },
   ],
 
   limitations: [
-    "Mock data only — no real hospital scheduling backend or live API",
+    "Mock data only, no real hospital scheduling backend or live API",
     "No authentication or real patient account management",
     "No payment processing or insurance verification",
     "No real email or SMS confirmation delivery",
@@ -444,5 +444,5 @@ export const riversideCaseStudy = {
   ],
 
   reflection:
-    "The strongest learning from this project was that visual polish alone does not solve the UX problem. Several versions of the prototype looked better visually but still had unclear screen responsibilities and confusing booking flows. The biggest improvements came from two places: first, defining exactly what each screen should do and removing everything that did not serve that specific goal; second, testing the complete end-to-end journey on real screen sizes rather than only in design tools. The mobile issues — broken date selector, overlong stepper labels, compressed navigation — were invisible until tested on an actual device. AI tools accelerated research framing, layout exploration, and prototype implementation significantly. The product decisions, critique rounds, responsive QA, and final acceptance all required human judgement that could not be delegated.",
+    "The strongest learning from this project was that visual polish alone does not solve the UX problem. Several versions of the prototype looked better visually but still had unclear screen responsibilities and confusing booking flows. The biggest improvements came from two places: defining exactly what each screen should do and cutting everything that did not serve that goal, and testing the full journey on real screen sizes rather than only in design tools. Mobile issues like the broken date selector, overlong stepper labels, and compressed navigation were invisible until tested on an actual device. AI tools helped me move faster on research, layout exploration, and prototype build. The product decisions, critique rounds, and QA all stayed mine.",
 };

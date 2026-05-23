@@ -11,19 +11,19 @@ const wfNavItems = [
   { id: 'overview', label: 'Overview' },
   { id: 'why', label: 'Why document this?' },
   { id: 'tool-stack', label: 'Tool stack' },
-  { id: 'phase-research', label: 'Phase 1 — Research' },
-  { id: 'phase-design', label: 'Phase 2 — Design' },
-  { id: 'phase-repo', label: 'Phase 3 — Repo setup' },
-  { id: 'phase-vscode', label: 'Phase 4 — VS Code & AI agents' },
-  { id: 'phase-structure', label: 'Phase 5 — File structure' },
-  { id: 'phase-branches', label: 'Phase 6 — Feature branches' },
-  { id: 'phase-pr', label: 'Phase 7 — PR workflow' },
-  { id: 'phase-ci', label: 'Phase 8 — CI validation' },
-  { id: 'phase-merge', label: 'Phase 9 — Merge & conflicts' },
-  { id: 'phase-preview', label: 'Phase 10 — Local preview' },
-  { id: 'phase-rqa', label: 'Phase 11 — Responsive QA' },
-  { id: 'phase-deploy', label: 'Phase 12 — Deployment' },
-  { id: 'phase-handoff', label: 'Phase 13 — Handoff' },
+  { id: 'phase-research', label: 'Phase 1: Research' },
+  { id: 'phase-design', label: 'Phase 2: Design' },
+  { id: 'phase-repo', label: 'Phase 3: Repo setup' },
+  { id: 'phase-vscode', label: 'Phase 4: VS Code & AI agents' },
+  { id: 'phase-structure', label: 'Phase 5: File structure' },
+  { id: 'phase-branches', label: 'Phase 6: Feature branches' },
+  { id: 'phase-pr', label: 'Phase 7: PR workflow' },
+  { id: 'phase-ci', label: 'Phase 8: CI validation' },
+  { id: 'phase-merge', label: 'Phase 9: Merge & conflicts' },
+  { id: 'phase-preview', label: 'Phase 10: Local preview' },
+  { id: 'phase-rqa', label: 'Phase 11: Responsive QA' },
+  { id: 'phase-deploy', label: 'Phase 12: Deployment' },
+  { id: 'phase-handoff', label: 'Phase 13: Handoff' },
   { id: 'what-worked', label: 'What worked well' },
   { id: 'what-id-change', label: "What I'd change" },
   { id: 'tech-stack', label: 'Tech stack' },
@@ -86,7 +86,7 @@ export default function WorkflowCaseStudyPage() {
             {/* 2. DEMONSTRATES */}
             <section className="cs-section" id="demonstrates">
               <h2 className="cs-section__title">What this demonstrates</h2>
-              <p className="cs-section__body">A quick scan for recruiters — the skills and mindset shown across this process showcase.</p>
+              <p className="cs-section__body">A quick scan for recruiters. The skills and mindset shown across this process showcase.</p>
               <div className="demonstrates-cards-grid">
                 {cs.demonstrates.map(d => (
                   <div key={d.title} className="demonstrates-card">
@@ -112,14 +112,14 @@ export default function WorkflowCaseStudyPage() {
               <p className="cs-section__body">{cs.whyDocument}</p>
               <div className="wf-why-callout">
                 <div className="wf-why-callout__icon">→</div>
-                <p className="wf-why-callout__text">This is not a tutorial on how to use AI tools. It is a record of the decisions and discipline required to use them well in a real delivery context.</p>
+                <p className="wf-why-callout__text">This isn't a how-to guide for AI tools. It's a record of how I used them on real projects and what I actually had to think about.</p>
               </div>
             </section>
 
             {/* 5. TOOL STACK */}
             <section className="cs-section" id="tool-stack">
               <h2 className="cs-section__title">Tool stack</h2>
-              <p className="cs-section__body cs-section__body--mb">Each tool category had a defined role in the workflow. Tools were selected for what they accelerate — not for breadth.</p>
+              <p className="cs-section__body cs-section__body--mb">Each tool category had a defined role in the workflow. Tools were selected for what they accelerate, not for breadth.</p>
               <div className="wf-tool-stack-grid">
                 {cs.toolStack.map(cat => (
                   <div key={cat.category} className="wf-tool-category">

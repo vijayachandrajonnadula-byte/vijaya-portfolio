@@ -21,9 +21,10 @@ export default function Hero() {
               {profile.status}
             </div>
             <h1 className="hero__headline">
-              I design digital products faster with{' '}
-              <em>research</em>, <em>UX judgement</em>,{' '}
-              <em>AI-assisted workflows</em>, and working prototypes.
+              I design digital products that are{' '}
+              <em>research-first</em>, built to a{' '}
+              <em>system</em>, and shipped as{' '}
+              <em>working prototypes</em>.
             </h1>
             <p className="hero__subtitle">
               {profile.bio}
@@ -37,7 +38,7 @@ export default function Hero() {
           <div className="hero__card">
             <div className="hero__card-header">
               <div className="hero__card-title">AI-assisted product workflow</div>
-              <div className="hero__card-sub">Right tools at each stage</div>
+              <div className="hero__card-sub">Tools I use at each stage</div>
             </div>
             <div className="hero__card-stages">
               {stages.map(s => (
@@ -51,11 +52,7 @@ export default function Hero() {
               ))}
             </div>
             <div className="hero__card-footer">
-              <span className="hero__card-footer-item">Human-led judgement</span>
-              <span className="hero__card-footer-sep">·</span>
-              <span className="hero__card-footer-item">AI-assisted speed</span>
-              <span className="hero__card-footer-sep">·</span>
-              <span className="hero__card-footer-item">Tested before sharing</span>
+              <span className="hero__card-footer-item">Decisions stay mine. AI handles the speed.</span>
             </div>
             <a href="#process" className="hero__card-cta">See the full process →</a>
           </div>

@@ -60,7 +60,7 @@ export default function RenewlyCaseStudyPage() {
           prototypeUrl={cs.prototypeUrl}
           githubUrl={cs.githubUrl}
           heroImage="/images/projects/renewly/clean/desktop-dashboard.png"
-          heroImageAlt="Renewly dashboard — SaaS renewal management"
+          heroImageAlt="Renewly dashboard, SaaS renewal management"
           prototypeUrlLabel="renewly-ux.vercel.app"
         />
 
@@ -90,7 +90,7 @@ export default function RenewlyCaseStudyPage() {
             {/* 2. WHAT THIS DEMONSTRATES */}
             <section className="cs-section" id="demonstrates">
               <h2 className="cs-section__title">What this case study demonstrates</h2>
-              <p className="cs-section__body">A quick scan for recruiters — the skills and mindset shown across this project.</p>
+              <p className="cs-section__body">A quick scan for recruiters. The skills and mindset shown across this project.</p>
               <div className="demonstrates-cards-grid">
                 {cs.demonstrates.map(d => (
                   <div key={d.title} className="demonstrates-card">
@@ -291,7 +291,7 @@ export default function RenewlyCaseStudyPage() {
 
               {/* Status indicators */}
               <h3 className="cs-section__subtitle" style={{ marginTop: 'var(--space-8)' }}>Status indicators</h3>
-              <p className="cs-section__body">All risk and approval states include a text label alongside colour — never colour alone.</p>
+              <p className="cs-section__body">All risk and approval states include a text label alongside colour, never colour alone.</p>
               <div className="renewly-ds-chips-row">
                 {[
                   { label: 'High risk', bg: '#FEF2F2', text: '#991B1B', border: '#FECACA' },
@@ -359,7 +359,7 @@ export default function RenewlyCaseStudyPage() {
             <section className="cs-section" id="web-screens">
               <h2 className="cs-section__title">Web UI screens</h2>
               <p className="cs-section__body">
-                Eight screens covering the full renewal management workflow — from command centre overview through to decision-making, reporting, and configuration.
+                Eight screens covering the full renewal management workflow, from command centre overview through to decision-making, reporting, and configuration.
               </p>
 
               {cs.desktopScreenshots.map((s, i) => (

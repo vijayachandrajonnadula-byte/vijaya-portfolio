@@ -4,27 +4,27 @@ const cards = [
   {
     num: '01',
     title: 'UX clarity',
-    desc: 'I simplify messy flows into clear product journeys — defining what each screen needs to do before touching any visual layer.',
+    desc: 'Before I open Figma, I know what each screen needs to do. Messy flows become clear steps, and every design decision has a reason behind it.',
   },
   {
     num: '02',
     title: 'UI systems',
-    desc: 'I create reusable patterns instead of one-off screens, so teams ship faster and maintain consistency as the product grows.',
+    desc: 'I design in systems, not one-offs. Reusable components and consistent patterns mean teams can keep shipping without rebuilding the UI from scratch.',
   },
   {
     num: '03',
     title: 'AI-assisted speed',
-    desc: 'I use AI tools to move faster while reviewing quality manually. AI accelerates delivery; product judgement stays human-led.',
+    desc: 'I use Claude, Figma AI, and coding agents to move fast through research, design, and build. Everything gets reviewed by me before it goes anywhere.',
   },
   {
     num: '04',
     title: 'Prototype mindset',
-    desc: 'I build working flows that stakeholders can actually open, click through, and test — not just static mockups.',
+    desc: 'I ship React prototypes that stakeholders can click through and test. An actual URL they can open on their phone, not a screenshot in a slide deck.',
   },
   {
     num: '05',
     title: 'Responsive QA',
-    desc: 'I check desktop, tablet, and mobile before sharing. No horizontal overflow, tappable targets, and readable text at every size.',
+    desc: 'Before anything leaves my desk, I test it at desktop, tablet, and mobile. Overflow, tap targets, text size. The small things that break trust if you miss them.',
   },
 ];
 
