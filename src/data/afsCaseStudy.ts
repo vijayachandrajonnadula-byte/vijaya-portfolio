@@ -17,6 +17,15 @@ export interface AfsScreen {
   keyElements: string[];
   uxNote: string;
   src?: string;
+  wireframeKey?: string;
+}
+
+export interface AfsAnnotationCallout {
+  id: number;
+  label: string;
+  desc: string;
+  left: string;
+  top: string;
 }
 
 export interface AfsComponentPattern {
@@ -261,12 +270,12 @@ export const afsCaseStudy = {
     'The design system extraction identifies the reusable visual and interaction patterns visible in the AFS configure screen. These components appear to come from a shared ZoomInfo Admin Portal design system, consistent with the visual language used across the Admin Portal navigation and content areas.',
 
   designSystemColors: [
-    { name: 'Primary blue', value: 'ZoomInfo brand blue', usage: 'CTAs, active nav, info banners, toggles' },
-    { name: 'White', value: 'Surface white', usage: 'Page background, card backgrounds, condition rows' },
-    { name: 'Light grey', value: 'Sidebar/subtle background', usage: 'Left navigation background, subtle sections' },
-    { name: 'Border grey', value: 'Divider and card borders', usage: 'Section dividers, table borders, input outlines' },
-    { name: 'Text primary', value: 'Near-black', usage: 'Page titles, body copy, condition values' },
-    { name: 'Text secondary', value: 'Medium grey', usage: 'Descriptions, nav labels, helper text' },
+    { name: 'Primary blue', hex: '#1B7AFF', value: 'ZoomInfo brand blue', usage: 'CTAs, active nav item, info banners, toggle on state' },
+    { name: 'White', hex: '#FFFFFF', value: 'Surface white', usage: 'Page background, card backgrounds, condition row backgrounds' },
+    { name: 'Light grey', hex: '#F7F9FC', value: 'Sidebar background', usage: 'Left navigation background, input fill, subtle surface sections' },
+    { name: 'Border grey', hex: '#E2E8F0', value: 'Divider and card borders', usage: 'Section dividers, condition row borders, input outlines' },
+    { name: 'Text primary', hex: '#0F172A', value: 'Near-black', usage: 'Page titles, section headings, body copy, condition values' },
+    { name: 'Text secondary', hex: '#64748B', value: 'Medium grey', usage: 'Nav labels, descriptions, placeholder text, helper copy' },
   ],
 
   designSystemComponents: [
@@ -305,65 +314,78 @@ export const afsCaseStudy = {
     {
       num: '02',
       title: 'Configure Account Fit Score (CSV source)',
-      purpose: 'Alternative configuration path for teams whose CRM is not yet integrated. Allows CSV upload to train the model from historical data.',
+      purpose: 'Alternative configuration path for teams whose CRM is not yet integrated. Allows CSV upload with historical deal data to train the scoring model.',
       keyElements: [
-        'Same left navigation and header structure as CRM path',
-        'CSV upload interface replacing the condition builder',
-        'Column mapping step to align CSV fields to AFS model inputs',
-        'Save flow similar to CRM path',
+        'Same left navigation and header structure as the CRM path',
+        'Drag-and-drop CSV upload area replacing the condition builder',
+        'Column mapping step: align CSV columns to AFS model inputs (e.g. deal outcome, account size)',
+        'Auto-update toggle remains present — applies to future CSV re-uploads',
+        'Save Configuration flow mirrors the CRM path exactly',
       ],
-      uxNote: 'Reconstructed from screen name metadata. The CSV path shares the same structural shell as the CRM path, maintaining consistency while accommodating a different data input mechanism.',
+      uxNote: 'The CSV path uses the same structural shell as the CRM path. Keeping the layout consistent reduces cognitive load for users who switch between paths. The key difference is the input mechanism: file upload and column mapping instead of field/operator/value conditions.',
       src: undefined,
+      wireframeKey: 'csv',
     },
     {
       num: '03',
       title: 'Default AFS view',
-      purpose: 'View-only state showing the default AFS configuration before a user has customised it. Establishes a baseline that users can choose to keep or modify.',
+      purpose: 'Read-only state showing the out-of-the-box AFS configuration before a user has customised it. Gives teams a starting point and an entry point to edit.',
       keyElements: [
-        'Read-only condition display',
-        'Clear indication that this is a default state',
-        'Entry point to the Edit View',
+        'Status badge indicating model is using default configuration',
+        'Read-only display of default conditions (non-editable in this state)',
+        'Clear "Edit Configuration" call to action to enter edit mode',
+        'No Cancel/Save buttons visible — this is a view-only state',
+        'Model trained indicator showing default scoring is active',
       ],
-      uxNote: 'Reconstructed from screen name metadata. Providing a default state allows teams to get started with scoring before spending time on customisation.',
+      uxNote: 'The default view state is important for enterprise adoption. Teams that have not yet customised their model can still benefit from default scoring. The clear Edit CTA prevents users from being stuck in a read-only state without understanding how to move forward.',
       src: undefined,
+      wireframeKey: 'default',
     },
     {
       num: '04',
       title: 'Change Data Source',
-      purpose: 'Flow or modal that allows an admin to switch between CRM and CSV data sources for the AFS model. Likely includes a warning about the impact of switching.',
+      purpose: 'A modal or step flow allowing workspace admins to switch the AFS model between CRM integration and CSV upload. Includes a warning that switching resets the current configuration.',
       keyElements: [
-        'Data source options: CRM / CSV',
-        'Warning or confirmation step',
-        'Clear action to proceed or cancel',
+        'Two data source option cards: CRM Integration and CSV Upload',
+        'Each card shows the data source name, icon, and brief description',
+        'Warning banner: switching data source will reset current scoring conditions',
+        'Confirmation step before the change is applied',
+        'Cancel action allows users to exit without making changes',
       ],
-      uxNote: 'Reconstructed from screen name metadata. Data source changes likely trigger a model reset, so a confirmation step protects users from accidental configuration loss.',
+      uxNote: 'Data source switching is a destructive action — it resets the scoring model. The two-card layout makes both options equally visible, while the warning banner and confirmation step ensure users understand the consequence before proceeding. The pattern mirrors standard enterprise "destructive action" flows.',
       src: undefined,
+      wireframeKey: 'datasource',
     },
     {
       num: '05',
-      title: 'Salesforce not integrated (info/error state)',
-      purpose: 'State displayed when the CRM path is selected but Salesforce is not connected to the workspace. Guides users to resolve the integration before proceeding.',
+      title: 'Salesforce not integrated',
+      purpose: 'Informational or error state shown when a user attempts the CRM configuration path but no Salesforce integration exists in the workspace. Directs users to a resolution path.',
       keyElements: [
-        'Clear explanation that Salesforce is not connected',
-        'Call to action or instructions for connecting the integration',
-        'Possible fallback to CSV path',
+        'Warning icon and clear heading: Salesforce is not connected',
+        'Explanation of why the CRM path is unavailable',
+        'Primary CTA: Connect Salesforce (links to Integrations settings)',
+        'Secondary option: Use CSV upload instead',
+        'No condition builder visible — content area is replaced by this guidance state',
       ],
-      uxNote: 'Reconstructed from screen name metadata. Empty/error states in enterprise admin tools need to be informative, not just blocking. This state appears designed to direct users to a resolution path.',
+      uxNote: 'This empty/error state is well-handled in enterprise UX terms: it does not simply block the user but explains the gap and offers two resolution paths. The fallback to CSV ensures users are not left at a dead end if Salesforce setup requires IT involvement.',
       src: undefined,
+      wireframeKey: 'error',
     },
     {
       num: '06',
       title: 'AFS ready email notification',
-      purpose: 'Email sent to users when the AFS model has finished training and account scores are available. Closes the loop on an asynchronous process.',
+      purpose: 'Transactional email sent when the AFS model finishes training. Closes the async feedback loop so users do not need to poll the Admin Portal for completion.',
       keyElements: [
-        'ZoomInfo header with logo',
-        'Subject: Your AFS is ready',
-        'Company contact data preview (anonymised)',
-        'CTA to return to the Admin Portal',
-        'Footer with support contact',
+        'ZoomInfo dark header bar with brand wordmark',
+        'Subject line: "Your Account Fit Score is ready"',
+        'Greeting and confirmation that scores are now active across the workspace',
+        'Primary CTA button: "Go to Admin Portal"',
+        'Brief explanation of what users can do with the scores now available',
+        'Footer with support contact and unsubscribe link',
       ],
-      uxNote: 'Model training is asynchronous. The email notification resolves the experience loop started at Save Configuration, preventing users from polling the Admin Portal for completion status.',
+      uxNote: 'Async model training can take minutes to hours. Without an email notification, users would need to check the Admin Portal manually. The email completes the workflow loop: the user configures conditions, saves, and receives confirmation when the model is ready to use — all without staying on the page.',
       src: undefined,
+      wireframeKey: 'email',
     },
   ] as AfsScreen[],
 
@@ -452,4 +474,17 @@ export const afsCaseStudy = {
 
   reflection:
     'This case study demonstrates that final UI screens, even without original discovery artefacts, contain enough information to reconstruct meaningful product thinking. The navigation structure reveals the information architecture. The component language reveals the design system. The screen names in the Figma file reveal the full workflow. Working from finished designs requires a different skill than working from blank pages: it requires precise observation, careful inference, and honest documentation of what is known versus what is assumed. Enterprise UX is often about making complex data workflows feel structured and navigable. The AFS configure screen does this well: it layers guidance (info banner), constraint visibility (condition counter), and control (auto-update toggle) without overwhelming the user with the underlying ML complexity.',
+
+  annotationCallouts: [
+    { id: 1, label: 'ZoomInfo logo', desc: 'Brand logo anchors the platform identity. Appears on all Admin Portal pages.', left: '3%', top: '4%' },
+    { id: 2, label: 'Workspace identifier', desc: 'Client workspace name visible below the logo — noted as client identifier, omitted in portfolio description.', left: '3%', top: '11%' },
+    { id: 3, label: 'Go-to-Market navigation', desc: 'Collapsible section group in the left sidebar. Contains both Set Up and General sub-sections.', left: '9%', top: '40%' },
+    { id: 4, label: 'Active: Account Fit Score (AFS)', desc: 'AFS is highlighted as the current page within the Set Up section. Colour + weight indicate active state.', left: '9%', top: '52%' },
+    { id: 5, label: 'Breadcrumb header', desc: '"Account Fit Score (AFS) / Configure" — two-level breadcrumb mirrors sidebar depth and confirms user location.', left: '55%', top: '10%' },
+    { id: 6, label: 'CRM object radio group', desc: 'Account Object vs Opportunity Object. The choice determines which CRM records conditions are matched against.', left: '37%', top: '28%' },
+    { id: 7, label: 'Default condition info banner', desc: 'Blue dismissible banner explaining the default condition is editable. Reduces blank-state anxiety for first-time users.', left: '58%', top: '39%' },
+    { id: 8, label: 'Condition row', desc: '[Account Type] [Is] [Customer] with a "..." context menu. Tag-style chips make the three-part condition easy to scan.', left: '58%', top: '50%' },
+    { id: 9, label: '+ Add Condition with counter', desc: '"1/10 conditions added" — constraint boundary is visible before the user hits it. Inline add keeps context.', left: '31%', top: '62%' },
+    { id: 10, label: 'Cancel / Save Configuration', desc: 'Action button pair in the top right of the configure area. Persistent and accessible without scrolling.', left: '88%', top: '10%' },
+  ] as AfsAnnotationCallout[],
 };

@@ -25,6 +25,264 @@ const afsNavItems = [
   { id: 'reflection', label: 'Reflection' },
 ];
 
+// ─── Wireframe render helper ───────────────────────────────────────────────
+function renderWireframe(key: string) {
+  switch (key) {
+    case 'crm':
+      return (
+        <div className="afs-wireframe">
+          <div className="afs-wf-header">
+            <div className="afs-wf-dots"><span/><span/><span/></div>
+            <div className="afs-wf-breadcrumb">Account Fit Score (AFS) / Configure</div>
+            <div className="afs-wf-actions"><span className="afs-wf-btn-ghost">Cancel</span><span className="afs-wf-btn-primary">Save Configuration</span></div>
+          </div>
+          <div className="afs-wf-body">
+            <div className="afs-wf-sidebar">
+              <div className="afs-wf-nav-item">Overview</div>
+              <div className="afs-wf-nav-group">Go-to-Market</div>
+              <div className="afs-wf-nav-item" style={{paddingLeft:'6px',fontSize:'8px',color:'var(--color-text-muted)'}}>Set Up</div>
+              <div className="afs-wf-nav-item afs-wf-nav-item--active">AFS ←</div>
+              <div className="afs-wf-nav-item" style={{paddingLeft:'6px',fontSize:'8px'}}>Intent</div>
+              <div className="afs-wf-nav-item" style={{paddingLeft:'6px',fontSize:'8px'}}>Buying Committees</div>
+              <div className="afs-wf-nav-item" style={{fontSize:'8px',color:'var(--color-text-muted)'}}>General</div>
+              <div className="afs-wf-nav-item">Analytics</div>
+              <div className="afs-wf-nav-item">Integrations</div>
+            </div>
+            <div className="afs-wf-content">
+              <div className="afs-wf-heading">Configure Account Fit Score (AFS)</div>
+              <div className="afs-wf-desc">Account Fit Score predicts how well an account matches your ideal customer profile using CRM deal data and firmographics.</div>
+              <div style={{fontSize:'8px',fontWeight:700,color:'var(--color-text-muted)',textTransform:'uppercase',letterSpacing:'0.05em',marginTop:'2px'}}>CRM Object and Conditions</div>
+              <div className="afs-wf-radio-group">
+                <span className="afs-wf-radio afs-wf-radio--selected">● Account Object</span>
+                <span className="afs-wf-radio">○ Opportunity Object</span>
+              </div>
+              <div className="afs-wf-banner">ℹ This is a default condition. You can edit or add more conditions as required. <span style={{float:'right',cursor:'pointer'}}>✕</span></div>
+              <div className="afs-wf-condition">[Account Type] [Is] [Customer] <span style={{float:'right'}}>•••</span></div>
+              <div className="afs-wf-add-row">+ Add Condition &nbsp;<span className="afs-wf-count">1/10 conditions added</span></div>
+              <div className="afs-wf-toggle-row">Auto-update AFS model <span className="afs-wf-toggle">●</span> <span style={{fontSize:'8px',color:'var(--color-text-muted)'}}>ⓘ</span></div>
+            </div>
+          </div>
+        </div>
+      );
+
+    case 'csv':
+      return (
+        <div className="afs-wireframe">
+          <div className="afs-wf-header">
+            <div className="afs-wf-dots"><span/><span/><span/></div>
+            <div className="afs-wf-breadcrumb">Account Fit Score (AFS) / Configure (CSV)</div>
+            <div className="afs-wf-actions"><span className="afs-wf-btn-ghost">Cancel</span><span className="afs-wf-btn-primary">Save Configuration</span></div>
+          </div>
+          <div className="afs-wf-body">
+            <div className="afs-wf-sidebar">
+              <div className="afs-wf-nav-item">Overview</div>
+              <div className="afs-wf-nav-group">Go-to-Market</div>
+              <div className="afs-wf-nav-item afs-wf-nav-item--active">AFS ←</div>
+              <div className="afs-wf-nav-item">Analytics</div>
+              <div className="afs-wf-nav-item">Integrations</div>
+            </div>
+            <div className="afs-wf-content">
+              <div className="afs-wf-heading">Configure Account Fit Score (AFS)</div>
+              <div className="afs-wf-desc">Upload a CSV with historical deal data to train the scoring model.</div>
+              <div style={{fontSize:'8px',fontWeight:700,color:'var(--color-text-muted)',textTransform:'uppercase',letterSpacing:'0.05em',marginTop:'2px'}}>Upload data file</div>
+              <div className="afs-wf-upload-area">
+                <div className="afs-wf-upload-icon">☁</div>
+                <div className="afs-wf-upload-label">Drag and drop CSV file here<br/>or click to browse files</div>
+              </div>
+              <div style={{fontSize:'8px',fontWeight:700,color:'var(--color-text-muted)',textTransform:'uppercase',letterSpacing:'0.05em',marginTop:'4px'}}>Column mapping</div>
+              <div className="afs-wf-col-map">
+                <div className="afs-wf-col-row"><span className="afs-wf-col-label">Deal outcome</span><span>→</span><div className="afs-wf-col-input" /></div>
+                <div className="afs-wf-col-row"><span className="afs-wf-col-label">Account name</span><span>→</span><div className="afs-wf-col-input" /></div>
+                <div className="afs-wf-col-row"><span className="afs-wf-col-label">Company size</span><span>→</span><div className="afs-wf-col-input" /></div>
+              </div>
+              <div className="afs-wf-toggle-row">Auto-update AFS model <span className="afs-wf-toggle">●</span></div>
+            </div>
+          </div>
+        </div>
+      );
+
+    case 'default':
+      return (
+        <div className="afs-wireframe">
+          <div className="afs-wf-header">
+            <div className="afs-wf-dots"><span/><span/><span/></div>
+            <div className="afs-wf-breadcrumb">Account Fit Score (AFS)</div>
+          </div>
+          <div className="afs-wf-body">
+            <div className="afs-wf-sidebar">
+              <div className="afs-wf-nav-item">Overview</div>
+              <div className="afs-wf-nav-group">Go-to-Market</div>
+              <div className="afs-wf-nav-item afs-wf-nav-item--active">AFS ←</div>
+              <div className="afs-wf-nav-item">Analytics</div>
+            </div>
+            <div className="afs-wf-content">
+              <div className="afs-wf-heading">Account Fit Score (AFS)</div>
+              <div><span className="afs-wf-status-badge">Default configuration active</span></div>
+              <div className="afs-wf-desc">Using ZoomInfo default ICP conditions. Customise to improve scoring accuracy for your workspace.</div>
+              <div style={{fontSize:'8px',fontWeight:700,color:'var(--color-text-muted)',textTransform:'uppercase',letterSpacing:'0.05em',marginTop:'2px'}}>Current conditions (read-only)</div>
+              <div className="afs-wf-readonly-conditions">
+                <div className="afs-wf-readonly-condition">[Account Type] [Is] [Customer]</div>
+                <div className="afs-wf-readonly-condition">[Company Size] [Greater than] [100]</div>
+                <div className="afs-wf-readonly-condition">[Industry] [Is any of] [Technology]</div>
+              </div>
+              <div className="afs-wf-edit-cta">Edit Configuration</div>
+            </div>
+          </div>
+        </div>
+      );
+
+    case 'datasource':
+      return (
+        <div className="afs-wireframe">
+          <div className="afs-wf-header">
+            <div className="afs-wf-dots"><span/><span/><span/></div>
+            <div className="afs-wf-breadcrumb">Account Fit Score (AFS) / Change Data Source</div>
+          </div>
+          <div className="afs-wf-body">
+            <div className="afs-wf-content afs-wf-content--full">
+              <div className="afs-wf-heading">Change data source</div>
+              <div className="afs-wf-desc">Select where your AFS model gets its training data. Current source: CRM Integration.</div>
+              <div className="afs-wf-option-cards">
+                <div className="afs-wf-option" style={{border:'1.5px solid #1B7AFF',background:'#EFF6FF'}}>
+                  <div className="afs-wf-option__icon">CRM</div>
+                  <div className="afs-wf-option__label">CRM Integration</div>
+                  <div className="afs-wf-option__sub">Use Salesforce account or opportunity objects and conditions</div>
+                  <div style={{fontSize:'7px',color:'#1B7AFF',marginTop:'2px',fontWeight:600}}>Current source</div>
+                </div>
+                <div className="afs-wf-option">
+                  <div className="afs-wf-option__icon">CSV</div>
+                  <div className="afs-wf-option__label">CSV Upload</div>
+                  <div className="afs-wf-option__sub">Upload historical deal data as a file</div>
+                </div>
+              </div>
+              <div className="afs-wf-warning">⚠ Switching data source will reset your current scoring conditions and require model retraining</div>
+              <div className="afs-wf-actions-center">
+                <span className="afs-wf-btn-ghost">Cancel</span>
+                <span className="afs-wf-btn-primary">Confirm change</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+
+    case 'error':
+      return (
+        <div className="afs-wireframe">
+          <div className="afs-wf-header">
+            <div className="afs-wf-dots"><span/><span/><span/></div>
+            <div className="afs-wf-breadcrumb">Account Fit Score (AFS) / Configure</div>
+          </div>
+          <div className="afs-wf-body">
+            <div className="afs-wf-sidebar">
+              <div className="afs-wf-nav-item">Overview</div>
+              <div className="afs-wf-nav-group">Go-to-Market</div>
+              <div className="afs-wf-nav-item afs-wf-nav-item--active">AFS ←</div>
+              <div className="afs-wf-nav-item">Integrations</div>
+            </div>
+            <div className="afs-wf-content">
+              <div className="afs-wf-heading">Configure Account Fit Score (AFS)</div>
+              <div className="afs-wf-empty-state">
+                <div className="afs-wf-empty-icon">⚠</div>
+                <div className="afs-wf-empty-title">Salesforce is not connected</div>
+                <div className="afs-wf-empty-body">CRM data is unavailable. Connect Salesforce to use condition-based scoring, or switch to CSV upload instead.</div>
+                <div className="afs-wf-btn-primary afs-wf-btn-center">Connect Salesforce</div>
+                <div className="afs-wf-link">Or use CSV upload instead →</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+
+    case 'retrain':
+      return (
+        <div className="afs-wireframe">
+          <div className="afs-wf-header">
+            <div className="afs-wf-dots"><span/><span/><span/></div>
+            <div className="afs-wf-breadcrumb">Account Fit Score (AFS) / Retrain Model</div>
+          </div>
+          <div className="afs-wf-body">
+            <div className="afs-wf-content afs-wf-content--full">
+              <div className="afs-wf-heading">Retrain AFS model</div>
+              <div className="afs-wf-desc">Apply your updated conditions to all accounts in the workspace. Scores will be recalculated using the new model.</div>
+              <div className="afs-wf-info-list">
+                <div className="afs-wf-info-row">Last trained: [date]</div>
+                <div className="afs-wf-info-row">Active conditions: [n] conditions defined</div>
+                <div className="afs-wf-info-row">Data source: CRM Integration (Salesforce)</div>
+                <div className="afs-wf-info-row">Estimated time: [n] minutes</div>
+              </div>
+              <div className="afs-wf-banner afs-wf-banner--warning">You will be notified by email when retraining is complete. Existing scores remain active until the new model is ready.</div>
+              <div className="afs-wf-actions-row">
+                <span className="afs-wf-btn-ghost">Cancel</span>
+                <span className="afs-wf-btn-primary">Start retraining</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+
+    case 'email':
+      return (
+        <div className="afs-wireframe" style={{display:'flex',flexDirection:'column'}}>
+          <div className="afs-wf-header">
+            <div className="afs-wf-dots"><span/><span/><span/></div>
+            <div className="afs-wf-breadcrumb">Email notification — model ready</div>
+          </div>
+          <div className="afs-wf-email-logo-bar">ZOOMINFO</div>
+          <div className="afs-wf-email-body">
+            <div className="afs-wf-email-subject">Your Account Fit Score is ready</div>
+            <div className="afs-wf-email-greeting">Hi [Name],</div>
+            <div className="afs-wf-email-text">
+              Your AFS model has finished training. Account scores are now active across your workspace.
+              Your team can start using scores to prioritise outreach in Salesforce and ZoomInfo.
+            </div>
+            <div className="afs-wf-email-cta">Go to Admin Portal →</div>
+            <div className="afs-wf-email-text">
+              It may take a few minutes for scores to appear on all accounts.
+              If you have questions, contact your account manager or visit the Help Centre.
+            </div>
+          </div>
+          <div className="afs-wf-email-footer">
+            ZoomInfo Technologies Inc. · Unsubscribe · Privacy Policy · Help Centre
+          </div>
+        </div>
+      );
+
+    case 'condition':
+      return (
+        <div className="afs-wireframe">
+          <div className="afs-wf-header">
+            <div className="afs-wf-dots"><span/><span/><span/></div>
+            <div className="afs-wf-breadcrumb">AFS / Configure / Add Condition</div>
+          </div>
+          <div className="afs-wf-body" style={{background:'rgba(15,23,42,0.05)'}}>
+            <div className="afs-wf-modal-overlay">
+              <div className="afs-wf-modal">
+                <div className="afs-wf-modal-title">Add condition</div>
+                <div className="afs-wf-modal-subtitle">Define a field, operator, and value to filter accounts for scoring</div>
+                <div className="afs-wf-field-row">
+                  <div className="afs-wf-select">Account Type</div>
+                  <div className="afs-wf-field-divider">is</div>
+                  <div className="afs-wf-select">Customer</div>
+                </div>
+                <div style={{fontSize:'8px',color:'var(--color-text-muted)',marginTop:'4px'}}>
+                  Select from available CRM field values
+                </div>
+                <div className="afs-wf-modal-footer">
+                  <span className="afs-wf-btn-ghost">Cancel</span>
+                  <span className="afs-wf-btn-primary">Add condition</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+
+    default:
+      return null;
+  }
+}
+
+// ─── Page component ────────────────────────────────────────────────────────
 export default function AfsCaseStudyPage() {
   return (
     <>
@@ -77,7 +335,7 @@ export default function AfsCaseStudyPage() {
             {/* 3. WHAT THIS DEMONSTRATES */}
             <section className="cs-section" id="demonstrates">
               <h2 className="cs-section__title">What this case study demonstrates</h2>
-              <p className="cs-section__body">A quick scan for recruiters. The skills and thinking shown across this enterprise project.</p>
+              <p className="cs-section__body">A quick scan for recruiters. The skills and thinking visible across this enterprise project.</p>
               <div className="demonstrates-cards-grid">
                 {cs.demonstrates.map(d => (
                   <div key={d.title} className="demonstrates-card">
@@ -109,8 +367,8 @@ export default function AfsCaseStudyPage() {
                   <span className="afs-product-context__value">RevOps and Sales Operations teams in enterprise workspaces</span>
                 </div>
                 <div className="afs-product-context__row">
-                  <span className="afs-product-context__label">Status</span>
-                  <span className="afs-product-context__value">Ready for Dev, Q4/2023</span>
+                  <span className="afs-product-context__label">Quarter</span>
+                  <span className="afs-product-context__value">Q4 / 2023 — Ready for Dev status at time of Figma export</span>
                 </div>
               </div>
             </section>
@@ -129,7 +387,7 @@ export default function AfsCaseStudyPage() {
             {/* 6. USERS AND TASKS */}
             <section className="cs-section" id="users">
               <h2 className="cs-section__title">Users and tasks</h2>
-              <p className="cs-section__body">Inferred from visible UI structure, navigation context, and the product description visible in the configure screen.</p>
+              <p className="cs-section__body">Inferred from the visible UI structure, navigation context, and the product description visible in the configure screen. Two distinct user types interact with AFS: the team configuring the model, and the IT owner managing the integrations that make the model possible.</p>
               <div className="afs-users-grid">
                 {cs.users.map(user => (
                   <div key={user.type} className="afs-user-card">
@@ -157,7 +415,7 @@ export default function AfsCaseStudyPage() {
 
               <h3 className="cs-section__subtitle">Admin Portal navigation structure</h3>
               <p className="cs-section__body" style={{ fontSize: 'var(--text-sm)', color: 'var(--color-text-muted)', fontStyle: 'italic' }}>
-                Reconstructed from left navigation visible in the configure screen.
+                Reconstructed from the left navigation visible in the configure screen. Active item highlighted in blue.
               </p>
               <div className="afs-ia-portal">
                 <div className="afs-ia-root">Admin Portal</div>
@@ -189,7 +447,7 @@ export default function AfsCaseStudyPage() {
 
               <h3 className="cs-section__subtitle" style={{ marginTop: 'var(--space-10)' }}>AFS feature structure</h3>
               <p className="cs-section__body" style={{ fontSize: 'var(--text-sm)', color: 'var(--color-text-muted)', fontStyle: 'italic' }}>
-                Reconstructed from Figma frame names and visible screen states.
+                Reconstructed from Figma frame names and canvas organisation. Each item represents a distinct screen or modal state in the Figma file.
               </p>
               <div className="afs-feature-tree">
                 {cs.afsIaTree.map((item, i) => (
@@ -232,7 +490,7 @@ export default function AfsCaseStudyPage() {
                 </div>
 
                 <div className="afs-flow-note">
-                  The two paths diverge at "Select data source" and converge again at the model training step. CRM path uses condition builder logic; CSV path uses file upload and column mapping.
+                  The two paths diverge at "Select data source" and converge at the model training step. CRM path uses condition builder logic; CSV path uses file upload and column mapping. Both paths end with async model training and an email notification when the model is ready.
                 </div>
               </div>
             </section>
@@ -240,125 +498,70 @@ export default function AfsCaseStudyPage() {
             {/* 9. WIREFRAME RECONSTRUCTION */}
             <section className="cs-section" id="wireframes">
               <h2 className="cs-section__title">Wireframe reconstruction</h2>
-              <p className="cs-section__body">Wireframes reconstructed by abstracting layout and component structure from final UI screens. These represent the screen's purpose and layout logic, not the original wireframing process.</p>
+              <p className="cs-section__body">Six screens reconstructed from the Figma file's canvas structure, frame names, and the single available screenshot. These represent the screen's layout logic and component purpose — not the original wireframing process, which was not available for this portfolio case study.</p>
               <p className="cs-section__body" style={{ fontSize: 'var(--text-sm)', color: 'var(--color-text-muted)', fontStyle: 'italic' }}>
-                Wireframe reconstruction from final UI screens.
+                Screen 01 (Configure CRM) is the only screen reconstructed from a real Figma screenshot. Screens 02–06 are inferred from frame names, metadata, and the Admin Portal design language visible in Screen 01.
               </p>
 
               <div className="afs-wireframes-grid">
 
-                {/* Wireframe 1: Main Configure Screen */}
+                {/* Wireframe 1: Configure CRM */}
                 <div className="afs-wireframe-card">
-                  <div className="afs-wireframe-card__label">Configure AFS (CRM source)</div>
-                  <div className="afs-wireframe-card__purpose">Main configuration screen for defining scoring conditions using CRM data</div>
-                  <div className="afs-wireframe">
-                    <div className="afs-wf-header">
-                      <div className="afs-wf-dots"><span/><span/><span/></div>
-                      <div className="afs-wf-breadcrumb">AFS / Configure</div>
-                      <div className="afs-wf-actions"><span className="afs-wf-btn-ghost">Cancel</span><span className="afs-wf-btn-primary">Save</span></div>
-                    </div>
-                    <div className="afs-wf-body">
-                      <div className="afs-wf-sidebar">
-                        <div className="afs-wf-nav-item">Overview</div>
-                        <div className="afs-wf-nav-group">Go-to-Market</div>
-                        <div className="afs-wf-nav-item afs-wf-nav-item--active">AFS ←</div>
-                        <div className="afs-wf-nav-item">Analytics</div>
-                        <div className="afs-wf-nav-item">Integrations</div>
-                      </div>
-                      <div className="afs-wf-content">
-                        <div className="afs-wf-heading">Configure Account Fit Score (AFS)</div>
-                        <div className="afs-wf-desc">Description text</div>
-                        <div className="afs-wf-radio-group">
-                          <span className="afs-wf-radio afs-wf-radio--selected">Account Object</span>
-                          <span className="afs-wf-radio">Opportunity Object</span>
-                        </div>
-                        <div className="afs-wf-banner">ℹ Default condition — editable</div>
-                        <div className="afs-wf-condition">[Account Type] [Is] [Customer] •••</div>
-                        <div className="afs-wf-add-row">+ Add Condition &nbsp;<span className="afs-wf-count">1/10</span></div>
-                        <div className="afs-wf-toggle-row">Auto-update AFS model <span className="afs-wf-toggle">●</span></div>
-                      </div>
-                    </div>
-                  </div>
+                  <div className="afs-wireframe-card__label">01 — Configure AFS (CRM source)</div>
+                  <div className="afs-wireframe-card__purpose">Main configuration screen. Condition builder for CRM-based scoring. Based on Figma screenshot.</div>
+                  {renderWireframe('crm')}
                 </div>
 
-                {/* Wireframe 2: Data Source Selection */}
+                {/* Wireframe 2: Configure CSV */}
                 <div className="afs-wireframe-card">
-                  <div className="afs-wireframe-card__label">Change Data Source</div>
-                  <div className="afs-wireframe-card__purpose">Flow allowing admins to switch between CRM integration and CSV upload paths</div>
-                  <div className="afs-wireframe">
-                    <div className="afs-wf-header">
-                      <div className="afs-wf-dots"><span/><span/><span/></div>
-                      <div className="afs-wf-breadcrumb">AFS / Data Source</div>
-                    </div>
-                    <div className="afs-wf-body">
-                      <div className="afs-wf-content afs-wf-content--full">
-                        <div className="afs-wf-heading">Select data source</div>
-                        <div className="afs-wf-option-cards">
-                          <div className="afs-wf-option">
-                            <div className="afs-wf-option__icon">CRM</div>
-                            <div className="afs-wf-option__label">CRM Integration</div>
-                            <div className="afs-wf-option__sub">Use Salesforce account data</div>
-                          </div>
-                          <div className="afs-wf-option">
-                            <div className="afs-wf-option__icon">CSV</div>
-                            <div className="afs-wf-option__label">CSV Upload</div>
-                            <div className="afs-wf-option__sub">Upload historical deal data</div>
-                          </div>
-                        </div>
-                        <div className="afs-wf-warning">Changing data source will reset current configuration</div>
-                        <div className="afs-wf-actions-center"><span className="afs-wf-btn-ghost">Cancel</span><span className="afs-wf-btn-primary">Confirm</span></div>
-                      </div>
-                    </div>
-                  </div>
+                  <div className="afs-wireframe-card__label">02 — Configure AFS (CSV source)</div>
+                  <div className="afs-wireframe-card__purpose">CSV upload path. Same structural shell as CRM, with file upload and column mapping replacing the condition builder.</div>
+                  {renderWireframe('csv')}
                 </div>
 
-                {/* Wireframe 3: Salesforce Not Integrated */}
+                {/* Wireframe 3: Default AFS */}
                 <div className="afs-wireframe-card">
-                  <div className="afs-wireframe-card__label">Salesforce not integrated</div>
-                  <div className="afs-wireframe-card__purpose">Error/info state shown when CRM path is chosen but Salesforce connection is missing</div>
-                  <div className="afs-wireframe">
-                    <div className="afs-wf-header">
-                      <div className="afs-wf-dots"><span/><span/><span/></div>
-                      <div className="afs-wf-breadcrumb">AFS / Configure</div>
-                    </div>
-                    <div className="afs-wf-body">
-                      <div className="afs-wf-content afs-wf-content--full">
-                        <div className="afs-wf-heading">Configure Account Fit Score</div>
-                        <div className="afs-wf-empty-state">
-                          <div className="afs-wf-empty-icon">⚠</div>
-                          <div className="afs-wf-empty-title">Salesforce not connected</div>
-                          <div className="afs-wf-empty-body">Connect Salesforce to use CRM data for scoring</div>
-                          <div className="afs-wf-btn-primary afs-wf-btn-center">Connect Salesforce</div>
-                          <div className="afs-wf-link">Or use CSV upload instead</div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                  <div className="afs-wireframe-card__label">03 — Default AFS view</div>
+                  <div className="afs-wireframe-card__purpose">Read-only state before customisation. Shows default conditions with a clear entry point to Edit Configuration.</div>
+                  {renderWireframe('default')}
                 </div>
 
-                {/* Wireframe 4: Retrain Model */}
+                {/* Wireframe 4: Change Data Source */}
                 <div className="afs-wireframe-card">
-                  <div className="afs-wireframe-card__label">Retrain Model</div>
-                  <div className="afs-wireframe-card__purpose">Action screen for manually triggering model retraining after conditions change</div>
-                  <div className="afs-wireframe">
-                    <div className="afs-wf-header">
-                      <div className="afs-wf-dots"><span/><span/><span/></div>
-                      <div className="afs-wf-breadcrumb">AFS / Retrain Model</div>
-                    </div>
-                    <div className="afs-wf-body">
-                      <div className="afs-wf-content afs-wf-content--full">
-                        <div className="afs-wf-heading">Retrain AFS model</div>
-                        <div className="afs-wf-desc">Retrain your model to apply updated conditions to all accounts</div>
-                        <div className="afs-wf-info-list">
-                          <div className="afs-wf-info-row">Last trained: [date]</div>
-                          <div className="afs-wf-info-row">Conditions: [n] active</div>
-                          <div className="afs-wf-info-row">Estimated time: [n] minutes</div>
-                        </div>
-                        <div className="afs-wf-banner afs-wf-banner--warning">You will be notified by email when retraining is complete</div>
-                        <div className="afs-wf-actions-row"><span className="afs-wf-btn-ghost">Cancel</span><span className="afs-wf-btn-primary">Start retraining</span></div>
-                      </div>
-                    </div>
-                  </div>
+                  <div className="afs-wireframe-card__label">04 — Change Data Source</div>
+                  <div className="afs-wireframe-card__purpose">Option cards for switching between CRM and CSV. Warning and confirmation step protect against accidental model reset.</div>
+                  {renderWireframe('datasource')}
+                </div>
+
+                {/* Wireframe 5: Salesforce not integrated */}
+                <div className="afs-wireframe-card">
+                  <div className="afs-wireframe-card__label">05 — Salesforce not integrated</div>
+                  <div className="afs-wireframe-card__purpose">Error/guidance state when CRM path is chosen but the integration is missing. Offers two resolution paths.</div>
+                  {renderWireframe('error')}
+                </div>
+
+                {/* Wireframe 6: Add Condition modal */}
+                <div className="afs-wireframe-card">
+                  <div className="afs-wireframe-card__label">06 — Add / Edit Condition</div>
+                  <div className="afs-wireframe-card__purpose">Modal for defining a single condition. Three-field layout (Field, Operator, Value) exposed in a focused overlay.</div>
+                  {renderWireframe('condition')}
+                </div>
+
+              </div>
+
+              {/* Wireframes row 2: Retrain + Email */}
+              <div className="afs-wireframes-grid" style={{ marginTop: 'var(--space-4)' }}>
+
+                <div className="afs-wireframe-card">
+                  <div className="afs-wireframe-card__label">07 — Retrain Model</div>
+                  <div className="afs-wireframe-card__purpose">Manually trigger model retraining after condition changes. Shows last-trained date, condition count, and email-on-complete banner.</div>
+                  {renderWireframe('retrain')}
+                </div>
+
+                <div className="afs-wireframe-card">
+                  <div className="afs-wireframe-card__label">08 — AFS ready email</div>
+                  <div className="afs-wireframe-card__purpose">Email notification when training completes. Closes the async loop — users receive confirmation without staying on the page.</div>
+                  {renderWireframe('email')}
                 </div>
 
               </div>
@@ -388,15 +591,115 @@ export default function AfsCaseStudyPage() {
               <h2 className="cs-section__title">Design system extraction</h2>
               <p className="cs-section__body">{cs.designSystemDescription}</p>
 
-              <h3 className="cs-section__subtitle">Colour palette (extracted from screenshots)</h3>
+              <h3 className="cs-section__subtitle">Colour palette (extracted from screenshot)</h3>
+              <p className="cs-section__body" style={{ fontSize: 'var(--text-sm)', color: 'var(--color-text-muted)', fontStyle: 'italic' }}>
+                Hex values extracted from the Figma screenshot. These reflect the ZoomInfo Admin Portal colour system as visible in the configure screen.
+              </p>
               <div className="afs-color-grid">
                 {cs.designSystemColors.map(color => (
                   <div key={color.name} className="afs-color-swatch">
                     <div className={`afs-color-swatch__block afs-color-swatch__block--${color.name.toLowerCase().replace(/\s/g,'-')}`} />
                     <div className="afs-color-swatch__name">{color.name}</div>
+                    <div style={{fontFamily:'monospace',fontSize:'10px',color:'var(--color-text-muted)',marginBottom:'2px'}}>{color.hex}</div>
                     <div className="afs-color-swatch__usage">{color.usage}</div>
                   </div>
                 ))}
+              </div>
+
+              <h3 className="cs-section__subtitle" style={{ marginTop: 'var(--space-10)' }}>Component visual reference</h3>
+              <p className="cs-section__body" style={{ fontSize: 'var(--text-sm)', color: 'var(--color-text-muted)', fontStyle: 'italic' }}>
+                Visual renders of the six core interaction patterns extracted from the configure screen. These are CSS reconstructions based on the design language visible in the real screenshot.
+              </p>
+              <div className="afs-comp-demos-grid">
+
+                <div className="afs-comp-demo">
+                  <div className="afs-comp-demo__preview">
+                    <div className="cd-condition-row">
+                      <span className="cd-chip cd-chip--field">Account Type</span>
+                      <span className="cd-chip cd-chip--op">Is</span>
+                      <span className="cd-chip cd-chip--value">Customer</span>
+                      <span className="cd-menu">···</span>
+                    </div>
+                  </div>
+                  <div className="afs-comp-demo__info">
+                    <div className="afs-comp-demo__name">Condition row</div>
+                    <div className="afs-comp-demo__desc">Three-part [Field][Operator][Value] pattern using colour-coded chips. Contextual menu for edit and delete.</div>
+                  </div>
+                </div>
+
+                <div className="afs-comp-demo">
+                  <div className="afs-comp-demo__preview">
+                    <div className="cd-banner">
+                      <span className="cd-banner__icon">ℹ</span>
+                      <span className="cd-banner__text">This is a default condition. You can edit or add more conditions as required.</span>
+                      <span className="cd-banner__close">✕</span>
+                    </div>
+                  </div>
+                  <div className="afs-comp-demo__info">
+                    <div className="afs-comp-demo__name">Info banner</div>
+                    <div className="afs-comp-demo__desc">Blue inline guidance panel with dismiss. Used for default-state explanations and onboarding nudges.</div>
+                  </div>
+                </div>
+
+                <div className="afs-comp-demo">
+                  <div className="afs-comp-demo__preview">
+                    <div className="cd-toggle-row">
+                      <span className="cd-toggle-label">Auto-update AFS model</span>
+                      <div className="cd-toggle"><div className="cd-toggle__knob" /></div>
+                      <span className="cd-info-icon">ⓘ</span>
+                    </div>
+                  </div>
+                  <div className="afs-comp-demo__info">
+                    <div className="afs-comp-demo__name">Toggle with info</div>
+                    <div className="afs-comp-demo__desc">On/off toggle with visible label and info icon tooltip. Shown in "on" state. Lets users choose model update behaviour.</div>
+                  </div>
+                </div>
+
+                <div className="afs-comp-demo">
+                  <div className="afs-comp-demo__preview">
+                    <div className="cd-radio-group">
+                      <div className="cd-radio cd-radio--selected">
+                        <div className="cd-radio__dot" />
+                        Account Object
+                      </div>
+                      <div className="cd-radio">
+                        <div className="cd-radio__dot" />
+                        Opportunity Object
+                      </div>
+                    </div>
+                  </div>
+                  <div className="afs-comp-demo__info">
+                    <div className="afs-comp-demo__name">Radio group</div>
+                    <div className="afs-comp-demo__desc">Horizontal radio for mutually exclusive options. Selected state uses brand blue border and background fill.</div>
+                  </div>
+                </div>
+
+                <div className="afs-comp-demo">
+                  <div className="afs-comp-demo__preview">
+                    <div className="cd-btn-pair">
+                      <button className="cd-btn-ghost">Cancel</button>
+                      <button className="cd-btn-primary">Save Configuration</button>
+                    </div>
+                  </div>
+                  <div className="afs-comp-demo__info">
+                    <div className="afs-comp-demo__name">Action button pair</div>
+                    <div className="afs-comp-demo__desc">Ghost Cancel and filled primary CTA. Consistent hierarchy across all configure screens. Persistent in the top-right content area.</div>
+                  </div>
+                </div>
+
+                <div className="afs-comp-demo">
+                  <div className="afs-comp-demo__preview">
+                    <div className="cd-add-row">
+                      <span className="cd-add-link">+ Add Condition</span>
+                      <span className="cd-counter">1/10 conditions added</span>
+                    </div>
+                  </div>
+                  <div className="afs-comp-demo__info">
+                    <div className="afs-comp-demo__name">Constrained add-item row</div>
+                    <div className="afs-comp-demo__desc">Inline add action with a progress counter. Constraint boundary shown before the user hits it, preventing surprise at the limit.</div>
+                  </div>
+                </div>
+
               </div>
 
               <h3 className="cs-section__subtitle" style={{ marginTop: 'var(--space-10)' }}>Component library (extracted from visible UI)</h3>
@@ -417,7 +720,7 @@ export default function AfsCaseStudyPage() {
             {/* 12. UI SCREEN WALKTHROUGH */}
             <section className="cs-section" id="screens">
               <h2 className="cs-section__title">UI screen walkthrough</h2>
-              <p className="cs-section__body">Walkthrough of the major screens in the AFS workflow. Screen 01 is from a direct Figma export. Screens 02–06 are reconstructed from Figma frame names with descriptions inferred from the visible design language.</p>
+              <p className="cs-section__body">Walkthrough of the major screens in the AFS workflow. Screen 01 is from a direct Figma export with annotated callouts. Screens 02–06 are reconstructed from Figma frame names with inline wireframes showing the inferred layout.</p>
 
               {cs.screens.map(screen => (
                 <div key={screen.num} className="afs-screen-entry">
@@ -428,27 +731,75 @@ export default function AfsCaseStudyPage() {
                       <div className="afs-screen-entry__purpose">{screen.purpose}</div>
                     </div>
                     {!screen.src && (
-                      <span className="afs-screen-entry__badge">Screenshot pending</span>
+                      <span className="afs-screen-entry__badge">Wireframe reconstruction</span>
                     )}
                   </div>
 
+                  {/* Real screenshot — screen 01 */}
                   {screen.src && (
-                    <div className="afs-screen-frame">
-                      <div className="afs-screen-frame__bar">
-                        <span className="afs-screen-frame__dot" />
-                        <span className="afs-screen-frame__dot" />
-                        <span className="afs-screen-frame__dot" />
-                        <span className="afs-screen-frame__url">ZoomInfo Admin Portal</span>
-                        <span className="afs-screen-frame__confidential">client identifier visible — company project</span>
+                    <>
+                      <div className="afs-screen-frame">
+                        <div className="afs-screen-frame__bar">
+                          <span className="afs-screen-frame__dot" />
+                          <span className="afs-screen-frame__dot" />
+                          <span className="afs-screen-frame__dot" />
+                          <span className="afs-screen-frame__url">ZoomInfo Admin Portal</span>
+                          <span className="afs-screen-frame__confidential">client identifier visible — company project</span>
+                        </div>
+                        <div className="afs-screen-frame__body">
+                          <img
+                            src={screen.src}
+                            alt={screen.title}
+                            className="afs-screen-frame__img"
+                            onError={e => { (e.target as HTMLImageElement).style.display = 'none'; }}
+                          />
+                        </div>
                       </div>
-                      <div className="afs-screen-frame__body">
-                        <img
-                          src={screen.src}
-                          alt={screen.title}
-                          className="afs-screen-frame__img"
-                          onError={e => { (e.target as HTMLImageElement).style.display = 'none'; }}
-                        />
+
+                      {/* Annotated screenshot */}
+                      <div style={{ marginTop: 'var(--space-8)' }}>
+                        <h3 className="cs-section__subtitle">Annotated: key UI elements identified</h3>
+                        <p className="cs-section__body" style={{ fontSize: 'var(--text-sm)', color: 'var(--color-text-muted)', fontStyle: 'italic' }}>
+                          Numbered callouts identify the key components and patterns visible in the configure screen.
+                        </p>
+                        <div className="afs-annotated">
+                          <img
+                            src={screen.src}
+                            alt="Configure AFS screen with numbered callout annotations"
+                          />
+                          {cs.annotationCallouts.map(c => (
+                            <div
+                              key={c.id}
+                              className="afs-annotated__dot"
+                              style={{ left: c.left, top: c.top }}
+                              title={c.label}
+                            >
+                              {c.id}
+                            </div>
+                          ))}
+                        </div>
+                        <div className="afs-annotation-legend">
+                          {cs.annotationCallouts.map(c => (
+                            <div key={c.id} className="afs-annotation-legend__item">
+                              <div className="afs-annotation-legend__num">{c.id}</div>
+                              <div>
+                                <span className="afs-annotation-legend__label">{c.label}</span>
+                                <span className="afs-annotation-legend__desc">{c.desc}</span>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
                       </div>
+                    </>
+                  )}
+
+                  {/* Inline wireframe — screens 02–06 */}
+                  {!screen.src && screen.wireframeKey && (
+                    <div className="afs-screen-entry__wireframe-wrap">
+                      {renderWireframe(screen.wireframeKey)}
+                      <p className="afs-screen-entry__wireframe-note">
+                        Wireframe reconstruction — inferred from Figma frame name and Admin Portal design language
+                      </p>
                     </div>
                   )}
 
@@ -476,7 +827,7 @@ export default function AfsCaseStudyPage() {
             {/* 13. COMPONENT PATTERNS */}
             <section className="cs-section" id="components">
               <h2 className="cs-section__title">Component patterns</h2>
-              <p className="cs-section__body">Recurring patterns identified from the visible UI. These components appear to be part of a shared Admin Portal design system, reused across multiple configuration screens.</p>
+              <p className="cs-section__body">Recurring patterns identified from the visible UI. These components appear to be part of a shared Admin Portal design system, reused across multiple configuration screens within the Go-to-Market setup flow.</p>
               <div className="cs-cards-grid">
                 {cs.componentPatterns.map(comp => (
                   <div key={comp.name} className="cs-card">
@@ -494,7 +845,7 @@ export default function AfsCaseStudyPage() {
             {/* 14. ACCESSIBILITY */}
             <section className="cs-section" id="accessibility">
               <h2 className="cs-section__title">Accessibility and usability considerations</h2>
-              <p className="cs-section__body">Based on the visible UI. Items marked "Recommended" are not visible in the available screenshots and represent standard implementation checks for this type of configuration interface.</p>
+              <p className="cs-section__body">Based on the visible UI. Items marked "Recommended" are not visible in the available screenshots and represent standard implementation checks for this type of configuration interface in an enterprise context.</p>
               <div className="limitations-box">
                 <div className="limitations-list">
                   {cs.accessibility.map(item => (
@@ -513,7 +864,7 @@ export default function AfsCaseStudyPage() {
             {/* 15. HANDOFF */}
             <section className="cs-section" id="handoff">
               <h2 className="cs-section__title">Handoff and implementation thinking</h2>
-              <p className="cs-section__body">The Figma file shows "Ready for Dev" status with Jira, PRD, and video documentation linked. These notes capture the implementation considerations visible from the design and screen structure.</p>
+              <p className="cs-section__body">The Figma file shows "Ready for Dev" status with Jira, PRD, and video documentation linked from the project cover frame. These notes capture the implementation considerations visible from the design and screen structure.</p>
               <div className="cs-cards-grid cs-cards-grid--2">
                 {cs.handoff.map(card => (
                   <div key={card.title} className="cs-card">
