@@ -23,9 +23,9 @@ export interface RenewlyMobileScreen {
 
 export const renewlyCaseStudy = {
   id: 'renewly',
-  title: 'Renewly — SaaS Renewal Management',
+  title: 'Renewly SaaS Renewal Management',
   subtitle:
-    'A responsive SaaS renewal management case study covering how finance teams review subscriptions, track renewal risk, approve decisions, and identify savings — designed as a working React prototype.',
+    'A responsive SaaS renewal management case study. Finance teams review subscriptions, track renewal risk, approve decisions, and spot savings opportunities. Built as a working React prototype.',
   tags: [
     'UX/UI Design',
     'SaaS Dashboard',
@@ -242,17 +242,17 @@ export const renewlyCaseStudy = {
   ] as IAColumn[],
 
   wireframesDescription:
-    'Early wireframes established page responsibility, content hierarchy, and layout structure before any visual decisions were made. The goal was to confirm what each screen should show and how users would move between product areas — not how anything would look. Wireframes covered all eight main screens so that structure could be reviewed before design system work began.',
+    'Early wireframes established page responsibility, content hierarchy, and layout structure before any visual decisions were made. The goal was to confirm what each screen should show and how users would move between product areas, not how anything would look. Wireframes covered all eight main screens so that structure could be reviewed before design system work began.',
 
   wireframeImages: [
-    { src: '/images/projects/renewly/wireframes/wireframe-dashboard.png', label: 'Dashboard — command centre layout' },
-    { src: '/images/projects/renewly/wireframes/wireframe-subscriptions.png', label: 'Subscriptions — comparison table' },
-    { src: '/images/projects/renewly/wireframes/wireframe-renewal-calendar.png', label: 'Renewal calendar — time-based planning' },
-    { src: '/images/projects/renewly/wireframes/wireframe-approval-queue.png', label: 'Approval queue — decision list' },
-    { src: '/images/projects/renewly/wireframes/wireframe-savings.png', label: 'Savings opportunities — review cards' },
-    { src: '/images/projects/renewly/wireframes/wireframe-detail.png', label: 'Subscription detail — focused decision view' },
-    { src: '/images/projects/renewly/wireframes/wireframe-reports.png', label: 'Reports — finance summary' },
-    { src: '/images/projects/renewly/wireframes/wireframe-settings.png', label: 'Settings — rules and preferences' },
+    { src: '/images/projects/renewly/wireframes/wireframe-dashboard.png', label: 'Dashboard: command centre layout' },
+    { src: '/images/projects/renewly/wireframes/wireframe-subscriptions.png', label: 'Subscriptions: comparison table' },
+    { src: '/images/projects/renewly/wireframes/wireframe-renewal-calendar.png', label: 'Renewal calendar: time-based planning' },
+    { src: '/images/projects/renewly/wireframes/wireframe-approval-queue.png', label: 'Approval queue: decision list' },
+    { src: '/images/projects/renewly/wireframes/wireframe-savings.png', label: 'Savings opportunities: review cards' },
+    { src: '/images/projects/renewly/wireframes/wireframe-detail.png', label: 'Subscription detail: focused decision view' },
+    { src: '/images/projects/renewly/wireframes/wireframe-reports.png', label: 'Reports: finance summary' },
+    { src: '/images/projects/renewly/wireframes/wireframe-settings.png', label: 'Settings: rules and preferences' },
   ],
 
   uxDecisions: [
@@ -262,7 +262,7 @@ export const renewlyCaseStudy = {
     },
     {
       title: 'Status and action stay close together',
-      body: 'Risk badges, approval states, renewal timing, and action buttons are grouped near the relevant item on every screen. Users should not have to travel across the page after identifying a problem — the next step should already be visible.',
+      body: 'Risk badges, approval states, renewal timing, and action buttons are grouped near the relevant item on every screen. Users should not have to travel across the page after identifying a problem. The next step should already be visible.',
     },
     {
       title: 'Subscriptions use structured comparison',
@@ -270,7 +270,7 @@ export const renewlyCaseStudy = {
     },
     {
       title: 'Approval queue supports decision confidence',
-      body: 'Approval cards show tool name, risk level, request type, owner, renewal cost, reason, and approve/change/reject actions together. Approval decisions need enough context to feel confident — not just action buttons in isolation.',
+      body: 'Approval cards show tool name, risk level, request type, owner, renewal cost, reason, and approve/change/reject actions together. Approval decisions need enough context to feel confident, not just action buttons with no supporting information.',
     },
     {
       title: 'Savings opportunities are framed as review prompts',
@@ -278,7 +278,7 @@ export const renewlyCaseStudy = {
     },
     {
       title: 'Mobile screens use mobile-only structure',
-      body: 'Mobile layouts use stacked cards, simplified KPI labels, bottom navigation, and focused actions instead of compressed desktop tables. The goal was for mobile to feel designed for its context — not shrunk from a wider screen.',
+      body: 'Mobile layouts use stacked cards, simplified KPI labels, bottom navigation, and focused actions instead of compressed desktop tables. The goal was for mobile to feel designed for its context, not just scaled down from a wider screen.',
     },
     {
       title: 'Design system supports consistent scale',
@@ -296,56 +296,56 @@ export const renewlyCaseStudy = {
   desktopScreenshots: [
     {
       src: '/images/projects/renewly/clean/desktop-dashboard.png',
-      caption: 'Dashboard — Renewal command centre with spend, risk, approvals, and savings',
+      caption: 'Dashboard: Renewal command centre with spend, risk, approvals, and savings',
       title: 'Dashboard',
       purpose: 'Provides a high-level view of monthly spend, upcoming renewals, high-risk subscriptions, estimated annual savings, approval queue preview, and urgent renewal signals.',
       uxNote: 'Uses metric cards and grouped lists so users can immediately understand what needs attention without opening individual subscriptions.',
     },
     {
       src: '/images/projects/renewly/clean/desktop-subscriptions.png',
-      caption: 'Subscriptions — Structured SaaS tool comparison with renewal and usage data',
+      caption: 'Subscriptions: Structured SaaS tool comparison with renewal and usage data',
       title: 'Subscriptions',
       purpose: 'Allows users to review all SaaS tools across the workspace, compare cost, renewal date, owner, seat utilisation, risk, approval state, and active status.',
       uxNote: 'Desktop table layout supports multi-tool comparison while filters help users narrow to relevant subsets without losing context.',
     },
     {
       src: '/images/projects/renewly/clean/desktop-detail.png',
-      caption: 'Subscription Detail — Focused renewal decision view for a single subscription',
+      caption: 'Subscription Detail: Focused renewal decision view for a single subscription',
       title: 'Subscription Detail',
-      purpose: 'Provides a focused view of a single tool — including risk, usage, renewal details, approval workflow, savings estimate, and available actions.',
+      purpose: 'Provides a focused view of a single tool, including risk, usage, renewal details, approval workflow, savings estimate, and available actions.',
       uxNote: 'Supports deeper decision-making after a user has identified a high-risk renewal from the dashboard or subscription list.',
     },
     {
       src: '/images/projects/renewly/clean/desktop-renewal-calendar.png',
-      caption: 'Renewal Calendar — Time-based renewal planning view',
+      caption: 'Renewal Calendar: Time-based renewal planning view',
       title: 'Renewal Calendar',
       purpose: 'Shows upcoming renewals grouped by time window and month so finance teams can plan around deadlines.',
       uxNote: 'Groups renewals into 30/60/90 day windows and highlights high-risk items within each period so urgency is visible before opening individual records.',
     },
     {
       src: '/images/projects/renewly/clean/desktop-approval-queue.png',
-      caption: 'Approval Queue — Decision list for owner and finance review',
+      caption: 'Approval Queue: Decision list for owner and finance review',
       title: 'Approval Queue',
       purpose: 'Helps users review pending renewal decisions, owner review requests, finance approvals, high-risk approvals, and savings under review.',
       uxNote: 'Approval information and action buttons are placed together on each card so users can act with full context rather than opening a separate detail view.',
     },
     {
       src: '/images/projects/renewly/clean/desktop-savings.png',
-      caption: 'Savings Opportunities — Potential savings cards with recommended actions',
+      caption: 'Savings Opportunities: Potential savings cards with recommended actions',
       title: 'Savings Opportunities',
       purpose: 'Highlights potential savings from seat reduction, cancellation, downgrade, or consolidation across the active SaaS tool set.',
-      uxNote: 'Each card explains the estimated value, confidence level, risk level, reason, and recommended action — not just a savings number — to support informed decisions.',
+      uxNote: 'Each card shows the estimated value, confidence level, risk level, reason, and recommended action. Enough context to make a real decision, not just a number.',
     },
     {
       src: '/images/projects/renewly/clean/desktop-reports.png',
-      caption: 'Reports — Finance summary of renewal activity and spend',
+      caption: 'Reports: Finance summary of renewal activity and spend',
       title: 'Reports',
       purpose: 'Summarises monthly spend, upcoming renewal spend, approved renewals, pending decisions, high-risk items, and estimated savings.',
       uxNote: 'Turns renewal operations data into a finance-friendly review format for periodic review cycles.',
     },
     {
       src: '/images/projects/renewly/clean/desktop-settings.png',
-      caption: 'Settings — Workspace rules, alerts, roles, and preferences',
+      caption: 'Settings: Workspace rules, alerts, roles, and preferences',
       title: 'Settings',
       purpose: 'Lets users configure company profile, renewal alerts, approval rules, team roles, notifications, integrations, and billing preferences.',
       uxNote: 'Settings are organised into labelled sections so configuration work does not compete visually with daily renewal operations.',
@@ -355,28 +355,28 @@ export const renewlyCaseStudy = {
   mobileScreenshots: [
     {
       src: '/images/projects/renewly/clean/mobile-dashboard.png',
-      caption: 'Mobile Dashboard — Action-first renewal overview for smaller screens',
+      caption: 'Mobile Dashboard: Action-first renewal overview for smaller screens',
       title: 'Mobile Dashboard',
       purpose: 'Shows the most important renewal information first: key metrics, high-risk review call to action, needs-attention list, and upcoming renewals.',
       responsiveDecision: 'Desktop summary cards are converted into compact KPI rows and stacked decision lists. The most urgent item leads the screen.',
     },
     {
       src: '/images/projects/renewly/clean/mobile-subscriptions.png',
-      caption: 'Mobile Subscriptions — Card-based SaaS tool scanning with cost and usage',
+      caption: 'Mobile Subscriptions: Card-based SaaS tool scanning with cost and usage',
       title: 'Mobile Subscriptions',
       purpose: 'Lets users scan SaaS tools, renewal timing, cost, risk level, and seat usage in a readable card format.',
       responsiveDecision: 'The desktop comparison table becomes individual mobile subscription cards with readable cost, seat progress indicator, and status badge.',
     },
     {
       src: '/images/projects/renewly/clean/mobile-approvals.png',
-      caption: 'Mobile Approvals — Compact decision cards with clear actions',
+      caption: 'Mobile Approvals: Compact decision cards with clear actions',
       title: 'Mobile Approvals',
-      purpose: 'Allows users to review high-risk approvals and take direct action — approve, request changes, or reject — from mobile.',
+      purpose: 'Allows users to review high-risk approvals and take direct action from mobile: approve, request changes, or reject.',
       responsiveDecision: 'Desktop approval columns become stacked mobile approval cards. Action buttons are large enough to tap confidently.',
     },
     {
       src: '/images/projects/renewly/clean/mobile-detail.png',
-      caption: 'Mobile Subscription Detail — Single subscription decision flow on mobile',
+      caption: 'Mobile Subscription Detail: Single subscription decision flow on mobile',
       title: 'Mobile Subscription Detail',
       purpose: 'Supports focused review of a single subscription including decision summary, cost, seat usage, approval workflow status, and available actions.',
       responsiveDecision: 'The desktop detail layout is stacked into clear sections with the primary approval action placed prominently at the bottom.',
@@ -424,10 +424,10 @@ export const renewlyCaseStudy = {
     'Multi-route SPA covering all main product areas including dashboard, subscriptions, approvals, savings, and settings',
     'Reusable components for metric cards, subscription tables, approval cards, savings cards, and navigation',
     'Design-system CSS tokens for colour, spacing, and typography consistent across all screens',
-    'Mock SaaS subscription data with typed TypeScript interfaces — no backend dependency',
+    'Mock SaaS subscription data with typed TypeScript interfaces, no backend dependency',
     'Responsive CSS covering 1440px desktop, 1024px tablet, 768px tablet/mobile, and 390px mobile',
     'GitHub repository with version-controlled project assets and component structure',
-    'Vercel deployment — live portfolio prototype accessible via shareable link',
+    'Vercel deployment, live portfolio prototype accessible via shareable link',
   ],
 
   testingFlow: 'Dashboard → Subscriptions → Subscription Detail → Approval Queue → Savings Opportunities → Reports → Settings',
@@ -440,7 +440,7 @@ export const renewlyCaseStudy = {
     'Can users compare subscription details in the subscription list?',
     'Does the mobile version preserve the same product intent as desktop?',
     'Are approval actions easy to find on both desktop and mobile?',
-    'Are savings opportunities clearly explained — not just numbers?',
+    'Are savings opportunities clearly explained, not just numbers?',
     'Are card and button states consistent across all screens?',
     'Is there any horizontal overflow at mobile breakpoints?',
     'Are tap targets usable at 390px?',
@@ -472,8 +472,8 @@ export const renewlyCaseStudy = {
   ],
 
   limitations: [
-    'Portfolio prototype stage — not a production SaaS product',
-    'Mock data only — no real SaaS backend or live subscription feed',
+    'Portfolio prototype, not a production SaaS product',
+    'Mock data only, no real SaaS backend or live subscription feed',
     'No authentication or real finance user accounts',
     'No real SaaS tool integrations or live renewal data',
     'No production-grade approval routing or notification system',
@@ -496,16 +496,16 @@ export const renewlyCaseStudy = {
   ],
 
   prWorkflowDescription:
-    'The workflow used focused branches to keep changes reviewable and traceable. Each branch targeted a specific phase — structure, screen build, responsive fixes, or design system — so the diff stayed small and the improvement was easy to understand.',
+    'The workflow used focused branches to keep changes reviewable and traceable. Each branch targeted a specific phase (structure, screen build, responsive fixes, or design system) so the diff stayed small and the improvement was easy to understand.',
 
   prWorkflow: [
-    { pr: 'Branch-01', label: 'Project setup — Vite, React, TypeScript, routing scaffold' },
+    { pr: 'Branch-01', label: 'Project setup: Vite, React, TypeScript, routing scaffold' },
     { pr: 'Branch-02', label: 'Dashboard and subscription list screens' },
     { pr: 'Branch-03', label: 'Subscription detail, approval queue, and renewal calendar' },
     { pr: 'Branch-04', label: 'Savings opportunities, reports, and settings screens' },
     { pr: 'Branch-05', label: 'Design system tokens, status chips, and button variants' },
-    { pr: 'Branch-06', label: 'Mobile layout — bottom nav, stacked cards, responsive breakpoints' },
-    { pr: 'Branch-07', label: 'Responsive QA pass — overflow fixes, tap targets, spacing' },
+    { pr: 'Branch-06', label: 'Mobile layout: bottom nav, stacked cards, responsive breakpoints' },
+    { pr: 'Branch-07', label: 'Responsive QA pass: overflow fixes, tap targets, spacing' },
     { pr: 'Branch-08', label: 'Vercel deployment and final portfolio preparation' },
   ],
 
@@ -513,7 +513,7 @@ export const renewlyCaseStudy = {
     {
       num: 'Round 01',
       title: 'Dashboard density',
-      issue: 'Initial dashboard showed too many metrics at once — the page felt like a spreadsheet rather than a command centre.',
+      issue: 'Initial dashboard showed too many metrics at once. The page felt like a spreadsheet rather than a command centre.',
       fix: 'Grouped metrics into four summary cards (spend, upcoming, high-risk, savings) with sub-detail accessible on hover or scroll.',
       why: 'Finance users need orientation first. The dashboard should answer "what needs my attention today" before surfacing all data.',
     },
@@ -522,12 +522,12 @@ export const renewlyCaseStudy = {
       title: 'Mobile navigation',
       issue: 'Desktop sidebar collapsed into a hidden drawer on mobile, making navigation effectively invisible.',
       fix: 'Replaced desktop sidebar with a bottom tab bar on mobile. Top five navigation items mapped to persistent tabs.',
-      why: 'Finance users reviewing approvals on mobile need one-tap access to core screens — a hidden drawer creates friction at the wrong moment.',
+      why: 'Finance users reviewing approvals on mobile need one-tap access to core screens. A hidden drawer creates friction at the wrong moment.',
     },
     {
       num: 'Round 03',
       title: 'Status chip readability',
-      issue: 'Early status chips used only colour to communicate risk state — inaccessible and unclear at small sizes.',
+      issue: 'Early status chips used only colour to communicate risk state. This was inaccessible and unclear at small sizes.',
       fix: 'Added text labels to all status chips. High risk, Medium risk, Low risk, and Waiting finance are labelled and coloured.',
       why: 'Colour-only communication fails accessibility requirements and causes confusion when chips are viewed quickly across a table.',
     },
@@ -541,7 +541,7 @@ export const renewlyCaseStudy = {
     {
       num: 'Round 05',
       title: 'Mobile table to cards',
-      issue: 'Subscription list rendered as a desktop table on mobile — columns overflowed and text became unreadable.',
+      issue: 'Subscription list rendered as a desktop table on mobile. Columns overflowed and text became unreadable.',
       fix: 'Replaced subscription table with stacked mobile cards showing name, status, renewal date, cost, and risk as a vertical list.',
       why: 'Tables built for 1400px collapse unpredictably on 390px. Cards provide a more controlled, scannable format for mobile.',
     },
@@ -556,11 +556,11 @@ export const renewlyCaseStudy = {
 
   techStack: [
     { label: 'Frontend', value: 'React 18, TypeScript 5, Vite 5' },
-    { label: 'Routing', value: 'React Router v6 — multi-route SPA' },
+    { label: 'Routing', value: 'React Router v6, multi-route SPA' },
     { label: 'Styling', value: 'Custom CSS with design system tokens' },
-    { label: 'Data', value: 'Mock SaaS subscription data — no backend' },
-    { label: 'Version control', value: 'GitHub — feature branches per phase' },
-    { label: 'Deployment', value: 'Vercel — live portfolio prototype' },
+    { label: 'Data', value: 'Mock SaaS subscription data, no backend' },
+    { label: 'Version control', value: 'GitHub, feature branches per phase' },
+    { label: 'Deployment', value: 'Vercel, live portfolio prototype' },
   ],
 
   finalValidation: [
@@ -568,14 +568,14 @@ export const renewlyCaseStudy = {
     'High-risk subscriptions are identifiable from the dashboard without opening individual detail pages',
     'Subscription detail page provides enough context to make an approval decision',
     'Approval queue actions are reachable and clearly labelled on both desktop and mobile',
-    'Savings opportunities explain the rationale — not just a number',
+    'Savings opportunities include a rationale, not just a number',
     'Mobile screens use cards instead of tables at 390px with no horizontal overflow',
-    'Status chips include text labels — no colour-only communication',
+    'Status chips include text labels alongside colour, no colour-only communication',
     'Bottom navigation on mobile provides access to all core sections in one tap',
     'Renewal calendar shows upcoming deadlines in a readable layout on both screen sizes',
     'All screens render without console errors or broken layout states',
   ],
 
   reflection:
-    'Renewly reinforced the importance of building product structure before visual polish. Renewal workflows contain many competing signals — spend, dates, owners, utilisation, risk, approval status, and savings — so the interface needed a clear hierarchy before any screen could feel clean. The strongest design direction came from separating overview, comparison, detail, decision, and reporting into distinct screen responsibilities. The dashboard helps users identify priority work, while deeper screens support more confident decisions. The mobile version was especially important because it required a separate layout strategy rather than simply compressing desktop tables. The project showed that responsive design is not only about resizing components — it is about rethinking what information matters most at each screen size. The next step is to validate the flow with real finance users and extend interaction states: empty states, loading states, errors, confirmations, and owner-review workflows.',
+    'Renewly reinforced the importance of building product structure before visual polish. Renewal workflows carry a lot of competing signals: spend, dates, owners, utilisation, risk, approval status, and savings. The interface needed a clear hierarchy before any screen could feel clean. The strongest design direction came from separating overview, comparison, detail, decision, and reporting into distinct screen responsibilities. The dashboard helps users identify priority work, while deeper screens support more confident decisions. The mobile version required a separate layout strategy rather than simply compressing desktop tables. Responsive design means rethinking what information matters most at each screen size, not just resizing components. The next step is to validate the flow with real finance users and extend interaction states: empty states, loading states, errors, confirmations, and owner-review workflows.',
 };

@@ -13,7 +13,7 @@ export default function FeaturedWork() {
       <div className="container">
         <SectionHeading
           label="Selected work"
-          title="Selected product case studies"
+          title="Projects I've worked on."
         />
 
         {featured && (

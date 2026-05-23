@@ -23,7 +23,7 @@ export default function AboutSection() {
                 onError={e => { (e.target as HTMLImageElement).style.display = 'none'; }}
               />
             </div>
-            <div>
+            <div className="about__profile-identity">
               <div className="about__profile-name">{profile.name}</div>
               <div className="about__profile-role">{profile.title}</div>
             </div>

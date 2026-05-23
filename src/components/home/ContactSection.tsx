@@ -1,10 +1,10 @@
 import { profile } from '../../data/profile';
 
 const links = [
-  { icon: '✉️', label: 'Email', value: profile.email, href: `mailto:${profile.email}` },
-  { icon: '💼', label: 'LinkedIn', value: 'linkedin.com/in/vijaya-chandra', href: profile.linkedin, external: true },
-  { icon: '💻', label: 'GitHub', value: 'github.com/vijayachandrajonnadula-byte', href: profile.github, external: true },
-  { icon: '🌐', label: 'Portfolio', value: profile.portfolio, href: `https://${profile.portfolio}` },
+  { label: 'Email', value: profile.email, href: `mailto:${profile.email}` },
+  { label: 'LinkedIn', value: 'linkedin.com/in/vijaya-chandra', href: profile.linkedin, external: true },
+  { label: 'GitHub', value: 'github.com/vijayachandrajonnadula-byte', href: profile.github, external: true },
+  { label: 'Portfolio', value: profile.portfolio, href: `https://${profile.portfolio}` },
 ];
 
 export default function ContactSection() {
@@ -13,9 +13,9 @@ export default function ContactSection() {
       <div className="container">
         <div className="contact__inner">
           <div>
-            <h2 className="contact__heading">Have a product problem, role, or project to discuss?</h2>
+            <h2 className="contact__heading">Have a role, project, or product problem to discuss?</h2>
             <p className="contact__sub">
-              I am open to UX/UI and product design opportunities. The easiest way to reach me is by email.
+              I'm open to UX/UI and product design opportunities. Email is the easiest way to reach me.
             </p>
           </div>
           <div className="contact__links">
@@ -26,11 +26,8 @@ export default function ContactSection() {
                 className="contact__link-item"
                 {...(l.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
               >
-                <span className="contact__link-icon">{l.icon}</span>
-                <div>
-                  <div className="contact__link-label">{l.label}</div>
-                  <div className="contact__link-value">{l.value}</div>
-                </div>
+                <div className="contact__link-label">{l.label}</div>
+                <div className="contact__link-value">{l.value}</div>
               </a>
             ))}
           </div>

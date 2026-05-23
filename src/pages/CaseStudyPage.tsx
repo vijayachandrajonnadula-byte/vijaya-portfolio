@@ -34,7 +34,7 @@ export default function CaseStudyPage() {
           prototypeUrl={cs.prototypeUrl}
           githubUrl={cs.githubUrl}
           heroImage="/images/projects/riverside/clean/desktop-home.png"
-          heroImageAlt="Riverside General homepage — hospital appointment booking"
+          heroImageAlt="Riverside General homepage, hospital appointment booking"
           prototypeUrlLabel="hospital-booking-portfolio.vercel.app"
         />
 
@@ -51,7 +51,7 @@ export default function CaseStudyPage() {
             {/* 2. WHAT THIS DEMONSTRATES */}
             <section className="cs-section" id="demonstrates">
               <h2 className="cs-section__title">What this case study demonstrates</h2>
-              <p className="cs-section__body">A quick scan for recruiters — the skills and mindset shown across this project.</p>
+              <p className="cs-section__body">A quick scan for recruiters. The skills and mindset shown across this project.</p>
               <div className="demonstrates-cards-grid">
                 {cs.demonstrates.map(d => (
                   <div key={d.title} className="demonstrates-card">
@@ -213,7 +213,7 @@ export default function CaseStudyPage() {
             <section className="cs-section" id="screenshots">
               <h2 className="cs-section__title">Desktop prototype screens</h2>
               <p className="cs-section__body">
-                Six screens from the built React prototype covering every step of the booking journey — deployed to Vercel and functional end-to-end, not static mockups. Each screen was refined through multiple critique and iteration rounds.
+                Six screens from the built React prototype covering every step of the booking journey. Deployed to Vercel and functional end-to-end, not static mockups. Each screen was refined through multiple critique and iteration rounds.
               </p>
               {cs.desktopScreenshots.map((s, i) => (
                 <div key={s.title} className="renewly-screen-entry">
