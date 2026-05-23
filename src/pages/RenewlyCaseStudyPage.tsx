@@ -418,7 +418,7 @@ export default function RenewlyCaseStudyPage() {
             <section className="cs-section" id="ai-workflow">
               <h2 className="cs-section__title">AI-assisted workflow</h2>
               <p className="cs-section__body">
-                This project used AI as a workflow accelerator, not as an automatic design replacement. Human judgement stayed responsible for product decisions, UX critique, responsive QA, and final acceptance at every stage.
+                I used AI tools throughout this project for research prompts, critique, implementation planning, and code review. Every product decision, UX call, and QA check was mine. The tools accelerated the work; they did not make the calls.
               </p>
               <div className="cs-ai-workflow-grid">
                 {cs.aiWorkflow.map(w => (
@@ -551,7 +551,7 @@ export default function RenewlyCaseStudyPage() {
         <section className="cs-cta">
           <div className="container">
             <h2 className="cs-cta__title">Explore more product case studies.</h2>
-            <p className="cs-cta__sub">Renewly is one example of how structured UX thinking, design-system decisions, and responsive implementation can turn complex operational workflows into clearer digital products.</p>
+            <p className="cs-cta__sub">I built Renewly to show how I work: from research and user flows through Figma and on to a responsive React prototype that actually runs.</p>
             <div className="cs-cta__actions">
               <Button href="/" variant="dark" size="lg">
                 Back to selected work

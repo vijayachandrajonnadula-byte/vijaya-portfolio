@@ -387,7 +387,7 @@ export default function AfsCaseStudyPage() {
             {/* 6. USERS AND TASKS */}
             <section className="cs-section" id="users">
               <h2 className="cs-section__title">Users and tasks</h2>
-              <p className="cs-section__body">Inferred from the visible UI structure, navigation context, and the product description visible in the configure screen. Two distinct user types interact with AFS: the team configuring the model, and the IT owner managing the integrations that make the model possible.</p>
+              <p className="cs-section__body">Two distinct user types interact with AFS. The configure screen and navigation context make their roles and tasks readable even without a dedicated research artefact: the team responsible for scoring model setup, and the IT owner who manages the integrations that make the model possible.</p>
               <div className="afs-users-grid">
                 {cs.users.map(user => (
                   <div key={user.type} className="afs-user-card">
@@ -498,7 +498,7 @@ export default function AfsCaseStudyPage() {
             {/* 9. WIREFRAME RECONSTRUCTION */}
             <section className="cs-section" id="wireframes">
               <h2 className="cs-section__title">Wireframe reconstruction</h2>
-              <p className="cs-section__body">Structural wireframes that break down the layout logic of the key AFS screens. These CSS reconstructions show the component hierarchy, spacing relationships, and interaction patterns without the visual polish of the final UI — useful for understanding how the interface is composed at a structural level.</p>
+              <p className="cs-section__body">Structural wireframes that break down the layout logic of the key AFS screens. These CSS reconstructions strip the visual polish to show component hierarchy, spacing relationships, and interaction patterns. Useful for understanding how the interface is composed underneath the finished UI.</p>
               <p className="cs-section__body" style={{ fontSize: 'var(--text-sm)', color: 'var(--color-text-muted)', fontStyle: 'italic' }}>
                 Based on the real Figma screens visible in the UI walkthrough section. Screens 01–04 (landing, Quickstart, import modal, configure CRM) are fully covered by real screenshots. Screens shown below document the structural logic and components for the complete flow including the CSV path, Retrain, and system state screens not included in the reference set.
               </p>
@@ -570,7 +570,7 @@ export default function AfsCaseStudyPage() {
             {/* 10. KEY UX DECISIONS */}
             <section className="cs-section" id="decisions">
               <h2 className="cs-section__title">Key UX decisions</h2>
-              <p className="cs-section__body">Design decisions inferred from the visible UI structure, component choices, and screen organisation. Each decision reflects a deliberate trade-off in how the product handles enterprise complexity.</p>
+              <p className="cs-section__body">Design decisions visible from the screens and component choices. Each one has a reason that shows up somewhere in how the interface behaves.</p>
               <div className="cs-cards-grid cs-cards-grid--decisions">
                 {cs.decisions.map(d => (
                   <div key={d.num} className="cs-card">
@@ -735,7 +735,7 @@ export default function AfsCaseStudyPage() {
             {/* 12. UI SCREEN WALKTHROUGH */}
             <section className="cs-section" id="screens">
               <h2 className="cs-section__title">UI screen walkthrough</h2>
-              <p className="cs-section__body">All 12 screens below are real Figma exports from the AFS project. They walk through the complete workflow end-to-end: unconfigured landing state, Quickstart onboarding, data source selection, CRM condition configuration with live preview, inline condition editing, naming, model training with status feedback, email notification, results dashboard, and active configuration management.</p>
+              <p className="cs-section__body">All 12 screens below are real Figma exports from the AFS project. Starting from the unconfigured landing state: Quickstart onboarding, data source selection, CRM condition configuration with live preview, inline condition editing, naming, model training with status feedback, email notification, results dashboard, and active configuration management.</p>
               <div className="afs-confidentiality-note" style={{marginBottom:'var(--space-6)'}}>
                 <div className="afs-confidentiality-note__icon">
                   <svg width="18" height="18" viewBox="0 0 20 20" fill="none">
@@ -804,7 +804,7 @@ export default function AfsCaseStudyPage() {
             {/* 13. COMPONENT PATTERNS */}
             <section className="cs-section" id="components">
               <h2 className="cs-section__title">Component patterns</h2>
-              <p className="cs-section__body">Recurring patterns identified from the visible UI. These components appear to be part of a shared Admin Portal design system, reused across multiple configuration screens within the Go-to-Market setup flow.</p>
+              <p className="cs-section__body">Components that appear consistently across the AFS screens. These look like shared Admin Portal patterns reused across the Go-to-Market setup flow, not screen-specific designs.</p>
               <div className="cs-cards-grid">
                 {cs.componentPatterns.map(comp => (
                   <div key={comp.name} className="cs-card">
@@ -822,7 +822,7 @@ export default function AfsCaseStudyPage() {
             {/* 14. ACCESSIBILITY */}
             <section className="cs-section" id="accessibility">
               <h2 className="cs-section__title">Accessibility and usability considerations</h2>
-              <p className="cs-section__body">Based on the visible UI. Items marked "Recommended" are not visible in the available screenshots and represent standard implementation checks for this type of configuration interface in an enterprise context.</p>
+              <p className="cs-section__body">Based on the visible UI. Items marked "Recommended" are not visible in the available screenshots but are worth flagging for this type of enterprise admin configuration interface.</p>
               <div className="limitations-box">
                 <div className="limitations-list">
                   {cs.accessibility.map(item => (
@@ -841,7 +841,7 @@ export default function AfsCaseStudyPage() {
             {/* 15. HANDOFF */}
             <section className="cs-section" id="handoff">
               <h2 className="cs-section__title">Handoff and implementation thinking</h2>
-              <p className="cs-section__body">The Figma file shows "Ready for Dev" status with Jira, PRD, and video documentation linked from the project cover frame. These notes capture the implementation considerations visible from the design and screen structure.</p>
+              <p className="cs-section__body">The Figma file shows "Ready for Dev" status with Jira, PRD, and video documentation linked from the project cover frame. These are the open questions a developer would need answered before building this feature.</p>
               <div className="cs-cards-grid cs-cards-grid--2">
                 {cs.handoff.map(card => (
                   <div key={card.title} className="cs-card">
@@ -855,7 +855,7 @@ export default function AfsCaseStudyPage() {
             {/* 16. LIMITATIONS */}
             <section className="cs-section" id="limitations">
               <h2 className="cs-section__title">Limitations</h2>
-              <p className="cs-section__body">Honest documentation of what this case study can and cannot show, given the available material and confidentiality constraints.</p>
+              <p className="cs-section__body">What this case study can and cannot show, given the available screens and confidentiality constraints.</p>
               <div className="limitations-box">
                 <div className="limitations-list">
                   {cs.limitations.map(item => (
