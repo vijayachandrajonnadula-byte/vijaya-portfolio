@@ -38,6 +38,13 @@ export default function Header() {
             {navLinks.map(l => (
               <Link key={l.label} to={l.href} className="header__nav-link">{l.label}</Link>
             ))}
+            <a
+              href="/Vijaya_Chandra_Jonnadula_Resume.pdf"
+              download="Vijaya_Chandra_Jonnadula_Resume.pdf"
+              className="header__resume-btn"
+            >
+              Resume ↓
+            </a>
           </nav>
           <button
             className="header__menu-btn"
@@ -53,6 +60,13 @@ export default function Header() {
         {navLinks.map(l => (
           <Link key={l.label} to={l.href} className="header__mobile-nav-link">{l.label}</Link>
         ))}
+        <a
+          href="/Vijaya_Chandra_Jonnadula_Resume.pdf"
+          download="Vijaya_Chandra_Jonnadula_Resume.pdf"
+          className="header__mobile-nav-link header__mobile-resume-btn"
+        >
+          Download Resume ↓
+        </a>
       </nav>
     </header>
   );

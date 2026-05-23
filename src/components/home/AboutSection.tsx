@@ -1,6 +1,13 @@
 import Tag from '../ui/Tag';
 import { profile } from '../../data/profile';
 
+const experience = [
+  { company: 'ZoomInfo', role: 'UX/UI Designer I', period: 'Aug 2022 – Present', note: 'Admin Portal, Schedule, ZI Chat, FormComplete, AI Enablement' },
+  { company: 'CredAvenue', role: 'Product Designer Consultant', period: 'Oct 2021 – Jul 2022', note: 'Web, desktop & mobile product design' },
+  { company: 'Amigos Arts', role: 'Founder / Product Designer', period: 'Jan 2020 – Oct 2021', note: 'Product design, illustration, client delivery' },
+  { company: 'Helping Hands', role: 'Design Lead', period: 'Jul 2017 – Mar 2020', note: 'Communication design, visual campaigns' },
+];
+
 const skillGroups = [
   { label: 'Design tools', skills: ['Figma', 'Adobe Illustrator', 'Adobe Photoshop', 'Adobe XD', 'Adobe After Effects', 'Adobe InDesign'] },
   { label: 'UX & research', skills: ['UX Research', 'User Flows', 'Information Architecture', 'UI Design', 'Design Systems', 'Wireframing', 'Responsive QA'] },
@@ -57,6 +64,30 @@ export default function AboutSection() {
                 </div>
               ))}
             </div>
+
+            <div className="about__experience">
+              <div className="about__experience-label">Experience</div>
+              {experience.map(e => (
+                <div key={e.company} className="about__exp-row">
+                  <div className="about__exp-left">
+                    <span className="about__exp-company">{e.company}</span>
+                    <span className="about__exp-role">{e.role}</span>
+                  </div>
+                  <div className="about__exp-right">
+                    <span className="about__exp-period">{e.period}</span>
+                    <span className="about__exp-note">{e.note}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <a
+              href="/Vijaya_Chandra_Jonnadula_Resume.pdf"
+              download="Vijaya_Chandra_Jonnadula_Resume.pdf"
+              className="about__resume-download"
+            >
+              Download full resume ↓
+            </a>
           </div>
         </div>
       </div>
