@@ -268,7 +268,7 @@ export const afsCaseStudy = {
   ] as AfsDecision[],
 
   designSystemDescription:
-    'The design system extraction identifies the reusable visual and interaction patterns visible in the AFS configure screen. These components appear to come from a shared ZoomInfo Admin Portal design system, consistent with the visual language used across the Admin Portal navigation and content areas.',
+    'The AFS configure screen uses a consistent set of components that appear across the Admin Portal. Colour palette, typography, condition builder rows, info banners, toggles, and action button pairs all point to a shared design system. The patterns are recognisable and reusable rather than screen-specific.',
 
   designSystemColors: [
     { name: 'Primary blue', hex: '#1B7AFF', value: 'ZoomInfo brand blue', usage: 'CTAs, active nav item, info banners, toggle on state' },
@@ -565,7 +565,7 @@ export const afsCaseStudy = {
   ],
 
   reflection:
-    'This case study demonstrates that final UI screens, even without original discovery artefacts, contain enough information to reconstruct meaningful product thinking. The navigation structure reveals the information architecture. The component language reveals the design system. The screen names in the Figma file reveal the full workflow. Working from finished designs requires a different skill than working from blank pages: it requires precise observation, careful inference, and honest documentation of what is known versus what is assumed. Enterprise UX is often about making complex data workflows feel structured and navigable. The AFS configure screen does this well: it layers guidance (info banner), constraint visibility (condition counter), and control (auto-update toggle) without overwhelming the user with the underlying ML complexity.',
+    'Working from final UI screens without original discovery artefacts is a different skill than working from blank pages. The navigation structure tells you the information architecture. The component language tells you the design system. The Figma frame names tell you the full workflow. It requires precise observation, careful inference, and honest documentation of what is known versus what is assumed. Enterprise UX is often about making complex data workflows feel structured and navigable. The AFS configure screen does this well: it layers guidance (info banner), constraint visibility (condition counter), and control (auto-update toggle) without overwhelming the user with the underlying ML complexity.',
 
   annotationCallouts: [
     { id: 1, label: 'ZoomInfo logo', desc: 'Brand logo anchors the platform identity. Appears on all Admin Portal pages.', left: '3%', top: '4%' },

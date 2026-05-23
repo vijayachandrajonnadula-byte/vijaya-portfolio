@@ -10,7 +10,7 @@ export const profile = {
   tagline: 'I design digital products that are research-first, built to a system, and shipped as working prototypes.',
   bio: "I'm Vijaya Chandra, a product designer from Hyderabad. I take projects from research and user flows all the way to a working React prototype that teams can actually open, click through, and build from.",
   aboutHeading: "I pay attention to the parts of UX that don't photograph well. The flow that almost works, the edge case no one planned for, the screen that just needs one clearer decision.",
-  aboutBody: "I'm Vijaya Chandra, a product designer from Hyderabad with 5+ years of experience across interaction design, product design, and design systems. At ZoomInfo I've worked across Admin Portal, Schedule, ZI Chat, and FormComplete — and for the past year contributed to the AI Enablement team, helping teams build and ship faster using AI-assisted workflows. I handle the full design cycle myself: understanding the problem, mapping the flow, building in Figma, and handing off something the team can actually build from.",
+  aboutBody: "I'm Vijaya Chandra, a product designer from Hyderabad with 5+ years of experience across interaction design, product design, and design systems. At ZoomInfo I've worked across Admin Portal, Schedule, ZI Chat, FormComplete, and the AI Enablement team, helping teams build and ship faster using AI-assisted workflows. I handle the full design cycle myself: understanding the problem, mapping the flow, building in Figma, and handing off something the team can actually build from.",
   status: 'Open to UX/UI and Product Design roles',
   focus: 'UX/UI · Product flows · Design systems',
   strength: 'Research to working prototypes',

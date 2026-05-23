@@ -81,7 +81,7 @@ export const projects: Project[] = [
     id: 'zoominfo-schedule',
     title: 'ZoomInfo Schedule',
     subtitle: 'Enterprise UX · Scheduling · ZoomInfo Marketing',
-    description: 'A scheduling configuration tool built natively inside ZoomInfo Marketing — similar to Calendly and Chili Piper. Covers availability management, meeting type creation, reminder email customisation, and the discard confirmation flow. Reconstructed from 12 real Figma screens.',
+    description: 'A scheduling configuration tool built natively inside ZoomInfo Marketing, doing what Calendly and Chili Piper do but within the product itself. Covers availability management, meeting type creation, reminder email customisation, and the discard confirmation flow. Reconstructed from 12 real Figma screens.',
     tags: ['Enterprise UX', 'Scheduling', 'Calendar Settings', 'B2B SaaS', 'Configuration UI', 'ZoomInfo', 'Information Architecture', 'Design System'],
     status: 'complete',
     featured: false,

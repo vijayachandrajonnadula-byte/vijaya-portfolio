@@ -267,7 +267,7 @@ export default function CaseStudyPage() {
             <section className="cs-section" id="ai-workflow">
               <h2 className="cs-section__title">AI-assisted workflow</h2>
               <p className="cs-section__body">
-                This project used AI as a workflow accelerator, not as an automatic design replacement. Human judgement stayed responsible for product decisions, UX critique, responsive QA, and final acceptance at every stage.
+                I used AI tools throughout this project for research prompts, critique, implementation planning, and code review. Every product decision, UX call, and QA check was mine. The tools accelerated the work; they did not make the calls.
               </p>
               <div className="cs-ai-workflow-grid">
                 {cs.aiWorkflow.map(w => (
@@ -396,7 +396,7 @@ export default function CaseStudyPage() {
         <section className="cs-cta">
           <div className="container">
             <h2 className="cs-cta__title">Explore the working prototype and project repository.</h2>
-            <p className="cs-cta__sub">Built with React, TypeScript, and a repeatable product workflow.</p>
+            <p className="cs-cta__sub">React, TypeScript, and a documented product workflow from problem framing to shipped prototype.</p>
             <div className="cs-cta__actions">
               <Button href={cs.prototypeUrl} variant="dark" external size="lg">
                 View live prototype &#x2197;
