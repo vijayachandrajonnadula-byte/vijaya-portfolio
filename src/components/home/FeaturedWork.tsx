@@ -65,7 +65,12 @@ export default function FeaturedWork() {
                     <span className="project-card__browser-dot" />
                     <span className="project-card__browser-url">{p.prototypeUrl ? p.prototypeUrl.replace('https://', '') : p.href.replace('/', '')}</span>
                   </div>
-                  {p.image ? (
+                  {p.coverImages && p.coverImages.length >= 2 ? (
+                    <div className="project-card__img-dual">
+                      <img src={p.coverImages[0]} alt={p.title} className="project-card__img" onError={e => { (e.target as HTMLImageElement).style.display = 'none'; }} />
+                      <img src={p.coverImages[1]} alt={p.title} className="project-card__img" onError={e => { (e.target as HTMLImageElement).style.display = 'none'; }} />
+                    </div>
+                  ) : p.image ? (
                     <img
                       src={p.image}
                       alt={p.title}

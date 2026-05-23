@@ -10,6 +10,7 @@ export interface Project {
   prototypeUrl?: string;
   githubUrl?: string;
   image: string;
+  coverImages?: string[];
   category: string;
   year: string;
   sprint?: string;
@@ -77,6 +78,24 @@ export const projects: Project[] = [
     sprint: 'Company project',
   },
   {
+    id: 'zoominfo-schedule',
+    title: 'ZoomInfo Schedule',
+    subtitle: 'Enterprise UX · Scheduling · ZoomInfo Marketing',
+    description: 'A scheduling configuration tool built natively inside ZoomInfo Marketing — similar to Calendly and Chili Piper. Covers availability management, meeting type creation, reminder email customisation, and the discard confirmation flow. Reconstructed from 12 real Figma screens.',
+    tags: ['Enterprise UX', 'Scheduling', 'Calendar Settings', 'B2B SaaS', 'Configuration UI', 'ZoomInfo', 'Information Architecture', 'Design System'],
+    status: 'complete',
+    featured: false,
+    href: '/projects/zoominfo-schedule',
+    image: '/images/projects/schedule/screens/schedule-07-create-filled.png',
+    coverImages: [
+      '/images/projects/schedule/screens/schedule-07-create-filled.png',
+      '/images/projects/schedule/screens/schedule-03-availability-split.png',
+    ],
+    category: 'Enterprise / B2B',
+    year: '2023',
+    sprint: 'Company project',
+  },
+  {
     id: 'illustration-systems',
     title: 'Illustration Systems & Vector Portraits',
     subtitle: 'Creative showcase · Vector illustration',
@@ -89,31 +108,5 @@ export const projects: Project[] = [
     category: 'Creative / Illustration',
     year: '2024',
     sprint: 'Creative showcase',
-  },
-  {
-    id: 'northbeam',
-    title: 'Northbeam Logistics Console',
-    subtitle: 'Internal tool · B2B · Data dense',
-    description: 'Operator UI for a small fleet logistics team. Replaces 14 spreadsheet tabs with a single live dispatch view.',
-    tags: ['Internal tool', 'B2B', 'Data dense'],
-    status: 'coming-soon',
-    featured: false,
-    href: '#',
-    image: '',
-    category: 'Internal tools',
-    year: '2026',
-  },
-  {
-    id: 'bramble',
-    title: 'Bramble Reading App',
-    subtitle: 'Mobile · Consumer · iOS · Web',
-    description: 'A lightweight reading companion app. Tracks pages read without streaks or pressure.',
-    tags: ['Mobile', 'Consumer', 'iOS', 'Web'],
-    status: 'coming-soon',
-    featured: false,
-    href: '#',
-    image: '',
-    category: 'Consumer apps',
-    year: '2026',
   },
 ];
