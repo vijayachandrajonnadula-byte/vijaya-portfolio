@@ -2,10 +2,11 @@ import Tag from '../ui/Tag';
 import { profile } from '../../data/profile';
 
 const skillGroups = [
-  { label: 'Design', skills: ['UX Research', 'User Flows', 'Information Architecture', 'UI Design', 'Design Systems', 'Responsive QA'] },
+  { label: 'Design tools', skills: ['Figma', 'Adobe Illustrator', 'Adobe Photoshop', 'Adobe XD', 'Adobe After Effects', 'Adobe InDesign'] },
+  { label: 'UX & research', skills: ['UX Research', 'User Flows', 'Information Architecture', 'UI Design', 'Design Systems', 'Wireframing', 'Responsive QA'] },
   { label: 'Prototype & build', skills: ['React', 'TypeScript', 'Vite', 'CSS', 'React Router', 'GitHub'] },
-  { label: 'AI-assisted tools', skills: ['ChatGPT', 'Claude', 'Perplexity', 'Figma AI', 'Claude Design', 'Roo Code', 'Cline', 'Codex'] },
-  { label: 'Process', skills: ['GitHub PRs', 'Storybook', 'Maze', 'Manual UX review', 'Vercel'] },
+  { label: 'AI-assisted tools', skills: ['Claude', 'ChatGPT', 'Perplexity', 'Figma AI', 'Roo Code', 'Cline', 'Codex'] },
+  { label: 'Collaboration & process', skills: ['Notion', 'Miro', 'FigJam', 'Jira', 'Maze', 'Storybook', 'Zeplin', 'Vercel'] },
 ];
 
 export default function AboutSection() {
@@ -29,16 +30,16 @@ export default function AboutSection() {
             <div className="about__profile-divider" />
             <div className="about__profile-details">
               <div className="about__profile-detail">
-                <span className="about__profile-detail-icon">📍</span>
+                <span className="about__profile-detail-label">Based</span>
                 <span className="about__profile-detail-text">{profile.location}</span>
               </div>
               <div className="about__profile-detail">
-                <span className="about__profile-detail-icon">💼</span>
+                <span className="about__profile-detail-label">Workflow</span>
                 <span className="about__profile-detail-text">{profile.workflow}</span>
               </div>
               <div className="about__profile-detail">
-                <span className="about__profile-detail-icon">✉️</span>
-                <a href={`mailto:${profile.email}`} className="about__profile-detail-text" style={{ color: 'var(--color-accent)' }}>{profile.email}</a>
+                <span className="about__profile-detail-label">Email</span>
+                <a href={`mailto:${profile.email}`} className="about__profile-detail-text about__profile-detail-link">{profile.email}</a>
               </div>
             </div>
           </div>

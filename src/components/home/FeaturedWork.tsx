@@ -5,7 +5,7 @@ import { projects } from '../../data/projects';
 
 export default function FeaturedWork() {
   const featured = projects.find(p => p.featured);
-  const secondary = projects.filter(p => !p.featured && (p.status === 'complete' || p.status === 'process-showcase'));
+  const secondary = projects.filter(p => !p.featured && (p.status === 'complete' || p.status === 'process-showcase' || p.status === 'creative-showcase'));
   const comingSoon = projects.filter(p => p.status === 'coming-soon');
 
   return (
@@ -78,7 +78,7 @@ export default function FeaturedWork() {
                 </div>
                 <div className="project-card__body">
                   <div className="project-card__meta">
-                    <span className="project-card__sprint-label">{p.status === 'process-showcase' ? 'Process showcase' : 'Case study'}</span>
+                    <span className="project-card__sprint-label">{p.status === 'process-showcase' ? 'Process showcase' : p.status === 'creative-showcase' ? 'Creative showcase' : 'Case study'}</span>
                     <span className="project-card__year">{p.sprint ?? p.category} · {p.year}</span>
                   </div>
                   <h3 className="project-card__title">{p.title}</h3>

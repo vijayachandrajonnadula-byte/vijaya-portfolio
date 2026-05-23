@@ -16,8 +16,8 @@ ul,ol{list-style:none}
 .header{position:fixed;top:0;left:0;right:0;z-index:var(--z-header);background:rgba(255,255,255,0.95);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid transparent;transition:border-color var(--transition-base),box-shadow var(--transition-base)}
 .header--scrolled{border-bottom-color:var(--color-border);box-shadow:var(--shadow-xs)}
 .header__inner{display:flex;align-items:center;justify-content:space-between;height:64px;gap:var(--space-6)}
-.header__logo{display:flex;align-items:center;gap:var(--space-3);flex-shrink:0;text-decoration:none}
-.header__logo-name{font-size:var(--text-sm);font-weight:var(--font-semibold);color:var(--color-text-primary);white-space:nowrap}
+.header__logo{display:flex;align-items:center;gap:var(--space-2);flex-shrink:0;text-decoration:none}
+.header__logo-name{font-size:var(--text-base);font-weight:var(--font-semibold);color:var(--color-text-primary);white-space:nowrap;letter-spacing:-0.01em}
 .header__nav{display:flex;align-items:center;gap:var(--space-1);flex:1;justify-content:flex-end}
 .header__nav-link{font-size:var(--text-sm);font-weight:var(--font-medium);color:var(--color-text-secondary);padding:var(--space-2) var(--space-3);border-radius:var(--radius-md);transition:color var(--transition-fast),background var(--transition-fast);white-space:nowrap}
 .header__nav-link:hover{color:var(--color-text-primary);background:var(--color-bg-subtle)}
@@ -96,11 +96,12 @@ ul,ol{list-style:none}
 .hero__card-footer{padding:var(--space-3) var(--space-5);border-top:1px solid var(--color-border);background:var(--color-bg-subtle);display:flex;align-items:center;justify-content:center;gap:var(--space-3);flex-wrap:wrap}
 .hero__card-footer-item{font-size:var(--text-xs);font-weight:var(--font-medium);color:var(--color-text-secondary)}
 .hero__card-footer-sep{color:var(--color-border-strong);font-size:var(--text-xs)}
+.hero__card-cta{display:block;text-align:center;padding:var(--space-3) var(--space-5);font-size:var(--text-xs);font-weight:var(--font-semibold);color:var(--color-accent);text-decoration:none;border-top:1px solid var(--color-border);transition:background var(--transition-fast),color var(--transition-fast)}
+.hero__card-cta:hover{background:var(--color-accent-subtle);color:var(--color-accent-hover)}
 /* credibility */
 .credibility{padding:var(--space-8) 0;border-top:1px solid var(--color-border);border-bottom:1px solid var(--color-border)}
 .credibility__grid{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--space-6)}
 .credibility__card{display:flex;flex-direction:column;gap:var(--space-2);padding:var(--space-5);border-radius:var(--radius-xl);border:1px solid var(--color-border);background:white}
-.credibility__card-icon{font-size:var(--text-xl);line-height:1;margin-bottom:var(--space-1)}
 .credibility__card-label{font-size:var(--text-xs);font-weight:var(--font-semibold);letter-spacing:var(--tracking-wider);text-transform:uppercase;color:var(--color-text-muted)}
 .credibility__card-value{font-size:var(--text-sm);font-weight:var(--font-semibold);color:var(--color-text-primary);line-height:var(--leading-snug)}
 /* featured work / project cards */
@@ -144,12 +145,13 @@ ul,ol{list-style:none}
 .process-card__desc{font-size:var(--text-xs);color:var(--color-text-secondary);line-height:var(--leading-relaxed);flex:1}
 .process-card__tools{display:flex;flex-wrap:wrap;gap:var(--space-1)}
 .process-card__tool-tag{font-size:10px;font-weight:var(--font-medium);color:var(--color-text-muted);background:var(--color-bg-subtle);border:1px solid var(--color-border);padding:2px var(--space-2);border-radius:var(--radius-full)}
+.process__cta{display:flex;flex-direction:column;align-items:center;gap:var(--space-4);margin-top:var(--space-12);padding-top:var(--space-10);border-top:1px solid var(--color-border);text-align:center}
+.process__cta-text{font-size:var(--text-sm);color:var(--color-text-secondary);max-width:36ch}
 /* ai workflow dark */
 .ai-workflow{background:var(--color-bg-dark);padding:var(--space-20) 0}
 .ai-workflow__bento{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-4);margin-top:var(--space-12)}
 .ai-workflow-card{background:var(--color-bg-dark-card);border:1px solid var(--color-dark-border);border-radius:var(--radius-xl);padding:var(--space-6);display:flex;flex-direction:column;gap:var(--space-4);transition:background var(--transition-base),border-color var(--transition-base)}
 .ai-workflow-card:hover{background:var(--color-bg-dark-card-hover);border-color:rgba(255,255,255,0.14)}
-.ai-workflow-card__icon{font-size:var(--text-2xl);line-height:1}
 .ai-workflow-card__stage{font-size:var(--text-xs);font-weight:var(--font-semibold);letter-spacing:var(--tracking-widest);text-transform:uppercase;color:var(--color-dark-text-secondary)}
 .ai-workflow-card__title{font-size:var(--text-base);font-weight:var(--font-bold);color:var(--color-dark-text);line-height:var(--leading-snug)}
 .ai-workflow-card__row{display:flex;flex-direction:column;gap:var(--space-2)}
@@ -162,7 +164,7 @@ ul,ol{list-style:none}
 .validation__grid{display:grid;grid-template-columns:repeat(5,1fr);gap:var(--space-5)}
 .validation-card{background:white;border:1px solid var(--color-border);border-radius:var(--radius-xl);padding:var(--space-6);display:flex;flex-direction:column;gap:var(--space-3);transition:box-shadow var(--transition-base)}
 .validation-card:hover{box-shadow:var(--shadow-md)}
-.validation-card__icon{font-size:var(--text-2xl);line-height:1}
+.validation-card__num{font-size:var(--text-xs);font-weight:var(--font-bold);color:var(--color-text-muted);letter-spacing:0.05em;margin-bottom:var(--space-2)}
 .validation-card__title{font-size:var(--text-sm);font-weight:var(--font-bold);color:var(--color-text-primary)}
 .validation-card__desc{font-size:var(--text-xs);color:var(--color-text-secondary);line-height:var(--leading-relaxed);flex:1}
 /* about */
@@ -176,7 +178,8 @@ ul,ol{list-style:none}
 .about__profile-divider{width:100%;height:1px;background:var(--color-border)}
 .about__profile-details{display:flex;flex-direction:column;gap:var(--space-3);width:100%}
 .about__profile-detail{display:flex;align-items:flex-start;gap:var(--space-3);text-align:left}
-.about__profile-detail-icon{font-size:var(--text-sm);width:20px;flex-shrink:0;margin-top:2px}
+.about__profile-detail-label{font-size:var(--text-xs);font-weight:var(--font-semibold);color:var(--color-text-muted);text-transform:uppercase;letter-spacing:0.06em;min-width:56px;flex-shrink:0}
+.about__profile-detail-link{color:var(--color-accent)}
 .about__profile-detail-text{font-size:var(--text-sm);color:var(--color-text-secondary)}
 .about__profile-note{font-size:var(--text-xs);color:var(--color-text-muted);font-style:italic}
 .about__content{display:flex;flex-direction:column;gap:var(--space-8)}
@@ -726,4 +729,43 @@ ul,ol{list-style:none}
   .wf-phase-num{font-size:var(--text-2xl)}
   .cs-cta-section{padding:var(--space-6)}
   .cs-cta-section__actions{flex-direction:column}
+}
+/* illustration showcase */
+/* hero collage — contain so full artwork shows, no crop */
+.illus-collage-section{background:var(--color-bg-subtle);border-bottom:1px solid var(--color-border);padding:var(--space-8) 0}
+.illus-collage{display:grid;grid-template-columns:repeat(6,1fr);gap:var(--space-3)}
+.illus-collage__item{border-radius:var(--radius-xl);overflow:hidden;aspect-ratio:1/1;background:white;border:1px solid var(--color-border);display:flex;align-items:center;justify-content:center}
+.illus-collage__img{width:100%;height:100%;object-fit:contain;display:block;padding:var(--space-2)}
+/* snapshot row */
+.illus-snapshot-row{display:flex;gap:var(--space-6);flex-wrap:wrap;margin-top:var(--space-5);padding:var(--space-5);background:var(--color-bg-subtle);border:1px solid var(--color-border);border-radius:var(--radius-lg)}
+.illus-snapshot-item{display:flex;flex-direction:column;gap:var(--space-1)}
+.illus-snapshot-item__label{font-size:var(--text-xs);font-weight:var(--font-semibold);text-transform:uppercase;letter-spacing:var(--tracking-wider);color:var(--color-text-muted)}
+.illus-snapshot-item__value{font-size:var(--text-sm);color:var(--color-text-primary)}
+/* section header with tool badge */
+.illus-section-header{display:flex;align-items:center;gap:var(--space-3);margin-bottom:var(--space-5);flex-wrap:wrap}
+.illus-tool-badge{display:inline-flex;align-items:center;font-size:var(--text-xs);font-weight:var(--font-semibold);letter-spacing:var(--tracking-wider);text-transform:uppercase;color:var(--color-accent);background:var(--color-accent-light);border-radius:var(--radius-full);padding:var(--space-1) var(--space-3)}
+/* company portrait grid — 6-col tight, contain not crop */
+.illus-portrait-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:var(--space-3);margin-top:var(--space-5)}
+.illus-portrait-card{aspect-ratio:1/1;border-radius:var(--radius-xl);overflow:hidden;background:white;border:1px solid var(--color-border);display:flex;align-items:center;justify-content:center}
+.illus-portrait-img{width:100%;height:100%;object-fit:contain;display:block;padding:var(--space-1)}
+/* artwork grid — illustrator & wpap, 2-col, contain */
+.illus-artwork-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--space-4);margin-top:var(--space-5)}
+.illus-artwork-card{border-radius:var(--radius-xl);overflow:hidden;background:white;border:1px solid var(--color-border);display:flex;align-items:center;justify-content:center;min-height:280px}
+.illus-artwork-img{width:100%;height:100%;object-fit:contain;display:block;max-height:400px}
+/* tool pills row */
+.illus-tool-pills-row{display:flex;flex-wrap:wrap;gap:var(--space-2);margin-top:var(--space-5);margin-bottom:var(--space-8)}
+/* illustration responsive */
+@media (max-width:1024px){
+  .illus-collage{grid-template-columns:repeat(4,1fr)}
+  .illus-portrait-grid{grid-template-columns:repeat(5,1fr)}
+}
+@media (max-width:768px){
+  .illus-collage{grid-template-columns:repeat(3,1fr)}
+  .illus-portrait-grid{grid-template-columns:repeat(4,1fr);gap:var(--space-2)}
+  .illus-artwork-grid{grid-template-columns:1fr}
+}
+@media (max-width:480px){
+  .illus-collage{grid-template-columns:repeat(3,1fr);gap:var(--space-2)}
+  .illus-portrait-grid{grid-template-columns:repeat(3,1fr);gap:var(--space-2)}
+  .illus-snapshot-row{flex-direction:column;gap:var(--space-3)}
 }

@@ -2,7 +2,6 @@ import SectionHeading from '../ui/SectionHeading';
 
 const cards = [
   {
-    icon: '📋',
     stage: '01 — Brief',
     title: 'Product brief',
     task: 'Define scope, constraints, and user goals',
@@ -10,7 +9,6 @@ const cards = [
     output: 'Scoped product brief',
   },
   {
-    icon: '🗺️',
     stage: '02 — Flow',
     title: 'Flow and IA',
     task: 'Map the user journey and information architecture',
@@ -18,7 +16,6 @@ const cards = [
     output: 'User flow + IA diagram',
   },
   {
-    icon: '🎨',
     stage: '03 — Design',
     title: 'Interface system',
     task: 'Design reusable UI patterns and component library',
@@ -26,7 +23,6 @@ const cards = [
     output: 'Component library + design system',
   },
   {
-    icon: '⚙️',
     stage: '04 — Build',
     title: 'Working prototype',
     task: 'Scope and implement React prototype',
@@ -34,7 +30,6 @@ const cards = [
     output: 'Working React prototype',
   },
   {
-    icon: '🔍',
     stage: '05 — Review',
     title: 'Review and QA',
     task: 'UX critique, mobile testing, iteration',
@@ -42,7 +37,6 @@ const cards = [
     output: 'Refined, responsive UI',
   },
   {
-    icon: '🚀',
     stage: '06 — Handoff',
     title: 'Handoff notes',
     task: 'Prepare for implementation review',
@@ -64,7 +58,6 @@ export default function AiWorkflowSection() {
         <div className="ai-workflow__bento">
           {cards.map(c => (
             <div key={c.stage} className="ai-workflow-card">
-              <span className="ai-workflow-card__icon">{c.icon}</span>
               <span className="ai-workflow-card__stage">{c.stage}</span>
               <div className="ai-workflow-card__title">{c.title}</div>
               <div className="ai-workflow-card__row">

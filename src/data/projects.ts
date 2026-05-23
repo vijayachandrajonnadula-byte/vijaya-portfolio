@@ -4,7 +4,7 @@ export interface Project {
   subtitle: string;
   description: string;
   tags: string[];
-  status: 'complete' | 'coming-soon' | 'in-progress' | 'process-showcase';
+  status: 'complete' | 'coming-soon' | 'in-progress' | 'process-showcase' | 'creative-showcase';
   featured: boolean;
   href: string;
   prototypeUrl?: string;
@@ -61,6 +61,20 @@ export const projects: Project[] = [
     category: 'Process / Workflow',
     year: '2026',
     sprint: 'Process showcase',
+  },
+  {
+    id: 'illustration-systems',
+    title: 'Illustration Systems & Vector Portraits',
+    subtitle: 'Creative showcase · Vector illustration',
+    description: 'A creative showcase of hand-crafted vector portraits and illustration systems made using Figma, Adobe Illustrator, and pen-tool workflows — used for team identity, profile avatars, birthday gifts, T-shirts, and brand culture.',
+    tags: ['Vector Illustration', 'Figma', 'Adobe Illustrator', 'WPAP', 'Portrait Systems', 'Brand Personality', 'Team Culture', 'Pen Tool Craft'],
+    status: 'creative-showcase',
+    featured: false,
+    href: '/projects/illustration-systems',
+    image: '/images/projects/illustration/cover.png',
+    category: 'Creative / Illustration',
+    year: '2024',
+    sprint: 'Creative showcase',
   },
   {
     id: 'northbeam',

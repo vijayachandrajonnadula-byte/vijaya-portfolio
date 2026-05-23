@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import VJLogo from '../ui/VJLogo';
-import Button from '../ui/Button';
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
@@ -19,16 +18,20 @@ export default function Header() {
   const navLinks = [
     { label: 'Work', href: '/#work' },
     { label: 'Process', href: '/#process' },
-    { label: 'About', href: '/about' },
+    { label: 'About', href: '/#about' },
     { label: 'Contact', href: '/#contact' },
   ];
+
+  const handleLogoClick = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   return (
     <header className={`header${scrolled ? ' header--scrolled' : ''}`}>
       <div className="container">
         <div className="header__inner">
-          <Link to="/" className="header__logo">
-            <VJLogo size={32} />
+          <Link to="/" className="header__logo" onClick={handleLogoClick}>
+            <VJLogo size={26} />
             <span className="header__logo-name">Vijay</span>
           </Link>
           <nav className="header__nav" aria-label="Main navigation">
@@ -36,9 +39,6 @@ export default function Header() {
               <a key={l.label} href={l.href} className="header__nav-link">{l.label}</a>
             ))}
           </nav>
-          <div className="header__cta">
-            <Button href="/#work" size="sm">View Projects</Button>
-          </div>
           <button
             className="header__menu-btn"
             aria-label={menuOpen ? 'Close menu' : 'Open menu'}
@@ -53,9 +53,6 @@ export default function Header() {
         {navLinks.map(l => (
           <a key={l.label} href={l.href} className="header__mobile-nav-link">{l.label}</a>
         ))}
-        <div style={{ paddingTop: 'var(--space-2)', paddingBottom: 'var(--space-4)' }}>
-          <Button href="/#work" size="md">View Projects</Button>
-        </div>
       </nav>
     </header>
   );
