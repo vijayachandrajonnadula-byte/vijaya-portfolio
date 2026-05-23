@@ -735,7 +735,7 @@ export default function AfsCaseStudyPage() {
             {/* 12. UI SCREEN WALKTHROUGH */}
             <section className="cs-section" id="screens">
               <h2 className="cs-section__title">UI screen walkthrough</h2>
-              <p className="cs-section__body">All 12 screens below are real Figma exports from the AFS project. They walk through the complete workflow end-to-end: unconfigured landing state, Quickstart onboarding, data source selection, CRM condition configuration with live preview, inline condition editing, naming, model training with status feedback, email notification, results dashboard, and active configuration management. Screen 04 (Configure CRM) includes numbered annotations identifying the key components and UX patterns.</p>
+              <p className="cs-section__body">All 12 screens below are real Figma exports from the AFS project. They walk through the complete workflow end-to-end: unconfigured landing state, Quickstart onboarding, data source selection, CRM condition configuration with live preview, inline condition editing, naming, model training with status feedback, email notification, results dashboard, and active configuration management.</p>
               <div className="afs-confidentiality-note" style={{marginBottom:'var(--space-6)'}}>
                 <div className="afs-confidentiality-note__icon">
                   <svg width="18" height="18" viewBox="0 0 20 20" fill="none">
@@ -776,43 +776,6 @@ export default function AfsCaseStudyPage() {
                           className="afs-screen-frame__img"
                           onError={e => { (e.target as HTMLImageElement).style.display = 'none'; }}
                         />
-                      </div>
-                    </div>
-                  )}
-
-                  {/* Annotated screenshot — configure screen only */}
-                  {screen.src && screen.annotated && (
-                    <div style={{ marginTop: 'var(--space-8)' }}>
-                      <h3 className="cs-section__subtitle">Annotated: key UI elements identified</h3>
-                      <p className="cs-section__body" style={{ fontSize: 'var(--text-sm)', color: 'var(--color-text-muted)', fontStyle: 'italic' }}>
-                        Numbered callouts identify the key components and patterns visible in the configure screen.
-                      </p>
-                      <div className="afs-annotated">
-                        <img
-                          src={screen.src}
-                          alt="Configure AFS screen with numbered callout annotations"
-                        />
-                        {cs.annotationCallouts.map(c => (
-                          <div
-                            key={c.id}
-                            className="afs-annotated__dot"
-                            style={{ left: c.left, top: c.top }}
-                            title={c.label}
-                          >
-                            {c.id}
-                          </div>
-                        ))}
-                      </div>
-                      <div className="afs-annotation-legend">
-                        {cs.annotationCallouts.map(c => (
-                          <div key={c.id} className="afs-annotation-legend__item">
-                            <div className="afs-annotation-legend__num">{c.id}</div>
-                            <div>
-                              <span className="afs-annotation-legend__label">{c.label}</span>
-                              <span className="afs-annotation-legend__desc">{c.desc}</span>
-                            </div>
-                          </div>
-                        ))}
                       </div>
                     </div>
                   )}

@@ -357,7 +357,6 @@ export const afsCaseStudy = {
       ],
       uxNote: 'The screen balances density with guidance. Default conditions reduce the blank-state problem. The info banner explains editability without overwhelming. The condition counter (1/10) makes the constraint boundary visible before users hit it. Positioning the action buttons top-right means they are reachable without scrolling in a desktop admin context.',
       src: '/images/projects/afs/screens/afs-04-configure.png',
-      annotated: true,
     },
     {
       num: '05',
