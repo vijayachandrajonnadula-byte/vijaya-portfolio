@@ -118,8 +118,8 @@ ul,ol{list-style:none}
 .project-card__browser-dot:nth-child(3){background:#28C840}
 .project-card__browser-url{flex:1;height:20px;background:white;border-radius:var(--radius-md);margin-left:var(--space-3);display:flex;align-items:center;padding:0 var(--space-3);font-size:11px;color:var(--color-text-muted)}
 .project-card__img{position:absolute;top:36px;left:0;right:0;bottom:0;width:100%;height:calc(100% - 36px);object-fit:cover;object-position:top left;display:block}
-/* dual composite card — two screens side by side */
-.project-card__img-dual{position:absolute;top:36px;left:0;right:0;bottom:0;display:grid;grid-template-columns:1fr 1fr;overflow:hidden}
+/* dual composite card — 70/30 split */
+.project-card__img-dual{position:absolute;top:36px;left:0;right:0;bottom:0;display:grid;grid-template-columns:65fr 35fr;overflow:hidden}
 .project-card__img-dual .project-card__img{position:relative;top:auto;left:auto;right:auto;bottom:auto;width:100%;height:100%;object-fit:cover;object-position:top left;display:block}
 .project-card__img-dual .project-card__img+.project-card__img{border-left:1px solid var(--color-border)}
 .project-card__img-placeholder{position:absolute;inset:36px 0 0 0;background:linear-gradient(135deg,var(--color-accent-light) 0%,var(--color-bg-subtle) 100%);display:flex;align-items:center;justify-content:center;color:var(--color-accent);font-size:var(--text-sm);font-weight:var(--font-medium)}
@@ -215,9 +215,9 @@ ul,ol{list-style:none}
 .cs-hero__browser-url{flex:1;height:22px;background:white;border-radius:var(--radius-md);margin-left:var(--space-4);display:flex;align-items:center;padding:0 var(--space-4);font-size:12px;color:var(--color-text-muted)}
 .cs-hero__browser-body{background:var(--color-bg-subtle);overflow:hidden}
 .cs-hero__browser-img{width:100%;height:auto;display:block}
-/* dual composite hero — two screens side by side */
-.cs-hero__browser-body--dual{display:flex;align-items:flex-start;overflow:hidden}
-.cs-hero__browser-body--dual .cs-hero__browser-img{width:50%;height:auto;display:block;flex-shrink:0}
+/* dual composite hero — 70/30 split, consistent height via aspect-ratio */
+.cs-hero__browser-body--dual{display:grid;grid-template-columns:65fr 35fr;aspect-ratio:16/7;overflow:hidden}
+.cs-hero__browser-body--dual .cs-hero__browser-img{width:100%;height:100%;object-fit:cover;object-position:top left;display:block}
 .cs-hero__browser-body--dual .cs-hero__browser-img+.cs-hero__browser-img{border-left:1px solid var(--color-border)}
 /* case study page */
 .case-study-page{padding-top:64px}

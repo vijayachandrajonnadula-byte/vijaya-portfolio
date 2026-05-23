@@ -86,10 +86,10 @@ export const projects: Project[] = [
     status: 'complete',
     featured: false,
     href: '/projects/zoominfo-schedule',
-    image: '/images/projects/schedule/screens/schedule-03-availability-split.png',
+    image: '/images/projects/schedule/screens/schedule-07-create-filled.png',
     coverImages: [
-      '/images/projects/schedule/screens/schedule-03-availability-split.png',
       '/images/projects/schedule/screens/schedule-07-create-filled.png',
+      '/images/projects/schedule/screens/schedule-03-availability-split.png',
     ],
     category: 'Enterprise / B2B',
     year: '2023',
