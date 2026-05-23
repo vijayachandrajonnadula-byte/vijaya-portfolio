@@ -588,139 +588,166 @@ export default function AfsCaseStudyPage() {
 
             {/* 11. DESIGN SYSTEM */}
             <section className="cs-section" id="design-system">
-              <h2 className="cs-section__title">Design system extraction</h2>
+              <h2 className="cs-section__title">Design system</h2>
               <p className="cs-section__body">{cs.designSystemDescription}</p>
 
-              <h3 className="cs-section__subtitle">Colour palette (extracted from screenshot)</h3>
-              <p className="cs-section__body" style={{ fontSize: 'var(--text-sm)', color: 'var(--color-text-muted)', fontStyle: 'italic' }}>
-                Hex values extracted from the Figma screenshot. These reflect the ZoomInfo Admin Portal colour system as visible in the configure screen.
-              </p>
-              <div className="afs-color-grid">
-                {cs.designSystemColors.map(color => (
-                  <div key={color.name} className="afs-color-swatch">
-                    <div className={`afs-color-swatch__block afs-color-swatch__block--${color.name.toLowerCase().replace(/\s/g,'-')}`} />
-                    <div className="afs-color-swatch__name">{color.name}</div>
-                    <div style={{fontFamily:'monospace',fontSize:'10px',color:'var(--color-text-muted)',marginBottom:'2px'}}>{color.hex}</div>
-                    <div className="afs-color-swatch__usage">{color.usage}</div>
+              <div className="afs-ds-grid">
+
+                {/* Tile 1: Colour palette */}
+                <div className="afs-ds-tile">
+                  <div className="afs-ds-tile__body">
+                    <div className="afs-ds-palette" style={{width:'100%'}}>
+                      {[
+                        { hex: '#1B7AFF', label: '#1B7AFF' },
+                        { hex: '#FFFFFF', label: '#FFFFFF' },
+                        { hex: '#F7F9FC', label: '#F7F9FC' },
+                        { hex: '#E2E8F0', label: '#E2E8F0' },
+                        { hex: '#0F172A', label: '#0F172A' },
+                        { hex: '#64748B', label: '#64748B' },
+                      ].map(c => (
+                        <div key={c.hex} style={{display:'flex',flexDirection:'column',alignItems:'center'}}>
+                          <div className="afs-ds-swatch" style={{background:c.hex}} />
+                          <div className="afs-ds-swatch-hex">{c.label}</div>
+                        </div>
+                      ))}
+                    </div>
                   </div>
-                ))}
-              </div>
+                  <div className="afs-ds-tile__label">Colour palette — 6 tokens</div>
+                </div>
 
-              <h3 className="cs-section__subtitle" style={{ marginTop: 'var(--space-10)' }}>Component visual reference</h3>
-              <p className="cs-section__body" style={{ fontSize: 'var(--text-sm)', color: 'var(--color-text-muted)', fontStyle: 'italic' }}>
-                Visual renders of the six core interaction patterns extracted from the configure screen. These are CSS reconstructions based on the design language visible in the real screenshot.
-              </p>
-              <div className="afs-comp-demos-grid">
+                {/* Tile 2: Typography */}
+                <div className="afs-ds-tile">
+                  <div className="afs-ds-tile__body" style={{alignItems:'flex-start',padding:'var(--space-4) var(--space-5)'}}>
+                    <div className="afs-ds-type-stack">
+                      <div className="afs-ds-type-h">Configure Account Fit Score</div>
+                      <div className="afs-ds-type-sub">Account Fit Score (AFS) / Configure</div>
+                      <div className="afs-ds-type-body">Account Fit Score predicts how well an account matches your ideal customer profile using CRM deal data.</div>
+                      <div className="afs-ds-type-chip">Account Type</div>
+                    </div>
+                  </div>
+                  <div className="afs-ds-tile__label">Typography — heading, breadcrumb, body, chip</div>
+                </div>
 
-                <div className="afs-comp-demo">
-                  <div className="afs-comp-demo__preview">
+                {/* Tile 3: Sidebar navigation */}
+                <div className="afs-ds-tile">
+                  <div className="afs-ds-tile__body">
+                    <div className="afs-ds-nav">
+                      <div className="afs-ds-nav-row">Overview</div>
+                      <div className="afs-ds-nav-row afs-ds-nav-row--group">Go-to-Market</div>
+                      <div className="afs-ds-nav-row afs-ds-nav-row--sub">Set Up</div>
+                      <div className="afs-ds-nav-row afs-ds-nav-row--deepsub afs-ds-nav-row--active">Account Fit Score (AFS)</div>
+                      <div className="afs-ds-nav-row afs-ds-nav-row--deepsub">Buying Committees</div>
+                      <div className="afs-ds-nav-row afs-ds-nav-row--deepsub">WebSights</div>
+                      <div className="afs-ds-nav-row afs-ds-nav-row--sub">General</div>
+                      <div className="afs-ds-nav-row afs-ds-nav-row--deepsub">Integrations</div>
+                    </div>
+                  </div>
+                  <div className="afs-ds-tile__label">Left sidebar — collapsible sections, active state</div>
+                </div>
+
+                {/* Tile 4: Condition row */}
+                <div className="afs-ds-tile">
+                  <div className="afs-ds-tile__body" style={{gap:'var(--space-2)'}}>
                     <div className="cd-condition-row">
                       <span className="cd-chip cd-chip--field">Account Type</span>
                       <span className="cd-chip cd-chip--op">Is</span>
                       <span className="cd-chip cd-chip--value">Customer</span>
                       <span className="cd-menu">···</span>
                     </div>
+                    <div className="cd-condition-row" style={{opacity:0.5}}>
+                      <span className="cd-chip cd-chip--field">Company Size</span>
+                      <span className="cd-chip cd-chip--op">greater than</span>
+                      <span className="cd-chip cd-chip--value">100</span>
+                      <span className="cd-menu">···</span>
+                    </div>
+                    <div style={{fontSize:'9px',color:'#1B7AFF',marginTop:'2px'}}>+ Add Condition &nbsp;<span style={{background:'#EFF6FF',padding:'1px 6px',borderRadius:'10px',border:'1px solid rgba(27,122,255,0.15)',fontSize:'8px'}}>1/10</span></div>
                   </div>
-                  <div className="afs-comp-demo__info">
-                    <div className="afs-comp-demo__name">Condition row</div>
-                    <div className="afs-comp-demo__desc">Three-part [Field][Operator][Value] pattern using colour-coded chips. Contextual menu for edit and delete.</div>
-                  </div>
+                  <div className="afs-ds-tile__label">Condition builder — [Field][Operator][Value] rows</div>
                 </div>
 
-                <div className="afs-comp-demo">
-                  <div className="afs-comp-demo__preview">
-                    <div className="cd-banner">
+                {/* Tile 5: Info banner */}
+                <div className="afs-ds-tile">
+                  <div className="afs-ds-tile__body">
+                    <div className="cd-banner" style={{width:'100%'}}>
                       <span className="cd-banner__icon">ℹ</span>
                       <span className="cd-banner__text">This is a default condition. You can edit or add more conditions as required.</span>
                       <span className="cd-banner__close">✕</span>
                     </div>
                   </div>
-                  <div className="afs-comp-demo__info">
-                    <div className="afs-comp-demo__name">Info banner</div>
-                    <div className="afs-comp-demo__desc">Blue inline guidance panel with dismiss. Used for default-state explanations and onboarding nudges.</div>
-                  </div>
+                  <div className="afs-ds-tile__label">Info banner — inline guidance, dismissible</div>
                 </div>
 
-                <div className="afs-comp-demo">
-                  <div className="afs-comp-demo__preview">
-                    <div className="cd-toggle-row">
+                {/* Tile 6: Toggle + radio group */}
+                <div className="afs-ds-tile">
+                  <div className="afs-ds-tile__body" style={{gap:'var(--space-4)'}}>
+                    <div className="cd-radio-group">
+                      <div className="cd-radio cd-radio--selected"><div className="cd-radio__dot" />Account Object</div>
+                      <div className="cd-radio"><div className="cd-radio__dot" />Opportunity Object</div>
+                    </div>
+                    <div className="cd-toggle-row" style={{width:'100%',maxWidth:'220px'}}>
                       <span className="cd-toggle-label">Auto-update AFS model</span>
                       <div className="cd-toggle"><div className="cd-toggle__knob" /></div>
                       <span className="cd-info-icon">ⓘ</span>
                     </div>
                   </div>
-                  <div className="afs-comp-demo__info">
-                    <div className="afs-comp-demo__name">Toggle with info</div>
-                    <div className="afs-comp-demo__desc">On/off toggle with visible label and info icon tooltip. Shown in "on" state. Lets users choose model update behaviour.</div>
-                  </div>
+                  <div className="afs-ds-tile__label">Radio group + toggle — selection and control</div>
                 </div>
 
-                <div className="afs-comp-demo">
-                  <div className="afs-comp-demo__preview">
-                    <div className="cd-radio-group">
-                      <div className="cd-radio cd-radio--selected">
-                        <div className="cd-radio__dot" />
-                        Account Object
-                      </div>
-                      <div className="cd-radio">
-                        <div className="cd-radio__dot" />
-                        Opportunity Object
-                      </div>
-                    </div>
-                  </div>
-                  <div className="afs-comp-demo__info">
-                    <div className="afs-comp-demo__name">Radio group</div>
-                    <div className="afs-comp-demo__desc">Horizontal radio for mutually exclusive options. Selected state uses brand blue border and background fill.</div>
-                  </div>
-                </div>
-
-                <div className="afs-comp-demo">
-                  <div className="afs-comp-demo__preview">
+                {/* Tile 7: Action buttons */}
+                <div className="afs-ds-tile">
+                  <div className="afs-ds-tile__body">
                     <div className="cd-btn-pair">
                       <button className="cd-btn-ghost">Cancel</button>
                       <button className="cd-btn-primary">Save Configuration</button>
                     </div>
                   </div>
-                  <div className="afs-comp-demo__info">
-                    <div className="afs-comp-demo__name">Action button pair</div>
-                    <div className="afs-comp-demo__desc">Ghost Cancel and filled primary CTA. Consistent hierarchy across all configure screens. Persistent in the top-right content area.</div>
-                  </div>
+                  <div className="afs-ds-tile__label">Action buttons — ghost secondary, filled primary</div>
                 </div>
 
-                <div className="afs-comp-demo">
-                  <div className="afs-comp-demo__preview">
-                    <div className="cd-add-row">
-                      <span className="cd-add-link">+ Add Condition</span>
-                      <span className="cd-counter">1/10 conditions added</span>
+                {/* Tile 8: Breadcrumb + page header */}
+                <div className="afs-ds-tile">
+                  <div className="afs-ds-tile__body" style={{alignItems:'flex-start',padding:'var(--space-4) var(--space-5)'}}>
+                    <div style={{display:'flex',flexDirection:'column',gap:'6px',width:'100%'}}>
+                      <div style={{fontSize:'9px',color:'#94A3B8'}}>Account Fit Score (AFS) <span style={{margin:'0 4px'}}>/</span> Configure</div>
+                      <div style={{fontSize:'14px',fontWeight:700,color:'#0F172A'}}>Configure Account Fit Score (AFS)</div>
+                      <div style={{fontSize:'9px',color:'#64748B',lineHeight:'1.5'}}>Account Fit Score predicts how well an account matches your ideal customer profile...</div>
                     </div>
                   </div>
-                  <div className="afs-comp-demo__info">
-                    <div className="afs-comp-demo__name">Constrained add-item row</div>
-                    <div className="afs-comp-demo__desc">Inline add action with a progress counter. Constraint boundary shown before the user hits it, preventing surprise at the limit.</div>
-                  </div>
+                  <div className="afs-ds-tile__label">Page header — breadcrumb, title, description</div>
                 </div>
 
-              </div>
-
-              <h3 className="cs-section__subtitle" style={{ marginTop: 'var(--space-10)' }}>Component library (extracted from visible UI)</h3>
-              <div className="cs-cards-grid">
-                {cs.designSystemComponents.map(comp => (
-                  <div key={comp.name} className="cs-card">
-                    <div className="cs-card__title">{comp.name}</div>
-                    <p className="cs-card__body">{comp.description}</p>
-                    <div className="afs-comp-usage">
-                      <span className="afs-comp-usage__label">Usage</span>
-                      <span className="afs-comp-usage__text">{comp.usage}</span>
+                {/* Tile 9: Status / badge system */}
+                <div className="afs-ds-tile">
+                  <div className="afs-ds-tile__body" style={{gap:'var(--space-3)'}}>
+                    <div style={{display:'flex',gap:'var(--space-2)',flexWrap:'wrap',justifyContent:'center'}}>
+                      <span style={{fontSize:'10px',fontWeight:600,background:'#DBEAFE',color:'#1D4ED8',padding:'3px 10px',borderRadius:'10px',border:'1px solid rgba(29,78,216,0.2)'}}>Ready for Dev</span>
+                      <span style={{fontSize:'10px',fontWeight:600,background:'#DCFCE7',color:'#166534',padding:'3px 10px',borderRadius:'10px',border:'1px solid rgba(22,101,52,0.2)'}}>Scores active</span>
+                      <span style={{fontSize:'10px',fontWeight:600,background:'#FEF9C3',color:'#854D0E',padding:'3px 10px',borderRadius:'10px',border:'1px solid rgba(133,77,14,0.2)'}}>Training</span>
+                      <span style={{fontSize:'10px',fontWeight:600,background:'#FEE2E2',color:'#B91C1C',padding:'3px 10px',borderRadius:'10px',border:'1px solid rgba(185,28,28,0.2)'}}>Not connected</span>
                     </div>
                   </div>
-                ))}
+                  <div className="afs-ds-tile__label">Status badges — state system across workflow</div>
+                </div>
+
               </div>
             </section>
 
             {/* 12. UI SCREEN WALKTHROUGH */}
             <section className="cs-section" id="screens">
               <h2 className="cs-section__title">UI screen walkthrough</h2>
-              <p className="cs-section__body">Walkthrough of the major screens in the AFS workflow. Screen 01 is from a direct Figma export with annotated callouts. Screens 02–06 are reconstructed from Figma frame names with inline wireframes showing the inferred layout.</p>
+              <p className="cs-section__body">The screens below walk through the full AFS workflow from first-time setup to model retraining. Screen 01 is a real Figma export — the main configuration screen. Screens 02–06 are wireframe reconstructions inferred from the Figma canvas structure, frame names, and the Admin Portal design language visible in Screen 01.</p>
+              <div className="afs-confidentiality-note" style={{marginBottom:'var(--space-6)'}}>
+                <div className="afs-confidentiality-note__icon">
+                  <svg width="18" height="18" viewBox="0 0 20 20" fill="none">
+                    <circle cx="10" cy="10" r="9" stroke="currentColor" strokeWidth="1.5"/>
+                    <path d="M10 9v5M10 6.5v.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+                  </svg>
+                </div>
+                <div className="afs-confidentiality-note__content">
+                  <div className="afs-confidentiality-note__title">Why only one real screenshot?</div>
+                  <p className="afs-confidentiality-note__body">The Figma MCP used to access this file runs on a Starter plan with rate limits. Only two screenshots could be downloaded before the limit was reached — the configure screen (used here) and the project cover (contains team names, omitted from portfolio). All other screens are wireframe reconstructions from Figma metadata: canvas coordinates, frame names, and node IDs from a full XML parse of the file. The reconstructions reflect the actual Figma canvas structure, not guesswork.</p>
+                </div>
+              </div>
 
               {cs.screens.map(screen => (
                 <div key={screen.num} className="afs-screen-entry">
