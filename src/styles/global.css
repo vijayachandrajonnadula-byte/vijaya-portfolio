@@ -1039,3 +1039,8 @@ ul,ol{list-style:none}
   .illus-portrait-grid{grid-template-columns:repeat(3,1fr);gap:var(--space-2)}
   .illus-snapshot-row{flex-direction:column;gap:var(--space-3)}
 }
+
+/* ─── ZoomInfo Schedule — wireframe day pills ───────────────────────────── */
+.sch-wf-day-pills{display:flex;gap:3px;flex-wrap:wrap;margin-bottom:2px}
+.sch-wf-day-pill{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:7px;font-weight:600;background:white;color:#9CA3AF;border:1px solid #D1D5DB}
+.sch-wf-day-pill--active{background:#1B7AFF;color:white;border:none}
