@@ -57,6 +57,7 @@ export default function Hero() {
               <span className="hero__card-footer-sep">·</span>
               <span className="hero__card-footer-item">Tested before sharing</span>
             </div>
+            <a href="#process" className="hero__card-cta">See the full process →</a>
           </div>
         </div>
       </div>

@@ -1,4 +1,5 @@
 import SectionHeading from '../ui/SectionHeading';
+import Button from '../ui/Button';
 
 const steps = [
   { n: '01', title: 'Frame the problem', desc: 'Understand the user problem, define scope, and challenge assumptions before opening a design tool.', tools: ['ChatGPT', 'Claude', 'Perplexity'] },
@@ -27,6 +28,12 @@ export default function ProcessSection() {
               </div>
             </div>
           ))}
+        </div>
+        <div className="process__cta">
+          <p className="process__cta-text">Want to see how this actually plays out — from brief to deployed prototype?</p>
+          <Button href="/projects/ai-assisted-product-workflow" variant="secondary" size="md">
+            See the full workflow case study →
+          </Button>
         </div>
       </div>
     </section>

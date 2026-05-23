@@ -5,11 +5,14 @@ interface CaseStudyHeroProps {
   title: string;
   subtitle: string;
   tags: string[];
-  prototypeUrl: string;
-  githubUrl: string;
+  prototypeUrl?: string;
+  githubUrl?: string;
   heroImage?: string;
   heroImageAlt?: string;
   prototypeUrlLabel?: string;
+  label?: string;
+  prototypeLabel?: string;
+  githubLabel?: string;
 }
 
 export default function CaseStudyHero({
@@ -21,20 +24,25 @@ export default function CaseStudyHero({
   heroImage,
   heroImageAlt,
   prototypeUrlLabel = 'renewly-ux.vercel.app',
+  label = 'Case study',
+  prototypeLabel = 'View live prototype ↗',
+  githubLabel = 'View GitHub repository ↗',
 }: CaseStudyHeroProps) {
   return (
     <section className="cs-hero">
       <div className="container">
-        <p className="cs-hero__label">Case study</p>
+        <p className="cs-hero__label">{label}</p>
         <h1 className="cs-hero__title">{title}</h1>
         <p className="cs-hero__subtitle">{subtitle}</p>
         <div className="cs-hero__tags">
           {tags.map(t => <Tag key={t}>{t}</Tag>)}
         </div>
-        <div className="cs-hero__actions">
-          <Button href={prototypeUrl} external size="lg">View live prototype ↗</Button>
-          <Button href={githubUrl} variant="ghost" external size="lg">View GitHub repository ↗</Button>
-        </div>
+        {(prototypeUrl || githubUrl) && (
+          <div className="cs-hero__actions">
+            {prototypeUrl && <Button href={prototypeUrl} external size="lg">{prototypeLabel}</Button>}
+            {githubUrl && <Button href={githubUrl} variant="ghost" external size="lg">{githubLabel}</Button>}
+          </div>
+        )}
 
         {heroImage && (
           <div className="cs-hero__preview">
