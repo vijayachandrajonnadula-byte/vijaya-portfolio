@@ -36,7 +36,7 @@ export default function Header() {
           </Link>
           <nav className="header__nav" aria-label="Main navigation">
             {navLinks.map(l => (
-              <a key={l.label} href={l.href} className="header__nav-link">{l.label}</a>
+              <Link key={l.label} to={l.href} className="header__nav-link">{l.label}</Link>
             ))}
           </nav>
           <button
@@ -51,7 +51,7 @@ export default function Header() {
       </div>
       <nav className={`header__mobile-nav${menuOpen ? ' header__mobile-nav--open' : ''}`} aria-label="Mobile navigation">
         {navLinks.map(l => (
-          <a key={l.label} href={l.href} className="header__mobile-nav-link">{l.label}</a>
+          <Link key={l.label} to={l.href} className="header__mobile-nav-link">{l.label}</Link>
         ))}
       </nav>
     </header>

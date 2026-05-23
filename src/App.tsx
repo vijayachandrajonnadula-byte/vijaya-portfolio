@@ -1,4 +1,5 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
+import { useEffect } from 'react';
 import HomePage from './pages/HomePage';
 import CaseStudyPage from './pages/CaseStudyPage';
 import RenewlyCaseStudyPage from './pages/RenewlyCaseStudyPage';
@@ -7,9 +8,32 @@ import IllustrationCaseStudyPage from './pages/IllustrationCaseStudyPage';
 import AfsCaseStudyPage from './pages/AfsCaseStudyPage';
 import NotFoundPage from './pages/NotFoundPage';
 
+// Scrolls to the hash section whenever the URL hash or pathname changes.
+// Retries once after 80ms to handle cross-page nav where the target
+// section isn't in the DOM until React has finished rendering the new page.
+function ScrollToHash() {
+  const { hash, pathname } = useLocation();
+  useEffect(() => {
+    if (!hash) return;
+    const id = hash.slice(1);
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
+      return;
+    }
+    // Target not in DOM yet — wait one render cycle then retry
+    const t = setTimeout(() => {
+      document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+    }, 80);
+    return () => clearTimeout(t);
+  }, [hash, pathname]);
+  return null;
+}
+
 export default function App() {
   return (
     <BrowserRouter>
+      <ScrollToHash />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/projects/riverside-general" element={<CaseStudyPage />} />
