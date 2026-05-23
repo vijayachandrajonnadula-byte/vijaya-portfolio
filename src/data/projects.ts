@@ -10,6 +10,7 @@ export interface Project {
   prototypeUrl?: string;
   githubUrl?: string;
   image: string;
+  coverImages?: string[];
   category: string;
   year: string;
   sprint?: string;
@@ -85,7 +86,11 @@ export const projects: Project[] = [
     status: 'complete',
     featured: false,
     href: '/projects/zoominfo-schedule',
-    image: '/images/projects/schedule/screens/schedule-01-empty-state.png',
+    image: '/images/projects/schedule/screens/schedule-03-availability-split.png',
+    coverImages: [
+      '/images/projects/schedule/screens/schedule-03-availability-split.png',
+      '/images/projects/schedule/screens/schedule-07-create-filled.png',
+    ],
     category: 'Enterprise / B2B',
     year: '2023',
     sprint: 'Company project',

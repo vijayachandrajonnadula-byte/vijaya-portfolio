@@ -233,8 +233,10 @@ export default function ScheduleCaseStudyPage() {
           title={cs.title}
           subtitle={cs.subtitle}
           tags={cs.tags}
-          heroImage="/images/projects/schedule/screens/schedule-01-empty-state.png"
-          heroImageAlt="ZoomInfo Schedule — Calendar Settings landing screen"
+          heroImage="/images/projects/schedule/screens/schedule-03-availability-split.png"
+          heroImageAlt="ZoomInfo Schedule — Manage Default Availability with split shifts"
+          heroImage2="/images/projects/schedule/screens/schedule-07-create-filled.png"
+          heroImageAlt2="ZoomInfo Schedule — Create Meeting Type filled out"
           prototypeUrlLabel="ZoomInfo Marketing"
           label="Enterprise case study"
         />

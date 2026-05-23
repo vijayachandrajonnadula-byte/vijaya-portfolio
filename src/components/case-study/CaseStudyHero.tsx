@@ -9,6 +9,8 @@ interface CaseStudyHeroProps {
   githubUrl?: string;
   heroImage?: string;
   heroImageAlt?: string;
+  heroImage2?: string;
+  heroImageAlt2?: string;
   prototypeUrlLabel?: string;
   label?: string;
   prototypeLabel?: string;
@@ -23,6 +25,8 @@ export default function CaseStudyHero({
   githubUrl,
   heroImage,
   heroImageAlt,
+  heroImage2,
+  heroImageAlt2,
   prototypeUrlLabel = 'renewly-ux.vercel.app',
   label = 'Case study',
   prototypeLabel = 'View live prototype ↗',
@@ -53,13 +57,21 @@ export default function CaseStudyHero({
                 <span className="cs-hero__browser-dot" />
                 <span className="cs-hero__browser-url">{prototypeUrlLabel}</span>
               </div>
-              <div className="cs-hero__browser-body">
+              <div className={`cs-hero__browser-body${heroImage2 ? ' cs-hero__browser-body--dual' : ''}`}>
                 <img
                   src={heroImage}
                   alt={heroImageAlt ?? title}
                   className="cs-hero__browser-img"
                   onError={e => { (e.target as HTMLImageElement).style.display = 'none'; }}
                 />
+                {heroImage2 && (
+                  <img
+                    src={heroImage2}
+                    alt={heroImageAlt2 ?? title}
+                    className="cs-hero__browser-img"
+                    onError={e => { (e.target as HTMLImageElement).style.display = 'none'; }}
+                  />
+                )}
               </div>
             </div>
           </div>
