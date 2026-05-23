@@ -4,6 +4,7 @@ import CaseStudyPage from './pages/CaseStudyPage';
 import RenewlyCaseStudyPage from './pages/RenewlyCaseStudyPage';
 import WorkflowCaseStudyPage from './pages/WorkflowCaseStudyPage';
 import IllustrationCaseStudyPage from './pages/IllustrationCaseStudyPage';
+import AfsCaseStudyPage from './pages/AfsCaseStudyPage';
 import NotFoundPage from './pages/NotFoundPage';
 
 export default function App() {
@@ -15,6 +16,7 @@ export default function App() {
         <Route path="/projects/renewly" element={<RenewlyCaseStudyPage />} />
         <Route path="/projects/ai-assisted-product-workflow" element={<WorkflowCaseStudyPage />} />
         <Route path="/projects/illustration-systems" element={<IllustrationCaseStudyPage />} />
+        <Route path="/projects/afs-enterprise-workflow" element={<AfsCaseStudyPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>
