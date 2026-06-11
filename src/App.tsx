@@ -7,6 +7,8 @@ import WorkflowCaseStudyPage from './pages/WorkflowCaseStudyPage';
 import IllustrationCaseStudyPage from './pages/IllustrationCaseStudyPage';
 import AfsCaseStudyPage from './pages/AfsCaseStudyPage';
 import ScheduleCaseStudyPage from './pages/ScheduleCaseStudyPage';
+import FieldFlowCaseStudyPage from './fieldflow/pages/FieldFlowCaseStudyPage';
+import FieldFlowApp from './fieldflow/FieldFlowApp';
 import NotFoundPage from './pages/NotFoundPage';
 
 // Scrolls to the hash section whenever the URL hash or pathname changes.
@@ -43,6 +45,8 @@ export default function App() {
         <Route path="/projects/illustration-systems" element={<IllustrationCaseStudyPage />} />
         <Route path="/projects/afs-enterprise-workflow" element={<AfsCaseStudyPage />} />
         <Route path="/projects/zoominfo-schedule" element={<ScheduleCaseStudyPage />} />
+        <Route path="/projects/field-flow" element={<FieldFlowCaseStudyPage />} />
+        <Route path="/field-flow/*" element={<FieldFlowApp />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>
