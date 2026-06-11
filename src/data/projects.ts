@@ -102,7 +102,7 @@ export const projects: Project[] = [
     description: 'A native Android field-service task management concept for technicians, maintenance workers, and inspectors. Covers the full job lifecycle: receive assignments, check in, follow checklists, capture evidence, record materials, collect signatures, and submit — even without internet. Implemented as a mobile-first web prototype for browser-based usability testing.',
     tags: ['Mobile UX', 'Android Design', 'Offline-First', 'Field Service', 'Material Design 3', 'Task Management', 'React Prototype', 'PWA'],
     status: 'complete',
-    featured: true,
+    featured: false,
     href: '/projects/field-flow',
     prototypeUrl: '/field-flow',
     image: '/images/projects/field-flow/cover.png',
