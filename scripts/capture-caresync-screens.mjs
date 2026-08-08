@@ -190,7 +190,17 @@ for (const s of screens) {
   console.log(`mobile/${s.name}.png  clip=${clip}px ${clip > 4 ? '<-- CLIPPED' : 'clean'}`);
 }
 await mCtx.close();
-console.log('\nclean mobile screens:', mobileReport.filter(m => m.clip <= 4).map(m => m.name).join(', ') || '(none)');
+
+// Only the clean captures are publishable, so delete the clipped ones here.
+// Leaving them on disk means a later re-run silently re-adds unreferenced,
+// visibly broken images to the repo and the PWA precache.
+const clipped = mobileReport.filter(m => m.clip > 4);
+for (const m of clipped) {
+  const f = path.join(OUT, 'mobile', `${m.name}.png`);
+  if (fs.existsSync(f)) fs.unlinkSync(f);
+}
+console.log('\nclean mobile screens kept:', mobileReport.filter(m => m.clip <= 4).map(m => m.name).join(', ') || '(none)');
+if (clipped.length) console.log('clipped, discarded:', clipped.map(m => `${m.name} (${m.clip}px)`).join(', '));
 
 /**
  * Low-fidelity wireframes.
