@@ -2,7 +2,8 @@ import Tag from '../ui/Tag';
 import { profile } from '../../data/profile';
 
 const experience = [
-  { company: 'ZoomInfo', role: 'UX/UI Designer I', period: 'Aug 2022 – Present', note: 'Admin Portal, Schedule, ZI Chat, FormComplete, AI Enablement' },
+  { company: 'ValGenesis', role: 'Senior UX Designer', period: 'Jul 2026 – Present', note: 'Enterprise product UX, React UI, design systems, AI-assisted delivery' },
+  { company: 'ZoomInfo', role: 'UX/UI Designer I', period: 'Aug 2022 – Jun 2026', note: 'Admin Portal, Schedule, ZI Chat, FormComplete, AI Enablement' },
   { company: 'CredAvenue', role: 'Product Designer Consultant', period: 'Oct 2021 – Jul 2022', note: 'Web, desktop & mobile product design' },
   { company: 'Amigos Arts', role: 'Founder / Product Designer', period: 'Jan 2020 – Oct 2021', note: 'Product design, illustration, client delivery' },
   { company: 'Helping Hands', role: 'Design Lead', period: 'Jul 2017 – Mar 2020', note: 'Communication design, visual campaigns' },
@@ -82,8 +83,8 @@ export default function AboutSection() {
             </div>
 
             <a
-              href="/Vijaya_Chandra_Jonnadula_Resume.pdf"
-              download="Vijaya_Chandra_Jonnadula_Resume.pdf"
+              href="/Vijaya_Chandra_Jonnadula.pdf"
+              download="Vijaya_Chandra_Jonnadula.pdf"
               className="about__resume-download"
             >
               Download full resume ↓
