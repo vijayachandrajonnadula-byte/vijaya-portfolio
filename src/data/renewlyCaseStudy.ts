@@ -495,20 +495,6 @@ export const renewlyCaseStudy = {
     'Connect to a real SaaS data backend in a future version',
   ],
 
-  prWorkflowDescription:
-    'The workflow used focused branches to keep changes reviewable and traceable. Each branch targeted a specific phase (structure, screen build, responsive fixes, or design system) so the diff stayed small and the improvement was easy to understand.',
-
-  prWorkflow: [
-    { pr: 'Branch-01', label: 'Project setup: Vite, React, TypeScript, routing scaffold' },
-    { pr: 'Branch-02', label: 'Dashboard and subscription list screens' },
-    { pr: 'Branch-03', label: 'Subscription detail, approval queue, and renewal calendar' },
-    { pr: 'Branch-04', label: 'Savings opportunities, reports, and settings screens' },
-    { pr: 'Branch-05', label: 'Design system tokens, status chips, and button variants' },
-    { pr: 'Branch-06', label: 'Mobile layout: bottom nav, stacked cards, responsive breakpoints' },
-    { pr: 'Branch-07', label: 'Responsive QA pass: overflow fixes, tap targets, spacing' },
-    { pr: 'Branch-08', label: 'Vercel deployment and final portfolio preparation' },
-  ],
-
   iterations: [
     {
       num: 'Round 01',

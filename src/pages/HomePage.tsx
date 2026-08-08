@@ -9,21 +9,24 @@ import AiWorkflowSection from '../components/home/AiWorkflowSection';
 import ValidationSection from '../components/home/ValidationSection';
 import AboutSection from '../components/home/AboutSection';
 import ContactSection from '../components/home/ContactSection';
+import Reveal from '../components/motion/Reveal';
 
+// The hero animates on mount; everything below reveals as it enters view.
+// <main> is normal block flow, so an extra wrapper element is layout-safe here.
 export default function HomePage() {
   return (
     <>
       <Header />
       <main>
         <Hero />
-        <CredibilityStrip />
-        <WhyMeSection />
-        <FeaturedWork />
-        <ProcessSection />
-        <AiWorkflowSection />
-        <ValidationSection />
-        <AboutSection />
-        <ContactSection />
+        <Reveal y={14}><CredibilityStrip /></Reveal>
+        <Reveal><WhyMeSection /></Reveal>
+        <Reveal><FeaturedWork /></Reveal>
+        <Reveal><ProcessSection /></Reveal>
+        <Reveal><AiWorkflowSection /></Reveal>
+        <Reveal><ValidationSection /></Reveal>
+        <Reveal><AboutSection /></Reveal>
+        <Reveal><ContactSection /></Reveal>
       </main>
       <Footer />
     </>

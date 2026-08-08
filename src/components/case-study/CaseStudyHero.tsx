@@ -1,5 +1,7 @@
+import { motion, useReducedMotion } from 'framer-motion';
 import Button from '../ui/Button';
 import Tag from '../ui/Tag';
+import { fadeUp, staggerParent, EASE, DURATION } from '../motion/motion-presets';
 
 interface CaseStudyHeroProps {
   title: string;
@@ -32,24 +34,32 @@ export default function CaseStudyHero({
   prototypeLabel = 'View live prototype ↗',
   githubLabel = 'View GitHub repository ↗',
 }: CaseStudyHeroProps) {
+  const reduced = useReducedMotion();
+  const start = reduced ? false : 'hidden';
+
   return (
     <section className="cs-hero">
-      <div className="container">
-        <p className="cs-hero__label">{label}</p>
-        <h1 className="cs-hero__title">{title}</h1>
-        <p className="cs-hero__subtitle">{subtitle}</p>
-        <div className="cs-hero__tags">
+      <motion.div className="container" variants={staggerParent(0.08)} initial={start} animate="show">
+        <motion.p className="cs-hero__label" variants={fadeUp(10)}>{label}</motion.p>
+        <motion.h1 className="cs-hero__title" variants={fadeUp(22)}>{title}</motion.h1>
+        <motion.p className="cs-hero__subtitle" variants={fadeUp(16)}>{subtitle}</motion.p>
+        <motion.div className="cs-hero__tags" variants={fadeUp(12)}>
           {tags.map(t => <Tag key={t}>{t}</Tag>)}
-        </div>
+        </motion.div>
         {(prototypeUrl || githubUrl) && (
-          <div className="cs-hero__actions">
+          <motion.div className="cs-hero__actions" variants={fadeUp(12)}>
             {prototypeUrl && <Button href={prototypeUrl} external size="lg">{prototypeLabel}</Button>}
             {githubUrl && <Button href={githubUrl} variant="ghost" external size="lg">{githubLabel}</Button>}
-          </div>
+          </motion.div>
         )}
 
         {heroImage && (
-          <div className="cs-hero__preview">
+          <motion.div
+            className="cs-hero__preview"
+            initial={reduced ? false : { opacity: 0, y: 28 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: DURATION.slow, ease: EASE, delay: 0.24 }}
+          >
             <div className="cs-hero__browser">
               <div className="cs-hero__browser-bar">
                 <span className="cs-hero__browser-dot" />
@@ -74,9 +84,9 @@ export default function CaseStudyHero({
                 )}
               </div>
             </div>
-          </div>
+          </motion.div>
         )}
-      </div>
+      </motion.div>
     </section>
   );
 }

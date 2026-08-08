@@ -16,7 +16,6 @@ const defaultNavItems: NavItem[] = [
   { id: 'mobile-screens', label: 'Mobile screens' },
   { id: 'ai-workflow', label: 'AI-assisted workflow' },
   { id: 'technical', label: 'Technical implementation' },
-  { id: 'pr-workflow', label: 'PR workflow' },
   { id: 'testing', label: 'Testing' },
   { id: 'iterations', label: 'Iterations' },
   { id: 'responsive-qa', label: 'Responsive QA' },
