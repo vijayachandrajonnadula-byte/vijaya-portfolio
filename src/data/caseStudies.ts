@@ -207,22 +207,6 @@ export const riversideCaseStudy = {
     "Vercel deployment with SPA rewrite rule for client-side routing",
   ],
 
-  prWorkflowDescription:
-    "The workflow used focused branches and PR-style changes to avoid broad unfocused edits. Each improvement targeted a specific UX concern such as date selector layout, mobile header behaviour, stepper label clarity, or confirmation completeness. This kept the diff reviewable and the improvement traceable.",
-
-  prWorkflow: [
-    { pr: "PR-001", label: "Project setup and base structure" },
-    { pr: "PR-002", label: "Design system wrapper and tokens" },
-    { pr: "PR-003", label: "Home page and routing" },
-    { pr: "PR-004", label: "Doctor search and filters" },
-    { pr: "PR-005", label: "Doctor profile and slot selection" },
-    { pr: "PR-006", label: "Booking flow and patient form" },
-    { pr: "PR-007", label: "Confirmation and manage appointment" },
-    { pr: "PR-008", label: "UX and UI refinement" },
-    { pr: "PR-009", label: "Mobile responsive fixes" },
-    { pr: "PR-010", label: "Deployment polish" },
-  ],
-
   testingFlow: "Home → Find Doctors → Doctor Profile → Book Appointment → Confirmation → Manage Appointment",
 
   testingChecklist: [

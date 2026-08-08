@@ -11,7 +11,11 @@ export default defineConfig({
           'mui-core': ['@mui/material', '@emotion/react', '@emotion/styled'],
           'mui-icons': ['@mui/icons-material'],
           'react-core': ['react', 'react-dom', 'react-router-dom'],
-          'fieldflow-vendor': ['zustand', 'framer-motion', 'dayjs', 'recharts'],
+          // framer-motion drives animation on the portfolio itself, so it gets
+          // its own chunk. Left inside fieldflow-vendor it would drag recharts
+          // and dayjs onto the home page for no reason.
+          'motion': ['framer-motion'],
+          'fieldflow-vendor': ['zustand', 'dayjs', 'recharts'],
         },
       },
     },

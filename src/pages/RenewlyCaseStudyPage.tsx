@@ -2,7 +2,6 @@ import Header from '../components/layout/Header';
 import Footer from '../components/layout/Footer';
 import CaseStudyHero from '../components/case-study/CaseStudyHero';
 import CaseStudyNav from '../components/case-study/CaseStudyNav';
-import Timeline from '../components/case-study/Timeline';
 import IterationLog from '../components/case-study/IterationLog';
 import ResponsiveQA from '../components/case-study/ResponsiveQA';
 import Button from '../components/ui/Button';
@@ -24,7 +23,6 @@ const renewlyNavItems = [
   { id: 'mobile-screens', label: 'Mobile UI screens' },
   { id: 'ai-workflow', label: 'AI-assisted workflow' },
   { id: 'technical', label: 'Technical implementation' },
-  { id: 'pr-workflow', label: 'PR workflow' },
   { id: 'testing', label: 'Testing' },
   { id: 'iterations', label: 'Iterations' },
   { id: 'responsive-qa', label: 'Responsive QA' },
@@ -442,14 +440,7 @@ export default function RenewlyCaseStudyPage() {
               <Checklist items={cs.technicalPoints} />
             </section>
 
-            {/* 16. PR WORKFLOW */}
-            <section className="cs-section" id="pr-workflow">
-              <h2 className="cs-section__title">Repository and PR workflow</h2>
-              <p className="cs-section__body">{cs.prWorkflowDescription}</p>
-              <Timeline items={cs.prWorkflow} />
-            </section>
-
-            {/* 17. TESTING AND REVIEW PLAN */}
+            {/* 16. TESTING AND REVIEW PLAN */}
             <section className="cs-section" id="testing">
               <h2 className="cs-section__title">Testing and review plan</h2>
               <p className="cs-section__body">

@@ -6,7 +6,7 @@ import CaseStudyNav from '../components/case-study/CaseStudyNav';
 import IterationLog from '../components/case-study/IterationLog';
 import ResponsiveQA from '../components/case-study/ResponsiveQA';
 import Button from '../components/ui/Button';
-import { riversideCaseStudy as cs } from '../data/caseStudies';
+import { caresyncCaseStudy as cs } from '../data/caresyncCaseStudy';
 
 function Checklist({ items }: { items: string[] }) {
   return (
@@ -21,7 +21,7 @@ function Checklist({ items }: { items: string[] }) {
   );
 }
 
-export default function CaseStudyPage() {
+export default function CareSyncCaseStudyPage() {
   return (
     <>
       <Header />
@@ -32,9 +32,9 @@ export default function CaseStudyPage() {
           tags={cs.tags}
           prototypeUrl={cs.prototypeUrl}
           githubUrl={cs.githubUrl}
-          heroImage="/images/projects/riverside/clean/desktop-home.png"
-          heroImageAlt="Riverside General homepage, hospital appointment booking"
-          prototypeUrlLabel="hospital-booking-portfolio.vercel.app"
+          heroImage="/images/projects/caresync/desktop/dashboard.png"
+          heroImageAlt="CareSync shift briefing, the clinical command centre"
+          prototypeUrlLabel="care-sync-two-mu.vercel.app/shift-briefing"
         />
 
         <div className="cs-layout">
@@ -94,7 +94,11 @@ export default function CaseStudyPage() {
             {/* 6. RESEARCH INSIGHTS */}
             <section className="cs-section" id="research">
               <h2 className="cs-section__title">Research insights</h2>
-              <p className="cs-section__body">Three recurring patterns shaped the key UX decisions for this project.</p>
+              <p className="cs-section__body">
+                This was an assignment sprint without access to live hospital sessions, so the direction came from a
+                landscape audit of clinical SaaS tools, a heuristic review of dashboard anti-patterns, and an informal
+                conversation with a practising physician. Six recurring patterns shaped the key UX decisions.
+              </p>
               <div className="cs-cards-grid">
                 {cs.researchInsights.map((r, i) => (
                   <div key={r.title} className="cs-card cs-card--insight">
@@ -118,7 +122,7 @@ export default function CaseStudyPage() {
               <h2 className="cs-section__title">Early structure: wireframes, IA, and flow mapping</h2>
               <p className="cs-section__body">{cs.earlyStructureIntro}</p>
 
-              <h3 className="cs-section__subtitle">User flow</h3>
+              <h3 className="cs-section__subtitle">Clinician flow</h3>
               <p className="cs-section__body">{cs.userJourneyDescription}</p>
               <div className="journey-flow">
                 {cs.userJourneySteps.map((step, i) => (
@@ -130,34 +134,14 @@ export default function CaseStudyPage() {
                   </div>
                 ))}
               </div>
-              {cs.flowImage && (
-                <div className="cs-image-wrap" style={{ marginTop: 'var(--space-6)' }}>
-                  <img
-                    src={cs.flowImage}
-                    alt="User flow diagram"
-                    className="cs-image"
-                    onError={e => { (e.target as HTMLImageElement).style.display = 'none'; }}
-                  />
-                </div>
-              )}
 
               <h3 className="cs-section__subtitle">Information architecture</h3>
               <p className="cs-section__body">{cs.iaDescription}</p>
-              {cs.iaImage && (
-                <div className="cs-image-wrap">
-                  <img
-                    src={cs.iaImage}
-                    alt="Information architecture diagram"
-                    className="cs-image"
-                    onError={e => { (e.target as HTMLImageElement).style.display = 'none'; }}
-                  />
-                </div>
-              )}
 
               <h3 className="cs-section__subtitle">Wireframes</h3>
               <p className="cs-section__body">{cs.wireframesDescription}</p>
               {cs.wireframeImages.length > 0 && (
-                <div className="wireframes-grid">
+                <div className="wireframes-grid wireframes-grid--2col">
                   {cs.wireframeImages.map(img => (
                     <div key={img.label} className="wireframe-item">
                       <div className="wireframe-item__frame">
@@ -175,10 +159,10 @@ export default function CaseStudyPage() {
               )}
             </section>
 
-            {/* 10. KEY UX DECISIONS */}
+            {/* 8. KEY UX DECISIONS */}
             <section className="cs-section" id="decisions">
               <h2 className="cs-section__title">Key UX decisions</h2>
-              <p className="cs-section__body">Five decisions shaped the structure and clarity of the booking experience.</p>
+              <p className="cs-section__body">Six decisions shaped the structure and clinical safety of the product.</p>
               <div className="cs-cards-grid cs-cards-grid--decisions">
                 {cs.uxDecisions.map((d, i) => (
                   <div key={d.title} className="cs-card">
@@ -190,16 +174,97 @@ export default function CaseStudyPage() {
               </div>
             </section>
 
-            {/* 11. DESIGN SYSTEM */}
+            {/* 9. DESIGN SYSTEM */}
             <section className="cs-section" id="design-system">
               <h2 className="cs-section__title">Design system</h2>
               <p className="cs-section__body">{cs.designSystemDescription}</p>
+
+              {/* Colour palette */}
+              <h3 className="cs-section__subtitle" style={{ marginTop: 'var(--space-8)' }}>Colour palette</h3>
+              <div className="renewly-ds-palette">
+                <div className="renewly-ds-palette-group">
+                  <div className="renewly-ds-palette-group__label">Brand — aubergine</div>
+                  <div className="renewly-ds-swatch-row">
+                    {cs.brandScale.map(s => (
+                      <div key={s.name} className="renewly-ds-swatch">
+                        <div className="renewly-ds-swatch__box" style={{ background: s.hex, border: s.border ? '1px solid #CBC5C1' : 'none' }} />
+                        <div className="renewly-ds-swatch__name">{s.name}</div>
+                        <div className="renewly-ds-swatch__hex">{s.hex}</div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                <div className="renewly-ds-palette-group">
+                  <div className="renewly-ds-palette-group__label">Warm neutral surfaces</div>
+                  <div className="renewly-ds-swatch-row">
+                    {cs.surfaceScale.map(s => (
+                      <div key={s.name} className="renewly-ds-swatch">
+                        <div className="renewly-ds-swatch__box" style={{ background: s.hex, border: s.border ? '1px solid #CBC5C1' : 'none' }} />
+                        <div className="renewly-ds-swatch__name">{s.name}</div>
+                        <div className="renewly-ds-swatch__hex">{s.hex}</div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                <div className="renewly-ds-palette-group">
+                  <div className="renewly-ds-palette-group__label">Clinical status — red means safety, nothing else</div>
+                  <div className="renewly-ds-status-row">
+                    {cs.statusChips.map(c => (
+                      <div
+                        key={c.label}
+                        className="renewly-ds-status-chip"
+                        style={{ background: c.bg, color: c.text, border: `1px solid ${c.border}` }}
+                      >
+                        {c.label}
+                        <span className="renewly-ds-status-chip__hex">{c.text}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              {/* Typography */}
+              <h3 className="cs-section__subtitle" style={{ marginTop: 'var(--space-8)' }}>Typography</h3>
+              <p className="cs-section__body">
+                An eight-step scale with clear role separation, so a clinician can read patient identity, status, source,
+                and action in under two seconds per row. The largest element on any screen is a section heading, not a
+                hero statement — this is a working interface, not a landing page.
+              </p>
+              <div className="renewly-ds-type-scale">
+                {cs.typeScale.map(t => (
+                  <div key={t.role} className="renewly-ds-type-row">
+                    <div className="renewly-ds-type-row__role">{t.role}</div>
+                    <div className="renewly-ds-type-row__example">{t.example}</div>
+                    <div className="renewly-ds-type-row__meta">{t.meta}</div>
+                    <div className="renewly-ds-type-row__usage">{t.usage}</div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Design decisions */}
+              <h3 className="cs-section__subtitle" style={{ marginTop: 'var(--space-8)' }}>Design decision notes</h3>
+              <div className="renewly-ds-notes">
+                {cs.designNotes.map(n => (
+                  <div key={n.title} className="renewly-ds-row">
+                    <div className="renewly-ds-row__title">{n.title}</div>
+                    <div className="renewly-ds-row__body">{n.body}</div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Component documentation captured from the product itself */}
+              <h3 className="cs-section__subtitle" style={{ marginTop: 'var(--space-8)' }}>Components</h3>
+              <p className="cs-section__body">
+                The prototype ships its own design system documentation page. These are captured from it, so the
+                components shown are the components in use rather than a separate spec that can drift.
+              </p>
               <div className="design-system-grid">
                 {cs.designSystemImages.map(img => (
                   <div key={img.label} className="design-system-img">
                     <img
                       src={img.src}
                       alt={img.label}
+                      loading="lazy"
                       onError={e => { (e.target as HTMLImageElement).style.display = 'none'; }}
                     />
                     <div className="design-system-img__label">{img.label}</div>
@@ -208,17 +273,21 @@ export default function CaseStudyPage() {
               </div>
             </section>
 
-            {/* 12. DESKTOP PROTOTYPE SCREENS */}
+            {/* 10. DESKTOP PROTOTYPE SCREENS */}
             <section className="cs-section" id="screenshots">
               <h2 className="cs-section__title">Desktop prototype screens</h2>
               <p className="cs-section__body">
-                Six screens from the built React prototype covering every step of the booking journey. Deployed to Vercel and functional end-to-end, not static mockups. Each screen was refined through multiple critique and iteration rounds.
+                Nine screens from the built React prototype covering the full clinician workflow. Routed, deep-linkable,
+                and functional end to end, captured from the deployed build rather than mocked up. Each screen was
+                refined through repeated audit and refinement rounds before being frozen.
               </p>
               {cs.desktopScreenshots.map((s, i) => (
                 <div key={s.title} className="renewly-screen-entry">
                   <div className="renewly-screen-entry__header">
                     <div className="renewly-screen-entry__meta">
-                      <span className="renewly-screen-entry__counter">{String(i + 1).padStart(2, '0')} / {String(cs.desktopScreenshots.length).padStart(2, '0')}</span>
+                      <span className="renewly-screen-entry__counter">
+                        {String(i + 1).padStart(2, '0')} / {String(cs.desktopScreenshots.length).padStart(2, '0')}
+                      </span>
                     </div>
                     <h3 className="renewly-screen-entry__title">{s.title}</h3>
                     <p className="renewly-screen-entry__purpose">{s.purpose}</p>
@@ -229,10 +298,10 @@ export default function CaseStudyPage() {
                       <span className="renewly-browser-dot" />
                       <span className="renewly-browser-dot" />
                       <span className="renewly-browser-dot" />
-                      <span className="renewly-browser-url-bar">hospital-booking-portfolio.vercel.app</span>
+                      <span className="renewly-browser-url-bar">care-sync-two-mu.vercel.app</span>
                     </div>
                     <div className="renewly-browser-body renewly-browser-body--full">
-                      <img src={s.src} alt={s.title} className="renewly-browser-img"
+                      <img src={s.src} alt={s.title} className="renewly-browser-img" loading="lazy"
                         onError={e => { (e.target as HTMLImageElement).style.display = 'none'; }} />
                     </div>
                   </div>
@@ -240,11 +309,15 @@ export default function CaseStudyPage() {
               ))}
             </section>
 
-            {/* 13. MOBILE PROTOTYPE SCREENS */}
+            {/* 11. MOBILE PROTOTYPE SCREENS */}
             <section className="cs-section" id="mobile-screens">
               <h2 className="cs-section__title">Mobile prototype screens</h2>
               <p className="cs-section__body">
-                Responsive screens validated at 430px and 390px. Single-column layout, stacked forms, tappable slot picker, compact progress indicator, and bottom tab navigation.
+                Validated at 390px. Below the desktop breakpoint the 232px sidebar is replaced by a bottom tab bar, and
+                summary state moves above the list so counts are legible before scrolling. On the three table screens the
+                remaining columns sit inside a horizontal scroll container rather than truncating. Four further screens —
+                Shift Briefing, patient profile, Operational Insights, and Settings — still clip content at this width
+                and are documented under Responsive QA and limitations rather than shown here as finished.
               </p>
               <div className="renewly-mobile-gallery renewly-mobile-gallery--3col">
                 {cs.mobileScreenshots.map(s => (
@@ -254,7 +327,7 @@ export default function CaseStudyPage() {
                       <div className="renewly-mobile-caption__note">{s.uxNote}</div>
                     </div>
                     <div className="renewly-mobile-frame">
-                      <img src={s.src} alt={s.title} className="renewly-mobile-img"
+                      <img src={s.src} alt={s.title} className="renewly-mobile-img" loading="lazy"
                         onError={e => { (e.target as HTMLImageElement).style.display = 'none'; }} />
                     </div>
                   </div>
@@ -262,11 +335,13 @@ export default function CaseStudyPage() {
               </div>
             </section>
 
-            {/* 14. AI-ASSISTED WORKFLOW */}
+            {/* 12. AI-ASSISTED WORKFLOW */}
             <section className="cs-section" id="ai-workflow">
               <h2 className="cs-section__title">AI-assisted workflow</h2>
               <p className="cs-section__body">
-                I used AI tools throughout this project for research prompts, critique, implementation planning, and code review. Every product decision, UX call, and QA check was mine. The tools accelerated the work; they did not make the calls.
+                A six-stage loop ran for every screen: prompt, generate, audit, refine, freeze, systematise. AI
+                accelerated exploration and implementation, but the clinical framing, the colour semantics, and the
+                decision about what to suppress versus surface stayed mine.
               </p>
               <div className="cs-ai-workflow-grid">
                 {cs.aiWorkflow.map(w => (
@@ -279,22 +354,25 @@ export default function CaseStudyPage() {
                 ))}
               </div>
               <div className="cs-ai-highlight">
-                AI accelerated the workflow. It did not replace UX judgement, product decisions, or responsive QA.
+                I used AI as a design critic and implementation partner, not as a replacement for design judgement.
+                Every screen was audited section by section against clinical credibility, token consistency, and
+                accessibility compliance, and revised until it was right.
               </div>
             </section>
 
-            {/* 15. TECHNICAL IMPLEMENTATION */}
+            {/* 13. TECHNICAL IMPLEMENTATION */}
             <section className="cs-section" id="technical">
               <h2 className="cs-section__title">Technical implementation</h2>
               <p className="cs-section__body">{cs.technicalDescription}</p>
               <Checklist items={cs.technicalPoints} />
             </section>
 
-            {/* 16. TESTING */}
+            {/* 14. TESTING */}
             <section className="cs-section" id="testing">
               <h2 className="cs-section__title">Testing and usability review</h2>
               <p className="cs-section__body">
-                The full booking flow was tested end-to-end before each share. Manual testing followed the complete user path:
+                The full clinician workflow was walked end to end before each share, at desktop width and then at mobile
+                width:
               </p>
               <div className="journey-flow" style={{ marginBottom: 'var(--space-6)' }}>
                 {cs.testingFlow.split(' → ').map((step, i, arr) => (
@@ -307,27 +385,30 @@ export default function CaseStudyPage() {
               <Checklist items={cs.testingChecklist} />
             </section>
 
-            {/* 18. ITERATIONS */}
+            {/* 16. ITERATIONS */}
             <section className="cs-section" id="iterations">
               <h2 className="cs-section__title">Feedback and iteration log</h2>
-              <p className="cs-section__body">Seven iteration rounds addressed specific UX and responsiveness issues found during testing.</p>
+              <p className="cs-section__body">
+                Seven iteration rounds moved the product from a dashboard-first draft to a shift-first system. Each one
+                was a structural change, not a cosmetic one.
+              </p>
               <IterationLog iterations={cs.iterations} />
             </section>
 
-            {/* 19. RESPONSIVE QA */}
+            {/* 17. RESPONSIVE QA */}
             <section className="cs-section" id="responsive-qa">
               <h2 className="cs-section__title">Responsive QA</h2>
               <p className="cs-section__body">{cs.responsiveQADescription}</p>
               <ResponsiveQA items={cs.responsiveQA} />
             </section>
 
-            {/* 20. ACCESSIBILITY */}
+            {/* 18. ACCESSIBILITY */}
             <section className="cs-section" id="accessibility">
               <h2 className="cs-section__title">Accessibility</h2>
               <Checklist items={cs.accessibilityChecklist} />
             </section>
 
-            {/* 21. TECH STACK */}
+            {/* 19. TECH STACK */}
             <section className="cs-section" id="tech-stack">
               <h2 className="cs-section__title">Technical stack</h2>
               <div className="tech-stack-grid">
@@ -340,10 +421,10 @@ export default function CaseStudyPage() {
               </div>
             </section>
 
-            {/* 22. LIMITATIONS + NEXT STEPS */}
+            {/* 20. LIMITATIONS + NEXT STEPS */}
             <section className="cs-section" id="limitations">
               <h2 className="cs-section__title">Limitations and next steps</h2>
-              <p className="cs-section__body">This is a portfolio prototype using mock data. It does not include:</p>
+              <p className="cs-section__body">This is a portfolio prototype using mock clinical data. It does not include:</p>
               <div className="limitations-next-grid">
                 <div className="limitations-box">
                   <div className="limitations-box__heading">Current limitations</div>
@@ -370,13 +451,13 @@ export default function CaseStudyPage() {
               </div>
             </section>
 
-            {/* 23. FINAL VALIDATION */}
+            {/* 21. FINAL VALIDATION */}
             <section className="cs-section" id="validation">
               <h2 className="cs-section__title">Final validation</h2>
               <Checklist items={cs.finalValidation} />
             </section>
 
-            {/* 24. REFLECTION */}
+            {/* 22. REFLECTION */}
             <section className="cs-section" id="reflection">
               <h2 className="cs-section__title">Reflection</h2>
               <p className="cs-section__body">{cs.reflection}</p>
@@ -388,7 +469,7 @@ export default function CaseStudyPage() {
         <section className="cs-cta">
           <div className="container">
             <h2 className="cs-cta__title">Explore the working prototype and project repository.</h2>
-            <p className="cs-cta__sub">React, TypeScript, and a documented product workflow from problem framing to shipped prototype.</p>
+            <p className="cs-cta__sub">React, a hand-built clinical design system, and a documented product workflow from problem framing to shipped prototype.</p>
             <div className="cs-cta__actions">
               <Button href={cs.prototypeUrl} variant="dark" external size="lg">
                 View live prototype &#x2197;

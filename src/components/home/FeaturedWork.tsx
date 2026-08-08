@@ -1,6 +1,7 @@
 import Button from '../ui/Button';
 import Tag from '../ui/Tag';
 import SectionHeading from '../ui/SectionHeading';
+import { Stagger, StaggerItem } from '../motion/Stagger';
 import { projects } from '../../data/projects';
 
 export default function FeaturedWork() {
@@ -55,9 +56,9 @@ export default function FeaturedWork() {
         )}
 
         {secondary.length > 0 && (
-          <div className="secondary-projects-grid">
+          <Stagger className="secondary-projects-grid" stagger={0.08}>
             {secondary.map(p => (
-              <div key={p.id} className="project-card project-card--secondary">
+              <StaggerItem key={p.id} className="project-card project-card--secondary" y={20}>
                 <div className="project-card__image-wrap project-card__image-wrap--secondary">
                   <div className="project-card__browser-bar">
                     <span className="project-card__browser-dot" />
@@ -98,9 +99,9 @@ export default function FeaturedWork() {
                     )}
                   </div>
                 </div>
-              </div>
+              </StaggerItem>
             ))}
-          </div>
+          </Stagger>
         )}
 
         {comingSoon.length > 0 && (

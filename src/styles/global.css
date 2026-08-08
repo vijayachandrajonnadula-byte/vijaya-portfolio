@@ -367,7 +367,20 @@ ul,ol{list-style:none}
 .cs-insight-label{font-size:10px;font-weight:var(--font-bold);letter-spacing:var(--tracking-wider);text-transform:uppercase;color:var(--color-warning)}
 .cs-insight-label--green{color:var(--color-success)}
 /* wireframes grid */
+/* Accessibility safety net. Motion components already check
+   prefers-reduced-motion via useReducedMotion(); this covers CSS transitions
+   and smooth scrolling, which JS never sees. */
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{
+    animation-duration:.01ms !important;
+    animation-iteration-count:1 !important;
+    transition-duration:.01ms !important;
+    scroll-behavior:auto !important;
+  }
+}
 .wireframes-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-4);margin-top:var(--space-6)}
+/* two-up variant: for low-fi frames whose structure needs to stay legible */
+.wireframes-grid--2col{grid-template-columns:repeat(2,1fr);gap:var(--space-5)}
 .wireframe-item{display:flex;flex-direction:column;gap:var(--space-2)}
 .wireframe-item__frame{background:white;border:1px solid var(--color-border);border-radius:var(--radius-lg);overflow:hidden;aspect-ratio:4/3;position:relative;display:block}
 .wireframe-item__img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:center;display:block}
