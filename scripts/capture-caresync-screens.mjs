@@ -26,6 +26,17 @@ const WIDTH = 1440;
 const BASE_HEIGHT = 900;
 const MAX_HEIGHT = 3200; // keep files sane; taller than this reads as a strip, not a screen
 
+/**
+ * Optional screen filter, e.g. `node scripts/capture-caresync-screens.mjs dashboard`
+ *
+ * Re-capturing everything when one screen changed rewrites all nine PNGs, and
+ * timing/antialiasing differences make each one a byte-level change — a noisy
+ * diff that hides the real edit. With a filter we touch only what moved.
+ * The grid cover is shot from /shift-briefing, so it refreshes with `dashboard`.
+ */
+const only = process.argv.slice(2).filter(a => !a.startsWith('-'));
+const targeted = only.length > 0;
+
 fs.mkdirSync(path.join(OUT, 'desktop'), { recursive: true });
 
 const browser = await chromium.launch({ headless: true });
@@ -137,7 +148,14 @@ async function trimBottom(file, scale) {
 const context = await browser.newContext({ viewport: { width: WIDTH, height: BASE_HEIGHT }, deviceScaleFactor: 2 });
 const page = await context.newPage();
 
-for (const s of screens) {
+const desktopTargets = targeted ? screens.filter(s => only.includes(s.name)) : screens;
+if (targeted) {
+  const unknown = only.filter(n => !screens.some(s => s.name === n));
+  if (unknown.length) throw new Error(`Unknown screen name(s): ${unknown.join(', ')}`);
+  console.log(`targeted run: ${desktopTargets.map(s => s.name).join(', ')}\n`);
+}
+
+for (const s of desktopTargets) {
   await page.setViewportSize({ width: WIDTH, height: BASE_HEIGHT });
   await page.goto(BASE + s.route, { waitUntil: 'networkidle' });
   await page.waitForTimeout(1200);
@@ -157,6 +175,7 @@ await context.close();
  * every screen, measure that clipping, and report it — only the clean ones are
  * worth publishing, and the rest are documented as a known limitation.
  */
+if (!targeted) {
 fs.mkdirSync(path.join(OUT, 'mobile'), { recursive: true });
 const mCtx = await browser.newContext({
   viewport: { width: 390, height: 844 },
@@ -201,6 +220,7 @@ for (const m of clipped) {
 }
 console.log('\nclean mobile screens kept:', mobileReport.filter(m => m.clip <= 4).map(m => m.name).join(', ') || '(none)');
 if (clipped.length) console.log('clipped, discarded:', clipped.map(m => `${m.name} (${m.clip}px)`).join(', '));
+}
 
 /**
  * Low-fidelity wireframes.
@@ -288,6 +308,10 @@ await wCtx.close();
  *    keeps the sidebar (the app switches to a drawer below ~1100px) while
  *    rendering every label legibly at card size.
  */
+// The cover is shot from /shift-briefing, so it must refresh whenever that
+// screen is re-captured.
+const doCover = !targeted || only.includes('dashboard');
+if (doCover) {
 const COVER_W = 1200;
 const COVER_H = Math.round(COVER_W / 1.54);
 const coverCtx = await browser.newContext({
@@ -299,5 +323,7 @@ await coverPage.goto(BASE + '/shift-briefing', { waitUntil: 'networkidle' });
 await coverPage.waitForTimeout(1600);
 await coverPage.screenshot({ path: path.join(OUT, 'cover.png'), fullPage: false, type: 'png' });
 console.log(`cover.png  ${COVER_W}x${COVER_H}`);
+await coverCtx.close();
+}
 
 await browser.close();
