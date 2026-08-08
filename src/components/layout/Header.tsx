@@ -39,8 +39,8 @@ export default function Header() {
               <Link key={l.label} to={l.href} className="header__nav-link">{l.label}</Link>
             ))}
             <a
-              href="/Vijaya_Chandra_Jonnadula_Resume.pdf"
-              download="Vijaya_Chandra_Jonnadula_Resume.pdf"
+              href="/Vijaya_Chandra_Jonnadula.pdf"
+              download="Vijaya_Chandra_Jonnadula.pdf"
               className="header__resume-btn"
             >
               Resume ↓
@@ -61,8 +61,8 @@ export default function Header() {
           <Link key={l.label} to={l.href} className="header__mobile-nav-link">{l.label}</Link>
         ))}
         <a
-          href="/Vijaya_Chandra_Jonnadula_Resume.pdf"
-          download="Vijaya_Chandra_Jonnadula_Resume.pdf"
+          href="/Vijaya_Chandra_Jonnadula.pdf"
+          download="Vijaya_Chandra_Jonnadula.pdf"
           className="header__mobile-nav-link header__mobile-resume-btn"
         >
           Download Resume ↓

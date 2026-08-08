@@ -5,7 +5,7 @@ const links = [
   { label: 'LinkedIn', value: 'linkedin.com/in/vijaya-chandra', href: profile.linkedin, external: true },
   { label: 'GitHub', value: 'github.com/vijayachandrajonnadula-byte', href: profile.github, external: true },
   { label: 'Portfolio', value: profile.portfolio, href: `https://${profile.portfolio}` },
-  { label: 'Resume', value: 'Download PDF ↓', href: '/Vijaya_Chandra_Jonnadula_Resume.pdf', download: true },
+  { label: 'Resume', value: 'Download PDF ↓', href: '/Vijaya_Chandra_Jonnadula.pdf', download: true },
 ];
 
 export default function ContactSection() {
@@ -26,7 +26,7 @@ export default function ContactSection() {
                 href={l.href}
                 className={`contact__link-item${l.label === 'Resume' ? ' contact__link-item--resume' : ''}`}
                 {...(l.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-                {...(l.download ? { download: 'Vijaya_Chandra_Jonnadula_Resume.pdf' } : {})}
+                {...(l.download ? { download: 'Vijaya_Chandra_Jonnadula.pdf' } : {})}
               >
                 <div className="contact__link-label">{l.label}</div>
                 <div className="contact__link-value">{l.value}</div>
