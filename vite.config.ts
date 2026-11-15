@@ -21,6 +21,16 @@ export default defineConfig({
     },
   },
   plugins: [
+    {
+      // In dev, Vite answers any folder URL with the portfolio's index.html. Serve the Storybook and the gallery's own index instead.
+      name: 'static-app-index',
+      configureServer(server) {
+        server.middlewares.use((req, _res, next) => {
+          if (req.url && /^\/(pulse-storybook|pulse-gallery)\/?(\?.*)?$/.test(req.url)) req.url = req.url.replace(/^(\/[^/?]+)\/?/, '$1/index.html');
+          next();
+        });
+      },
+    },
     react(),
     VitePWA({
       registerType: 'autoUpdate',
@@ -53,8 +63,11 @@ export default defineConfig({
       workbox: {
         maximumFileSizeToCacheInBytes: 8 * 1024 * 1024, // 8 MB — portfolio has large screenshots
         globPatterns: ['**/*.{js,css,html,ico,png,svg,woff2}'],
+        // The PULSE gallery is a separate static app under /pulse-gallery/. It must not be precached
+        // (7.6 MB) and navigations to it must reach the gallery, not the portfolio's index.html.
+        globIgnores: ['pulse-gallery/**', 'pulse-storybook/**'],
         navigateFallback: '/index.html',
-        navigateFallbackDenylist: [/^\/api/],
+        navigateFallbackDenylist: [/^\/api/, /^\/pulse-gallery(\/|$)/, /^\/pulse-storybook(\/|$)/],
         runtimeCaching: [
           {
             urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/i,

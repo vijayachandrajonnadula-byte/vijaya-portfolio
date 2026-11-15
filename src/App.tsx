@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
 import HomePage from './pages/HomePage';
 import CaseStudyPage from './pages/CaseStudyPage';
@@ -9,29 +9,113 @@ import IllustrationCaseStudyPage from './pages/IllustrationCaseStudyPage';
 import AfsCaseStudyPage from './pages/AfsCaseStudyPage';
 import ScheduleCaseStudyPage from './pages/ScheduleCaseStudyPage';
 import CareSyncCaseStudyPage from './pages/CareSyncCaseStudyPage';
-import FieldFlowCaseStudyPage from './fieldflow/pages/FieldFlowCaseStudyPage';
-import FieldFlowApp from './fieldflow/FieldFlowApp';
 import NotFoundPage from './pages/NotFoundPage';
+import PulseCaseStudyPage from './pages/PulseCaseStudyPage';
+import ExecutionCaseStudyPage from './pages/ExecutionCaseStudyPage';
+import AskPage from './pages/AskPage';
+import Guide from './components/studio/Guide';
+import SmoothScroll from './components/motion/SmoothScroll';
+import ScrollProgress from './components/motion/ScrollProgress';
+import CursorLabel from './components/motion/CursorLabel';
+import { getRouteMeta } from './data/meta';
+import './styles/a11y.css';
 
-// Scrolls to the hash section whenever the URL hash or pathname changes.
+// Per-route title, description, Open Graph tags, canonical and robots.
+function setTag(selector: string, create: () => HTMLElement, attr: string, value: string) {
+  let el = document.head.querySelector<HTMLElement>(selector);
+  if (!el) { el = create(); document.head.appendChild(el); }
+  el.setAttribute(attr, value);
+}
+const metaTag = (key: 'name' | 'property', k: string) => () => { const m = document.createElement('meta'); m.setAttribute(key, k); return m; };
+
+// Applies the page meta, gives the first <main> an id for the skip link, moves focus to the page heading after
+// a route change (without scrolling), and announces the new page politely.
+function RouteMeta() {
+  const { pathname, hash } = useLocation();
+  const first = useRef('');
+  const [announce, setAnnounce] = useState('');
+  useEffect(() => {
+    const m = getRouteMeta(pathname);
+    document.title = m.title;
+    setTag('meta[name="description"]', metaTag('name', 'description'), 'content', m.description);
+    setTag('meta[property="og:title"]', metaTag('property', 'og:title'), 'content', m.title);
+    setTag('meta[property="og:description"]', metaTag('property', 'og:description'), 'content', m.description);
+    setTag('meta[property="og:type"]', metaTag('property', 'og:type'), 'content', pathname === '/' ? 'website' : 'article');
+    setTag('meta[property="og:url"]', metaTag('property', 'og:url'), 'content', window.location.origin + pathname);
+    setTag('meta[name="twitter:card"]', metaTag('name', 'twitter:card'), 'content', 'summary');
+    setTag('link[rel="canonical"]', () => { const l = document.createElement('link'); l.rel = 'canonical'; return l; }, 'href', window.location.origin + pathname);
+    if (m.noindex) setTag('meta[name="robots"]', metaTag('name', 'robots'), 'content', 'noindex');
+    else document.head.querySelector('meta[name="robots"]')?.remove();
+
+    const main = document.querySelector('main');
+    if (main) { main.id = 'main'; main.setAttribute('tabindex', '-1'); }
+    // only after a real navigation (not the first paint, and not the StrictMode re-run of the same path)
+    const prev = first.current;
+    first.current = pathname;
+    if (prev === pathname || prev === '') return;
+    if (hash) return; // an in-page link: ScrollToHash handles it
+    const h1 = document.querySelector<HTMLElement>('main h1');
+    const target = h1 || main;
+    if (target) {
+      if (!target.hasAttribute('tabindex')) target.setAttribute('tabindex', '-1');
+      target.focus({ preventScroll: true });
+    }
+    setAnnounce(m.title);
+  }, [pathname]); // eslint-disable-line react-hooks/exhaustive-deps
+  return <div className="vj-live" role="status" aria-live="polite" aria-atomic="true">{announce}</div>;
+}
+
+function SkipLink() {
+  return (
+    <a
+      className="skip-link"
+      href="#main"
+      onClick={e => {
+        const main = document.getElementById('main') || document.querySelector<HTMLElement>('main');
+        if (!main) return;
+        e.preventDefault();
+        main.focus({ preventScroll: true });
+        main.scrollIntoView({ block: 'start' });
+      }}
+    >
+      Skip to main content
+    </a>
+  );
+}
+
+// Scrolls to the hash section whenever the URL hash or navigation key changes.
+// location.key changes on every navigation, so clicking the same link twice scrolls twice.
 // Retries once after 80ms to handle cross-page nav where the target
 // section isn't in the DOM until React has finished rendering the new page.
 function ScrollToHash() {
-  const { hash, pathname } = useLocation();
+  const { hash, pathname, key } = useLocation();
   useEffect(() => {
     if (!hash) return;
     const id = hash.slice(1);
+    // Prefer Lenis when active so native smooth-scroll does not fight it.
+    const go = (el: HTMLElement) => {
+      if (window.__lenis) window.__lenis.scrollTo(el, { offset: -72 });
+      else el.scrollIntoView({ behavior: 'smooth' });
+    };
     const el = document.getElementById(id);
     if (el) {
-      el.scrollIntoView({ behavior: 'smooth' });
+      go(el);
       return;
     }
     // Target not in DOM yet — wait one render cycle then retry
     const t = setTimeout(() => {
-      document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+      const late = document.getElementById(id);
+      if (late) go(late);
     }, 80);
     return () => clearTimeout(t);
-  }, [hash, pathname]);
+  }, [hash, pathname, key]);
+  return null;
+}
+
+// Tells the stylesheet which kind of page this is. Home and the ask page follow the theme; the PULSE and Electronic execution case studies follow the theme, the other case studies are light only for now.
+function PageMode() {
+  const { pathname } = useLocation();
+  useEffect(() => { document.documentElement.dataset.page = pathname.startsWith('/projects/') && pathname !== '/projects/pulse-design-system' && pathname !== '/projects/electronic-execution' ? 'case' : 'home'; }, [pathname]);
   return null;
 }
 
@@ -54,23 +138,31 @@ function RouteFade({ children }: { children: React.ReactNode }) {
 
 export default function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
+      <SkipLink />
+      <RouteMeta />
+      <PageMode />
       <ScrollToHash />
+      <SmoothScroll />
+      <ScrollProgress />
+      <CursorLabel />
       <RouteFade>
       <Routes>
         <Route path="/" element={<HomePage />} />
+        <Route path="/ask" element={<AskPage />} />
         <Route path="/projects/riverside-general" element={<CaseStudyPage />} />
         <Route path="/projects/renewly" element={<RenewlyCaseStudyPage />} />
         <Route path="/projects/ai-assisted-product-workflow" element={<WorkflowCaseStudyPage />} />
         <Route path="/projects/illustration-systems" element={<IllustrationCaseStudyPage />} />
         <Route path="/projects/afs-enterprise-workflow" element={<AfsCaseStudyPage />} />
         <Route path="/projects/zoominfo-schedule" element={<ScheduleCaseStudyPage />} />
-        <Route path="/projects/field-flow" element={<FieldFlowCaseStudyPage />} />
         <Route path="/projects/caresync" element={<CareSyncCaseStudyPage />} />
-        <Route path="/field-flow/*" element={<FieldFlowApp />} />
+        <Route path="/projects/pulse-design-system" element={<PulseCaseStudyPage />} />
+        <Route path="/projects/electronic-execution" element={<ExecutionCaseStudyPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
       </RouteFade>
+      <Guide />
     </BrowserRouter>
   );
 }

@@ -1,8 +1,11 @@
 import Header from '../components/layout/Header';
 import Footer from '../components/layout/Footer';
+import NextProject from '../components/case-study/NextProject';
 import CaseStudyHero from '../components/case-study/CaseStudyHero';
 import CaseStudyNav from '../components/case-study/CaseStudyNav';
 import Button from '../components/ui/Button';
+import Img from '../components/case-study/Img';
+import { imgSize } from '../data/imageSizes';
 import { afsCaseStudy as cs } from '../data/afsCaseStudy';
 
 const afsNavItems = [
@@ -30,7 +33,7 @@ function renderWireframe(key: string) {
   switch (key) {
     case 'crm':
       return (
-        <div className="afs-wireframe">
+        <div className="afs-wireframe" aria-hidden="true">
           <div className="afs-wf-header">
             <div className="afs-wf-dots"><span/><span/><span/></div>
             <div className="afs-wf-breadcrumb">Account Fit Score (AFS) / Configure</div>
@@ -67,7 +70,7 @@ function renderWireframe(key: string) {
 
     case 'csv':
       return (
-        <div className="afs-wireframe">
+        <div className="afs-wireframe" aria-hidden="true">
           <div className="afs-wf-header">
             <div className="afs-wf-dots"><span/><span/><span/></div>
             <div className="afs-wf-breadcrumb">Account Fit Score (AFS) / Configure (CSV)</div>
@@ -103,7 +106,7 @@ function renderWireframe(key: string) {
 
     case 'default':
       return (
-        <div className="afs-wireframe">
+        <div className="afs-wireframe" aria-hidden="true">
           <div className="afs-wf-header">
             <div className="afs-wf-dots"><span/><span/><span/></div>
             <div className="afs-wf-breadcrumb">Account Fit Score (AFS)</div>
@@ -133,7 +136,7 @@ function renderWireframe(key: string) {
 
     case 'datasource':
       return (
-        <div className="afs-wireframe">
+        <div className="afs-wireframe" aria-hidden="true">
           <div className="afs-wf-header">
             <div className="afs-wf-dots"><span/><span/><span/></div>
             <div className="afs-wf-breadcrumb">Account Fit Score (AFS) / Change Data Source</div>
@@ -167,7 +170,7 @@ function renderWireframe(key: string) {
 
     case 'error':
       return (
-        <div className="afs-wireframe">
+        <div className="afs-wireframe" aria-hidden="true">
           <div className="afs-wf-header">
             <div className="afs-wf-dots"><span/><span/><span/></div>
             <div className="afs-wf-breadcrumb">Account Fit Score (AFS) / Configure</div>
@@ -195,7 +198,7 @@ function renderWireframe(key: string) {
 
     case 'retrain':
       return (
-        <div className="afs-wireframe">
+        <div className="afs-wireframe" aria-hidden="true">
           <div className="afs-wf-header">
             <div className="afs-wf-dots"><span/><span/><span/></div>
             <div className="afs-wf-breadcrumb">Account Fit Score (AFS) / Retrain Model</div>
@@ -222,12 +225,12 @@ function renderWireframe(key: string) {
 
     case 'email':
       return (
-        <div className="afs-wireframe" style={{display:'flex',flexDirection:'column'}}>
+        <div className="afs-wireframe" aria-hidden="true" style={{display:'flex',flexDirection:'column'}}>
           <div className="afs-wf-header">
             <div className="afs-wf-dots"><span/><span/><span/></div>
             <div className="afs-wf-breadcrumb">Email notification — model ready</div>
           </div>
-          <div className="afs-wf-email-logo-bar">ZOOMINFO</div>
+          <div className="afs-wf-email-logo-bar">CYBERLOCK</div>
           <div className="afs-wf-email-body">
             <div className="afs-wf-email-subject">Your Account Fit Score is ready</div>
             <div className="afs-wf-email-greeting">Hi [Name],</div>
@@ -249,7 +252,7 @@ function renderWireframe(key: string) {
 
     case 'condition':
       return (
-        <div className="afs-wireframe">
+        <div className="afs-wireframe" aria-hidden="true">
           <div className="afs-wf-header">
             <div className="afs-wf-dots"><span/><span/><span/></div>
             <div className="afs-wf-breadcrumb">AFS / Configure / Add Condition</div>
@@ -770,8 +773,8 @@ export default function AfsCaseStudyPage() {
                         <span className="afs-screen-frame__confidential">client identifier visible — company project</span>
                       </div>
                       <div className="afs-screen-frame__body">
-                        <img
-                          src={screen.src}
+                        <Img
+                          src={screen.src} {...imgSize(screen.src)}
                           alt={screen.title}
                           className="afs-screen-frame__img"
                           onError={e => { (e.target as HTMLImageElement).style.display = 'none'; }}
@@ -887,6 +890,7 @@ export default function AfsCaseStudyPage() {
           </div>
         </div>
       </main>
+      <NextProject />
       <Footer />
     </>
   );

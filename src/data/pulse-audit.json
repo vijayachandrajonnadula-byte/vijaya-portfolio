@@ -1,0 +1,19 @@
+{
+  "tool": "axe-core 4.14, WCAG 2 A and AA tags",
+  "scanned": "2026-11-14",
+  "before": {
+    "demos": 93,
+    "nodes": 1924,
+    "contrastNodes": 429,
+    "contrastDemos": 44,
+    "passes": 1186
+  },
+  "after": {
+    "demos": 92,
+    "nodes": 1602,
+    "contrastNodes": 108,
+    "contrastDemos": 8,
+    "passes": 1175
+  },
+  "afterBreakdown": "Of the 108 that remain, 106 sit inside states the original draws at 38% opacity: disabled, stopped and drag-ghost samples. WCAG exempts disabled controls, but axe cannot see that when a state is dimmed with opacity and carries no disabled attribute, so I left them as the Figma file specifies and logged it. The last 2 are a Backdrop demo label, white text over a translucent scrim shown on a light panel."
+}

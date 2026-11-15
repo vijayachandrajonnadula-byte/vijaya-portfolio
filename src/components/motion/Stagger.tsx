@@ -1,6 +1,6 @@
 import { motion, useReducedMotion } from 'framer-motion';
 import type { ReactNode } from 'react';
-import { fadeUp, staggerParent, VIEWPORT } from './motion-presets';
+import { jFadeUp, jStaggerParent, JVIEWPORT } from '../case-study/jump';
 
 const TAGS = {
   div: motion.div,
@@ -42,10 +42,10 @@ export function Stagger({
     <Tag
       id={id}
       className={className}
-      variants={staggerParent(stagger, delayChildren)}
+      variants={jStaggerParent(stagger, delayChildren)}
       initial={reduced ? false : 'hidden'}
       whileInView="show"
-      viewport={VIEWPORT}
+      viewport={JVIEWPORT}
     >
       {children}
     </Tag>
@@ -63,7 +63,7 @@ interface StaggerItemProps {
 export function StaggerItem({ children, as = 'div', className, y = 16 }: StaggerItemProps) {
   const Tag = TAGS[as] ?? motion.div;
   return (
-    <Tag className={className} variants={fadeUp(y)}>
+    <Tag className={className} variants={jFadeUp(y)}>
       {children}
     </Tag>
   );

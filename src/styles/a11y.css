@@ -1,0 +1,42 @@
+/* ============================================================
+   A11Y + SHELL: skip link, live region, touch targets, mobile pill clearance, theme wipe
+   ============================================================ */
+
+/* Skip link: first focusable element on every route, visible on focus */
+.skip-link { position: fixed; top: 12px; left: 12px; z-index: 600; padding: 12px 18px; border-radius: 999px; background: var(--c-accent, #1e3a6e); color: var(--c-accent-ink, #fff); font: 600 0.95rem var(--font-sans, system-ui); text-decoration: none; box-shadow: 0 10px 30px -12px rgba(0, 0, 0, 0.5); transform: translateY(-160%); transition: transform 0.2s var(--ease-out, ease); }
+.skip-link:focus, .skip-link:focus-visible { transform: none; outline: 2px solid var(--c-ink, #17171a); outline-offset: 3px; }
+html[data-page='case'] .skip-link { background: #1e3a6e; color: #fff; }
+main:focus, main h1:focus { outline: none; }
+
+/* Polite route announcements, visually hidden */
+.vj-live { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+
+html { scroll-padding-top: 80px; }
+
+/* Footer links */
+.site-foot__links { display: flex; flex-wrap: wrap; gap: 4px 18px; align-items: center; }
+.site-foot a, .site-foot button { display: inline-flex; align-items: center; }
+
+/* Theme wipe: the reveal is animated from script (clip-path on the new snapshot) */
+::view-transition-old(root), ::view-transition-new(root) { animation: none; mix-blend-mode: normal; }
+::view-transition-old(root) { z-index: 1; }
+::view-transition-new(root) { z-index: 2; }
+/* No View Transitions support: a short crossfade */
+html.vj-xfade, html.vj-xfade *, html.vj-xfade *::before, html.vj-xfade *::after { transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, fill 0.2s ease, stroke 0.2s ease !important; }
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*) { animation: none !important; }
+  .skip-link { transition: none; }
+}
+
+/* Phones: the pill sits at the bottom, so keep content and the footer clear of it, and make targets 44px */
+@media (max-width: 700px) {
+  html { scroll-padding-bottom: 96px; }
+  .site-foot { padding-bottom: calc(var(--vj-pill-clear, 84px) + 24px + env(safe-area-inset-bottom, 0px)); }
+  .site-foot a, .site-foot button { min-height: 44px; }
+  .site-foot__links { gap: 0 14px; }
+  html .nav__link { min-height: 44px; display: inline-flex; align-items: center; }
+  html .nav__mark { min-width: 44px; min-height: 44px; align-items: center; justify-content: center; }
+  html .nav__theme.el-power { height: 44px; min-width: 44px; justify-content: center; }
+  .ask__chips button, .turn__doors button { min-height: 44px; }
+  .ask__chips .ask__refresh { width: 44px; height: 44px; }
+}

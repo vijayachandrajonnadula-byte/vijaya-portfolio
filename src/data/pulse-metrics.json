@@ -1,0 +1,44 @@
+{
+  "counted": "2026-11-14",
+  "code": {
+    "components": 92,
+    "categories": 9,
+    "byCategory": {
+      "actions": 2,
+      "containers": 3,
+      "data-display": 24,
+      "documents": 2,
+      "feedback": 6,
+      "form": 27,
+      "foundations": 9,
+      "navigation": 14,
+      "patterns": 5
+    },
+    "demos": 92,
+    "stories": 99,
+    "icons": 398,
+    "symbolSets": {
+      "arrows": 192,
+      "equipment": 104,
+      "flags": 271,
+      "instruments": 38,
+      "lines": 10,
+      "shapes": 56,
+      "subpart": 35
+    },
+    "symbols": 706,
+    "fontWeightRoles": 16
+  },
+  "ai": {
+    "intents": 17,
+    "intentComponentsNamed": 98,
+    "registryProps": 1145,
+    "deviationsLogged": 37
+  },
+  "figma": {
+    "componentPages": 82,
+    "componentSets": 235,
+    "variants": 5814,
+    "variables": 4074
+  }
+}

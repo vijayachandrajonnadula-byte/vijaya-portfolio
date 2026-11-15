@@ -2,7 +2,7 @@ export interface IllusImage { src: string; alt: string; }
 
 // Generate all 47 company portrait paths
 const companyImages: IllusImage[] = Array.from({ length: 47 }, (_, i) => ({
-  src: `/images/projects/illustration/company/company-${String(i + 1).padStart(2, '0')}.png`,
+  src: `/images/projects/illustration/company/company-${String(i + 1).padStart(2, '0')}.jpg`,
   alt: `Team portrait ${i + 1}`,
 }));
 
@@ -32,9 +32,9 @@ export const illustrationCaseStudy = {
     description: "Work from my college freelance days. Made in Adobe Illustrator. This is where I learned path control, layering, and how to build complex shapes from scratch.",
     tool: 'Adobe Illustrator',
     images: [
-      { src: '/images/projects/illustration/illustrator/illustrator-01.png', alt: 'Adobe Illustrator freelance illustration' },
-      { src: '/images/projects/illustration/illustrator/illustrator-02.png', alt: 'Vector illustration, Illustrator' },
-      { src: '/images/projects/illustration/illustrator/illustrator-03.png', alt: 'Illustrator composition' },
+      { src: '/images/projects/illustration/illustrator/illustrator-01.jpg', alt: 'Adobe Illustrator freelance illustration' },
+      { src: '/images/projects/illustration/illustrator/illustrator-02.jpg', alt: 'Vector illustration, Illustrator' },
+      { src: '/images/projects/illustration/illustrator/illustrator-03.jpg', alt: 'Illustrator composition' },
       { src: '/images/projects/illustration/illustrator/illustrator-04.jpg', alt: 'Kakashi character illustration' },
     ] as IllusImage[],
   },
@@ -56,9 +56,9 @@ export const illustrationCaseStudy = {
   tools: ['Figma', 'Adobe Illustrator', 'Pen Tool', 'Vector shapes', 'Colour blocking'],
 
   heroCollage: [
-    '/images/projects/illustration/company/company-01.png',
-    '/images/projects/illustration/company/company-05.png',
-    '/images/projects/illustration/company/company-10.png',
+    '/images/projects/illustration/company/company-01.jpg',
+    '/images/projects/illustration/company/company-05.jpg',
+    '/images/projects/illustration/company/company-10.jpg',
     '/images/projects/illustration/wpap/wpap-01.jpg',
     '/images/projects/illustration/wpap/wpap-04.jpg',
     '/images/projects/illustration/illustrator/illustrator-04.jpg',

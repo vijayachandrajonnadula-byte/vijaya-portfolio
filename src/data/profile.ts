@@ -15,4 +15,11 @@ export const profile = {
   focus: 'UX/UI · Product flows · Design systems',
   strength: 'Research to working prototypes',
   workflow: 'Human-led · AI-assisted',
+  education: { school: 'IIIT Nuzvid', degree: 'Electronics and Communication Engineering', period: '2017 – 2021' },
+  preUniversity: { school: 'RGUKT-IIIT Nuzvid', course: 'Pre-University Course', period: '2015 – 2017' },
+  certifications: [
+    { name: 'Google Professional UX Design Certificate', period: 'Mar 2021 – Sep 2021' },
+    { name: 'CalArts UI/UX Specialisation', period: 'Oct 2020 – Feb 2021' },
+  ],
+  yearsExperience: '5+',
 } as const;

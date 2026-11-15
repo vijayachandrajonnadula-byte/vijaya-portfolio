@@ -6,3 +6,19 @@ dist/
 .env.local
 .claude/
 *.log
+
+# Source material for the PULSE design system: contains production branding and screens.
+pulse-design-system-share.zip
+
+# The real Figma source (about 150 MB, production branding) and specs extracted from it. Local only, never committed or hosted.
+pulse 2.0.fig
+*.fig
+design-system/pulse/figma-tokens/pulse/
+
+# Local-only working files: product-branded prototype, source zips and generated TypeScript output.
+electronic-execution_2 1.html
+attachments.zip
+*.tsbuildinfo
+vite.config.js
+vite.config.d.ts
+

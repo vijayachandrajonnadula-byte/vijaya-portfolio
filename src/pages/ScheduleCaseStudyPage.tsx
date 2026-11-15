@@ -1,8 +1,11 @@
 import Header from '../components/layout/Header';
 import Footer from '../components/layout/Footer';
+import NextProject from '../components/case-study/NextProject';
 import CaseStudyHero from '../components/case-study/CaseStudyHero';
 import CaseStudyNav from '../components/case-study/CaseStudyNav';
 import Button from '../components/ui/Button';
+import Img from '../components/case-study/Img';
+import { imgSize } from '../data/imageSizes';
 import { scheduleCaseStudy as cs } from '../data/scheduleCaseStudy';
 
 const scheduleNavItems = [
@@ -30,7 +33,7 @@ function renderWireframe(key: string) {
   switch (key) {
     case 'availability':
       return (
-        <div className="afs-wireframe">
+        <div className="afs-wireframe" aria-hidden="true">
           <div className="afs-wf-header">
             <div className="afs-wf-dots"><span/><span/><span/></div>
             <div className="afs-wf-breadcrumb">Calendar Settings / Manage Default Availability</div>
@@ -71,7 +74,7 @@ function renderWireframe(key: string) {
 
     case 'splitShift':
       return (
-        <div className="afs-wireframe">
+        <div className="afs-wireframe" aria-hidden="true">
           <div className="afs-wf-header">
             <div className="afs-wf-dots"><span/><span/><span/></div>
             <div className="afs-wf-breadcrumb">Manage Default Availability — split shifts</div>
@@ -110,7 +113,7 @@ function renderWireframe(key: string) {
 
     case 'createMeeting':
       return (
-        <div className="afs-wireframe">
+        <div className="afs-wireframe" aria-hidden="true">
           <div className="afs-wf-header">
             <div className="afs-wf-dots"><span/><span/><span/></div>
             <div className="afs-wf-breadcrumb">Calendar Settings / Create Meeting Type</div>
@@ -158,7 +161,7 @@ function renderWireframe(key: string) {
 
     case 'emailEditor':
       return (
-        <div className="afs-wireframe" style={{minHeight:'240px'}}>
+        <div className="afs-wireframe" aria-hidden="true" style={{minHeight:'240px'}}>
           <div className="afs-wf-header">
             <div className="afs-wf-dots"><span/><span/><span/></div>
             <div className="afs-wf-breadcrumb">Customize Reminder Email</div>
@@ -200,7 +203,7 @@ function renderWireframe(key: string) {
 
     case 'discard':
       return (
-        <div className="afs-wireframe" style={{background:'rgba(15,23,42,0.06)'}}>
+        <div className="afs-wireframe" aria-hidden="true" style={{background:'rgba(15,23,42,0.06)'}}>
           <div className="afs-wf-header">
             <div className="afs-wf-dots"><span/><span/><span/></div>
             <div className="afs-wf-breadcrumb">Create Meeting Type</div>
@@ -686,8 +689,8 @@ export default function ScheduleCaseStudyPage() {
                       <span className="afs-screen-frame__confidential">prototype data — company project</span>
                     </div>
                     <div className="afs-screen-frame__body">
-                      <img
-                        src={screen.src}
+                      <Img
+                        src={screen.src} {...imgSize(screen.src)}
                         alt={screen.title}
                         className="afs-screen-frame__img"
                         onError={e => { (e.target as HTMLImageElement).style.display = 'none'; }}
@@ -802,6 +805,7 @@ export default function ScheduleCaseStudyPage() {
           </div>
         </div>
       </main>
+      <NextProject />
       <Footer />
     </>
   );

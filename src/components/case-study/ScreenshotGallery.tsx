@@ -1,4 +1,6 @@
-interface GalleryImage { src: string; caption: string; }
+import Img from './Img';
+
+interface GalleryImage { src: string; caption: string; width?: number; height?: number; }
 
 interface ScreenshotGalleryProps {
   images: GalleryImage[];
@@ -11,14 +13,12 @@ export default function ScreenshotGallery({ images, mobile = false }: Screenshot
       {images.map(img => (
         <div key={img.caption} className="screenshot-item">
           <div className={`screenshot-item__frame${mobile ? ' screenshot-item__frame--mobile' : ''}`}>
-            <img
+            <Img
               src={img.src}
               alt={img.caption}
+              width={img.width}
+              height={img.height}
               className="screenshot-item__img"
-              onError={e => {
-                const el = e.target as HTMLImageElement;
-                el.style.display = 'none';
-              }}
             />
           </div>
           <span className="screenshot-item__caption">{img.caption}</span>

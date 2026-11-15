@@ -1,28 +1,20 @@
-import VJLogo from '../ui/VJLogo';
+import { Link } from 'react-router-dom';
 import { profile } from '../../data/profile';
+import CircuitLed from '../story/CircuitLed';
 
 export default function Footer() {
   return (
-    <footer className="footer">
-      <div className="container">
-        <div className="footer__inner">
-          <div className="footer__brand">
-            <div className="footer__brand-logo">
-              <VJLogo size={32} variant="light" />
-              <span className="footer__name">{profile.name}</span>
-            </div>
-            <p className="footer__status">Currently open to product design roles</p>
-          </div>
-          <div className="footer__links">
-            <a href={`mailto:${profile.email}`} className="footer__link">{profile.email}</a>
-            <a href={profile.linkedin} className="footer__link" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-            <a href={profile.github} className="footer__link" target="_blank" rel="noopener noreferrer">GitHub</a>
-          </div>
-        </div>
-        <div className="footer__bottom">
-          <span className="footer__copy">Built with React · {profile.name} 2026</span>
-        </div>
-      </div>
+    <footer className="site-foot">
+      <CircuitLed />
+      <span>© 2026 {profile.name}</span>
+      <nav className="site-foot__links" aria-label="Footer">
+        <a href={`mailto:${profile.email}`}>{profile.email}</a>
+        <a href="/Vijaya_Chandra_Jonnadula.pdf" download="Vijaya_Chandra_Jonnadula.pdf">Resume</a>
+        <a href={profile.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a href={profile.github} target="_blank" rel="noopener noreferrer">GitHub</a>
+        <Link to="/ask">Ask</Link>
+      </nav>
+      <button type="button" onClick={() => (window.__lenis ? window.__lenis.scrollTo(0) : window.scrollTo({ top: 0, behavior: 'smooth' }))}>Back to top ↑</button>
     </footer>
   );
 }
