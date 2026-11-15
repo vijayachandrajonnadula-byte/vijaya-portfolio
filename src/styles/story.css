@@ -1,0 +1,92 @@
+/* The story layer: the Trace, chapter labels, the Signal interlude, the footer LED. Uses the --c-* tokens. */
+
+.story { position: relative; }
+
+.story-hero { position: relative; }
+.story-hero__label { position: absolute; left: 0; right: 0; bottom: 26px; display: flex; justify-content: center; pointer-events: none; }
+.story-hero__label .chapter { margin: 0; }
+.story-about__label { max-width: 1060px; margin: 0 auto; padding: clamp(32px, 5vw, 64px) var(--px) 0; box-sizing: content-box; }
+.story-about__label .chapter { margin: 0; }
+.story-about { margin-bottom: 0; }
+
+/* ---------- chapter label ---------- */
+.chapter { display: inline-flex; align-items: center; gap: 10px; margin: 0 0 14px; font: 500 0.78rem/1 ui-monospace, 'Cascadia Code', Consolas, monospace; letter-spacing: 0.08em; color: var(--c-mute); }
+.chapter--center { justify-content: center; }
+.chapter__dot { width: 7px; height: 7px; border-radius: 50%; border: 1.5px solid var(--c-mute); background: transparent; transition: background 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease; }
+.chapter__n { color: var(--c-clay-ink); font-weight: 600; }
+.chapter__name { text-transform: lowercase; }
+.chapter__plain { color: var(--c-ink2); }
+/* relay click: the node flickers on (~140ms) and the name slides in 6px as the label crosses ~40% up the viewport */
+.chapter.is-pre .chapter__name { transform: translateX(-6px); }
+.chapter__name { display: inline-block; transition: transform 0.45s var(--ease-out); }
+.chapter.is-relay .chapter__dot { animation: relay 0.14s steps(2, end) 1; }
+@keyframes relay { 0% { background: var(--c-clay); box-shadow: 0 0 0 4px var(--c-glow); } 50% { background: transparent; box-shadow: none; } 100% { background: var(--c-clay); box-shadow: 0 0 0 4px var(--c-glow); } }
+.chapter.is-lit .chapter__dot { background: var(--c-clay); border-color: var(--c-clay); box-shadow: 0 0 0 4px var(--c-glow); }
+
+/* ---------- the trace (desktop gutter only) ---------- */
+.trace { display: none; position: absolute; left: 0; top: 0; pointer-events: none; z-index: 1; overflow: visible; }
+@media (min-width: 1200px) { .trace { display: block; } }
+.trace__track, .trace__lit { fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.trace__track { stroke: var(--c-line); stroke-width: 1.5; }
+.trace__lit { stroke: var(--c-clay); stroke-width: 1.5; }
+.trace__ring { fill: var(--c-bg); stroke: var(--c-line); stroke-width: 1.5; transition: stroke 0.4s ease; }
+.trace__dot { fill: var(--c-clay); transform: scale(0); transform-box: fill-box; transform-origin: center; transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1); }
+.trace__pad.is-on .trace__ring { stroke: var(--c-clay); }
+.trace__pad.is-on .trace__dot { transform: scale(1); }
+.trace__packet { transition: opacity 0.15s ease; }
+.trace__pk-halo { fill: var(--c-clay); opacity: 0.3; }
+.trace__pad.is-zap .trace__ring { stroke: var(--c-clay); stroke-width: 2.5; }
+.trace__pad.is-zap .trace__dot { transform: scale(1.5); }
+.trace__head { transition: opacity 0.3s ease; }
+.trace__spark { fill: var(--c-clay); }
+.trace__halo { fill: var(--c-clay); opacity: 0.22; transform-box: fill-box; transform-origin: center; animation: trace-pulse 1.8s ease-in-out infinite; }
+.trace.is-paused .trace__halo { animation-play-state: paused; }
+@keyframes trace-pulse { 0%, 100% { transform: scale(0.55); opacity: 0.32; } 50% { transform: scale(1); opacity: 0.08; } }
+
+/* ---------- LED ---------- */
+.led { position: relative; flex: none; width: 12px; height: 12px; border-radius: 50%; background: var(--c-tile2); border: 1.5px solid var(--c-line); transition: background 0.5s ease, border-color 0.5s ease, box-shadow 0.5s ease; }
+.led--sm { width: 9px; height: 9px; }
+.led.is-on { background: var(--c-clay); border-color: var(--c-clay); box-shadow: 0 0 0 4px var(--c-glow), 0 0 14px 2px var(--c-glow); animation: led-on 0.9s ease-out 1; }
+@keyframes led-on { 0% { box-shadow: 0 0 0 0 rgba(226, 112, 90, 0.7), 0 0 0 0 var(--c-glow); } 100% { box-shadow: 0 0 0 4px var(--c-glow), 0 0 14px 2px var(--c-glow); } }
+
+.led-wrap { position: relative; display: inline-flex; flex: none; }
+.led-ring { position: absolute; inset: 0; border-radius: 50%; border: 2px solid var(--c-clay); pointer-events: none; animation: led-ring 0.6s ease-out 1 forwards; }
+@keyframes led-ring { from { transform: scale(1); opacity: 0.9; } to { transform: scale(2.4); opacity: 0; } }
+.caret { display: inline-block; width: 1px; height: 1em; margin-left: 2px; vertical-align: -0.12em; background: var(--c-clay); animation: caret 0.5s steps(2) infinite; }
+@keyframes caret { 50% { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .chapter.is-relay .chapter__dot, .led-ring { animation: none; } .led-ring { display: none; } .chapter__name { transition: none; } }
+.circuit-end { flex: 0 0 100%; box-sizing: border-box; display: flex; align-items: center; gap: 14px; width: 100%; margin: 0 0 4px; padding: 10px max(0px, calc((100% - 1060px) / 2)) 14px; color: var(--c-ink2); }
+.circuit-end__line { margin: 0; font: 500 0.82rem/1.3 ui-monospace, 'Cascadia Code', Consolas, monospace; letter-spacing: 0.02em; }
+
+/* ---------- signal interlude ---------- */
+.signal { padding: clamp(24px, 5vw, 72px) var(--px) clamp(24px, 4vw, 56px); }
+.signal__in { max-width: 1060px; margin: 0 auto; }
+.signal__h { margin: 0; font-family: var(--font-serif); font-weight: 400; letter-spacing: -0.02em; line-height: 1.05; font-size: clamp(2.2rem, 4.6vw, 3.6rem); max-width: 18ch; text-wrap: balance; }
+.signal__sub { margin: 10px 0 clamp(22px, 3vw, 34px); color: var(--c-mute); font-size: 1.05rem; }
+.signal__card { border-radius: 28px; background: var(--c-tile); padding: clamp(16px, 2.4vw, 28px); display: grid; gap: 18px; }
+.signal__wave { display: block; width: 100%; height: clamp(120px, 18vw, 190px); border-radius: 18px; background: var(--c-bg); overflow: hidden; }
+.signal__base { stroke: var(--c-line); stroke-width: 1; vector-effect: non-scaling-stroke; }
+.signal__ghost { fill: none; stroke: var(--c-line); stroke-width: 1.5; stroke-dasharray: 4 6; vector-effect: non-scaling-stroke; }
+.signal__line { fill: none; stroke-width: 2.25; stroke-linejoin: round; stroke-linecap: round; vector-effect: non-scaling-stroke; stroke: color-mix(in srgb, var(--c-clay-ink) calc((100 - var(--n)) * 1%), var(--c-ink2)); }
+.signal__read { display: flex; justify-content: space-between; align-items: center; gap: 8px 20px; flex-wrap: wrap; }
+.signal__tag { font: 600 0.82rem/1 ui-monospace, 'Cascadia Code', Consolas, monospace; letter-spacing: 0.06em; color: var(--c-ink); padding: 8px 12px; border-radius: 999px; background: var(--c-bg); }
+.signal__card[data-clean] .signal__tag { color: var(--c-clay-ink); }
+.signal__quip { display: inline-flex; align-items: center; gap: 10px; color: var(--c-ink2); font-size: 0.95rem; }
+.signal__ctl { display: grid; grid-template-columns: auto minmax(0, 1fr) 3.4ch; align-items: center; gap: 16px; }
+.signal__ctl label { font-weight: 600; }
+.signal__ctl output { font-variant-numeric: tabular-nums; text-align: right; color: var(--c-ink2); }
+.signal__ctl input[type='range'] { -webkit-appearance: none; appearance: none; width: 100%; height: 28px; margin: 0; background: transparent; cursor: pointer; }
+.signal__ctl input[type='range']::-webkit-slider-runnable-track { height: 6px; border-radius: 999px; background: linear-gradient(90deg, var(--c-clay) var(--v), var(--c-tile2) var(--v)); }
+.signal__ctl input[type='range']::-moz-range-track { height: 6px; border-radius: 999px; background: linear-gradient(90deg, var(--c-clay) var(--v), var(--c-tile2) var(--v)); }
+.signal__ctl input[type='range']::-webkit-slider-thumb { -webkit-appearance: none; width: 24px; height: 24px; margin-top: -9px; border-radius: 50%; background: var(--c-obj); border: 2px solid var(--c-clay-ink); box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18); }
+.signal__ctl input[type='range']::-moz-range-thumb { width: 20px; height: 20px; border-radius: 50%; background: var(--c-obj); border: 2px solid var(--c-clay-ink); box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18); }
+.signal__ctl input[type='range']:focus-visible { outline: 2px solid var(--c-accent); outline-offset: 4px; border-radius: 8px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .chapter__dot, .trace__dot, .trace__ring, .led { transition: none; }
+  .led.is-on, .trace__halo { animation: none; }
+}
+
+/* Keep the footer's right-hand link clear of the floating Clay launcher. */
+@media (min-width: 700px) { .site-foot { padding-right: 96px; box-sizing: border-box; } }
+

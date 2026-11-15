@@ -1,0 +1,1 @@
+import{t as e}from"./createSvgIcon-BfqA8eg9.js";import{V as t}from"./capitalize-DTW5MDI6.js";var n=t(),r=e((0,n.jsx)(`path`,{d:`M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2m0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2m0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2`}),`MoreVertRounded`);export{r as t};

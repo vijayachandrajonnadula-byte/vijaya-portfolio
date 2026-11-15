@@ -1,0 +1,1 @@
+import"./rolldown-runtime-XKyaHtl9.js";import{$ as e}from"./capitalize-DTW5MDI6.js";e();function t(e){return e?.props?.ref||null}export{t};

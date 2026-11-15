@@ -1,0 +1,1 @@
+import{n as e}from"./rolldown-runtime-sJBDdmOt.js";import{wt as t}from"./iframe-C8nw9dOl.js";import{n,t as r}from"./createSvgIcon-Dk_MEeA0.js";var i,a;function o(){return(o=e((()=>{n(),i=t(),a=r((0,i.jsx)(`path`,{d:`M18 13H6c-.55 0-1-.45-1-1s.45-1 1-1h12c.55 0 1 .45 1 1s-.45 1-1 1`}),`RemoveRounded`)})))()}export{o as n,a as t};

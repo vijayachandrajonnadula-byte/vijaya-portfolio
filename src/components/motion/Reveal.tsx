@@ -1,6 +1,6 @@
 import { motion, useReducedMotion } from 'framer-motion';
 import type { ReactNode } from 'react';
-import { fadeUp, VIEWPORT } from './motion-presets';
+import { jFadeUp, JVIEWPORT } from '../case-study/jump';
 
 /**
  * Reveals its children once, when scrolled into view.
@@ -47,10 +47,10 @@ export default function Reveal({
     <Tag
       id={id}
       className={className}
-      variants={fadeUp(y, delay)}
+      variants={jFadeUp(y, delay)}
       initial={reduced ? false : 'hidden'}
       whileInView="show"
-      viewport={VIEWPORT}
+      viewport={JVIEWPORT}
     >
       {children}
     </Tag>

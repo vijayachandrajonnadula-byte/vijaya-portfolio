@@ -1,8 +1,11 @@
 import Header from '../components/layout/Header';
 import Footer from '../components/layout/Footer';
+import NextProject from '../components/case-study/NextProject';
 import CaseStudyHero from '../components/case-study/CaseStudyHero';
 import CaseStudyNav from '../components/case-study/CaseStudyNav';
 import Button from '../components/ui/Button';
+import Img from '../components/case-study/Img';
+import { imgSize } from '../data/imageSizes';
 import { illustrationCaseStudy as cs } from '../data/illustrationCaseStudy';
 
 const illustNavItems = [
@@ -31,8 +34,8 @@ export default function IllustrationCaseStudyPage() {
             <div className="illus-collage">
               {cs.heroCollage.map((src, i) => (
                 <div key={src} className="illus-collage__item">
-                  <img
-                    src={src}
+                  <Img
+                    src={src} {...imgSize(src)}
                     alt={`Illustration sample ${i + 1}`}
                     className="illus-collage__img"
                     onError={e => { (e.target as HTMLImageElement).style.display = 'none'; }}
@@ -71,8 +74,8 @@ export default function IllustrationCaseStudyPage() {
               <div className="illus-portrait-grid">
                 {cs.companySection.images.map(img => (
                   <div key={img.src} className="illus-portrait-card">
-                    <img
-                      src={img.src}
+                    <Img
+                      src={img.src} {...imgSize(img.src)}
                       alt={img.alt}
                       className="illus-portrait-img"
                       onError={e => { (e.target as HTMLImageElement).style.display = 'none'; }}
@@ -92,8 +95,8 @@ export default function IllustrationCaseStudyPage() {
               <div className="illus-artwork-grid">
                 {cs.illustratorSection.images.map(img => (
                   <div key={img.src} className="illus-artwork-card">
-                    <img
-                      src={img.src}
+                    <Img
+                      src={img.src} {...imgSize(img.src)}
                       alt={img.alt}
                       className="illus-artwork-img"
                       onError={e => { (e.target as HTMLImageElement).style.display = 'none'; }}
@@ -113,8 +116,8 @@ export default function IllustrationCaseStudyPage() {
               <div className="illus-artwork-grid">
                 {cs.wpapSection.images.map(img => (
                   <div key={img.src} className="illus-artwork-card">
-                    <img
-                      src={img.src}
+                    <Img
+                      src={img.src} {...imgSize(img.src)}
                       alt={img.alt}
                       className="illus-artwork-img"
                       onError={e => { (e.target as HTMLImageElement).style.display = 'none'; }}
@@ -145,6 +148,7 @@ export default function IllustrationCaseStudyPage() {
           </div>
         </div>
       </main>
+      <NextProject />
       <Footer />
     </>
   );

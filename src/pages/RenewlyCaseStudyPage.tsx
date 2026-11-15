@@ -1,10 +1,13 @@
 import Header from '../components/layout/Header';
 import Footer from '../components/layout/Footer';
+import NextProject from '../components/case-study/NextProject';
 import CaseStudyHero from '../components/case-study/CaseStudyHero';
 import CaseStudyNav from '../components/case-study/CaseStudyNav';
 import IterationLog from '../components/case-study/IterationLog';
 import ResponsiveQA from '../components/case-study/ResponsiveQA';
 import Button from '../components/ui/Button';
+import Img from '../components/case-study/Img';
+import { imgSize } from '../data/imageSizes';
 import { renewlyCaseStudy as cs } from '../data/renewlyCaseStudy';
 
 const renewlyNavItems = [
@@ -57,7 +60,7 @@ export default function RenewlyCaseStudyPage() {
           tags={cs.tags}
           prototypeUrl={cs.prototypeUrl}
           githubUrl={cs.githubUrl}
-          heroImage="/images/projects/renewly/clean/desktop-dashboard.png"
+          heroImage="/images/projects/renewly/clean/desktop-dashboard.jpg"
           heroImageAlt="Renewly dashboard, SaaS renewal management"
           prototypeUrlLabel="renewly-ux.vercel.app"
         />
@@ -169,8 +172,8 @@ export default function RenewlyCaseStudyPage() {
               <h2 className="cs-section__title">Product flow</h2>
               <p className="cs-section__body">{cs.userJourneyDescription}</p>
               <div className="cs-image-wrap" style={{ marginTop: 'var(--space-6)' }}>
-                <img
-                  src="/images/projects/renewly/wireframes/flow-map.png"
+                <Img
+                  src="/images/projects/renewly/wireframes/flow-map.jpg" {...imgSize("/images/projects/renewly/wireframes/flow-map.jpg")}
                   alt="Renewly renewal decision flow"
                   className="cs-image"
                   style={{ maxHeight: 'none', objectFit: 'contain' }}
@@ -184,8 +187,8 @@ export default function RenewlyCaseStudyPage() {
               <h2 className="cs-section__title">Information architecture</h2>
               <p className="cs-section__body">{cs.iaDescription}</p>
               <div className="cs-image-wrap" style={{ marginTop: 'var(--space-6)' }}>
-                <img
-                  src="/images/projects/renewly/wireframes/ia-map.png"
+                <Img
+                  src="/images/projects/renewly/wireframes/ia-map.jpg" {...imgSize("/images/projects/renewly/wireframes/ia-map.jpg")}
                   alt="Renewly information architecture"
                   className="cs-image"
                   style={{ maxHeight: 'none', objectFit: 'contain' }}
@@ -202,8 +205,8 @@ export default function RenewlyCaseStudyPage() {
                 {cs.wireframeImages.map(img => (
                   <div key={img.label} className="wireframe-item">
                     <div className="wireframe-item__frame">
-                      <img
-                        src={img.src}
+                      <Img
+                        src={img.src} {...imgSize(img.src)}
                         alt={img.label}
                         className="wireframe-item__img"
                         onError={e => { (e.target as HTMLImageElement).style.display = 'none'; }}
@@ -237,8 +240,8 @@ export default function RenewlyCaseStudyPage() {
 
               {/* Foundations screenshot */}
               <div className="renewly-ds-full-img" style={{ marginTop: 'var(--space-6)' }}>
-                <img
-                  src="/images/projects/renewly/design-system/00-foundations.png"
+                <Img
+                  src="/images/projects/renewly/design-system/00-foundations.jpg" {...imgSize("/images/projects/renewly/design-system/00-foundations.jpg")}
                   alt="Foundations and components"
                   onError={e => { (e.target as HTMLImageElement).style.display = 'none'; }}
                 />
@@ -378,7 +381,7 @@ export default function RenewlyCaseStudyPage() {
                       <span className="renewly-browser-url-bar">renewly-ux.vercel.app</span>
                     </div>
                     <div className="renewly-browser-body renewly-browser-body--full">
-                      <img src={s.src} alt={s.title} className="renewly-browser-img"
+                      <Img src={s.src} {...imgSize(s.src)} alt={s.title} className="renewly-browser-img"
                         onError={e => { (e.target as HTMLImageElement).style.display = 'none'; }} />
                     </div>
                   </div>
@@ -400,8 +403,8 @@ export default function RenewlyCaseStudyPage() {
                       <div className="renewly-mobile-caption__note">{screen.responsiveDecision}</div>
                     </div>
                     <div className="renewly-mobile-frame">
-                      <img
-                        src={screen.src}
+                      <Img
+                        src={screen.src} {...imgSize(screen.src)}
                         alt={screen.title}
                         className="renewly-mobile-img"
                         onError={e => { (e.target as HTMLImageElement).style.display = 'none'; }}
@@ -557,6 +560,7 @@ export default function RenewlyCaseStudyPage() {
           </div>
         </section>
       </main>
+      <NextProject />
       <Footer />
     </>
   );

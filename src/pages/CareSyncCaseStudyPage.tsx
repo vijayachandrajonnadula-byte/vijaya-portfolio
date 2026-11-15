@@ -1,11 +1,14 @@
 import Header from '../components/layout/Header';
 import Footer from '../components/layout/Footer';
+import NextProject from '../components/case-study/NextProject';
 import CaseStudyHero from '../components/case-study/CaseStudyHero';
 import SnapshotGrid from '../components/case-study/SnapshotGrid';
 import CaseStudyNav from '../components/case-study/CaseStudyNav';
 import IterationLog from '../components/case-study/IterationLog';
 import ResponsiveQA from '../components/case-study/ResponsiveQA';
 import Button from '../components/ui/Button';
+import Img from '../components/case-study/Img';
+import { imgSize } from '../data/imageSizes';
 import { caresyncCaseStudy as cs } from '../data/caresyncCaseStudy';
 
 function Checklist({ items }: { items: string[] }) {
@@ -32,7 +35,7 @@ export default function CareSyncCaseStudyPage() {
           tags={cs.tags}
           prototypeUrl={cs.prototypeUrl}
           githubUrl={cs.githubUrl}
-          heroImage="/images/projects/caresync/desktop/dashboard.png"
+          heroImage="/images/projects/caresync/desktop/dashboard.jpg"
           heroImageAlt="CareSync shift briefing, the clinical command centre"
           prototypeUrlLabel="care-sync-two-mu.vercel.app/shift-briefing"
         />
@@ -145,8 +148,8 @@ export default function CareSyncCaseStudyPage() {
                   {cs.wireframeImages.map(img => (
                     <div key={img.label} className="wireframe-item">
                       <div className="wireframe-item__frame">
-                        <img
-                          src={img.src}
+                        <Img
+                          src={img.src} {...imgSize(img.src)}
                           alt={img.label}
                           className="wireframe-item__img"
                           onError={e => { (e.target as HTMLImageElement).style.display = 'none'; }}
@@ -261,8 +264,8 @@ export default function CareSyncCaseStudyPage() {
               <div className="design-system-grid">
                 {cs.designSystemImages.map(img => (
                   <div key={img.label} className="design-system-img">
-                    <img
-                      src={img.src}
+                    <Img
+                      src={img.src} {...imgSize(img.src)}
                       alt={img.label}
                       loading="lazy"
                       onError={e => { (e.target as HTMLImageElement).style.display = 'none'; }}
@@ -301,7 +304,7 @@ export default function CareSyncCaseStudyPage() {
                       <span className="renewly-browser-url-bar">care-sync-two-mu.vercel.app</span>
                     </div>
                     <div className="renewly-browser-body renewly-browser-body--full">
-                      <img src={s.src} alt={s.title} className="renewly-browser-img" loading="lazy"
+                      <Img src={s.src} {...imgSize(s.src)} alt={s.title} className="renewly-browser-img" loading="lazy"
                         onError={e => { (e.target as HTMLImageElement).style.display = 'none'; }} />
                     </div>
                   </div>
@@ -327,7 +330,7 @@ export default function CareSyncCaseStudyPage() {
                       <div className="renewly-mobile-caption__note">{s.uxNote}</div>
                     </div>
                     <div className="renewly-mobile-frame">
-                      <img src={s.src} alt={s.title} className="renewly-mobile-img" loading="lazy"
+                      <Img src={s.src} {...imgSize(s.src)} alt={s.title} className="renewly-mobile-img" loading="lazy"
                         onError={e => { (e.target as HTMLImageElement).style.display = 'none'; }} />
                     </div>
                   </div>
@@ -481,6 +484,7 @@ export default function CareSyncCaseStudyPage() {
           </div>
         </section>
       </main>
+      <NextProject />
       <Footer />
     </>
   );

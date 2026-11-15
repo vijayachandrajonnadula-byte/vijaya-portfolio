@@ -88,6 +88,7 @@ Tools to mention where relevant:
 - src/components/ contains reusable UI sections.
 - src/pages/ contains route-level pages.
 - src/styles/ contains tokens and global CSS.
+- design-system/pulse/ is the PULSE design system itself (its own app and dependencies). Its hosted gallery is in public/pulse-gallery/. See "PULSE design system" below.
 
 ## Design Direction
 
@@ -104,13 +105,53 @@ Style:
 
 Avoid:
 - CMS complexity
-- 3D effects
-- heavy animation
-- parallax
+- looping animation that keeps running off-screen
+- scroll-jacking parallax
 - masonry layouts
 - hard-to-code custom effects
 - random irrelevant dashboards
 - tool-first portfolio messaging
+
+## Look and Motion (site layer)
+
+Reference: han1.ai (a conversational home, a mascot as guide, a bento board of tiles). Follow its structure and interaction ideas with our own content, art and words. Never copy his text, images or mascot.
+
+- Themes: light (warm paper #FAF9F7) and dark (#121214), chosen by system setting, switchable in the nav, saved in localStorage as `vj-theme`. English only. Tokens are the `--c-*` variables in `src/styles/site.css`. Case-study pages are light only (`html[data-page='case']` pins light tokens and keeps the older dark opening); the theme switch is hidden there. The PULSE and Electronic execution case studies follow the theme (`PageMode` in `src/App.tsx`).
+- Colour: clay (#E2705A) for the mascot and small accents, deep blue (#1E3A6E, light-blue in dark) for actions. Type: Instrument Sans, Newsreader for big editorial lines.
+- Clay is an original SVG mascot (`src/components/studio/Character.tsx`) with poses (rest, wave, point, hold, think) and props. It blinks, breathes and follows the pointer only while on screen and when reduced motion is off.
+- Home: greeting + ask box (`HomeHero`, `AskBox`), bento work groups (`WorkBento`, `Objects`), more projects list, About board, contact composer. The guide bubble (`Guide`) is on every page except `/ask`.
+- The ask box is retrieval, not generation. Answers live in `src/data/knowledge.ts`, are written from facts already on the site, and the ask page says so. To teach it something, add an entry. Do not make answers up and do not label retrieval as AI.
+- Q&A (`src/data/knowledge.ts`, 63 entries in groups: journey, work, how I work, career, skills, hiring, fun, stories, tall tales). Every entry has a `kind`: `true` (resume/site facts), `parable`, `tall-tale` or `analogy`; non-true kinds are labelled on the card and in the accessible name, and factual questions must never return one (tested). Chips and list items carry exact entry ids (`/ask?id=<id>`, deep link `/ask#q=<id>`); typed text goes through a scored `search()` with a minimum score. The paraphrase test is `scratchpad\verify-K\search-test.mjs` style: bundle knowledge.ts with esbuild and assert ids. Facts come from `public/Vijaya_Chandra_Jonnadula.pdf` (ECE at RGUKT-IIIT Nuzvid 2017 to 2021, CalArts UI/UX Specialisation Oct 2020 to Feb 2021, Google Professional UX Design Certificate Mar to Sep 2021). No phone number anywhere. "From signals to screens" (`src/components/story/SignalsToScreens.tsx`, `src/data/journey.ts`) is the true timeline on three tracks; its fiction layer is off by default and tagged.
+- No backend. The contact form only builds a draft and opens the email app.
+- No Three.js or WebGL on the site. Requirements for any motion: pause or skip continuous animation off-screen and under `prefers-reduced-motion`; pointer effects only on fine pointers; no scroll-jacking.
+- FieldFlow is hidden: its entry, routes and links are removed, the code stays in `src/fieldflow/`.
+- Story layer on the clean look (`src/components/story/`, `src/styles/story.css`): "The Trace" is one scroll-linked SVG circuit trace in the left gutter (desktop >= 1200px) with a node per chapter (01 power on, 02 signal, 03 prototypes, 04 datasheet, 05 pinout) that completes into a footer LED; the Signal interlude is a noise slider that cleans a waveform. No scroll-jacking; reduced motion draws it static.
+- Electronics-background layer (`src/components/electro/`, `src/styles/electro.css`, `src/data/quirks.ts`): the theme toggle is a power switch, Clay has LED eyes, About is a "datasheet" (real facts: ECE at IIIT Nuzvid, 2017 to 2021, stated in About only, not in the hero), the 404 is an "open circuit". Humour is about electronics and UX puns, never invented biography. Class names are `el-` prefixed to avoid collisions with the legacy global.css (`.about` paints a light surface; site.css overrides it).
+- The header nav is Work, About, Contact only (the design-system link was removed; the PULSE case study is reached from the Work section).
+- A copy of the short-lived "electronics / circuit lab / game" redesign (signal-orange accent, Design Circuit Lab hero, XP pause menu, Playground) is kept outside the repo at `C:\Users\Admin\Documents\vijaya-portfolio-electronics-backup`. It is not part of the site.
+
+## PULSE design system (design-system/pulse/)
+
+The real PULSE design system, with the original components, structure and behaviour intact. It differs from the production copy in three ways, all logged in `design-system/pulse/docs/figma-deviations.md`: it keeps the original palette with a few same-tone text adjustments for contrast, company logos and product names are removed, and sample people are roles.
+
+It is a self-contained app (React 19, MUI 9, Vite 8), separate from the portfolio (React 18). Do not import from it into `src/`.
+
+- Run it: `cd design-system/pulse && npm ci && npm run dev` (gallery on 5173).
+- The hosted gallery is a static build in `public/pulse-gallery/`: `cd design-system/pulse && node node_modules/vite/bin/vite.js build --base /pulse-gallery/ --outDir ../../public/pulse-gallery --emptyOutDir`. It is excluded from the PWA precache and navigation fallback in `vite.config.ts`. Rebuild it after any change to the system.
+- The hosted Storybook is a static build in `public/pulse-storybook/`: `cd design-system/pulse && node node_modules/storybook/dist/bin/dispatcher.js build -o ../../public/pulse-storybook`. Also excluded from the PWA precache and navigation fallback. Rebuild it with the gallery.
+- Case study: `src/pages/PulseCaseStudyPage.tsx` (blocks in `src/components/pulse/PulseKit.tsx`), content in `src/data/pulseCaseStudy.ts`. Counts come from `src/data/pulse-metrics.json` (`node scripts/dev/public-metrics.mjs` in the system folder) and `src/data/pulse-audit.json` (the axe-core scan).
+
+### Electronic execution (second case study on PULSE)
+
+A working app that runs a validation protocol on screen, built only from PULSE components: `design-system/pulse/src/pages/ElectronicExecution/` (state and rules in `model.ts`/`store.ts`, UI state in `ui.ts`, dialogs in `dialogs/`, side panels in `actions/`). It is hosted with the gallery at `/pulse-gallery/index.html#/ElectronicExecution`. Case study: `src/pages/ExecutionCaseStudyPage.tsx`, content in `src/data/executionCaseStudy.ts`, images in `public/images/projects/execution/`. Public copy is de-branded (no company or product names, roles not people, generic ids). It is a prototype: not validated, AI output scripted, password only checked for presence. Keep those limits honest. Rebuild the gallery after any change (command below).
+
+Rules:
+- **Keep the system as it is.** Fix components, never pages. Do not redesign it to look better; the brief is a faithful copy of the original, including its palette.
+- Colours: the ORIGINAL palette is restored. The earlier re-map (scripts/recolour/) is retired; do not run it. Contrast fixes are small same-tone darkenings, each logged in the deviations file; light text on the dark nav rail stays light.
+- Never add company logos, product names (Smart GxP and its module names), the favicon mark, or real-looking people. Use roles.
+- Do not state a test as done unless it was run. The case study lists its limits; keep them honest.
+- The source zip (`pulse-design-system-share.zip`) is gitignored and must stay out of the repo.
+- Never edit files with PowerShell Get-Content/Set-Content (it corrupts UTF-8). Use the Edit tool or a Node script.
 
 ## Case Study Requirements
 

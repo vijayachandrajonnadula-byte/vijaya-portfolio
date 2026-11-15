@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 400" role="img" aria-labelledby="t d" font-family="Inter, system-ui, sans-serif">
+  <title id="t">The layers of the AI-readable system</title>
+  <desc id="d">Five layers from rules at the top to guards at the bottom: CLAUDE.md rules, intents, registry and Figma map, specs, and guards.</desc>
+  <g stroke="#022165" stroke-width="1.5">
+    <rect x="20" y="20" width="920" height="60" rx="10" fill="#e9f0fe"/><rect x="20" y="96" width="920" height="60" rx="10" fill="#fff"/><rect x="20" y="172" width="920" height="60" rx="10" fill="#fff"/><rect x="20" y="248" width="920" height="60" rx="10" fill="#fff"/><rect x="20" y="324" width="920" height="60" rx="10" fill="#e9f0fe"/>
+  </g>
+  <g font-size="15" font-weight="600" fill="#090909">
+    <text x="44" y="46">1 · Rules</text><text x="44" y="122">2 · Decisions</text><text x="44" y="198">3 · Contracts</text><text x="44" y="274">4 · Specs</text><text x="44" y="350">5 · Guards</text>
+  </g>
+  <g font-size="12.5" fill="#626d7b">
+    <text x="44" y="66">CLAUDE.md · build-from-design skill: never invent values, fix components not pages, log deviations</text>
+    <text x="44" y="142">ai/intents.json · ai/patterns.md: what a region looks like -> which components, page recipes (written by hand)</text>
+    <text x="44" y="218">ai/components.json · ai/figma-map.json: props, defaults, demos, Figma set -> component (generated)</text>
+    <text x="44" y="294">figma-tokens/pulse/*.json: every variant, size, colour, text style, read from the .fig (generated)</text>
+    <text x="44" y="370">no-restricted-imports · check:weights · ai:build validation · figma-deviations.md</text>
+  </g>
+</svg>

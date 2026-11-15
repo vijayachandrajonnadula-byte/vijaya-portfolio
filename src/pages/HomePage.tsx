@@ -1,34 +1,40 @@
+import { useRef } from 'react';
 import Header from '../components/layout/Header';
 import Footer from '../components/layout/Footer';
-import Hero from '../components/home/Hero';
-import CredibilityStrip from '../components/home/CredibilityStrip';
-import WhyMeSection from '../components/home/WhyMeSection';
-import FeaturedWork from '../components/home/FeaturedWork';
-import ProcessSection from '../components/home/ProcessSection';
-import AiWorkflowSection from '../components/home/AiWorkflowSection';
-import ValidationSection from '../components/home/ValidationSection';
-import AboutSection from '../components/home/AboutSection';
-import ContactSection from '../components/home/ContactSection';
-import Reveal from '../components/motion/Reveal';
+import HomeHero from '../components/studio/HomeHero';
+import WorkBento from '../components/studio/WorkBento';
+import AboutBento from '../components/studio/AboutBento';
+import ContactComposer from '../components/studio/ContactComposer';
+import Trace from '../components/story/Trace';
+import ChapterLabel from '../components/story/ChapterLabel';
+import SignalInterlude from '../components/story/SignalInterlude';
 
-// The hero animates on mount; everything below reveals as it enters view.
-// <main> is normal block flow, so an extra wrapper element is layout-safe here.
+/**
+ * Home reads as one circuit: power on (hero), signal, prototypes (work), datasheet (about),
+ * pinout (contact). A trace down the left gutter lights up as you scroll and ends at the footer LED.
+ */
 export default function HomePage() {
+  const story = useRef<HTMLDivElement>(null);
   return (
     <>
       <Header />
-      <main>
-        <Hero />
-        <Reveal y={14}><CredibilityStrip /></Reveal>
-        <Reveal><WhyMeSection /></Reveal>
-        <Reveal><FeaturedWork /></Reveal>
-        <Reveal><ProcessSection /></Reveal>
-        <Reveal><AiWorkflowSection /></Reveal>
-        <Reveal><ValidationSection /></Reveal>
-        <Reveal><AboutSection /></Reveal>
-        <Reveal><ContactSection /></Reveal>
-      </main>
-      <Footer />
+      <div className="story" ref={story}>
+        <Trace boundary={story} />
+        <main className="home">
+          <div className="story-hero">
+            <HomeHero />
+            <div className="story-hero__label"><ChapterLabel n="01" name="power on" align="center" /></div>
+          </div>
+          <SignalInterlude />
+          <WorkBento />
+          <div className="story-about" id="datasheet">
+            <div className="story-about__label"><ChapterLabel n="04" name="datasheet" /></div>
+            <AboutBento />
+          </div>
+          <ContactComposer />
+        </main>
+        <Footer />
+      </div>
     </>
   );
 }

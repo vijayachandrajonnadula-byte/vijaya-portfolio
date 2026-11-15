@@ -1,0 +1,1 @@
+import{t as e}from"./createSvgIcon-BfqA8eg9.js";import{V as t}from"./capitalize-DTW5MDI6.js";var n=t(),r=e((0,n.jsx)(`path`,{d:`M20 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h15c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2m0 2v3H5V5zm-5 14h-5v-9h5zM5 10h3v9H5zm12 9v-9h3v9z`}),`TableChartOutlined`);export{r as t};

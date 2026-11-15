@@ -1,0 +1,1 @@
+import{t as e}from"./createSvgIcon-BfqA8eg9.js";import{V as t}from"./capitalize-DTW5MDI6.js";var n=t(),r=e((0,n.jsx)(`path`,{d:`M18 13H6c-.55 0-1-.45-1-1s.45-1 1-1h12c.55 0 1 .45 1 1s-.45 1-1 1`}),`RemoveRounded`);export{r as t};

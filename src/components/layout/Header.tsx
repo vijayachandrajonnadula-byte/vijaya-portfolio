@@ -1,72 +1,110 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import VJLogo from '../ui/VJLogo';
+import { useTheme, applyThemeWithWipe } from './theme';
+import PowerSwitch from '../electro/PowerSwitch';
 
+const links = [
+  { label: 'Work', href: '/#work', key: 'work' },
+  { label: 'About', href: '/#about', key: 'about' },
+  { label: 'Contact', href: '/#contact', key: 'contact' },
+];
+
+/**
+ * A floating pill: mark, links, theme switch. It sits at the top on large screens and at the
+ * bottom on phones (where it slides away while you scroll down). Its colours come from the theme.
+ */
 export default function Header() {
-  const [scrolled, setScrolled] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false);
-  const location = useLocation();
+  const { pathname } = useLocation();
+  const [theme] = useTheme();
+  const dark = theme === 'dark';
+  const [active, setActive] = useState<string>('');
+  const [hidden, setHidden] = useState(false);
+  const headerRef = useRef<HTMLElement>(null);
 
+  // scroll-spy: which home section is under the middle of the screen
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 8);
+    setActive('');
+    if (pathname !== '/' || typeof IntersectionObserver === 'undefined') return;
+    let io: IntersectionObserver | undefined;
+    let retry: number | undefined;
+    const seen = new Map<string, boolean>();
+    const start = (attempt: number) => {
+      const els = links.map(l => document.getElementById(l.key)).filter((e): e is HTMLElement => !!e);
+      if (!els.length) { if (attempt < 5) retry = window.setTimeout(() => start(attempt + 1), 300); return; }
+      io = new IntersectionObserver(entries => {
+        entries.forEach(e => seen.set(e.target.id, e.isIntersecting));
+        const on = links.find(l => seen.get(l.key));
+        setActive(on ? on.key : '');
+      }, { rootMargin: '-40% 0px -55% 0px' });
+      els.forEach(el => io!.observe(el));
+    };
+    start(0);
+    return () => { io?.disconnect(); if (retry) clearTimeout(retry); };
+  }, [pathname]);
+
+  // phone: hide the pill while scrolling down and while the footer is on screen; transform only
+  useEffect(() => {
+    const phone = window.matchMedia('(max-width: 700px)');
+    const calm = window.matchMedia('(prefers-reduced-motion: reduce)');
+    let lastY = window.scrollY;
+    let inFooter = false;
+    let down = false;
+    let raf = 0;
+    const apply = () => { raf = 0; setHidden(phone.matches && !calm.matches && (down || inFooter)); };
+    const onScroll = () => {
+      const y = window.scrollY;
+      const dy = y - lastY;
+      if (Math.abs(dy) > 6) {
+        down = dy > 0 && y > 120;
+        lastY = y;
+        if (!raf) raf = requestAnimationFrame(apply);
+      }
+    };
     window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
+    let io: IntersectionObserver | undefined;
+    const watchFooter = () => {
+      io?.disconnect();
+      inFooter = false;
+      const foot = document.querySelector('.site-foot');
+      if (!foot || typeof IntersectionObserver === 'undefined') return;
+      io = new IntersectionObserver(([e]) => { inFooter = e.isIntersecting; apply(); });
+      io.observe(foot);
+    };
+    watchFooter();
+    const t = window.setTimeout(watchFooter, 600);
+    return () => { window.removeEventListener('scroll', onScroll); io?.disconnect(); clearTimeout(t); if (raf) cancelAnimationFrame(raf); };
+  }, [pathname]);
 
-  useEffect(() => { setMenuOpen(false); }, [location]);
+  // a new page always starts with the pill shown
+  useEffect(() => { setHidden(false); }, [pathname]);
 
-  const navLinks = [
-    { label: 'Work', href: '/#work' },
-    { label: 'Process', href: '/#process' },
-    { label: 'About', href: '/#about' },
-    { label: 'Contact', href: '/#contact' },
-  ];
-
-  const handleLogoClick = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+  const onAnchor = (key: string) => {
+    if (pathname === '/') window.dispatchEvent(new CustomEvent('vj:anchor', { detail: { target: key } }));
   };
 
   return (
-    <header className={`header${scrolled ? ' header--scrolled' : ''}`}>
-      <div className="container">
-        <div className="header__inner">
-          <Link to="/" className="header__logo" onClick={handleLogoClick}>
-            <VJLogo size={26} />
-            <span className="header__logo-name">Vijay</span>
-          </Link>
-          <nav className="header__nav" aria-label="Main navigation">
-            {navLinks.map(l => (
-              <Link key={l.label} to={l.href} className="header__nav-link">{l.label}</Link>
-            ))}
-            <a
-              href="/Vijaya_Chandra_Jonnadula.pdf"
-              download="Vijaya_Chandra_Jonnadula.pdf"
-              className="header__resume-btn"
+    <header className="nav" data-nav data-hidden={hidden ? 'true' : undefined} ref={headerRef}>
+      <nav className="nav__pill" aria-label="Main">
+        <Link to="/" className="nav__mark" aria-label="Vijay, home" onClick={() => window.scrollTo({ top: 0 })}>
+          <VJLogo size={26} variant={dark ? 'light' : 'dark'} />
+        </Link>
+        <span className="nav__sep" aria-hidden="true" />
+        {links.map(l => {
+          const here = active === l.key;
+          return (
+            <Link
+              key={l.key}
+              to={l.href}
+              className={`nav__link nav__link--${l.key}${here ? ' is-here' : ''}`}
+              aria-current={here ? 'location' : undefined}
+              onClick={() => onAnchor(l.key)}
             >
-              Resume ↓
-            </a>
-          </nav>
-          <button
-            className="header__menu-btn"
-            aria-label={menuOpen ? 'Close menu' : 'Open menu'}
-            aria-expanded={menuOpen}
-            onClick={() => setMenuOpen(o => !o)}
-          >
-            {menuOpen ? '✕' : '☰'}
-          </button>
-        </div>
-      </div>
-      <nav className={`header__mobile-nav${menuOpen ? ' header__mobile-nav--open' : ''}`} aria-label="Mobile navigation">
-        {navLinks.map(l => (
-          <Link key={l.label} to={l.href} className="header__mobile-nav-link">{l.label}</Link>
-        ))}
-        <a
-          href="/Vijaya_Chandra_Jonnadula.pdf"
-          download="Vijaya_Chandra_Jonnadula.pdf"
-          className="header__mobile-nav-link header__mobile-resume-btn"
-        >
-          Download Resume ↓
-        </a>
+              {l.label}
+            </Link>
+          );
+        })}
+        <PowerSwitch dark={dark} onToggle={origin => applyThemeWithWipe(dark ? 'light' : 'dark', origin)} />
       </nav>
     </header>
   );

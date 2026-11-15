@@ -12,7 +12,7 @@
   --color-bg-dark-card-hover: rgba(255,255,255,0.07);
   --color-text-primary: #0D0D0D;
   --color-text-secondary: #4B5563;
-  --color-text-muted: #9CA3AF;
+  --color-text-muted: #5B6472; /* 5.9:1 on #FFF, 5.6:1 on #F8FAFC (was #9CA3AF, 2.5:1) */
   --color-accent: #2563EB;
   --color-accent-light: #EFF6FF;
   --color-accent-hover: #1D4ED8;

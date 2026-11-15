@@ -1,0 +1,26 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "plugins": ["react", "typescript", "oxc"],
+  "rules": {
+    "react/rules-of-hooks": "error",
+    "react/only-export-components": ["warn", { "allowConstantExport": true }]
+  },
+  "overrides": [
+    {
+      "files": ["src/pages/**", "src/templates/**"],
+      "rules": {
+        "no-restricted-imports": [
+          "error",
+          {
+            "patterns": [
+              {
+                "regex": "^@mui/",
+                "message": "Pages and templates may only use design-system components (import from src/components/... or src/components/mui for layout primitives and types). See CLAUDE.md."
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

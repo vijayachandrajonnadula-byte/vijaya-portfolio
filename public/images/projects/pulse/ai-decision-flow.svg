@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" role="img" aria-labelledby="t d" font-family="Inter, system-ui, sans-serif">
+  <title id="t">How the AI picks the right component</title>
+  <desc id="d">Three inputs, an image, a text request or a Figma frame, are turned into regions or intents, matched against the intents file, resolved through the component registry and composed with the app shell and templates, then checked by lint guards.</desc>
+  <defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#022165"/></marker></defs>
+  <g fill="#fff" stroke="#022165" stroke-width="1.5">
+    <rect x="10" y="20" width="200" height="70" rx="10"/><rect x="10" y="195" width="200" height="70" rx="10"/><rect x="10" y="370" width="200" height="70" rx="10"/>
+    <rect x="270" y="20" width="200" height="70" rx="10"/><rect x="270" y="195" width="200" height="70" rx="10"/><rect x="270" y="370" width="200" height="70" rx="10"/>
+    <rect x="530" y="195" width="200" height="70" rx="10" fill="#e9f0fe"/>
+    <rect x="780" y="120" width="170" height="70" rx="10"/><rect x="780" y="270" width="170" height="70" rx="10" fill="#e9f0fe"/>
+  </g>
+  <g font-size="14" font-weight="600" fill="#090909" text-anchor="middle">
+    <text x="110" y="50">Image</text><text x="110" y="225">Text request</text><text x="110" y="400">Figma frame</text>
+    <text x="370" y="50">Split into regions</text><text x="370" y="225">Nouns and verbs</text><text x="370" y="400">figma:frame node-id</text>
+    <text x="630" y="225">ai/intents.json</text>
+    <text x="865" y="150">ai/components.json</text><text x="865" y="300">Compose + verify</text>
+  </g>
+  <g font-size="12" fill="#626d7b" text-anchor="middle">
+    <text x="110" y="70">screenshot of a UI</text><text x="110" y="245">"a list with tabs"</text><text x="110" y="420">link or node id</text>
+    <text x="370" y="70">shell, title row, tabs, body</text><text x="370" y="245">table, status, filter, form</text><text x="370" y="420">instance -> component + props</text>
+    <text x="630" y="245">cues -> intent -> use[]</text>
+    <text x="865" y="170">props, defaults, demo</text><text x="865" y="314">AppShell + templates</text><text x="865" y="330">lint guards</text>
+  </g>
+  <g stroke="#022165" stroke-width="1.5" fill="none" marker-end="url(#a)">
+    <line x1="210" y1="55" x2="268" y2="55"/><line x1="210" y1="230" x2="268" y2="230"/><line x1="210" y1="405" x2="268" y2="405"/>
+    <path d="M470 55 H500 V215 H528"/><line x1="470" y1="230" x2="528" y2="230"/>
+    <path d="M470 405 H755 V230"/>
+    <path d="M730 230 H755 V155 H778"/><path d="M865 190 V268"/>
+  </g>
+  <text x="620" y="378" text-anchor="middle" font-size="12" fill="#626d7b">Figma frames skip matching:</text>
+  <text x="620" y="394" text-anchor="middle" font-size="12" fill="#626d7b">figma-map.json resolves sets directly</text>
+</svg>

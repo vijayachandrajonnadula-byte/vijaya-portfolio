@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 220" role="img" aria-labelledby="t d" font-family="Inter, system-ui, sans-serif">
+  <title id="t">From Figma to React: the build pipeline</title>
+  <desc id="d">pulse 2.0 .fig is decoded locally, extracted to per-variant JSON specs, built as React components, shown in a gallery and Storybook, and indexed for AI.</desc>
+  <defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#022165"/></marker></defs>
+  <g fill="#fff" stroke="#022165" stroke-width="1.5">
+    <rect x="10" y="60" width="150" height="96" rx="10"/><rect x="195" y="60" width="150" height="96" rx="10"/><rect x="380" y="60" width="150" height="96" rx="10"/><rect x="565" y="60" width="150" height="96" rx="10"/><rect x="750" y="60" width="200" height="96" rx="10" fill="#e9f0fe"/>
+  </g>
+  <g fill="#090909" font-size="14" font-weight="600" text-anchor="middle">
+    <text x="85" y="92">1 · Figma</text><text x="270" y="92">2 · Extract</text><text x="455" y="92">3 · Build</text><text x="640" y="92">4 · Show</text><text x="850" y="92">5 · AI-readable</text>
+  </g>
+  <g fill="#626d7b" font-size="12" text-anchor="middle">
+    <text x="85" y="114">pulse 2.0 .fig</text><text x="85" y="132">82 pages · 235 sets</text>
+    <text x="270" y="114">Decode locally</text><text x="270" y="132">5,814 variant specs</text>
+    <text x="455" y="114">React 19 + MUI 9</text><text x="455" y="132">93 components</text>
+    <text x="640" y="114">Gallery + Storybook</text><text x="640" y="132">every state, one place</text>
+    <text x="850" y="114">intents · registry · map</text><text x="850" y="132">guards in lint + CI</text>
+  </g>
+  <g stroke="#022165" stroke-width="1.5" marker-end="url(#a)"><line x1="160" y1="108" x2="193" y2="108"/><line x1="345" y1="108" x2="378" y2="108"/><line x1="530" y1="108" x2="563" y2="108"/><line x1="715" y1="108" x2="748" y2="108"/></g>
+  <text x="480" y="30" text-anchor="middle" font-size="13" fill="#626d7b">Figma is the source of truth. Nothing is typed from memory.</text>
+  <text x="480" y="196" text-anchor="middle" font-size="12" fill="#626d7b">No REST API calls. Everything is read from the local file.</text>
+</svg>

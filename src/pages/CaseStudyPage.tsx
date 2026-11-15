@@ -1,11 +1,14 @@
 import Header from '../components/layout/Header';
 import Footer from '../components/layout/Footer';
+import NextProject from '../components/case-study/NextProject';
 import CaseStudyHero from '../components/case-study/CaseStudyHero';
 import SnapshotGrid from '../components/case-study/SnapshotGrid';
 import CaseStudyNav from '../components/case-study/CaseStudyNav';
 import IterationLog from '../components/case-study/IterationLog';
 import ResponsiveQA from '../components/case-study/ResponsiveQA';
 import Button from '../components/ui/Button';
+import Img from '../components/case-study/Img';
+import { imgSize } from '../data/imageSizes';
 import { riversideCaseStudy as cs } from '../data/caseStudies';
 
 function Checklist({ items }: { items: string[] }) {
@@ -31,8 +34,7 @@ export default function CaseStudyPage() {
           subtitle={cs.subtitle}
           tags={cs.tags}
           prototypeUrl={cs.prototypeUrl}
-          githubUrl={cs.githubUrl}
-          heroImage="/images/projects/riverside/clean/desktop-home.png"
+          heroImage="/images/projects/riverside/clean/desktop-home.jpg"
           heroImageAlt="Riverside General homepage, hospital appointment booking"
           prototypeUrlLabel="hospital-booking-portfolio.vercel.app"
         />
@@ -132,8 +134,8 @@ export default function CaseStudyPage() {
               </div>
               {cs.flowImage && (
                 <div className="cs-image-wrap" style={{ marginTop: 'var(--space-6)' }}>
-                  <img
-                    src={cs.flowImage}
+                  <Img
+                    src={cs.flowImage} {...imgSize(cs.flowImage)}
                     alt="User flow diagram"
                     className="cs-image"
                     onError={e => { (e.target as HTMLImageElement).style.display = 'none'; }}
@@ -145,8 +147,8 @@ export default function CaseStudyPage() {
               <p className="cs-section__body">{cs.iaDescription}</p>
               {cs.iaImage && (
                 <div className="cs-image-wrap">
-                  <img
-                    src={cs.iaImage}
+                  <Img
+                    src={cs.iaImage} {...imgSize(cs.iaImage)}
                     alt="Information architecture diagram"
                     className="cs-image"
                     onError={e => { (e.target as HTMLImageElement).style.display = 'none'; }}
@@ -161,8 +163,8 @@ export default function CaseStudyPage() {
                   {cs.wireframeImages.map(img => (
                     <div key={img.label} className="wireframe-item">
                       <div className="wireframe-item__frame">
-                        <img
-                          src={img.src}
+                        <Img
+                          src={img.src} {...imgSize(img.src)}
                           alt={img.label}
                           className="wireframe-item__img"
                           onError={e => { (e.target as HTMLImageElement).style.display = 'none'; }}
@@ -197,8 +199,8 @@ export default function CaseStudyPage() {
               <div className="design-system-grid">
                 {cs.designSystemImages.map(img => (
                   <div key={img.label} className="design-system-img">
-                    <img
-                      src={img.src}
+                    <Img
+                      src={img.src} {...imgSize(img.src)}
                       alt={img.label}
                       onError={e => { (e.target as HTMLImageElement).style.display = 'none'; }}
                     />
@@ -232,7 +234,7 @@ export default function CaseStudyPage() {
                       <span className="renewly-browser-url-bar">hospital-booking-portfolio.vercel.app</span>
                     </div>
                     <div className="renewly-browser-body renewly-browser-body--full">
-                      <img src={s.src} alt={s.title} className="renewly-browser-img"
+                      <Img src={s.src} {...imgSize(s.src)} alt={s.title} className="renewly-browser-img"
                         onError={e => { (e.target as HTMLImageElement).style.display = 'none'; }} />
                     </div>
                   </div>
@@ -254,7 +256,7 @@ export default function CaseStudyPage() {
                       <div className="renewly-mobile-caption__note">{s.uxNote}</div>
                     </div>
                     <div className="renewly-mobile-frame">
-                      <img src={s.src} alt={s.title} className="renewly-mobile-img"
+                      <Img src={s.src} {...imgSize(s.src)} alt={s.title} className="renewly-mobile-img"
                         onError={e => { (e.target as HTMLImageElement).style.display = 'none'; }} />
                     </div>
                   </div>
@@ -393,13 +395,11 @@ export default function CaseStudyPage() {
               <Button href={cs.prototypeUrl} variant="dark" external size="lg">
                 View live prototype &#x2197;
               </Button>
-              <Button href={cs.githubUrl} variant="dark-outline" external size="lg">
-                View GitHub repository &#x2197;
-              </Button>
             </div>
           </div>
         </section>
       </main>
+      <NextProject />
       <Footer />
     </>
   );

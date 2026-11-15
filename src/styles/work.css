@@ -1,0 +1,131 @@
+/* Work section: featured cards and the "More projects" disclosure. All classes are prefixed wk-. */
+
+.wk-sr { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+
+.wk-grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 20px; }
+.wk-card--wide { grid-column: span 7; }
+.wk-card--narrow { grid-column: span 5; }
+
+/* Card */
+.wk-card {
+  --mx: 50%; --my: 0%; --rx: 0deg; --ry: 0deg;
+  position: relative; display: flex; flex-direction: column; isolation: isolate;
+  background: var(--c-tile); border: 1px solid var(--c-line); border-radius: 28px; overflow: hidden;
+  cursor: pointer; -webkit-tap-highlight-color: transparent;
+  transition: transform 0.45s var(--ease-out), box-shadow 0.45s var(--ease-out), border-color 0.3s ease;
+}
+.wk-card::before { /* cursor-follow highlight, fine pointers only (see useCardFx) */
+  content: ''; position: absolute; inset: 0; z-index: 0; pointer-events: none; opacity: 0; transition: opacity 0.4s ease;
+  background: radial-gradient(420px circle at var(--mx) var(--my), color-mix(in srgb, var(--tint) 34%, transparent), transparent 70%);
+}
+
+/* Media: the real screen, with Clay holding something that fits. Never takes pointer events. */
+.wk-media { position: relative; height: clamp(230px, 24vw, 310px); overflow: hidden; pointer-events: none; flex: none;
+  background: radial-gradient(70% 70% at 50% 60%, color-mix(in srgb, var(--tint) 55%, transparent), transparent 78%), var(--c-tile); }
+.wk-media__shot {
+  position: absolute; left: 12%; right: 20%; top: 20%; aspect-ratio: 16 / 10; overflow: hidden; background: #fff;
+  border: 1px solid var(--c-line); border-radius: 14px 14px 0 0; box-shadow: 0 40px 70px -30px rgba(30, 20, 10, 0.45);
+  transform: perspective(900px) rotateX(var(--rx)) rotateY(var(--ry));
+  transition: transform 0.5s var(--ease-out);
+}
+.wk-media__shot img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: left top; transition: transform 0.9s var(--ease-out); }
+.wk-media__char { position: absolute; right: 5%; top: 8%; transition: transform 0.6s var(--ease-out); }
+
+/* Body */
+.wk-body { /* deliberately not positioned: the title link's ::after must be sized by the card */ display: flex; flex-direction: column; gap: 10px; padding: 20px 24px 22px; flex: 1; }
+.wk-body__top { display: flex; align-items: center; flex-wrap: wrap; gap: 8px 12px; }
+.wk-chip { display: inline-flex; align-items: center; height: 24px; padding: 0 10px; border-radius: 999px; border: 1px solid var(--c-ink); color: var(--c-ink); font-size: 0.75rem; font-weight: 600; letter-spacing: 0.01em; white-space: nowrap; background: transparent; }
+.wk-meta { display: flex; flex-wrap: wrap; gap: 4px 0; margin: 0; padding: 0; list-style: none; color: var(--c-mute); font-size: 0.82rem; }
+.wk-meta li + li::before { content: '·'; margin: 0 7px; }
+.wk-title { margin: 2px 0 0; font-weight: 500; font-size: clamp(1.3rem, 2vw, 1.7rem); line-height: 1.15; letter-spacing: -0.015em; }
+.wk-link { color: inherit; text-decoration: none; }
+.wk-link::after { content: ''; position: absolute; inset: 0; z-index: 1; }
+.wk-link:focus-visible { outline: none; }
+.wk-line { margin: 0; color: var(--c-mute); font-size: 0.97rem; line-height: 1.5; max-width: 52ch; }
+.wk-foot { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: auto; padding-top: 12px; border-top: 1px solid var(--c-line); }
+.wk-cta { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; font-weight: 600; font-size: 0.95rem; color: var(--c-accent); }
+.wk-arrow { transition: transform 0.35s var(--ease-out); }
+.wk-proto { position: relative; z-index: 2; display: inline-flex; align-items: center; gap: 6px; min-height: 44px; padding: 0 4px; font-size: 0.88rem; font-weight: 500; color: var(--c-ink); text-decoration: underline; text-underline-offset: 3px; text-decoration-color: var(--c-line); }
+.wk-proto:hover { text-decoration-color: currentColor; }
+.wk-proto:focus-visible { outline: 3px solid var(--c-accent); outline-offset: 2px; border-radius: 6px; }
+
+/* Focus on the whole card */
+.wk-card:has(.wk-link:focus-visible) { outline: 3px solid var(--c-accent); outline-offset: 4px; border-color: transparent; }
+.wk-card:has(.wk-link:focus-visible) .wk-arrow, .wk-row:has(.wk-link:focus-visible) .wk-arrow { transform: translateX(5px); }
+
+/* Hover and pressed (mouse), lift and zoom */
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .wk-card:hover { transform: translateY(-5px); box-shadow: var(--c-shadow); border-color: color-mix(in srgb, var(--c-ink) 22%, var(--c-line)); }
+  .wk-card:hover .wk-media__shot img { transform: scale(1.05); }
+  .wk-card:hover .wk-media__char { transform: translateY(-6px) rotate(3deg); }
+  .wk-card:hover .wk-arrow { transform: translateX(5px); }
+}
+@media (hover: hover) and (pointer: fine) { .wk-card:hover::before { opacity: 1; } }
+@media (prefers-reduced-motion: no-preference) { .wk-card:active { transform: scale(0.988); transition-duration: 0.12s; } }
+.wk-card:hover .wk-cta { text-decoration: underline; text-underline-offset: 4px; }
+
+/* More projects */
+.wk-more { max-width: 1060px; margin: 0 auto; padding: clamp(40px, 6vw, 80px) 0 clamp(56px, 8vw, 100px); }
+.wk-more__head { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-bottom: 18px; border-bottom: 1px solid var(--c-ink); }
+.wk-more__h { margin: 0; font-family: var(--font-serif); font-weight: 400; letter-spacing: -0.02em; line-height: 1.05; font-size: clamp(1.8rem, 3.6vw, 2.8rem); }
+.wk-more__count { color: var(--c-mute); font-family: var(--font-sans, inherit); font-size: 0.6em; letter-spacing: 0; }
+.wk-toggle { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 18px; border-radius: 999px; border: 1.5px solid var(--c-accent); background: transparent; color: var(--c-accent); font: inherit; font-weight: 600; font-size: 0.95rem; cursor: pointer; transition: background 0.25s ease, color 0.25s ease; }
+.wk-toggle:hover { background: var(--c-accent); color: var(--c-accent-ink); }
+.wk-toggle:focus-visible { outline: 3px solid var(--c-accent); outline-offset: 3px; }
+.wk-toggle:active { transform: scale(0.97); }
+.wk-toggle__chev { transition: transform 0.35s var(--ease-out); }
+.wk-toggle[aria-expanded='true'] .wk-toggle__chev { transform: rotate(180deg); }
+
+.wk-more__panel { overflow: hidden; }
+.wk-rows { list-style: none; margin: 0; padding: 0; counter-reset: none; }
+.wk-row {
+  position: relative; display: grid; align-items: center; gap: 8px 20px; cursor: pointer;
+  grid-template-columns: 2.2rem minmax(0, 1fr) auto auto 2rem; padding: 20px 12px; margin: 0 -12px;
+  border-bottom: 1px solid var(--c-line); border-radius: 14px; transition: background 0.25s ease;
+}
+.wk-row__thumb { display: none; }
+.wk-row__n { font: 500 0.8rem/1 ui-monospace, 'Cascadia Code', Consolas, monospace; color: var(--c-mute); letter-spacing: 0.08em; }
+.wk-row__title { margin: 0; font-weight: 500; font-size: clamp(1.15rem, 2.2vw, 1.6rem); line-height: 1.15; letter-spacing: -0.02em; }
+.wk-row__line { margin: 4px 0 0; color: var(--c-mute); font-size: 0.92rem; line-height: 1.4; }
+.wk-row__meta { color: var(--c-mute); font-size: 0.88rem; white-space: nowrap; }
+.wk-row__go { display: grid; place-items: center; color: var(--c-accent); }
+.wk-row:hover { background: var(--c-tile); }
+.wk-row:hover .wk-arrow { transform: translateX(5px); }
+.wk-row:has(.wk-link:focus-visible) { outline: 3px solid var(--c-accent); outline-offset: 2px; background: var(--c-tile); }
+.wk-row:active { background: color-mix(in srgb, var(--c-ink) 8%, var(--c-tile)); }
+
+.wk-peek { position: fixed; left: 0; top: 0; z-index: 60; width: 300px; height: 200px; pointer-events: none; }
+.wk-peek img { width: 100%; height: 100%; object-fit: cover; border-radius: 16px; box-shadow: var(--c-shadow); }
+@media (hover: none), (max-width: 768px) { .wk-peek { display: none; } }
+
+/* Tablet and phone: single column, nothing depends on hover */
+@media (max-width: 768px) {
+  .wk-grid { grid-template-columns: 1fr; gap: 16px; }
+  .wk-card--wide, .wk-card--narrow { grid-column: 1; }
+  .wk-media { height: clamp(210px, 52vw, 320px); }
+  .wk-media__shot { left: 8%; right: 22%; top: 22%; }
+  .wk-media__char { right: 3%; }
+  .wk-body { padding: 18px 20px 20px; }
+  .wk-foot { flex-wrap: wrap; }
+  .wk-cta { flex: 1 1 auto; min-height: 48px; }
+
+  .wk-row { grid-template-columns: 84px minmax(0, 1fr) 1.6rem; grid-template-areas: 'thumb main go' 'thumb meta go' 'thumb chip go'; align-items: start; gap: 4px 14px; padding: 16px 12px; }
+  .wk-row__n { display: none; }
+  .wk-row__thumb { display: block; grid-area: thumb; width: 84px; height: 84px; object-fit: cover; object-position: left top; border-radius: 12px; border: 1px solid var(--c-line); }
+  .wk-row__main { grid-area: main; }
+  .wk-row__meta { grid-area: meta; white-space: normal; font-size: 0.82rem; }
+  .wk-row > .wk-chip { grid-area: chip; justify-self: start; }
+  .wk-row__go { grid-area: go; align-self: center; }
+}
+@media (hover: none) and (min-width: 769px) {
+  .wk-row { grid-template-columns: 2.2rem 96px minmax(0, 1fr) auto auto 2rem; }
+  .wk-row__thumb { display: block; width: 96px; height: 64px; object-fit: cover; object-position: left top; border-radius: 10px; border: 1px solid var(--c-line); }
+}
+@media (max-width: 420px) {
+  .wk-body__top { gap: 6px 10px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wk-card, .wk-media__shot, .wk-media__shot img, .wk-media__char, .wk-arrow, .wk-toggle__chev, .wk-row, .wk-card::before { transition: none; }
+  .wk-media__shot { transform: none; }
+}

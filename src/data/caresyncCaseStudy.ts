@@ -204,76 +204,76 @@ export const caresyncCaseStudy = {
     'The design system did not start with colours. It started with a question: how should a doctor feel at the beginning of a busy shift? Not overwhelmed by data, not performing data entry — ready to act. The first direction felt too familiar: blue surfaces, generic KPI cards, rounded widgets, decorative charts. It looked like healthcare, but it did not feel operational. Blue is common in healthcare UI because it suggests trust, but it also makes most healthcare dashboards look identical to each other. Aubergine still reads as mature, serious, and trustworthy while giving CareSync a distinct enterprise identity, and it works with warm neutral surfaces that reduce eye strain across a long shift. Aubergine anchors product identity; critical, warning, and success colours anchor clinical meaning. They never compete. The screens below are captured from the design system documentation page that ships inside the prototype itself.',
 
   designSystemImages: [
-    { src: '/images/projects/caresync/system/color-system.png', label: 'Colour system — aubergine brand scale and semantic roles' },
-    { src: '/images/projects/caresync/system/typography.png', label: 'Typography — eight-step scale with tabular numerals' },
-    { src: '/images/projects/caresync/system/buttons.png', label: 'Buttons — primary, secondary, ghost, danger' },
-    { src: '/images/projects/caresync/system/badges-status.png', label: 'Badges and the four-dimension status system' },
-    { src: '/images/projects/caresync/system/patient-identity.png', label: 'Patient identity — avatar, chip, and safety strip' },
-    { src: '/images/projects/caresync/system/clinical-alerts.png', label: 'Clinical alerts — safety-critical treatment' },
-    { src: '/images/projects/caresync/system/cards.png', label: 'Cards — priority, lab result, and preparation note' },
-    { src: '/images/projects/caresync/system/drawers.png', label: 'Drawers — focus-trapped detail review' },
-    { src: '/images/projects/caresync/system/charts.png', label: 'Charts — thresholds with accessible summaries' },
+    { src: '/images/projects/caresync/system/color-system.jpg', label: 'Colour system — aubergine brand scale and semantic roles' },
+    { src: '/images/projects/caresync/system/typography.jpg', label: 'Typography — eight-step scale with tabular numerals' },
+    { src: '/images/projects/caresync/system/buttons.jpg', label: 'Buttons — primary, secondary, ghost, danger' },
+    { src: '/images/projects/caresync/system/badges-status.jpg', label: 'Badges and the four-dimension status system' },
+    { src: '/images/projects/caresync/system/patient-identity.jpg', label: 'Patient identity — avatar, chip, and safety strip' },
+    { src: '/images/projects/caresync/system/clinical-alerts.jpg', label: 'Clinical alerts — safety-critical treatment' },
+    { src: '/images/projects/caresync/system/cards.jpg', label: 'Cards — priority, lab result, and preparation note' },
+    { src: '/images/projects/caresync/system/drawers.jpg', label: 'Drawers — focus-trapped detail review' },
+    { src: '/images/projects/caresync/system/charts.jpg', label: 'Charts — thresholds with accessible summaries' },
   ],
 
   desktopScreenshots: [
     {
-      src: '/images/projects/caresync/desktop/dashboard.png',
+      src: '/images/projects/caresync/desktop/dashboard.jpg',
       title: 'Shift Briefing',
       purpose: 'Answer what needs attention before the next patient walks in, before any navigation is required.',
       uxNote:
         'A three-column temporal model replaces the greeting banner. The priority patient card surfaces at the top with the changed value, severity, timing, and action in one glanceable block, while the operational rail shows the coming queue without navigating away.',
     },
     {
-      src: '/images/projects/caresync/desktop/patients.png',
+      src: '/images/projects/caresync/desktop/patients.jpg',
       title: 'Patients',
       purpose: 'Let a clinician scan the roster and move into focused review without losing the list.',
       uxNote:
         'Row click opens a quick-view drawer; opening the full profile is a deliberate secondary step. The active row uses a 3px inset aubergine left accent, consistent with Tasks and Messages.',
     },
     {
-      src: '/images/projects/caresync/desktop/patient-profile.png',
+      src: '/images/projects/caresync/desktop/patient-profile.jpg',
       title: 'Patient profile',
       purpose: 'Carry the full clinical story for one patient without burying the facts that affect safety.',
       uxNote:
         'A parameterised, deep-linkable route reached from the roster rather than a nav destination of its own. The allergy strip sits above the fold and is announced by screen readers, and the consultation priority block pairs the changed value with its trend, source, and target range.',
     },
     {
-      src: '/images/projects/caresync/desktop/appointments.png',
+      src: '/images/projects/caresync/desktop/appointments.jpg',
       title: 'Appointments',
       purpose: 'Run the outpatient queue with consultation readiness visible per slot.',
       uxNote:
         'Flow status replaces appointment type as the primary column: the question is where the appointment sits in the clinical process, not what kind it is. Preparation notes appear before the patient enters the room.',
     },
     {
-      src: '/images/projects/caresync/desktop/medical-records.png',
+      src: '/images/projects/caresync/desktop/medical-records.jpg',
       title: 'Medical Records',
       purpose: 'Answer which records across all patients need review this shift.',
       uxNote:
         'The most consequential IA decision in the project. New results are surfaced at the top of the worklist, and source, time, and patient identity are visible in every row without an extra click.',
     },
     {
-      src: '/images/projects/caresync/desktop/messages.png',
+      src: '/images/projects/caresync/desktop/messages.jpg',
       title: 'Messages',
       purpose: 'Coordinate with nurses, labs, and admin while keeping clinical context attached to the thread.',
       uxNote:
         'Three panels — severity nav, thread list, conversation — sorted by severity rather than time, so a safety-critical message can never get buried under routine traffic.',
     },
     {
-      src: '/images/projects/caresync/desktop/tasks.png',
+      src: '/images/projects/caresync/desktop/tasks.jpg',
       title: 'Tasks and handovers',
       purpose: 'Make inherited shift work visible, owned, and time-bounded.',
       uxNote:
         'Tasks group by time horizon — Now, Due this shift, Handed over, Waiting on others — and acknowledgement is required before a handover task is actioned. The Now group is never buried below a full list.',
     },
     {
-      src: '/images/projects/caresync/desktop/operational-insights.png',
+      src: '/images/projects/caresync/desktop/operational-insights.jpg',
       title: 'Operational Insights',
       purpose: 'Support staffing and queue decisions with analytics that carry a recommended action.',
       uxNote:
         'Each insight card shows a metric, an owner, and a recommended action. Charts carry threshold lines and narrative text; bars are uniform aubergine, with red reserved for the capacity threshold line.',
     },
     {
-      src: '/images/projects/caresync/desktop/settings.png',
+      src: '/images/projects/caresync/desktop/settings.jpg',
       title: 'Settings',
       purpose: 'Manage shift, notification, display, security, and accessibility preferences.',
       uxNote:

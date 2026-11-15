@@ -1,5 +1,6 @@
 import Header from '../components/layout/Header';
 import Footer from '../components/layout/Footer';
+import NextProject from '../components/case-study/NextProject';
 import CaseStudyHero from '../components/case-study/CaseStudyHero';
 import CaseStudyNav from '../components/case-study/CaseStudyNav';
 import Button from '../components/ui/Button';
@@ -297,6 +298,7 @@ export default function WorkflowCaseStudyPage() {
           </div>
         </div>
       </main>
+      <NextProject />
       <Footer />
     </>
   );

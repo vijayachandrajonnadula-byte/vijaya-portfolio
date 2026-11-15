@@ -1,0 +1,75 @@
+/* Home v2: the five-second recruiter fix (actions + featured strip), the scroll cue and the closed-circuit contact. Tokens are the --c-* set. */
+
+/* ---------- hero: tighter so the next step and the proof fit above the fold ---------- */
+.hhero { min-height: 100svh; padding-top: clamp(80px, 10svh, 96px); padding-bottom: clamp(52px, 7svh, 64px); }
+.hhero__char { margin-bottom: 8px; }
+.hhero__title { font-size: clamp(2.1rem, 4.6vw, 3.6rem); max-width: 22ch; }
+@media (max-width: 700px) { .hhero__title { max-width: 14ch; } }
+.hhero__sub { margin: 10px 0 16px; }
+.hhero .ask__chips { margin-top: 12px; }
+.hhero .ask__chips button { padding: 8px 14px; }
+.hhero__ask .el-aside { margin-top: 10px; }
+.hhero__proof { position: relative; width: min(1040px, 100%); margin-top: clamp(14px, 2.4svh, 24px); }
+
+/* ---------- actions ---------- */
+.hact { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 6px 18px; margin-top: 16px; }
+.hact__go { gap: 10px; min-height: 48px; padding: 0 26px; text-decoration: none; }
+.hact__go svg { transition: transform 0.4s var(--ease-out); }
+.hact__go:hover svg { transform: translateY(3px); }
+.hact__cv { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 10px; color: var(--c-ink2); font-weight: 600; font-size: 0.95rem; text-decoration: underline; text-decoration-color: var(--c-line); text-underline-offset: 5px; text-decoration-thickness: 1.5px; transition: color 0.2s ease, text-decoration-color 0.2s ease; }
+.hact__cv span { font: 600 0.68rem/1 ui-monospace, 'Cascadia Code', Consolas, monospace; letter-spacing: 0.06em; padding: 3px 6px; border-radius: 5px; background: var(--c-tile2); color: var(--c-ink2); text-decoration: none; }
+.hact__cv:hover { color: var(--c-ink); text-decoration-color: var(--c-clay); }
+.hact__go:focus-visible, .hact__cv:focus-visible, .fstrip__a:focus-visible { outline: 2px solid var(--c-accent); outline-offset: 3px; }
+
+/* ---------- featured strip ---------- */
+.fstrip { text-align: left; }
+.fstrip__k { margin: 0 0 8px; text-align: center; font: 600 0.72rem/1 ui-monospace, 'Cascadia Code', Consolas, monospace; letter-spacing: 0.1em; text-transform: uppercase; color: var(--c-mute); }
+.fstrip__list { list-style: none; margin: 0; padding: 0; display: flex; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; padding-bottom: 4px; -webkit-mask-image: linear-gradient(90deg, #000 calc(100% - 44px), transparent); mask-image: linear-gradient(90deg, #000 calc(100% - 44px), transparent); }
+.fstrip__list::-webkit-scrollbar { display: none; }
+.fstrip__list li { flex: 0 0 min(76vw, 268px); scroll-snap-align: start; }
+.fstrip__a { display: flex; align-items: center; gap: 12px; min-height: 44px; padding: 6px; border-radius: 16px; background: var(--c-tile); color: var(--c-ink); text-decoration: none; transition: transform 0.4s var(--ease-out), background 0.25s ease, box-shadow 0.25s ease; }
+.fstrip__a img { flex: none; width: 120px; height: 76px; object-fit: cover; border-radius: 11px; background: var(--c-tile2); }
+.fstrip__a span { font-weight: 600; font-size: 0.86rem; line-height: 1.25; text-wrap: balance; }
+.fstrip__a:hover { transform: translateY(-3px); background: var(--c-tile2); box-shadow: 0 8px 22px -12px rgba(0, 0, 0, 0.35); }
+@media (min-width: 1024px) {
+  .fstrip__list { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); overflow: visible; -webkit-mask-image: none; mask-image: none; padding-bottom: 0; }
+  .fstrip__list li { flex: none; }
+  .fstrip__a img { width: clamp(84px, 8.4vw, 120px); height: auto; aspect-ratio: 120 / 76; }
+}
+@media (max-width: 1023px) { .fstrip__k { text-align: left; padding-left: 2px; } }
+
+/* ---------- scroll cue: a trace stub that draws once below the hero ---------- */
+.scue { position: absolute; left: 50%; top: 100%; z-index: 2; width: 2px; height: clamp(14px, 3vw, 40px); margin: -12px 0 0 -1px; pointer-events: none; }
+.scue i { position: absolute; inset: 0; background: var(--c-clay); border-radius: 2px; transform: scaleY(0); transform-origin: top; }
+.scue b { position: absolute; left: -3px; bottom: -4px; width: 8px; height: 8px; border-radius: 50%; background: var(--c-clay); transform: scale(0); }
+.scue.is-draw i { animation: scue-draw 0.9s var(--ease-out) forwards; }
+.scue.is-draw b { animation: scue-dot 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 0.8s forwards; }
+.scue.is-static i { transform: scaleY(1); }
+.scue.is-static b { transform: scale(1); }
+@keyframes scue-draw { to { transform: scaleY(1); } }
+@keyframes scue-dot { to { transform: scale(1); } }
+
+/* ---------- contact as a closed circuit ---------- */
+.cc { position: relative; display: flex; align-items: center; gap: 8px 18px; flex-wrap: wrap; min-height: 96px; margin-top: 14px; padding: 14px 92px 0 0; border-top: 1px dashed var(--c-line); }
+.cc__svg { flex: none; width: min(280px, 100%); height: auto; overflow: visible; }
+.cc__wire { fill: none; stroke: var(--c-ink2); opacity: 0.45; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.cc__wire--lit { stroke: var(--c-clay); opacity: 1; stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset 0.9s var(--ease-out) 0.2s; }
+.cc__node { fill: var(--c-ink2); }
+.cc__lever { stroke: var(--c-ink); stroke-width: 3; stroke-linecap: round; transform-origin: 88px 28px; transform: rotate(-30deg); transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); }
+.cc__lamp { fill: var(--c-tile2); stroke: var(--c-ink2); stroke-width: 1.5; transition: fill 0.4s ease 0.55s, stroke 0.4s ease 0.55s; }
+.cc__lamp-halo { fill: var(--c-clay); opacity: 0; transform-box: fill-box; transform-origin: center; transform: scale(0.6); transition: opacity 0.5s ease 0.55s, transform 0.6s var(--ease-out) 0.55s; }
+.cc__t { font: 600 10px ui-monospace, 'Cascadia Code', Consolas, monospace; letter-spacing: 0.06em; fill: var(--c-ink2); }
+.cc__t--b { fill: var(--c-ink2); text-transform: uppercase; }
+.cc.is-closed .cc__lever { transform: rotate(0); }
+.cc.is-closed .cc__wire--lit { stroke-dashoffset: 0; }
+.cc.is-closed .cc__lamp { fill: var(--c-clay); stroke: var(--c-clay); }
+.cc.is-closed .cc__lamp-halo { opacity: 0.28; transform: scale(1.5); }
+.cc__wink { flex: 1 1 180px; margin: 0; font: 500 0.82rem/1.4 ui-monospace, 'Cascadia Code', Consolas, monospace; color: var(--c-ink2); min-width: 0; }
+.cc__clay { position: absolute; right: 2px; bottom: -6px; width: 78px; height: 74px; overflow: visible; opacity: 0; transform: translateY(26px) scale(0.92); transform-origin: 50% 100%; transition: opacity 0.3s ease, transform 0.55s cubic-bezier(0.34, 1.56, 0.64, 1); pointer-events: none; }
+.cc.is-closed .cc__clay { opacity: 1; transform: none; transition-delay: 0.5s; }
+.cc__env { position: absolute; left: 24px; top: 38px; filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.25)); transform: rotate(-6deg); }
+.cc__wink { padding-right: 4px; }
+@media (prefers-reduced-motion: reduce) {
+  .cc__lever, .cc__lamp, .cc__lamp-halo, .cc__wire--lit, .cc__clay, .hact__go svg, .fstrip__a { transition: none; }
+  .scue.is-draw i, .scue.is-draw b { animation: none; transform: none; }
+}
