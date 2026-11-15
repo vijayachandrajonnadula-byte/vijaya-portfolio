@@ -1,0 +1,1 @@
+import{r as e}from"./rolldown-runtime-XKyaHtl9.js";import{$ as t}from"./capitalize-DTW5MDI6.js";var n=e(t(),1);function r(e){let t=n.useRef({});return n.useEffect(()=>{t.current=e}),t.current}export{r as t};

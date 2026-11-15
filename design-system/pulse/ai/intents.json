@@ -1,0 +1,309 @@
+{
+  "$description": "Curated by hand: what a piece of UI IS -> which design-system component(s) to use. This is the decision layer an AI reads when given an image, a text request or a Figma frame. scripts/generate/ai-manifest.mjs FAILS if any component named here no longer exists, so this file cannot drift silently.",
+  "intents": [
+    {
+      "intent": "Application frame (nav rail + top header + page content)",
+      "cues": [
+        "narrow dark-navy rail on the left with stacked icon+label items",
+        "white bar across the top with logo, region/time and user",
+        "content column to the right"
+      ],
+      "use": [
+        "AppShell",
+        "LeftNav",
+        "Header"
+      ],
+      "notes": "AppShell is a layout helper (not from Figma). LeftNav: menus[], selectedMenu. Header: region{}, profile{}. Never hand-build the rail or the header."
+    },
+    {
+      "intent": "Where am I (breadcrumb trail)",
+      "cues": [
+        "small home icon, chevrons between words, last item darker and not a link"
+      ],
+      "use": [
+        "ContextBarPanel",
+        "Breadcrumbs"
+      ],
+      "notes": "ContextBarPanel wraps Breadcrumbs and optional status chips/actions on the right."
+    },
+    {
+      "intent": "Page title with tools and a primary action",
+      "cues": [
+        "large semibold title with a grey line under it",
+        "icon-only filter / columns / density buttons",
+        "a navy button on the right, maybe with a chevron (split button)"
+      ],
+      "use": [
+        "ListHeaderPanel",
+        "DataGridToolbar",
+        "ButtonGroup",
+        "IconButton",
+        "DropdownMenu"
+      ],
+      "notes": "ListHeaderPanel is built on DataGridToolbar (tools are Plain IconButtons). A button with an attached chevron is ButtonGroup, its menu is DropdownMenu."
+    },
+    {
+      "intent": "Tabs with a status/count filter on the same row",
+      "cues": [
+        "underlined tab labels on the left",
+        "a row of count pills (Total 19, 5 Approved ...) on the right"
+      ],
+      "use": [
+        "TabStatusFilterPanel",
+        "Tabs",
+        "Tab",
+        "StatusFilterBar"
+      ],
+      "notes": "StatusFilterBar is Figma statusFilterv2. Pass divider so the baseline runs edge to edge."
+    },
+    {
+      "intent": "Data table / list of records",
+      "cues": [
+        "header row (navy filled or light grey)",
+        "rows with text, links, avatars, status pills, row actions",
+        "column dividers",
+        "sort arrows on header hover"
+      ],
+      "use": [
+        "DataGrid",
+        "DataGridTextCell",
+        "DataGridLinkCell",
+        "DataGridActionsCell",
+        "DataGridHeaderCell"
+      ],
+      "notes": "Cells: id/link -> DataGridLinkCell (SemiBold, underline on hover); plain text and avatar+name -> DataGridTextCell (icon slot takes an Avatar); status -> Status type=chip; actions -> DataGridActionsCell with IconButton. filledHeader = navy header."
+    },
+    {
+      "intent": "Status of a record",
+      "cues": [
+        "coloured pill with text (Approved, Draft, Rejected ...)",
+        "dot + text",
+        "coloured text only",
+        "count pills used as filters"
+      ],
+      "use": [
+        "Status",
+        "Chip",
+        "StatusFilterBar",
+        "Badge"
+      ],
+      "notes": "Single record status -> Status (type chip | textWithBadge | text | textWithIcon). Tag/label -> Chip. Filtering a list by status -> StatusFilterBar. Count/dot on an icon -> Badge."
+    },
+    {
+      "intent": "Buttons and actions",
+      "cues": [
+        "filled / outlined / text buttons",
+        "gradient purple-blue button = AI",
+        "square icon-only buttons",
+        "button with attached chevron"
+      ],
+      "use": [
+        "Button",
+        "IconButton",
+        "ButtonGroup",
+        "AdornmentButton",
+        "CloseButton"
+      ],
+      "notes": "Button color: primary | error | success | warning | ai. Sizes xsmall..xlarge. AI action = Button color=ai (there is no separate GradientButton)."
+    },
+    {
+      "intent": "Text input and dropdown fields",
+      "cues": [
+        "label above, bordered box, hint line below",
+        "box with a chevron",
+        "search box with magnifier",
+        "phone with country",
+        "tag chips inside the field"
+      ],
+      "use": [
+        "TextField",
+        "TextArea",
+        "Select",
+        "Autocomplete",
+        "Search",
+        "PhoneNumber",
+        "SelectWithBorder",
+        "InlineDropdown",
+        "TallyCounter",
+        "PasswordStrength",
+        "HelperText",
+        "FormField"
+      ],
+      "notes": "Always via FormField layout (TextField/Select already do). Sizes small 32 / medium 40 / large 44."
+    },
+    {
+      "intent": "Choice controls",
+      "cues": [
+        "square tick boxes",
+        "round radios",
+        "sliding toggle",
+        "segmented buttons",
+        "slider"
+      ],
+      "use": [
+        "Checkbox",
+        "Radio",
+        "Switch",
+        "ToggleButtonGroup",
+        "Slider",
+        "CheckboxGroup",
+        "RadioGroup",
+        "SwitchWithLabel",
+        "SelectionCard"
+      ],
+      "notes": "A group with a title -> CheckboxGroup/RadioGroup. Segmented control -> ToggleButtonGroup (Text or Icon)."
+    },
+    {
+      "intent": "Dates, time, files and rich content",
+      "cues": [
+        "calendar popup",
+        "time columns",
+        "dashed upload zone",
+        "formatting toolbar over a text area",
+        "formula/maths editor"
+      ],
+      "use": [
+        "DatePicker",
+        "DateRangePicker",
+        "DateTimePicker",
+        "TimePicker",
+        "Calendar",
+        "FileUploader",
+        "RichTextEditor",
+        "FormulaEditor",
+        "ColorPicker",
+        "CodeSnippet"
+      ],
+      "notes": ""
+    },
+    {
+      "intent": "Feedback and overlays",
+      "cues": [
+        "coloured banner with icon and optional action",
+        "toast at the bottom",
+        "centred dialog",
+        "slide-in panel from the right",
+        "hover tip",
+        "progress bar",
+        "spinner / skeleton",
+        "no-data illustration"
+      ],
+      "use": [
+        "Notification",
+        "Modal",
+        "Flyout",
+        "Tooltip",
+        "Popover",
+        "ProgressBar",
+        "Spinner",
+        "Skeleton",
+        "EmptyState",
+        "Backdrop"
+      ],
+      "notes": "Notification: color blue|green|orange|red, variant leftStroke|fill, isSnackbar for toasts. Flyout = right panel; Modal = dialog."
+    },
+    {
+      "intent": "Steps and wizards",
+      "cues": [
+        "numbered circles joined by lines",
+        "tick on completed steps"
+      ],
+      "use": [
+        "Stepper",
+        "StepperHeaderPanel",
+        "FooterActionsPanel"
+      ],
+      "notes": "Wizard page = StepperHeaderPanel + PageBodyContentPanel + FooterActionsPanel."
+    },
+    {
+      "intent": "Containers and grouping",
+      "cues": [
+        "white bordered card",
+        "titled panel with a tinted header",
+        "collapsible rows",
+        "tree of items",
+        "two lists with transfer arrows"
+      ],
+      "use": [
+        "Region",
+        "Section",
+        "Accordion",
+        "TreeView",
+        "TransferList",
+        "Carousel"
+      ],
+      "notes": "Page background around cards is PageBodyContentPanel (surface canvas, 16px padding)."
+    },
+    {
+      "intent": "Metrics and charts",
+      "cues": [
+        "big number with label and a coloured left edge",
+        "bars, donut, pie, rose",
+        "legend dots",
+        "sparkline"
+      ],
+      "use": [
+        "KPICard",
+        "ChartBar",
+        "ChartDonut",
+        "ChartPie",
+        "ChartNightingale",
+        "ChartCircle",
+        "ChartLegend",
+        "TrendLine"
+      ],
+      "notes": "Charts are SVG building blocks; pulseChartTheme gives the Figma colours for recharts."
+    },
+    {
+      "intent": "Documents and approvals",
+      "cues": [
+        "signature dialog",
+        "AI suggestion cards",
+        "document toolbar"
+      ],
+      "use": [
+        "ElectronicSignature",
+        "CommentSuggestionAI",
+        "DocumentToolbar"
+      ],
+      "notes": ""
+    },
+    {
+      "intent": "Product-specific patterns",
+      "cues": [
+        "form builder canvas",
+        "workflow step cards",
+        "workspace tiles",
+        "draggable list rows",
+        "matrix grid"
+      ],
+      "use": [
+        "FormBuilder",
+        "WorkflowDiagram",
+        "WorkspaceCard",
+        "DraggableList",
+        "Matrix"
+      ],
+      "notes": ""
+    },
+    {
+      "intent": "Icons and illustrations",
+      "cues": [
+        "any glyph",
+        "P&ID equipment, instruments, process lines",
+        "arrows",
+        "flags"
+      ],
+      "use": [
+        "Equipment",
+        "Instrument",
+        "Subpart",
+        "ProcessLine",
+        "Arrow",
+        "Shape",
+        "FlagIcon"
+      ],
+      "notes": "UI glyphs come from src/icons (import { FilterIcon } from 'src/icons'); never use MUI icons in pages."
+    }
+  ]
+}

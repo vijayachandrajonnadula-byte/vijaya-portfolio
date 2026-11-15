@@ -1,0 +1,1 @@
+import{n as e}from"./rolldown-runtime-sJBDdmOt.js";import{Q as t,Z as n,i as r}from"./figmaExtra-CfXP7cjR.js";function i(){return(i=e((()=>{n(),r(),t()})))()}export{i as t};

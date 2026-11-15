@@ -1,0 +1,3564 @@
+{
+ "generated": "2026-11-15",
+ "note": "GENERATED. Figma page / component-set names -> code. Use the Figma layer name of an instance (it equals the set name) to find the component.",
+ "pages": [
+  {
+   "figmaPage": "Typography",
+   "status": "foundation",
+   "components": [],
+   "sets": []
+  },
+  {
+   "figmaPage": "Grid, Spacing and Radius",
+   "status": "foundation",
+   "components": [],
+   "sets": []
+  },
+  {
+   "figmaPage": "Color",
+   "status": "foundation",
+   "components": [],
+   "sets": []
+  },
+  {
+   "figmaPage": "Shadows",
+   "status": "foundation",
+   "components": [],
+   "sets": []
+  },
+  {
+   "figmaPage": "COVER",
+   "status": "foundation",
+   "components": [],
+   "sets": []
+  },
+  {
+   "figmaPage": "Avatar",
+   "status": "built",
+   "components": [
+    "Avatar"
+   ],
+   "sets": [
+    {
+     "set": "Avatar",
+     "variants": 45,
+     "properties": [
+      "Size",
+      "Variant"
+     ],
+     "component": "Avatar",
+     "implementedBy": [
+      "Avatar"
+     ]
+    },
+    {
+     "set": "AvatarGroup",
+     "variants": 5,
+     "properties": [
+      "Size"
+     ],
+     "component": "Avatar",
+     "implementedBy": [
+      "Avatar"
+     ]
+    }
+   ]
+  },
+  {
+   "figmaPage": "Slider",
+   "status": "built",
+   "components": [
+    "Slider"
+   ],
+   "sets": [
+    {
+     "set": ".Building Blocks/sliderKnobs",
+     "variants": 6,
+     "properties": [
+      "Orientation",
+      "Interaction"
+     ],
+     "component": null,
+     "implementedBy": [
+      "Slider"
+     ]
+    },
+    {
+     "set": "Slider",
+     "variants": 129,
+     "properties": [
+      "Orientation",
+      "Placement",
+      "Interaction",
+      "Label",
+      "Start Position"
+     ],
+     "component": "Slider",
+     "implementedBy": [
+      "Slider"
+     ]
+    },
+    {
+     "set": "RangeSlider",
+     "variants": 60,
+     "properties": [
+      "Placement",
+      "Interaction",
+      "Knob Option",
+      "Label"
+     ],
+     "component": null,
+     "implementedBy": [
+      "Slider"
+     ]
+    },
+    {
+     "set": ".Building Blocks/sliderKnobPosition",
+     "variants": 3,
+     "properties": [
+      "Position"
+     ],
+     "component": null,
+     "implementedBy": [
+      "Slider"
+     ]
+    }
+   ]
+  },
+  {
+   "figmaPage": "Icons",
+   "status": "built",
+   "components": [
+    "Icons",
+    "FlagIcon"
+   ],
+   "sets": [
+    {
+     "set": "FlagIcon",
+     "variants": 271,
+     "properties": [
+      "Country"
+     ],
+     "component": "FlagIcon",
+     "implementedBy": [
+      "FlagIcon"
+     ]
+    }
+   ]
+  },
+  {
+   "figmaPage": "Toggle Button",
+   "status": "built",
+   "components": [
+    "ToggleButtonGroup"
+   ],
+   "sets": [
+    {
+     "set": "BuildingBlocks/ToggleButton",
+     "variants": 144,
+     "properties": [
+      "Size",
+      "Position",
+      "Interaction",
+      "Variant"
+     ],
+     "component": "ToggleButtonGroup",
+     "implementedBy": [
+      "ToggleButtonGroup"
+     ]
+    },
+    {
+     "set": "ToggleButtonGroup",
+     "variants": 12,
+     "properties": [
+      "Variant",
+      "Size",
+      "Label Position"
+     ],
+     "component": "ToggleButtonGroup",
+     "implementedBy": [
+      "ToggleButtonGroup"
+     ]
+    }
+   ]
+  },
+  {
+   "figmaPage": "Chip",
+   "status": "built",
+   "components": [
+    "Chip"
+   ],
+   "sets": [
+    {
+     "set": "Chip",
+     "variants": 414,
+     "properties": [
+      "Shape",
+      "Size",
+      "Style",
+      "Color",
+      "Interaction"
+     ],
+     "component": "Chip",
+     "implementedBy": [
+      "Chip"
+     ]
+    }
+   ]
+  },
+  {
+   "figmaPage": "Checkbox",
+   "status": "built",
+   "components": [
+    "Checkbox"
+   ],
+   "sets": [
+    {
+     "set": "BuildingBlock/Checkbox",
+     "variants": 180,
+     "properties": [
+      "Size",
+      "Style",
+      "Color",
+      "State",
+      "Interaction"
+     ],
+     "component": "Checkbox",
+     "implementedBy": [
+      "Checkbox"
+     ]
+    },
+    {
+     "set": "BuildingBlock/CheckboxList",
+     "variants": 2,
+     "properties": [
+      "Label Position"
+     ],
+     "component": null,
+     "implementedBy": [
+      "Checkbox"
+     ]
+    },
+    {
+     "set": "Checkbox Card",
+     "variants": 5,
+     "properties": [
+      "Interaction"
+     ],
+     "component": "SelectionCard",
+     "implementedBy": [
+      "SelectionCard"
+     ]
+    },
+    {
+     "set": "Checkbox Group",
+     "variants": 8,
+     "properties": [
+      "Row",
+      "Label Position",
+      "Interaction"
+     ],
+     "component": "SwitchWithLabel",
+     "implementedBy": [
+      "SwitchWithLabel"
+     ]
+    }
+   ]
+  },
+  {
+   "figmaPage": "TextField",
+   "status": "built",
+   "components": [
+    "TextField",
+    "PhoneNumber"
+   ],
+   "sets": [
+    {
+     "set": "BuildingBlocks/atomTextField",
+     "variants": 192,
+     "properties": [
+      "Filled?",
+      "Size",
+      "Color",
+      "Interaction",
+      "Input Type"
+     ],
+     "component": "TextField",
+     "implementedBy": [
+      "TextField"
+     ]
+    },
+    {
+     "set": "TextField",
+     "variants": 2,
+     "properties": [
+      "Label Position"
+     ],
+     "component": "TextField",
+     "implementedBy": [
+      "TextField"
+     ]
+    },
+    {
+     "set": "ColorSelector",
+     "variants": 2,
+     "properties": [
+      "Text"
+     ],
+     "component": "ColorPicker",
+     "implementedBy": [
+      "ColorPicker"
+     ]
+    },
+    {
+     "set": "Search",
+     "variants": 4,
+     "properties": [
+      "Label Position",
+      "Search Icon Position"
+     ],
+     "component": "Search",
+     "implementedBy": [
+      "Search"
+     ]
+    },
+    {
+     "set": ".Builing blocks/AtomIconSearch",
+     "variants": 6,
+     "properties": [
+      "Icon State",
+      "Sizes"
+     ],
+     "component": null,
+     "implementedBy": [
+      "TextField",
+      "PhoneNumber"
+     ]
+    },
+    {
+     "set": ".Builing blocks/ColorPicker",
+     "variants": 3,
+     "properties": [
+      "Size",
+      "Style"
+     ],
+     "component": null,
+     "implementedBy": [
+      "TextField",
+      "PhoneNumber"
+     ]
+    },
+    {
+     "set": "PhoneNumber",
+     "variants": 2,
+     "properties": [
+      "Label Position"
+     ],
+     "component": "PhoneNumber",
+     "implementedBy": [
+      "PhoneNumber"
+     ]
+    }
+   ]
+  },
+  {
+   "figmaPage": "Textarea",
+   "status": "built",
+   "components": [
+    "TextField"
+   ],
+   "sets": [
+    {
+     "set": ".buildingblock/atomTextArea",
+     "variants": 192,
+     "properties": [
+      "Filled?",
+      "Size",
+      "Color",
+      "Interaction",
+      "State"
+     ],
+     "component": "TextField",
+     "implementedBy": [
+      "TextField"
+     ]
+    },
+    {
+     "set": "TextArea",
+     "variants": 2,
+     "properties": [
+      "Label Position"
+     ],
+     "component": "TextField",
+     "implementedBy": [
+      "TextField"
+     ]
+    }
+   ]
+  },
+  {
+   "figmaPage": "Loader",
+   "status": "built",
+   "components": [
+    "Loader"
+   ],
+   "sets": [
+    {
+     "set": ".Builing blocks/testTubeAnimation",
+     "variants": 2,
+     "properties": [
+      "State"
+     ],
+     "component": null,
+     "implementedBy": [
+      "Loader"
+     ]
+    },
+    {
+     "set": ".Builing blocks/capsuleAnimation",
+     "variants": 6,
+     "properties": [
+      "Steps"
+     ],
+     "component": null,
+     "implementedBy": [
+      "Loader"
+     ]
+    },
+    {
+     "set": ".Builing blocks/tabletAnimation",
+     "variants": 7,
+     "properties": [
+      "Property 1"
+     ],
+     "component": null,
+     "implementedBy": [
+      "Loader"
+     ]
+    },
+    {
+     "set": ".Builing blocks/heartBeatAnimation",
+     "variants": 4,
+     "properties": [
+      "Property 1"
+     ],
+     "component": null,
+     "implementedBy": [
+      "Loader"
+     ]
+    },
+    {
+     "set": ".Builing blocks/dotLoaderAnimation",
+     "variants": 7,
+     "properties": [
+      "Property 1"
+     ],
+     "component": null,
+     "implementedBy": [
+      "Loader"
+     ]
+    },
+    {
+     "set": ".Builing blocks/scanningAnimation",
+     "variants": 4,
+     "properties": [
+      "Property 1"
+     ],
+     "component": null,
+     "implementedBy": [
+      "Loader"
+     ]
+    },
+    {
+     "set": ".Buiding blocks/searchAnimation",
+     "variants": 12,
+     "properties": [
+      "Property 1"
+     ],
+     "component": null,
+     "implementedBy": [
+      "Loader"
+     ]
+    },
+    {
+     "set": ".Builing blocks/skeletonLoader",
+     "variants": 4,
+     "properties": [
+      "Shape",
+      "Position"
+     ],
+     "component": null,
+     "implementedBy": [
+      "Loader"
+     ]
+    },
+    {
+     "set": ".Builing blocks/Liquid-loader-animation1",
+     "variants": 18,
+     "properties": [
+      "Stage"
+     ],
+     "component": null,
+     "implementedBy": [
+      "Loader"
+     ]
+    },
+    {
+     "set": ".Builing blocks/Liquid-loader-animation2",
+     "variants": 15,
+     "properties": [
+      "Property 1"
+     ],
+     "component": null,
+     "implementedBy": [
+      "Loader"
+     ]
+    },
+    {
+     "set": ".Builing blocks/Liquid-loader-animation3",
+     "variants": 18,
+     "properties": [
+      "Stage"
+     ],
+     "component": null,
+     "implementedBy": [
+      "Loader"
+     ]
+    },
+    {
+     "set": "skeletonAnimation",
+     "variants": 4,
+     "properties": [
+      "Variant"
+     ],
+     "component": null,
+     "implementedBy": [
+      "Loader"
+     ]
+    },
+    {
+     "set": "loaderAnimation",
+     "variants": 10,
+     "properties": [
+      "Animation Type"
+     ],
+     "component": null,
+     "implementedBy": [
+      "Loader"
+     ]
+    },
+    {
+     "set": "atomsRotateAnimation",
+     "variants": 3,
+     "properties": [
+      "Animation Type"
+     ],
+     "component": null,
+     "implementedBy": [
+      "Loader"
+     ]
+    },
+    {
+     "set": ".dotsAnimation",
+     "variants": 6,
+     "properties": [
+      "Property 1"
+     ],
+     "component": null,
+     "implementedBy": [
+      "Loader"
+     ]
+    },
+    {
+     "set": ".Spinner",
+     "variants": 12,
+     "properties": [
+      "Property 1"
+     ],
+     "component": "loaderAnimationTypes",
+     "implementedBy": [
+      "loaderAnimationTypes"
+     ]
+    }
+   ]
+  },
+  {
+   "figmaPage": "Radio",
+   "status": "built",
+   "components": [
+    "Radio"
+   ],
+   "sets": [
+    {
+     "set": "Radio",
+     "variants": 120,
+     "properties": [
+      "Size",
+      "Style",
+      "Color",
+      "State",
+      "Interaction"
+     ],
+     "component": "Radio",
+     "implementedBy": [
+      "Radio"
+     ]
+    },
+    {
+     "set": "Radio List",
+     "variants": 2,
+     "properties": [
+      "Label Position"
+     ],
+     "component": null,
+     "implementedBy": [
+      "Radio"
+     ]
+    },
+    {
+     "set": "RadioCard",
+     "variants": 5,
+     "properties": [
+      "Interaction"
+     ],
+     "component": "SelectionCard",
+     "implementedBy": [
+      "SelectionCard"
+     ]
+    },
+    {
+     "set": "RadioGroup",
+     "variants": 8,
+     "properties": [
+      "Row",
+      "Label Position",
+      "Interaction"
+     ],
+     "component": "SwitchWithLabel",
+     "implementedBy": [
+      "SwitchWithLabel"
+     ]
+    }
+   ]
+  },
+  {
+   "figmaPage": "Switch",
+   "status": "built",
+   "components": [
+    "Switch"
+   ],
+   "sets": [
+    {
+     "set": "Switch",
+     "variants": 102,
+     "properties": [
+      "Size",
+      "Color",
+      "State",
+      "Interaction"
+     ],
+     "component": "Switch",
+     "implementedBy": [
+      "Switch"
+     ]
+    },
+    {
+     "set": "SwitchWithLabel",
+     "variants": 8,
+     "properties": [
+      "Size",
+      "Label Position",
+      "Value Position"
+     ],
+     "component": "SwitchWithLabel",
+     "implementedBy": [
+      "SwitchWithLabel"
+     ]
+    }
+   ]
+  },
+  {
+   "figmaPage": "TextFormat",
+   "status": "built",
+   "components": [
+    "TextFormat"
+   ],
+   "sets": [
+    {
+     "set": "textInputValue",
+     "variants": 26,
+     "properties": [
+      "Variant",
+      "State"
+     ],
+     "component": null,
+     "implementedBy": [
+      "TextFormat"
+     ]
+    },
+    {
+     "set": "textChip",
+     "variants": 1,
+     "properties": [
+      "Size"
+     ],
+     "component": null,
+     "implementedBy": [
+      "TextFormat"
+     ]
+    },
+    {
+     "set": "textButton",
+     "variants": 8,
+     "properties": [
+      "Size",
+      "Line Type"
+     ],
+     "component": null,
+     "implementedBy": [
+      "TextFormat"
+     ]
+    },
+    {
+     "set": "textTabs",
+     "variants": 32,
+     "properties": [
+      "Size",
+      "Line Type",
+      "Alignment",
+      "Interaction"
+     ],
+     "component": null,
+     "implementedBy": [
+      "TextFormat"
+     ]
+    },
+    {
+     "set": "textToggleButton",
+     "variants": 2,
+     "properties": [
+      "State"
+     ],
+     "component": null,
+     "implementedBy": [
+      "TextFormat"
+     ]
+    },
+    {
+     "set": "textLabel",
+     "variants": 4,
+     "properties": [
+      "Alignment",
+      "Variant",
+      "All Caps?"
+     ],
+     "component": null,
+     "implementedBy": [
+      "TextFormat"
+     ]
+    },
+    {
+     "set": "textInputValueReadOnly",
+     "variants": 2,
+     "properties": [
+      "Variant"
+     ],
+     "component": null,
+     "implementedBy": [
+      "TextFormat"
+     ]
+    },
+    {
+     "set": "textHeading",
+     "variants": 5,
+     "properties": [
+      "Variant"
+     ],
+     "component": "FieldLabel",
+     "implementedBy": [
+      "FieldLabel"
+     ]
+    },
+    {
+     "set": "textContent",
+     "variants": 24,
+     "properties": [
+      "Variant",
+      "Text Line",
+      "Weight"
+     ],
+     "component": "FieldLabel",
+     "implementedBy": [
+      "FieldLabel"
+     ]
+    },
+    {
+     "set": "textTooltip",
+     "variants": 8,
+     "properties": [
+      "Variant",
+      "Text Line",
+      "Type"
+     ],
+     "component": null,
+     "implementedBy": [
+      "TextFormat"
+     ]
+    },
+    {
+     "set": "textRadio",
+     "variants": 4,
+     "properties": [
+      "Variant",
+      "Text Line"
+     ],
+     "component": null,
+     "implementedBy": [
+      "TextFormat"
+     ]
+    },
+    {
+     "set": "textCheckbox",
+     "variants": 4,
+     "properties": [
+      "Variant",
+      "Text Line"
+     ],
+     "component": null,
+     "implementedBy": [
+      "TextFormat"
+     ]
+    },
+    {
+     "set": "textTree",
+     "variants": 4,
+     "properties": [
+      "Variant",
+      "Text Line"
+     ],
+     "component": null,
+     "implementedBy": [
+      "TextFormat"
+     ]
+    },
+    {
+     "set": "textListItem",
+     "variants": 4,
+     "properties": [
+      "Variant",
+      "Text Line"
+     ],
+     "component": null,
+     "implementedBy": [
+      "TextFormat"
+     ]
+    },
+    {
+     "set": "textLeftNavPrimary",
+     "variants": 2,
+     "properties": [
+      "Variant"
+     ],
+     "component": null,
+     "implementedBy": [
+      "TextFormat"
+     ]
+    },
+    {
+     "set": "textNavigationRail",
+     "variants": 2,
+     "properties": [
+      "Variant"
+     ],
+     "component": null,
+     "implementedBy": [
+      "TextFormat"
+     ]
+    },
+    {
+     "set": "textStepperTitle",
+     "variants": 3,
+     "properties": [
+      "Variant"
+     ],
+     "component": null,
+     "implementedBy": [
+      "TextFormat"
+     ]
+    },
+    {
+     "set": "textKPIMain",
+     "variants": 1,
+     "properties": [
+      "Variant"
+     ],
+     "component": null,
+     "implementedBy": [
+      "TextFormat"
+     ]
+    },
+    {
+     "set": "textPopover",
+     "variants": 4,
+     "properties": [
+      "Variant",
+      "Type"
+     ],
+     "component": null,
+     "implementedBy": [
+      "TextFormat"
+     ]
+    },
+    {
+     "set": "textMetaData",
+     "variants": 10,
+     "properties": [
+      "Color",
+      "Font Weight"
+     ],
+     "component": null,
+     "implementedBy": [
+      "TextFormat"
+     ]
+    },
+    {
+     "set": "textLink",
+     "variants": 8,
+     "properties": [
+      "Interaction",
+      "Line Type",
+      "Variant"
+     ],
+     "component": "FieldLabel",
+     "implementedBy": [
+      "FieldLabel"
+     ]
+    },
+    {
+     "set": "textBreadcrumb",
+     "variants": 4,
+     "properties": [
+      "Variation",
+      "Line Type"
+     ],
+     "component": null,
+     "implementedBy": [
+      "TextFormat"
+     ]
+    },
+    {
+     "set": "textChart",
+     "variants": 3,
+     "properties": [
+      "Variant",
+      "Line Type"
+     ],
+     "component": null,
+     "implementedBy": [
+      "TextFormat"
+     ]
+    },
+    {
+     "set": "textAccordion",
+     "variants": 3,
+     "properties": [
+      "Size"
+     ],
+     "component": null,
+     "implementedBy": [
+      "TextFormat"
+     ]
+    }
+   ]
+  },
+  {
+   "figmaPage": "Divider",
+   "status": "built",
+   "components": [
+    "Divider"
+   ],
+   "sets": [
+    {
+     "set": "divider",
+     "variants": 20,
+     "properties": [
+      "Type",
+      "Size",
+      "Direction"
+     ],
+     "component": "Divider",
+     "implementedBy": [
+      "Divider"
+     ]
+    }
+   ]
+  },
+  {
+   "figmaPage": "ScrollBar",
+   "status": "built",
+   "components": [
+    "ScrollBar"
+   ],
+   "sets": [
+    {
+     "set": "scrollBar",
+     "variants": 2,
+     "properties": [
+      "Direction",
+      "Interaction",
+      "Stage BG"
+     ],
+     "component": "ScrollBar",
+     "implementedBy": [
+      "ScrollBar"
+     ]
+    },
+    {
+     "set": ".Building Blocks/slider-25%",
+     "variants": 4,
+     "properties": [
+      "Position"
+     ],
+     "component": null,
+     "implementedBy": [
+      "ScrollBar"
+     ]
+    },
+    {
+     "set": ".Building Blocks/slider-33%",
+     "variants": 3,
+     "properties": [
+      "Position"
+     ],
+     "component": null,
+     "implementedBy": [
+      "ScrollBar"
+     ]
+    },
+    {
+     "set": ".Building Blocks/slider-50%",
+     "variants": 2,
+     "properties": [
+      "Position"
+     ],
+     "component": null,
+     "implementedBy": [
+      "ScrollBar"
+     ]
+    },
+    {
+     "set": ".Building Blocks/slider-75%",
+     "variants": 2,
+     "properties": [
+      "Position"
+     ],
+     "component": null,
+     "implementedBy": [
+      "ScrollBar"
+     ]
+    },
+    {
+     "set": ".Building Blocks/slider-variation",
+     "variants": 4,
+     "properties": [
+      "Size"
+     ],
+     "component": null,
+     "implementedBy": [
+      "ScrollBar"
+     ]
+    },
+    {
+     "set": ".Building Blocks/sliderKnob-States",
+     "variants": 6,
+     "properties": [
+      "Interaction",
+      "Stage BG"
+     ],
+     "component": null,
+     "implementedBy": [
+      "ScrollBar"
+     ]
+    }
+   ]
+  },
+  {
+   "figmaPage": "Badge",
+   "status": "built",
+   "components": [
+    "Badge"
+   ],
+   "sets": [
+    {
+     "set": "Badge",
+     "variants": 90,
+     "properties": [
+      "Variant",
+      "Size",
+      "Color"
+     ],
+     "component": "Badge",
+     "implementedBy": [
+      "Badge"
+     ]
+    }
+   ]
+  },
+  {
+   "figmaPage": "Region (Card Region)",
+   "status": "built",
+   "components": [
+    "Region"
+   ],
+   "sets": [
+    {
+     "set": "cards",
+     "variants": 6,
+     "properties": [
+      "Shape",
+      "Radius"
+     ],
+     "component": null,
+     "implementedBy": [
+      "Region"
+     ]
+    }
+   ]
+  },
+  {
+   "figmaPage": "Button",
+   "status": "built",
+   "components": [
+    "Button"
+   ],
+   "sets": [
+    {
+     "set": "Button",
+     "variants": 300,
+     "properties": [
+      "Size",
+      "Variant",
+      "Interaction",
+      "Color"
+     ],
+     "component": "Button",
+     "implementedBy": [
+      "Button"
+     ]
+    },
+    {
+     "set": "ButtonGroup",
+     "variants": 10,
+     "properties": [
+      "Size",
+      "Variant"
+     ],
+     "component": "Button",
+     "implementedBy": [
+      "Button"
+     ]
+    },
+    {
+     "set": "adornmentButton",
+     "variants": 24,
+     "properties": [
+      "Size",
+      "Variant",
+      "Interaction",
+      "Shape"
+     ],
+     "component": "Button",
+     "implementedBy": [
+      "Button"
+     ]
+    },
+    {
+     "set": "IconButton",
+     "variants": 650,
+     "properties": [
+      "Size",
+      "Shape",
+      "Variant",
+      "Interaction",
+      "Color"
+     ],
+     "component": "IconButton",
+     "implementedBy": [
+      "IconButton"
+     ]
+    }
+   ]
+  },
+  {
+   "figmaPage": "ProgressBar",
+   "status": "built",
+   "components": [
+    "ProgressBar"
+   ],
+   "sets": [
+    {
+     "set": "progressBar",
+     "variants": 84,
+     "properties": [
+      "Label",
+      "Color",
+      "Interaction"
+     ],
+     "component": "ProgressBar",
+     "implementedBy": [
+      "ProgressBar"
+     ]
+    },
+    {
+     "set": "progressBarGradient",
+     "variants": 36,
+     "properties": [
+      "Label",
+      "Status"
+     ],
+     "component": null,
+     "implementedBy": [
+      "ProgressBar"
+     ]
+    },
+    {
+     "set": ".Animation-InProgress",
+     "variants": 2,
+     "properties": [
+      "Property 1"
+     ],
+     "component": null,
+     "implementedBy": [
+      "ProgressBar"
+     ]
+    },
+    {
+     "set": ".Animation-InErrorState",
+     "variants": 3,
+     "properties": [
+      "Property 1"
+     ],
+     "component": null,
+     "implementedBy": [
+      "ProgressBar"
+     ]
+    },
+    {
+     "set": ".Animation-Success",
+     "variants": 3,
+     "properties": [
+      "Property 1"
+     ],
+     "component": null,
+     "implementedBy": [
+      "ProgressBar"
+     ]
+    },
+    {
+     "set": "progressBarNotification",
+     "variants": 6,
+     "properties": [
+      "Colour",
+      "Position"
+     ],
+     "component": "ProgressBar",
+     "implementedBy": [
+      "ProgressBar"
+     ]
+    }
+   ]
+  },
+  {
+   "figmaPage": "Helper Text",
+   "status": "built",
+   "components": [
+    "HelperText"
+   ],
+   "sets": [
+    {
+     "set": "Helper Text",
+     "variants": 5,
+     "properties": [
+      "Variant"
+     ],
+     "component": "HelperText",
+     "implementedBy": [
+      "HelperText"
+     ]
+    }
+   ]
+  },
+  {
+   "figmaPage": "Arrows",
+   "status": "built",
+   "components": [
+    "Arrow"
+   ],
+   "sets": [
+    {
+     "set": "Arrows",
+     "variants": 192,
+     "properties": [
+      "End Points",
+      "Size",
+      "Direction",
+      "Type"
+     ],
+     "component": null,
+     "implementedBy": [
+      "Arrow"
+     ]
+    }
+   ]
+  },
+  {
+   "figmaPage": "Shapes",
+   "status": "built",
+   "components": [
+    "Shape"
+   ],
+   "sets": [
+    {
+     "set": "Shapes",
+     "variants": 56,
+     "properties": [
+      "Shape",
+      "Type"
+     ],
+     "component": null,
+     "implementedBy": [
+      "Shape"
+     ]
+    }
+   ]
+  },
+  {
+   "figmaPage": "Date Picker",
+   "status": "built",
+   "components": [
+    "DatePicker",
+    "Calendar"
+   ],
+   "sets": [
+    {
+     "set": ".Building Blocks/Calendar Cell",
+     "variants": 60,
+     "properties": [
+      "Variant",
+      "Style",
+      "Interaction"
+     ],
+     "component": "Calendar",
+     "implementedBy": [
+      "Calendar"
+     ]
+    },
+    {
+     "set": ".Building Blocks/Body",
+     "variants": 4,
+     "properties": [
+      "Variant"
+     ],
+     "component": null,
+     "implementedBy": [
+      "DatePicker",
+      "Calendar"
+     ]
+    },
+    {
+     "set": "Calendar",
+     "variants": 7,
+     "properties": [
+      "Variant",
+      "View"
+     ],
+     "component": "Calendar",
+     "implementedBy": [
+      "Calendar"
+     ]
+    },
+    {
+     "set": ".Building Blocks/Calendar Header",
+     "variants": 3,
+     "properties": [
+      "Variant"
+     ],
+     "component": null,
+     "implementedBy": [
+      "DatePicker",
+      "Calendar"
+     ]
+    },
+    {
+     "set": "DatePicker",
+     "variants": 2,
+     "properties": [
+      "Label Position"
+     ],
+     "component": "DatePicker",
+     "implementedBy": [
+      "DatePicker"
+     ]
+    }
+   ]
+  },
+  {
+   "figmaPage": "DropdownList",
+   "status": "built",
+   "components": [
+    "Select",
+    "Autocomplete",
+    "InlineDropdown",
+    "SelectWithBorder"
+   ],
+   "sets": [
+    {
+     "set": "BuildingBlocks/ListItem",
+     "variants": 48,
+     "properties": [
+      "Type",
+      "Size",
+      "Interaction"
+     ],
+     "component": null,
+     "implementedBy": [
+      "Select",
+      "Autocomplete",
+      "InlineDropdown",
+      "SelectWithBorder"
+     ]
+    },
+    {
+     "set": ".Building Blocks/ColorSelector",
+     "variants": 21,
+     "properties": [
+      "Color",
+      "Size"
+     ],
+     "component": "ColorPicker",
+     "implementedBy": [
+      "ColorPicker"
+     ]
+    },
+    {
+     "set": "Dropdown",
+     "variants": 22,
+     "properties": [
+      "DropDown Style"
+     ],
+     "component": null,
+     "implementedBy": [
+      "Select",
+      "Autocomplete",
+      "InlineDropdown",
+      "SelectWithBorder"
+     ]
+    },
+    {
+     "set": ".SelectwithBorder",
+     "variants": 4,
+     "properties": [
+      "State",
+      "Label Position"
+     ],
+     "component": "SelectWithBorder",
+     "implementedBy": [
+      "SelectWithBorder"
+     ]
+    },
+    {
+     "set": ".AutocompletewithBorder",
+     "variants": 4,
+     "properties": [
+      "State",
+      "Label Position"
+     ],
+     "component": "SelectWithBorder",
+     "implementedBy": [
+      "SelectWithBorder"
+     ]
+    },
+    {
+     "set": "Select",
+     "variants": 2,
+     "properties": [
+      "Label Position"
+     ],
+     "component": "Select",
+     "implementedBy": [
+      "Select"
+     ]
+    },
+    {
+     "set": "Autocomplete",
+     "variants": 2,
+     "properties": [
+      "Label Position"
+     ],
+     "component": "Autocomplete",
+     "implementedBy": [
+      "Autocomplete"
+     ]
+    },
+    {
+     "set": "Inline Dropdown",
+     "variants": 6,
+     "properties": [
+      "Variant",
+      "Interaction"
+     ],
+     "component": "InlineDropdown",
+     "implementedBy": [
+      "InlineDropdown"
+     ]
+    }
+   ]
+  },
+  {
+   "figmaPage": "Tally Counter",
+   "status": "built",
+   "components": [
+    "TallyCounter"
+   ],
+   "sets": [
+    {
+     "set": "Tally Counter",
+     "variants": 12,
+     "properties": [
+      "Size",
+      "Variant",
+      "Label Position"
+     ],
+     "component": "TallyCounter",
+     "implementedBy": [
+      "TallyCounter"
+     ]
+    }
+   ]
+  },
+  {
+   "figmaPage": "File Uploader",
+   "status": "built",
+   "components": [
+    "FileUploader"
+   ],
+   "sets": [
+    {
+     "set": "Building Blocks/File Uploader base",
+     "variants": 4,
+     "properties": [
+      "Interaction"
+     ],
+     "component": null,
+     "implementedBy": [
+      "FileUploader"
+     ]
+    },
+    {
+     "set": "Building blocks/File Uploader Progress Bar",
+     "variants": 4,
+     "properties": [
+      "Variant",
+      "Status"
+     ],
+     "component": null,
+     "implementedBy": [
+      "FileUploader"
+     ]
+    },
+    {
+     "set": "Building blocks/File Uploader Uploaded List",
+     "variants": 5,
+     "properties": [
+      "Variant"
+     ],
+     "component": null,
+     "implementedBy": [
+      "FileUploader"
+     ]
+    },
+    {
+     "set": "List",
+     "variants": 2,
+     "properties": [
+      "Variant"
+     ],
+     "component": null,
+     "implementedBy": [
+      "FileUploader"
+     ]
+    },
+    {
+     "set": "File Uploader",
+     "variants": 2,
+     "properties": [
+      "Label Position"
+     ],
+     "component": "FileUploader",
+     "implementedBy": [
+      "FileUploader"
+     ]
+    }
+   ]
+  },
+  {
+   "figmaPage": "Time Picker",
+   "status": "built",
+   "components": [
+    "TimePicker"
+   ],
+   "sets": [
+    {
+     "set": ".Building Blocks/Clock Body",
+     "variants": 2,
+     "properties": [
+      "Size"
+     ],
+     "component": "TimePicker",
+     "implementedBy": [
+      "TimePicker"
+     ]
+    },
+    {
+     "set": "TimePicker",
+     "variants": 2,
+     "properties": [
+      "Label Position"
+     ],
+     "component": "TimePicker",
+     "implementedBy": [
+      "TimePicker"
+     ]
+    }
+   ]
+  },
+  {
+   "figmaPage": "Date Time Picker",
+   "status": "built",
+   "components": [
+    "DateTimePicker"
+   ],
+   "sets": [
+    {
+     "set": "DateTimePicker",
+     "variants": 2,
+     "properties": [
+      "Label Position"
+     ],
+     "component": "DateTimePicker",
+     "implementedBy": [
+      "DateTimePicker"
+     ]
+    }
+   ]
+  },
+  {
+   "figmaPage": "Notifications",
+   "status": "built",
+   "components": [
+    "Notification"
+   ],
+   "sets": [
+    {
+     "set": "Notifications",
+     "variants": 16,
+     "properties": [
+      "Color",
+      "Variant",
+      "Actions Placement"
+     ],
+     "component": null,
+     "implementedBy": [
+      "Notification"
+     ]
+    }
+   ]
+  },
+  {
+   "figmaPage": "Data Grid",
+   "status": "built",
+   "components": [
+    "DataGrid",
+    "StatusFilterBar",
+    "TaskSwitcher",
+    "TrendLine",
+    "VersionCard",
+    "Highlighter",
+    "TableCell",
+    "AdvancedGridDropdown"
+   ],
+   "sets": [
+    {
+     "set": "BuildingBlocks/DataGrid_Text_Cell",
+     "variants": 75,
+     "properties": [
+      "Type",
+      "Interaction",
+      "Size"
+     ],
+     "component": "DataGrid",
+     "implementedBy": [
+      "DataGrid"
+     ]
+    },
+    {
+     "set": "BuildingBlocks/DataGrid_Header",
+     "variants": 72,
+     "properties": [
+      "BackGroundFill",
+      "Type",
+      "Interaction",
+      "Size",
+      "Column Variant"
+     ],
+     "component": null,
+     "implementedBy": [
+      "DataGrid",
+      "StatusFilterBar",
+      "TaskSwitcher",
+      "TrendLine",
+      "VersionCard",
+      "Highlighter",
+      "TableCell",
+      "AdvancedGridDropdown"
+     ]
+    },
+    {
+     "set": "BuildingBlocks/DataGrid_Form_Cell",
+     "variants": 156,
+     "properties": [
+      "Type",
+      "Interaction",
+      "Size"
+     ],
+     "component": "DataGrid",
+     "implementedBy": [
+      "DataGrid"
+     ]
+    },
+    {
+     "set": "DatagridToolbar",
+     "variants": 10,
+     "properties": [
+      "Size",
+      "Quick Filter"
+     ],
+     "component": "DataGrid",
+     "implementedBy": [
+      "DataGrid"
+     ]
+    },
+    {
+     "set": ".Building Blocks/blinkingCursor",
+     "variants": 2,
+     "properties": [
+      "state"
+     ],
+     "component": null,
+     "implementedBy": [
+      "DataGrid",
+      "StatusFilterBar",
+      "TaskSwitcher",
+      "TrendLine",
+      "VersionCard",
+      "Highlighter",
+      "TableCell",
+      "AdvancedGridDropdown"
+     ]
+    },
+    {
+     "set": "tableCell",
+     "variants": 33,
+     "properties": [
+      "Types",
+      "Row Variant",
+      "Size Variant",
+      "Content Level"
+     ],
+     "component": "TableCell",
+     "implementedBy": [
+      "TableCell"
+     ]
+    },
+    {
+     "set": "BuildingBlocks/version-detail-card",
+     "variants": 2,
+     "properties": [
+      "Show Option"
+     ],
+     "component": null,
+     "implementedBy": [
+      "DataGrid",
+      "StatusFilterBar",
+      "TaskSwitcher",
+      "TrendLine",
+      "VersionCard",
+      "Highlighter",
+      "TableCell",
+      "AdvancedGridDropdown"
+     ]
+    },
+    {
+     "set": "BuildingBlocks/comparison-highlighter",
+     "variants": 40,
+     "properties": [
+      "Version",
+      "Color Variation",
+      "Indicator",
+      "Badge Size"
+     ],
+     "component": null,
+     "implementedBy": [
+      "DataGrid",
+      "StatusFilterBar",
+      "TaskSwitcher",
+      "TrendLine",
+      "VersionCard",
+      "Highlighter",
+      "TableCell",
+      "AdvancedGridDropdown"
+     ]
+    },
+    {
+     "set": ".Building Blocks/advancedGridDropdown",
+     "variants": 2,
+     "properties": [
+      "Variant"
+     ],
+     "component": "AdvancedGridDropdown",
+     "implementedBy": [
+      "AdvancedGridDropdown"
+     ]
+    },
+    {
+     "set": "TrendLine",
+     "variants": 6,
+     "properties": [
+      "Color"
+     ],
+     "component": "TrendLine",
+     "implementedBy": [
+      "TrendLine"
+     ]
+    },
+    {
+     "set": "statusFilterVercel",
+     "variants": 6,
+     "properties": [
+      "Size",
+      "BG Color"
+     ],
+     "component": null,
+     "implementedBy": [
+      "DataGrid",
+      "StatusFilterBar",
+      "TaskSwitcher",
+      "TrendLine",
+      "VersionCard",
+      "Highlighter",
+      "TableCell",
+      "AdvancedGridDropdown"
+     ]
+    },
+    {
+     "set": "BuildingBlocks/statusFilter",
+     "variants": 162,
+     "properties": [
+      "Color",
+      "Interaction",
+      "Size",
+      "Background Color"
+     ],
+     "component": null,
+     "implementedBy": [
+      "DataGrid",
+      "StatusFilterBar",
+      "TaskSwitcher",
+      "TrendLine",
+      "VersionCard",
+      "Highlighter",
+      "TableCell",
+      "AdvancedGridDropdown"
+     ]
+    },
+    {
+     "set": "BuildingBlocks/atomStatusFilterv2",
+     "variants": 99,
+     "properties": [
+      "Size",
+      "Variant",
+      "Interaction"
+     ],
+     "component": null,
+     "implementedBy": [
+      "DataGrid",
+      "StatusFilterBar",
+      "TaskSwitcher",
+      "TrendLine",
+      "VersionCard",
+      "Highlighter",
+      "TableCell",
+      "AdvancedGridDropdown"
+     ]
+    },
+    {
+     "set": "statusFilterv2",
+     "variants": 3,
+     "properties": [
+      "Size"
+     ],
+     "component": null,
+     "implementedBy": [
+      "DataGrid",
+      "StatusFilterBar",
+      "TaskSwitcher",
+      "TrendLine",
+      "VersionCard",
+      "Highlighter",
+      "TableCell",
+      "AdvancedGridDropdown"
+     ]
+    },
+    {
+     "set": ".BuildingBlocks/TaskSwitcher",
+     "variants": 48,
+     "properties": [
+      "Size",
+      "Type",
+      "Interaction"
+     ],
+     "component": "TaskSwitcher",
+     "implementedBy": [
+      "TaskSwitcher"
+     ]
+    },
+    {
+     "set": "TaskSwitcher",
+     "variants": 6,
+     "properties": [
+      "Size",
+      "My Tasks",
+      "All Tasks"
+     ],
+     "component": "TaskSwitcher",
+     "implementedBy": [
+      "TaskSwitcher"
+     ]
+    }
+   ]
+  },
+  {
+   "figmaPage": "Breadcrumbs",
+   "status": "built",
+   "components": [
+    "Breadcrumbs"
+   ],
+   "sets": [
+    {
+     "set": "BuildingBlocks/Breadcrumb Dividers",
+     "variants": 2,
+     "properties": [
+      "Variant"
+     ],
+     "component": null,
+     "implementedBy": [
+      "Breadcrumbs"
+     ]
+    },
+    {
+     "set": "BuildingBlocks/Breadcrumb Item",
+     "variants": 18,
+     "properties": [
+      "Variant",
+      "Style",
+      "Interaction"
+     ],
+     "component": null,
+     "implementedBy": [
+      "Breadcrumbs"
+     ]
+    },
+    {
+     "set": "Breadcrumb",
+     "variants": 6,
+     "properties": [
+      "Variant",
+      "Divider"
+     ],
+     "component": null,
+     "implementedBy": [
+      "Breadcrumbs"
+     ]
+    }
+   ]
+  },
+  {
+   "figmaPage": "Accordion",
+   "status": "built",
+   "components": [
+    "Accordion"
+   ],
+   "sets": [
+    {
+     "set": "BuildingBlocks/Accordion Header",
+     "variants": 36,
+     "properties": [
+      "Size",
+      "Interaction",
+      "Orientation"
+     ],
+     "component": null,
+     "implementedBy": [
+      "Accordion"
+     ]
+    },
+    {
+     "set": "Accordion",
+     "variants": 4,
+     "properties": [
+      "Orientation",
+      "Interaction"
+     ],
+     "component": "Accordion",
+     "implementedBy": [
+      "Accordion"
+     ]
+    }
+   ]
+  },
+  {
+   "figmaPage": "Favicon",
+   "status": "not-built",
+   "components": [],
+   "sets": [
+    {
+     "set": "Favicon",
+     "variants": 7,
+     "properties": [
+      "Size"
+     ],
+     "component": null,
+     "implementedBy": []
+    }
+   ]
+  },
+  {
+   "figmaPage": "ColorPicker",
+   "status": "built",
+   "components": [
+    "ColorPicker"
+   ],
+   "sets": [
+    {
+     "set": "colorPicker",
+     "variants": 3,
+     "properties": [
+      "Variation"
+     ],
+     "component": "ColorPicker",
+     "implementedBy": [
+      "ColorPicker"
+     ]
+    },
+    {
+     "set": ".Builing blocks/Color Mode",
+     "variants": 3,
+     "properties": [
+      "Type"
+     ],
+     "component": null,
+     "implementedBy": [
+      "ColorPicker"
+     ]
+    },
+    {
+     "set": ".Builing blocks/ColorSelector-Shape-variant",
+     "variants": 2,
+     "properties": [
+      "Shape"
+     ],
+     "component": null,
+     "implementedBy": [
+      "ColorPicker"
+     ]
+    },
+    {
+     "set": ".Builing blocks/tickIcon",
+     "variants": 2,
+     "properties": [
+      "Color Variation"
+     ],
+     "component": null,
+     "implementedBy": [
+      "ColorPicker"
+     ]
+    },
+    {
+     "set": ".Builing blocks/ColorPointer",
+     "variants": 2,
+     "properties": [
+      "Interaction"
+     ],
+     "component": null,
+     "implementedBy": [
+      "ColorPicker"
+     ]
+    }
+   ]
+  },
+  {
+   "figmaPage": "Tabs",
+   "status": "built",
+   "components": [
+    "Tabs"
+   ],
+   "sets": [
+    {
+     "set": "Building Blocks/Tab",
+     "variants": 60,
+     "properties": [
+      "Variant",
+      "Size",
+      "Interaction"
+     ],
+     "component": "Tabs",
+     "implementedBy": [
+      "Tabs"
+     ]
+    },
+    {
+     "set": "Tabs",
+     "variants": 15,
+     "properties": [
+      "Variant",
+      "Size",
+      "Orientation"
+     ],
+     "component": "Tabs",
+     "implementedBy": [
+      "Tabs"
+     ]
+    }
+   ]
+  },
+  {
+   "figmaPage": "LeftNav",
+   "status": "built",
+   "components": [
+    "LeftNav"
+   ],
+   "sets": [
+    {
+     "set": ".Building Blocks/leftNavButtonItems",
+     "variants": 4,
+     "properties": [
+      "Interaction"
+     ],
+     "component": null,
+     "implementedBy": [
+      "LeftNav"
+     ]
+    },
+    {
+     "set": ".Building Blocks/Logos",
+     "variants": 2,
+     "properties": [
+      "Interaction"
+     ],
+     "component": null,
+     "implementedBy": [
+      "LeftNav"
+     ]
+    },
+    {
+     "set": ".Building Blocks/Search",
+     "variants": 4,
+     "properties": [
+      "Variant",
+      "Interaction"
+     ],
+     "component": "Search",
+     "implementedBy": [
+      "Search"
+     ]
+    },
+    {
+     "set": "ExpandCollapse",
+     "variants": 4,
+     "properties": [
+      "Variant",
+      "Interaction"
+     ],
+     "component": null,
+     "implementedBy": [
+      "LeftNav"
+     ]
+    },
+    {
+     "set": ".Building Blocks/leftNav-SecondaryLevelMenus",
+     "variants": 9,
+     "properties": [
+      "Interaction",
+      "Menu Type"
+     ],
+     "component": null,
+     "implementedBy": [
+      "LeftNav"
+     ]
+    },
+    {
+     "set": ".Building Blocks/leftNav-moreBtn",
+     "variants": 3,
+     "properties": [
+      "Interaction"
+     ],
+     "component": null,
+     "implementedBy": [
+      "LeftNav"
+     ]
+    },
+    {
+     "set": "LeftNav",
+     "variants": 2,
+     "properties": [
+      "Variant"
+     ],
+     "component": "LeftNav",
+     "implementedBy": [
+      "LeftNav"
+     ]
+    },
+    {
+     "set": ".buildingBlock/SuiteBlock",
+     "variants": 3,
+     "properties": [
+      "Interaction"
+     ],
+     "component": null,
+     "implementedBy": [
+      "LeftNav"
+     ]
+    }
+   ]
+  },
+  {
+   "figmaPage": "Header",
+   "status": "built",
+   "components": [
+    "Header"
+   ],
+   "sets": [
+    {
+     "set": "Header",
+     "variants": 3,
+     "properties": [
+      "Variant"
+     ],
+     "component": "Header",
+     "implementedBy": [
+      "Header"
+     ]
+    }
+   ]
+  },
+  {
+   "figmaPage": "Footer",
+   "status": "built",
+   "components": [
+    "Footer"
+   ],
+   "sets": []
+  },
+  {
+   "figmaPage": "General Documentation Guide",
+   "status": "foundation",
+   "components": [],
+   "sets": [
+    {
+     "set": ".Label-tags",
+     "variants": 2,
+     "properties": [
+      "Color"
+     ],
+     "component": null,
+     "implementedBy": []
+    }
+   ]
+  },
+  {
+   "figmaPage": "Charts & Cards",
+   "status": "built",
+   "components": [
+    "Charts"
+   ],
+   "sets": [
+    {
+     "set": ".Building Blocks/Charts Axis Values",
+     "variants": 6,
+     "properties": [
+      "Align"
+     ],
+     "component": null,
+     "implementedBy": [
+      "Charts"
+     ]
+    },
+    {
+     "set": ".Building Blocks/Charts X-Axis",
+     "variants": 3,
+     "properties": [
+      "Value Position"
+     ],
+     "component": null,
+     "implementedBy": [
+      "Charts"
+     ]
+    },
+    {
+     "set": ".Building Blocks/Charts Y-Axis",
+     "variants": 3,
+     "properties": [
+      "Value Position"
+     ],
+     "component": null,
+     "implementedBy": [
+      "Charts"
+     ]
+    },
+    {
+     "set": ".Building Blocks/ Charts Bar",
+     "variants": 8,
+     "properties": [
+      "Size",
+      "Orientation"
+     ],
+     "component": null,
+     "implementedBy": [
+      "Charts"
+     ]
+    },
+    {
+     "set": "Building Blocks/Charts Legends",
+     "variants": 3,
+     "properties": [
+      "Variant",
+      "Shape"
+     ],
+     "component": null,
+     "implementedBy": [
+      "Charts"
+     ]
+    },
+    {
+     "set": ".Building Blocks/Charts Donut",
+     "variants": 3,
+     "properties": [
+      "Size"
+     ],
+     "component": null,
+     "implementedBy": [
+      "Charts"
+     ]
+    },
+    {
+     "set": ".Building Blocks/Charts Pie",
+     "variants": 1,
+     "properties": [
+      "Property 1"
+     ],
+     "component": null,
+     "implementedBy": [
+      "Charts"
+     ]
+    },
+    {
+     "set": ".Building Blocks/Charts Nightingale",
+     "variants": 1,
+     "properties": [
+      "Property 1"
+     ],
+     "component": null,
+     "implementedBy": [
+      "Charts"
+     ]
+    },
+    {
+     "set": ".Building Blocks/Charts Interactive Nods",
+     "variants": 9,
+     "properties": [
+      "Color"
+     ],
+     "component": null,
+     "implementedBy": [
+      "Charts"
+     ]
+    },
+    {
+     "set": ".Building Blocks/Charts Circle",
+     "variants": 3,
+     "properties": [
+      "Size"
+     ],
+     "component": null,
+     "implementedBy": [
+      "Charts"
+     ]
+    }
+   ]
+  },
+  {
+   "figmaPage": "Tooltip",
+   "status": "built",
+   "components": [
+    "Tooltip"
+   ],
+   "sets": [
+    {
+     "set": "toolTip",
+     "variants": 44,
+     "properties": [
+      "style",
+      "Type",
+      "Arrow Position"
+     ],
+     "component": "Tooltip",
+     "implementedBy": [
+      "Tooltip"
+     ]
+    },
+    {
+     "set": ".Building Blocks/toolTip-Arrows",
+     "variants": 2,
+     "properties": [
+      "Style"
+     ],
+     "component": null,
+     "implementedBy": [
+      "Tooltip"
+     ]
+    }
+   ]
+  },
+  {
+   "figmaPage": "Rich Text Editor",
+   "status": "built",
+   "components": [
+    "RichTextEditor",
+    "FormulaEditor"
+   ],
+   "sets": [
+    {
+     "set": "building block/RichTextEditorBase",
+     "variants": 50,
+     "properties": [
+      "Type",
+      "Color",
+      "Interaction"
+     ],
+     "component": null,
+     "implementedBy": [
+      "RichTextEditor",
+      "FormulaEditor"
+     ]
+    },
+    {
+     "set": "Rich Text Editor",
+     "variants": 2,
+     "properties": [
+      "Label Position"
+     ],
+     "component": "RichTextEditor",
+     "implementedBy": [
+      "RichTextEditor"
+     ]
+    },
+    {
+     "set": ".building block / Formula Editor Base",
+     "variants": 16,
+     "properties": [
+      "Color",
+      "Interaction"
+     ],
+     "component": null,
+     "implementedBy": [
+      "RichTextEditor",
+      "FormulaEditor"
+     ]
+    },
+    {
+     "set": "Formula Editor",
+     "variants": 2,
+     "properties": [
+      "Label Position"
+     ],
+     "component": "FormulaEditor",
+     "implementedBy": [
+      "FormulaEditor"
+     ]
+    },
+    {
+     "set": ".building block / Formula Button Set",
+     "variants": 5,
+     "properties": [
+      "Type"
+     ],
+     "component": "FormulaEditor",
+     "implementedBy": [
+      "FormulaEditor"
+     ]
+    }
+   ]
+  },
+  {
+   "figmaPage": "Tree",
+   "status": "built",
+   "components": [
+    "TreeView"
+   ],
+   "sets": [
+    {
+     "set": "BuildingBlocks/Tree List",
+     "variants": 114,
+     "properties": [
+      "Hierarchy",
+      "Interaction"
+     ],
+     "component": null,
+     "implementedBy": [
+      "TreeView"
+     ]
+    }
+   ]
+  },
+  {
+   "figmaPage": "Popover",
+   "status": "built",
+   "components": [
+    "Popover"
+   ],
+   "sets": [
+    {
+     "set": "popOver",
+     "variants": 26,
+     "properties": [
+      "style",
+      "Arrow Position"
+     ],
+     "component": "Popover",
+     "implementedBy": [
+      "Popover"
+     ]
+    },
+    {
+     "set": ".Building Blocks/popOver-Arrows",
+     "variants": 2,
+     "properties": [
+      "Style"
+     ],
+     "component": null,
+     "implementedBy": [
+      "Popover"
+     ]
+    }
+   ]
+  },
+  {
+   "figmaPage": "TransferList",
+   "status": "built",
+   "components": [
+    "TransferList"
+   ],
+   "sets": [
+    {
+     "set": ".Building Blocks/transferlist",
+     "variants": 5,
+     "properties": [
+      "Transfer List"
+     ],
+     "component": "TransferList",
+     "implementedBy": [
+      "TransferList"
+     ]
+    }
+   ]
+  },
+  {
+   "figmaPage": "Stepper",
+   "status": "built",
+   "components": [
+    "Stepper"
+   ],
+   "sets": [
+    {
+     "set": "Building Blocks/stepper-circles",
+     "variants": 8,
+     "properties": [
+      "State",
+      "Text Position"
+     ],
+     "component": null,
+     "implementedBy": [
+      "Stepper"
+     ]
+    },
+    {
+     "set": ".Building Blocks/stepper-connector",
+     "variants": 4,
+     "properties": [
+      "Direction",
+      "Status"
+     ],
+     "component": null,
+     "implementedBy": [
+      "Stepper"
+     ]
+    },
+    {
+     "set": "Stepper",
+     "variants": 4,
+     "properties": [
+      "Direction",
+      "Text Position"
+     ],
+     "component": "Stepper",
+     "implementedBy": [
+      "Stepper"
+     ]
+    }
+   ]
+  },
+  {
+   "figmaPage": "Link",
+   "status": "built",
+   "components": [
+    "Link"
+   ],
+   "sets": [
+    {
+     "set": "Link",
+     "variants": 8,
+     "properties": [
+      "Interaction",
+      "Background Mode"
+     ],
+     "component": "Link",
+     "implementedBy": [
+      "Link"
+     ]
+    }
+   ]
+  },
+  {
+   "figmaPage": "Backdrop",
+   "status": "built",
+   "components": [
+    "Backdrop"
+   ],
+   "sets": [
+    {
+     "set": "Backdrop",
+     "variants": 2,
+     "properties": [
+      "Opacity"
+     ],
+     "component": "Backdrop",
+     "implementedBy": [
+      "Backdrop"
+     ]
+    }
+   ]
+  },
+  {
+   "figmaPage": "Carousel",
+   "status": "built",
+   "components": [
+    "Carousel"
+   ],
+   "sets": [
+    {
+     "set": "Carousel",
+     "variants": 16,
+     "properties": [
+      "Indicator Position",
+      "Indicator Type",
+      "Arrow Position",
+      "Theme"
+     ],
+     "component": "Carousel",
+     "implementedBy": [
+      "Carousel"
+     ]
+    },
+    {
+     "set": ".Building Blocks/carousel-CardBGVariation",
+     "variants": 2,
+     "properties": [
+      "Background"
+     ],
+     "component": null,
+     "implementedBy": [
+      "Carousel"
+     ]
+    },
+    {
+     "set": ".Building Blocks/carousel-ButtonVariations",
+     "variants": 24,
+     "properties": [
+      "Interaction",
+      "Shapre",
+      "Theme",
+      "Size"
+     ],
+     "component": null,
+     "implementedBy": [
+      "Carousel"
+     ]
+    }
+   ]
+  },
+  {
+   "figmaPage": "Code Snippet",
+   "status": "built",
+   "components": [
+    "CodeSnippet"
+   ],
+   "sets": [
+    {
+     "set": "CodeSnippet",
+     "variants": 20,
+     "properties": [
+      "Variation",
+      "State",
+      "Line indicator"
+     ],
+     "component": "CodeSnippet",
+     "implementedBy": [
+      "CodeSnippet"
+     ]
+    }
+   ]
+  },
+  {
+   "figmaPage": "Imagery",
+   "status": "built",
+   "components": [
+    "Equipment",
+    "Instrument",
+    "Subpart",
+    "ProcessLine"
+   ],
+   "sets": [
+    {
+     "set": "Equipment",
+     "variants": 104,
+     "properties": [
+      "Variant"
+     ],
+     "component": "Equipment",
+     "implementedBy": [
+      "Equipment"
+     ]
+    },
+    {
+     "set": "instruments",
+     "variants": 38,
+     "properties": [
+      "Variant"
+     ],
+     "component": null,
+     "implementedBy": [
+      "Equipment",
+      "Instrument",
+      "Subpart",
+      "ProcessLine"
+     ]
+    },
+    {
+     "set": "Subpart",
+     "variants": 35,
+     "properties": [
+      "Variant"
+     ],
+     "component": "Subpart",
+     "implementedBy": [
+      "Subpart"
+     ]
+    },
+    {
+     "set": "Lines",
+     "variants": 10,
+     "properties": [
+      "Variant"
+     ],
+     "component": null,
+     "implementedBy": [
+      "Equipment",
+      "Instrument",
+      "Subpart",
+      "ProcessLine"
+     ]
+    }
+   ]
+  },
+  {
+   "figmaPage": "Password Strength",
+   "status": "built",
+   "components": [
+    "PasswordStrength"
+   ],
+   "sets": [
+    {
+     "set": "passwordStrength",
+     "variants": 30,
+     "properties": [
+      "Label",
+      "Status"
+     ],
+     "component": "PasswordStrength",
+     "implementedBy": [
+      "PasswordStrength"
+     ]
+    }
+   ]
+  },
+  {
+   "figmaPage": "Navigation Rail",
+   "status": "built",
+   "components": [
+    "NavigationRail"
+   ],
+   "sets": [
+    {
+     "set": ".buildingblocks/navItem",
+     "variants": 20,
+     "properties": [
+      "Variant",
+      "Type",
+      "Interaction"
+     ],
+     "component": null,
+     "implementedBy": [
+      "NavigationRail"
+     ]
+    },
+    {
+     "set": "NavigationRail",
+     "variants": 6,
+     "properties": [
+      "Variant",
+      "Position",
+      "Label"
+     ],
+     "component": "NavigationRail",
+     "implementedBy": [
+      "NavigationRail"
+     ]
+    }
+   ]
+  },
+  {
+   "figmaPage": "Electronic Signature",
+   "status": "built",
+   "components": [
+    "ElectronicSignature"
+   ],
+   "sets": []
+  },
+  {
+   "figmaPage": "Side Nav",
+   "status": "built",
+   "components": [
+    "SideNav"
+   ],
+   "sets": [
+    {
+     "set": "BuildingBlocks/sideNav",
+     "variants": 9,
+     "properties": [
+      "Interaction",
+      "Menu Type"
+     ],
+     "component": "SideNav",
+     "implementedBy": [
+      "SideNav"
+     ]
+    }
+   ]
+  },
+  {
+   "figmaPage": "Empty States",
+   "status": "built",
+   "components": [
+    "EmptyState"
+   ],
+   "sets": [
+    {
+     "set": "Empty States",
+     "variants": 12,
+     "properties": [
+      "Type",
+      "Size"
+     ],
+     "component": null,
+     "implementedBy": [
+      "EmptyState"
+     ]
+    }
+   ]
+  },
+  {
+   "figmaPage": "Canvas Toolbar",
+   "status": "built",
+   "components": [
+    "CanvasToolbar"
+   ],
+   "sets": [
+    {
+     "set": "Canvas Toolbar",
+     "variants": 4,
+     "properties": [
+      "Variant"
+     ],
+     "component": "CanvasToolbar",
+     "implementedBy": [
+      "CanvasToolbar"
+     ]
+    }
+   ]
+  },
+  {
+   "figmaPage": "Status",
+   "status": "built",
+   "components": [
+    "Status"
+   ],
+   "sets": [
+    {
+     "set": "Status",
+     "variants": 33,
+     "properties": [
+      "Variant",
+      "Color"
+     ],
+     "component": "Status",
+     "implementedBy": [
+      "Status"
+     ]
+    }
+   ]
+  },
+  {
+   "figmaPage": "Flyout",
+   "status": "built",
+   "components": [
+    "Flyout"
+   ],
+   "sets": [
+    {
+     "set": "Flyout",
+     "variants": 3,
+     "properties": [
+      "Metadata"
+     ],
+     "component": "Flyout",
+     "implementedBy": [
+      "Flyout"
+     ]
+    }
+   ]
+  },
+  {
+   "figmaPage": "Modal",
+   "status": "built",
+   "components": [
+    "Modal"
+   ],
+   "sets": [
+    {
+     "set": "Modal",
+     "variants": 4,
+     "properties": [
+      "Type"
+     ],
+     "component": "Modal",
+     "implementedBy": [
+      "Modal"
+     ]
+    }
+   ]
+  },
+  {
+   "figmaPage": "For Reference Only",
+   "status": "foundation",
+   "components": [],
+   "sets": []
+  },
+  {
+   "figmaPage": "KPICard",
+   "status": "built",
+   "components": [
+    "KPICard"
+   ],
+   "sets": [
+    {
+     "set": "KPI Card",
+     "variants": 36,
+     "properties": [
+      "Color",
+      "Interaction"
+     ],
+     "component": "KPICard",
+     "implementedBy": [
+      "KPICard"
+     ]
+    }
+   ]
+  },
+  {
+   "figmaPage": "Navigation Bar",
+   "status": "built",
+   "components": [
+    "NavigationBar"
+   ],
+   "sets": [
+    {
+     "set": "Left",
+     "variants": 2,
+     "properties": [
+      "Property 1"
+     ],
+     "component": null,
+     "implementedBy": [
+      "NavigationBar"
+     ]
+    }
+   ]
+  },
+  {
+   "figmaPage": "Section (NEW)",
+   "status": "built",
+   "components": [
+    "Section"
+   ],
+   "sets": []
+  },
+  {
+   "figmaPage": "Template Components",
+   "status": "foundation",
+   "components": [],
+   "sets": []
+  },
+  {
+   "figmaPage": "Workflow",
+   "status": "built",
+   "components": [
+    "Workflow"
+   ],
+   "sets": [
+    {
+     "set": "Workflow Card",
+     "variants": 3,
+     "properties": [
+      "Interaction"
+     ],
+     "component": null,
+     "implementedBy": [
+      "Workflow"
+     ]
+    }
+   ]
+  },
+  {
+   "figmaPage": "ZoomSelect",
+   "status": "built",
+   "components": [
+    "ZoomSelect"
+   ],
+   "sets": [
+    {
+     "set": "ZoomSelectPanel",
+     "variants": 3,
+     "properties": [
+      "Type"
+     ],
+     "component": null,
+     "implementedBy": [
+      "ZoomSelect"
+     ]
+    },
+    {
+     "set": "ZoomSelect",
+     "variants": 2,
+     "properties": [
+      "Label Position"
+     ],
+     "component": "ZoomSelect",
+     "implementedBy": [
+      "ZoomSelect"
+     ]
+    }
+   ]
+  },
+  {
+   "figmaPage": "Font Demo",
+   "status": "foundation",
+   "components": [],
+   "sets": []
+  },
+  {
+   "figmaPage": "Side Panel (NEW)",
+   "status": "built",
+   "components": [
+    "SidePanel"
+   ],
+   "sets": [
+    {
+     "set": "Side Panel",
+     "variants": 4,
+     "properties": [
+      "Position",
+      "Collapsed"
+     ],
+     "component": "SidePanel",
+     "implementedBy": [
+      "SidePanel"
+     ]
+    }
+   ]
+  },
+  {
+   "figmaPage": "DraggableListItem",
+   "status": "built",
+   "components": [
+    "DraggableListItem"
+   ],
+   "sets": [
+    {
+     "set": "draggableListItem",
+     "variants": 4,
+     "properties": [
+      "Interaction"
+     ],
+     "component": "DraggableListItem",
+     "implementedBy": [
+      "DraggableListItem"
+     ]
+    },
+    {
+     "set": "draggableListItemProcessMap",
+     "variants": 4,
+     "properties": [
+      "Interaction"
+     ],
+     "component": null,
+     "implementedBy": [
+      "DraggableListItem"
+     ]
+    }
+   ]
+  },
+  {
+   "figmaPage": "Workspace Card",
+   "status": "built",
+   "components": [
+    "WorkspaceCard"
+   ],
+   "sets": [
+    {
+     "set": "Workspace Card",
+     "variants": 22,
+     "properties": [
+      "Color",
+      "Interaction"
+     ],
+     "component": "WorkspaceCard",
+     "implementedBy": [
+      "WorkspaceCard"
+     ]
+    }
+   ]
+  },
+  {
+   "figmaPage": "Keyboard Focus State",
+   "status": "foundation",
+   "components": [],
+   "sets": []
+  },
+  {
+   "figmaPage": "Form Builder",
+   "status": "built",
+   "components": [
+    "FormBuilder"
+   ],
+   "sets": [
+    {
+     "set": ".Building Blocks/form-type",
+     "variants": 15,
+     "properties": [
+      "Component"
+     ],
+     "component": null,
+     "implementedBy": [
+      "FormBuilder"
+     ]
+    },
+    {
+     "set": ".Building Blocks/formBuilder-CellCountSelection",
+     "variants": 2,
+     "properties": [
+      "Interaction"
+     ],
+     "component": null,
+     "implementedBy": [
+      "FormBuilder"
+     ]
+    },
+    {
+     "set": ".Building Blocks/formBuilder-CompResizer",
+     "variants": 2,
+     "properties": [
+      "Types"
+     ],
+     "component": null,
+     "implementedBy": [
+      "FormBuilder"
+     ]
+    },
+    {
+     "set": ".buildingblock/Additional Settings",
+     "variants": 2,
+     "properties": [
+      "State"
+     ],
+     "component": "FormBuilder",
+     "implementedBy": [
+      "FormBuilder"
+     ]
+    },
+    {
+     "set": "FormBuilder - LeftPanel",
+     "variants": 9,
+     "properties": [
+      "Variant"
+     ],
+     "component": null,
+     "implementedBy": [
+      "FormBuilder"
+     ]
+    },
+    {
+     "set": "BuildingBlocks/FormField",
+     "variants": 2,
+     "properties": [
+      "Type"
+     ],
+     "component": null,
+     "implementedBy": [
+      "FormBuilder"
+     ]
+    },
+    {
+     "set": ".Building Blocks/formBuilder-panel-types",
+     "variants": 13,
+     "properties": [
+      "Type"
+     ],
+     "component": null,
+     "implementedBy": [
+      "FormBuilder"
+     ]
+    },
+    {
+     "set": ".Building Blocks/formBuilder-ComponentList-Styles",
+     "variants": 5,
+     "properties": [
+      "States",
+      "View Type"
+     ],
+     "component": null,
+     "implementedBy": [
+      "FormBuilder"
+     ]
+    },
+    {
+     "set": ".Building Blocks/formBuilder-formfields",
+     "variants": 5,
+     "properties": [
+      "Type"
+     ],
+     "component": null,
+     "implementedBy": [
+      "FormBuilder"
+     ]
+    },
+    {
+     "set": ".Building Blocks/formBuilder-HeaderComp-Style",
+     "variants": 12,
+     "properties": [
+      "Header Style",
+      "Interaction"
+     ],
+     "component": null,
+     "implementedBy": [
+      "FormBuilder"
+     ]
+    },
+    {
+     "set": ".Building Blocks/formBuilder-headerStyle",
+     "variants": 10,
+     "properties": [
+      "Types"
+     ],
+     "component": null,
+     "implementedBy": [
+      "FormBuilder"
+     ]
+    },
+    {
+     "set": ".Building Blocks/formBuilder-TableCellTypes",
+     "variants": 2,
+     "properties": [
+      "Property 1"
+     ],
+     "component": null,
+     "implementedBy": [
+      "FormBuilder"
+     ]
+    },
+    {
+     "set": ".Building Blocks/formBuilder-ColumnRowResizer",
+     "variants": 2,
+     "properties": [
+      "Type"
+     ],
+     "component": null,
+     "implementedBy": [
+      "FormBuilder"
+     ]
+    },
+    {
+     "set": "ToggleSwitchButton",
+     "variants": 2,
+     "properties": [
+      "State"
+     ],
+     "component": "FormBuilder",
+     "implementedBy": [
+      "FormBuilder"
+     ]
+    },
+    {
+     "set": "Component 31",
+     "variants": 3,
+     "properties": [
+      "State"
+     ],
+     "component": null,
+     "implementedBy": [
+      "FormBuilder"
+     ]
+    },
+    {
+     "set": "Vertification Required",
+     "variants": 2,
+     "properties": [
+      "Property 1"
+     ],
+     "component": null,
+     "implementedBy": [
+      "FormBuilder"
+     ]
+    },
+    {
+     "set": "Hyperlink",
+     "variants": 2,
+     "properties": [
+      "Property 1"
+     ],
+     "component": null,
+     "implementedBy": [
+      "FormBuilder"
+     ]
+    },
+    {
+     "set": "Attachment",
+     "variants": 2,
+     "properties": [
+      "State"
+     ],
+     "component": null,
+     "implementedBy": [
+      "FormBuilder"
+     ]
+    },
+    {
+     "set": "Tags",
+     "variants": 2,
+     "properties": [
+      "Property 1"
+     ],
+     "component": null,
+     "implementedBy": [
+      "FormBuilder"
+     ]
+    },
+    {
+     "set": "Password",
+     "variants": 2,
+     "properties": [
+      "State"
+     ],
+     "component": null,
+     "implementedBy": [
+      "FormBuilder"
+     ]
+    },
+    {
+     "set": "Buttoned Tabs",
+     "variants": 5,
+     "properties": [
+      "States"
+     ],
+     "component": null,
+     "implementedBy": [
+      "FormBuilder"
+     ]
+    },
+    {
+     "set": "System Value",
+     "variants": 3,
+     "properties": [
+      "State"
+     ],
+     "component": null,
+     "implementedBy": [
+      "FormBuilder"
+     ]
+    },
+    {
+     "set": "Form Type",
+     "variants": 4,
+     "properties": [
+      "Property 1"
+     ],
+     "component": null,
+     "implementedBy": [
+      "FormBuilder"
+     ]
+    },
+    {
+     "set": ".Building Blocks/template-types",
+     "variants": 6,
+     "properties": [
+      "Template Type"
+     ],
+     "component": "FormBuilder",
+     "implementedBy": [
+      "FormBuilder"
+     ]
+    },
+    {
+     "set": "FormField",
+     "variants": 2,
+     "properties": [
+      "Type"
+     ],
+     "component": null,
+     "implementedBy": [
+      "FormBuilder"
+     ]
+    }
+   ]
+  },
+  {
+   "figmaPage": "Selection Card (NEW)",
+   "status": "built",
+   "components": [
+    "SelectionCard"
+   ],
+   "sets": [
+    {
+     "set": "Selection Card",
+     "variants": 4,
+     "properties": [
+      "Interaction"
+     ],
+     "component": "SelectionCard",
+     "implementedBy": [
+      "SelectionCard"
+     ]
+    }
+   ]
+  },
+  {
+   "figmaPage": "Document Toolbar",
+   "status": "built",
+   "components": [
+    "DocumentToolbar"
+   ],
+   "sets": []
+  },
+  {
+   "figmaPage": "Comment Suggestion AI",
+   "status": "built",
+   "components": [
+    "CommentSuggestionAI"
+   ],
+   "sets": [
+    {
+     "set": "buildingBlock/SuggestionItem",
+     "variants": 3,
+     "properties": [
+      "Interaction"
+     ],
+     "component": "CommentSuggestionAI",
+     "implementedBy": [
+      "CommentSuggestionAI"
+     ]
+    }
+   ]
+  },
+  {
+   "figmaPage": "ZoomControl",
+   "status": "built",
+   "components": [
+    "ZoomControl"
+   ],
+   "sets": [
+    {
+     "set": "ZoomControl",
+     "variants": 2,
+     "properties": [
+      "Variant"
+     ],
+     "component": "ZoomControl",
+     "implementedBy": [
+      "ZoomControl"
+     ]
+    }
+   ]
+  },
+  {
+   "figmaPage": "Matrix",
+   "status": "built",
+   "components": [
+    "Matrix"
+   ],
+   "sets": [
+    {
+     "set": "Matrix Cell",
+     "variants": 7,
+     "properties": [
+      "Interactive",
+      "Type",
+      "State"
+     ],
+     "component": "Matrix",
+     "implementedBy": [
+      "Matrix"
+     ]
+    }
+   ]
+  }
+ ]
+}

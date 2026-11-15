@@ -1,0 +1,1 @@
+import{t as e}from"./createSvgIcon-BfqA8eg9.js";import{V as t}from"./capitalize-DTW5MDI6.js";var n=t(),r=e((0,n.jsx)(`path`,{d:`M2 4v16h20V4zm18 4.67h-2.5V6H20zm-2.5 2H20v2.67h-2.5zM4 6h11.5v12H4zm13.5 12v-2.67H20V18z`}),`ViewSidebarOutlined`);export{r as t};

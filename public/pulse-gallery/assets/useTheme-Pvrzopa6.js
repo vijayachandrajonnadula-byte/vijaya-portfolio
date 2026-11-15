@@ -1,0 +1,1 @@
+import"./rolldown-runtime-XKyaHtl9.js";import{$ as e,D as t,s as n}from"./capitalize-DTW5MDI6.js";e();function r(){let e=t(n);return e.$$material||e}export{r as t};
