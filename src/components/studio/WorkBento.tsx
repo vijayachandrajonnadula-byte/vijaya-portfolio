@@ -15,7 +15,7 @@ export default function WorkBento() {
         <ChapterLabel n="03" name="prototypes" />
         <div className="sec-head">
           <h2 id="work-h">Prototypes, not just pictures.</h2>
-          <p>Four projects, each with a story behind it. Click anywhere on a card to read it.</p>
+          <p>Four projects, each with its own case study. Click a card to read it.</p>
         </div>
         <div className="wk-grid">
           {spotlight.map((s, i) => <WorkCard key={s.id} item={s} index={i} />)}

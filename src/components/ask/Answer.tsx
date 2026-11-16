@@ -85,7 +85,7 @@ const Answer = forwardRef<HTMLHeadingElement, Props>(function Answer({ q, entry,
         </>
       ) : (
         <Item className="ask2-row" {...itemProps}>
-          <p className="turn__lead">Hm, that one isn’t in my notes. I would rather say so than guess. Ask it another way, or pick a door below.</p>
+          <p className="turn__lead">Hm, that one isn’t in my notes. I would rather say so than guess. Try asking it another way, or pick a question below.</p>
         </Item>
       )}
       {entry ? (
@@ -99,7 +99,7 @@ const Answer = forwardRef<HTMLHeadingElement, Props>(function Answer({ q, entry,
         )
       ) : (
         <Item className="ask2-row turn__doors" {...itemProps}>
-          <p>Some doors that do exist</p>
+          <p>Questions I can answer</p>
           <div>{doors.map(d => <button key={d.id} type="button" onClick={() => onOpen(d.id)}>{d.chip ?? d.q}</button>)}</div>
         </Item>
       )}

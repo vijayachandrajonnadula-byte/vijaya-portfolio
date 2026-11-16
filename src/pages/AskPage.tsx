@@ -98,7 +98,7 @@ export default function AskPage() {
     <>
       <Header />
       <main id="main" tabIndex={-1} className="askpage ask2-page">
-        <h1 className="ask2-h1">{fresh ? 'Ask me anything, or read the long answer.' : <span className="sr-only">Ask Vijay</span>}</h1>
+        <h1 className="ask2-h1">{fresh ? 'Ask me anything, or scroll for the full story.' : <span className="sr-only">Ask Vijay</span>}</h1>
         {wide && field}
         <p className="ask2-honest">{quirks.guide.honest}</p>
         {!wide && fresh && (
@@ -116,7 +116,7 @@ export default function AskPage() {
                 <div className="turn__a" aria-live={newest ? 'polite' : undefined}>
                   <Character size={44} pose={t.status === 'thinking' ? 'think' : 'rest'} className="turn__char" />
                   {t.status === 'thinking' ? (
-                    <div className="turn__wait"><span>pulling up the right material…</span><i aria-hidden="true" /></div>
+                    <div className="turn__wait"><span>finding the answer…</span><i aria-hidden="true" /></div>
                   ) : (
                     <Answer ref={newest ? heading : undefined} q={t.q} entry={t.entry} doors={t.doors} next={t.next} reduced={reduced} onOpen={open} />
                   )}

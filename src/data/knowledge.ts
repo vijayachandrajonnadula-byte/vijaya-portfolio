@@ -63,7 +63,7 @@ export const knowledge: Entry[] = [
     id: 'who', group: 'The journey', q: 'Who is Vijay?', chip: 'Who is Vijay?',
     keys: ['who is vijay', 'who are you', 'introduce yourself', 'about you', 'tell me about yourself', 'introduction', 'who are you', 'about you', 'bio', 'background', 'summary', 'hello', 'hi', 'hey'],
     answer: [
-      `I am Vijaya Chandra Jonnadula, Vijay for short: a UX and product designer in ${profile.location}, with more than five years of designing enterprise SaaS products, admin portals, scheduling flows, chat experiences and data-heavy interfaces.`,
+      `I’m Vijay (Vijaya Chandra Jonnadula), a UX and product designer in ${profile.location}. I have more than five years of experience designing enterprise SaaS products, admin portals, scheduling flows, chat experiences and data-heavy interfaces.`,
       'Right now I am a Senior UX Designer at ValGenesis, mixing UX strategy, UI design, design systems, React-based UI work and AI-assisted delivery. I turn messy user journeys into clear, testable experiences.',
     ],
     link: { label: 'About me', href: '/#about' },
@@ -73,17 +73,17 @@ export const knowledge: Entry[] = [
     id: 'j-why', group: 'The journey', q: 'Why did you move from electronics to design?', chip: 'Why electronics to design?',
     keys: ['why electronics design', 'why switch', 'why pivot', 'why change career', 'career change', 'pivot', 'switch', 'switched', 'transition', 'transitioned', 'moved from ece', 'electronics to design', 'switch from electronics', 'ece to design', 'engineering to design', 'engineer to designer', 'became a designer', 'become a designer', 'end up in design', 'ended up', 'path', 'motivation', 'choose design'],
     answer: [
-      'Less a move than two tracks running side by side. I studied Electronics and Communication Engineering at RGUKT-IIIT Nuzvid (Aug 2017 to Jul 2021), and in the same stretch I was designing: Design Lead at Helping Hands from Jul 2017, then founder of Amigos Arts from Jan 2020.',
-      `Why design pulled harder than engineering is not something I have written down here, so I will not guess. How I think about it: both are about getting a clear message through a noisy channel. ${SILENT.replace('That is not something I have written down here. ', '')}`,
+      'It was less a move than two tracks side by side. I studied Electronics and Communication Engineering at RGUKT-IIIT Nuzvid (Aug 2017 to Jul 2021), and in the same stretch I was designing: Design Lead at Helping Hands from Jul 2017, then founder of Amigos Arts from Jan 2020.',
+      'Why design pulled harder than engineering is not written down here, so I won’t guess. What I can say is that both are about getting a clear message through a noisy channel. For the personal version, ask me directly.',
     ],
-    link: { label: 'Follow the signal chain', href: '/ask#story' },
+    link: { label: 'Follow the timeline', href: '/ask#story' },
     related: ['j-story', 'j-carried', 'j-overlap'],
   },
   {
     id: 'j-carried', group: 'The journey', q: quirks.electronicsChip, chip: 'Electronics to UX: what carried over?',
     keys: ['electronics', 'ece', 'carried over', 'carry over', 'what carried', 'what did ece give', 'ece give', 'what ece gave', 'engineering background', 'electronics background', 'electronics help', 'signal', 'signals', 'noise', 'hardware', 'iiit', 'nuzvid', 'communication engineering', 'electronics and communication', 'benefit', 'helped'],
     answer: [
-      'A habit of mind more than a skill list. I still ask what is signal and what is noise on a screen, I want feedback to arrive immediately, and I treat anything left undefined as a bug waiting to happen.',
+      'Mostly a way of thinking, not a skill list. I still ask what is signal and what is noise on a screen, I want feedback to arrive immediately, and I treat anything left undefined as a bug waiting to happen.',
       'That is my approach, not a claim about any one past project. The degree also gave me exposure to Python, C, HTML, CSS, Java and machine learning concepts, which is why talking to engineers does not feel like a foreign language.',
     ],
     link: { label: 'Read the datasheet', href: '/#about' },
@@ -93,10 +93,10 @@ export const knowledge: Entry[] = [
     id: 'j-preuni', group: 'The journey', q: 'What were the pre-university years about?', chip: 'The pre-university code years',
     keys: ['pre university', 'preuniversity', 'pre-university', 'before engineering', 'programming before college', '2015', 'school years', 'early years', 'first code', 'started coding', 'where did it start', 'beginning'],
     answer: [
-      'Foundations. From Aug 2015 to May 2017 I did the Pre-University Course at RGUKT-IIIT Nuzvid, where my first programming was Python, C, HTML and CSS.',
-      'On the signal chain it is the first node: a few lines of code before any pixels. It is a small reason I am comfortable reading a pull request today.',
+      'They were my start in programming. From Aug 2015 to May 2017 I did the Pre-University Course at RGUKT-IIIT Nuzvid, where I first learned Python, C, HTML and CSS.',
+      'On the timeline it is the first step: a few lines of code before any pixels. It is a small reason I am comfortable reading a pull request today.',
     ],
-    link: { label: 'Follow the signal chain', href: '/ask#story' },
+    link: { label: 'Follow the timeline', href: '/ask#story' },
     related: ['j-education', 'j-story'],
   },
   {
@@ -116,7 +116,7 @@ export const knowledge: Entry[] = [
       'On my resume, yes: it is the earliest design role. From Jul 2017 to Mar 2020 I was Design Lead for Helping Hands, a student initiative at RGUKT Nuzvid, making communication design, event visuals, posters and campaigns for outreach, volunteering, fundraising and community support.',
       'It ran alongside the first years of my degree. How I think about it: a poster has one job and a few seconds to do it, which is a decent training ground for interface hierarchy.',
     ],
-    link: { label: 'Follow the signal chain', href: '/ask#story' },
+    link: { label: 'Follow the timeline', href: '/ask#story' },
     related: ['c-helpinghands', 'j-overlap', 'j-story'],
   },
   {
@@ -126,14 +126,14 @@ export const knowledge: Entry[] = [
       'I did the CalArts UI/UX Specialisation from Oct 2020 to Feb 2021, in the last year of my degree and while Amigos Arts was running. My resume lists it by name and dates, and that is all I have written down: I will not invent a syllabus.',
       'How I think about a course like this: it is scaffolding for practice, not a substitute for it. That is why every case study on this site shows its testing and its limits, not just the finished screens.',
     ],
-    link: { label: 'See it on the signal chain', href: '/ask#story' },
+    link: { label: 'See it on the timeline', href: '/ask#story' },
     related: ['j-google', 'j-overlap', 'j-story'],
   },
   {
     id: 'j-google', group: 'The journey', q: 'What is the Google UX Design Certificate?', chip: 'The Google UX Design Certificate',
     keys: ['google', 'google ux', 'google certificate', 'google professional', 'ux certificate', 'ux certification', 'certificate', 'certification', 'certifications', 'certified', 'professional certificate', 'credential', 'credentials'],
     answer: [
-      'The Google Professional UX Design Certificate is a course I completed between Mar 2021 and Sep 2021. It sits at the end of the learning track: it overlapped the last months of my degree and Amigos Arts, and finished just before I joined CredAvenue in Oct 2021.',
+      'It is a course I completed between Mar 2021 and Sep 2021. It sits at the end of the learning track: it overlapped the last months of my degree and Amigos Arts, and finished just before I joined CredAvenue in Oct 2021.',
       'The resume names the certificate and dates, not the modules, so I will leave it there. Together with CalArts it is the formal-learning half of how I got into design; the other half is shipping work.',
     ],
     link: { label: 'Download the resume', href: RESUME },
@@ -154,7 +154,7 @@ export const knowledge: Entry[] = [
     keys: ['overlap', 'overlapped', 'parallel', 'parallel tracks', 'at the same time', 'same time', 'alongside', 'while studying', 'balance', 'balanced', 'juggle', 'juggled', 'manage', 'multitask', 'time management', 'tracks', 'three tracks', 'concurrently'],
     answer: [
       'The dates overlap, and I will not smooth that out. Degree: Aug 2017 to Jul 2021. Helping Hands: Jul 2017 to Mar 2020. Amigos Arts: Jan 2020 to Oct 2021. CalArts: Oct 2020 to Feb 2021. Google certificate: Mar 2021 to Sep 2021. Study, practice and learning were three tracks running at once.',
-      'How I managed the time day to day is not written down here, so ask me directly. The signal chain on this page lays all three tracks side by side so you can see where they cross.',
+      'How I managed the time day to day is not written down here, so ask me directly. The timeline on this page lays all three tracks side by side so you can see where they cross.',
     ],
     link: { label: 'See the three tracks', href: '/ask#story' },
     related: ['j-story', 'j-why', 'j-carried'],
@@ -164,7 +164,7 @@ export const knowledge: Entry[] = [
     keys: ['circuits', 'circuit', 'learn from circuits', 'circuit principles', 'interfaces', 'signal vs noise', 'signal to noise', 'signal-to-noise', 'noise', 'feedback loop', 'feedback loops', 'debounce', 'debouncing', 'tolerance', 'tolerances', 'engineering principles', 'electronics principles', 'analogy', 'analogies', 'think in signals'],
     answer: [
       'Four borrowed ideas, held as analogies. Signal versus noise: every element either carries the message or competes with it. Feedback loops: an action should answer back at once, or people press again. Debouncing: one intention should count once. Tolerances: design for the sloppy tap and the long name, not only the clean demo.',
-      'This is how I think about interface work, not a claim about any specific past project. The resistors stay on the datasheet.',
+      'This is how I think about interface work, not a claim about any specific past project.',
     ],
     link: { label: 'Read the datasheet', href: '/#about' },
     related: ['j-budget', 'j-carried', 'f-pullup'],
@@ -174,7 +174,7 @@ export const knowledge: Entry[] = [
     keys: ['power budget', 'power budgets', 'budget', 'cognitive load', 'attention', 'pull up', 'pull-up', 'pull up resistor', 'sensible defaults', 'defaults', 'default', 'fuse', 'fuses', 'undo', 'confirm step', 'confirmation', 'safety'],
     answer: [
       'Three analogies I use when I design. A power budget is cognitive load: each screen has a limited amount of attention, so spend it on what the person came for. A pull-up resistor is a sensible default: it holds the line at a good level until someone deliberately changes it. A fuse is an undo or confirm step: it blows before the damage spreads.',
-      'The honest version of the examples: ZoomInfo Schedule pre-sets availability to Mon to Fri, 9 to 5, and it has a confirmation when you discard changes. Those are the pull-up and the fuse in one product.',
+      'A real example: ZoomInfo Schedule pre-sets availability to Mon to Fri, 9 to 5, and it has a confirmation when you discard changes. Those are the pull-up and the fuse in one product.',
     ],
     link: { label: 'Open ZoomInfo Schedule', href: proj('zoominfo-schedule').href },
     related: ['f-pullup', 'j-circuits', 'w-schedule'],
@@ -183,10 +183,10 @@ export const knowledge: Entry[] = [
     id: 'j-story', group: 'The journey', q: 'Can I see the whole journey from electronics to design?', chip: 'Story: ECE to design',
     keys: ['whole story', 'full story', 'ece story', 'story of your journey', 'journey', 'timeline', 'signal chain', 'from signals to screens', 'long answer', 'in order', 'chronological', 'history', 'life story', 'how did you get here', 'story from electronics to design'],
     answer: [
-      'Yes, on this page. It is a signal chain of ten nodes: pre-university code in 2015, Helping Hands and the degree in 2017, Amigos Arts in 2020, the CalArts and Google courses, then CredAvenue, ZoomInfo and ValGenesis.',
+      'Yes, it is on this page as a timeline of ten steps: pre-university code in 2015, Helping Hands and the degree in 2017, Amigos Arts in 2020, the CalArts and Google courses, then CredAvenue, ZoomInfo and ValGenesis.',
       'Three tracks run side by side (study, learning, practice), because that is how the dates actually fell. Use the arrow keys or the buttons to step along it.',
     ],
-    link: { label: 'Open the signal chain', href: '/ask#story' },
+    link: { label: 'Open the timeline', href: '/ask#story' },
     related: ['j-why', 'j-overlap', 'c-all'],
   },
 
@@ -215,7 +215,7 @@ export const knowledge: Entry[] = [
     id: 'w-execution', group: 'The work', q: 'What is the electronic execution project?', chip: 'What is electronic execution?',
     keys: ['electronic execution', 'execution', 'protocol', 'validation', 'signature', 'e signature', 'esign', 'sign', 'verify', 'verification', 'discrepancy', 'audit trail', 'gxp', 'regulated', 'second person', 'record a step', 'working prototype'],
     answer: [
-      'In regulated life-science work a test protocol is carried out step by step, and every step has to be recorded, signed and checked by someone else. I rebuilt a prototype of that experience from the PULSE design system, with every function working: recording a step, e-signature, verification by a second person, a discrepancy prompt on a failure, status, metrics, an audit trail, split execution and an assistant that proposes while the person records.',
+      'It is a prototype for running a test protocol on screen. In regulated life-science work a protocol is carried out step by step, and every step has to be recorded, signed and checked by someone else. I rebuilt it on the PULSE design system with every function working: recording a step, e-signature, verification by a second person, a discrepancy prompt on a failure, status, metrics, an audit trail, split execution and an assistant that proposes while the person records.',
       'It is a working prototype, not a validated system, and it has not been tested with the people who execute protocols. The decision I stand behind: the assistant never signs.',
     ],
     link: { label: 'Open the case study', href: '/projects/electronic-execution' },
@@ -337,7 +337,7 @@ export const knowledge: Entry[] = [
     id: 'h-a11y', group: 'How I work', q: 'How do you handle accessibility?', chip: 'How do you handle accessibility?',
     keys: ['accessibility', 'accessible', 'a11y', 'wcag', 'contrast', 'keyboard', 'screen reader', 'inclusive', 'axe', 'axe core', 'focus', 'reduced motion'],
     answer: [
-      'As a system property, not a final polish step: accessibility sits on my resume under design systems, alongside tokens and UI states, so it is decided once in the component and inherited everywhere.',
+      'As part of the system, not a final polish step. Accessibility sits on my resume under design systems, alongside tokens and UI states, so it is decided once in the component and inherited everywhere.',
       'The PULSE case study includes an axe-core scan and lists its limits. An automated scan finds some problems, not all, and I do not claim more than I have run.',
     ],
     link: { label: 'Open the PULSE case study', href: '/projects/pulse-design-system' },
@@ -400,7 +400,7 @@ export const knowledge: Entry[] = [
     keys: ['experience', 'worked', 'work history', 'work experience', 'career history', 'jobs', 'job history', 'employers', 'employer', 'companies', 'company', 'years of experience', 'how many years', 'how long', 'roles'],
     answer: [
       `More than five years in product design. ${experience.map(e => `${e.role} at ${e.company} (${e.period})`).join('; ')}.`,
-      'The signal chain on this page puts those five roles beside the degree and the two courses, so you can see how they overlap.',
+      'The timeline on this page puts those five roles beside the degree and the two courses, so you can see how they overlap.',
     ],
     link: { label: 'See the timeline', href: '/#about' },
     related: ['c-valgenesis', 'c-zoominfo', 'j-story'],
@@ -533,7 +533,7 @@ export const knowledge: Entry[] = [
     id: 'hire-resume', group: 'Hiring', q: 'Where can I download your resume?', chip: 'Download the resume',
     keys: ['resume', 'resume download', 'download', 'cv', 'curriculum vitae', 'pdf', 'download cv', 'download resume', 'see your resume', 'full resume'],
     answer: [
-      'Right here: the resume is a PDF, the same one this notes list was written from.',
+      'Right here. The resume is a PDF, the same one these notes were written from.',
       'It covers the summary, skills, the five roles, education and the two certifications.',
     ],
     link: { label: 'Download the resume (PDF)', href: RESUME },
@@ -543,8 +543,8 @@ export const knowledge: Entry[] = [
     id: 'hire-start', group: 'Hiring', q: 'How do we start a conversation?', chip: 'How do we start a conversation?',
     keys: ['start a conversation', 'start conversation', 'get started', 'next step', 'next steps', 'work together', 'collaborate with you', 'project enquiry', 'say hi', 'say hello', 'interview', 'schedule a call', 'book a call', 'talk', 'chat', 'contact', 'compose'],
     answer: [
-      'Write a few lines: who you are, what you are building, and what you want from a designer. Then email me from the contact section on the home page, where my email, LinkedIn, GitHub and resume are listed. This site has no form and no backend, so nothing is collected here.',
-      `Or write straight to ${email}. A short note with the role and a link is perfect.`,
+      'Email me with a few lines: who you are, what you are building, and what you want from a designer. The contact section on the home page lists my email, LinkedIn, GitHub and resume. This site has no form and no backend, so nothing is collected here.',
+      `You can also write straight to ${email}. A short note with the role and a link is perfect.`,
     ],
     link: contactLink,
     related: ['hire-contact', 'hire-roles', 'hire-resume'],
@@ -576,7 +576,7 @@ export const knowledge: Entry[] = [
     keys: ['pull up resistor ux', 'pull up resistor', 'pull-up resistor', 'resistor', 'resistors', 'pull up in ux', 'pull-up'],
     answer: [
       'In a circuit it holds a line at a sensible level until something deliberately pulls it the other way. In an interface, it is a good default.',
-      'The pull-up habit in practice: ZoomInfo Schedule starts availability at Mon to Fri, 9 to 5. Most people never touch it, and the few who differ change it on purpose. No smoke.',
+      'The pull-up habit in practice: ZoomInfo Schedule starts availability at Mon to Fri, 9 to 5. Most people never touch it, and the few who differ change it on purpose.',
     ],
     link: { label: 'Open ZoomInfo Schedule', href: proj('zoominfo-schedule').href },
     related: ['j-budget', 'j-circuits', 'f-component'],
@@ -595,7 +595,7 @@ export const knowledge: Entry[] = [
     id: 'f-trace', group: 'Just for fun', q: 'What is the Trace?', chip: 'What is the Trace?',
     keys: ['trace', 'the trace', 'line down the side', 'left line', 'gutter', 'circuit line', 'scroll line', 'footer led', 'pcb', 'copper'],
     answer: [
-      'The thin line down the left edge of the home page. It is a printed-circuit trace in spirit: it lights up as you scroll, passes a node at each section, and ends at the LED in the footer.',
+      'The thin line down the left edge of the home page. It looks like a trace on a circuit board: it lights up as you scroll, passes a marker at each section, and ends at the LED in the footer.',
       'It is decoration with a job: it shows how far through the page you are. It does not scroll for you.',
     ],
     link: { label: 'See it on the home page', href: '/' },
@@ -656,7 +656,7 @@ export const knowledge: Entry[] = [
     id: 'st-impedance', group: 'Stories', kind: 'parable', q: 'Impedance Matching at the Handoff', chip: 'Impedance Matching at the Handoff',
     keys: ['impedance matching', 'impedance matching at the handoff', 'handoff parable', 'design to dev handoff story', 'lost in translation', 'handoff mismatch'],
     answer: [
-      'Two engineers, a designer and a developer, stood on opposite banks of a river called Handoff. The designer shouted “It is obvious!” across the water. The developer heard “It is obnoxious” and built something very cautious.',
+      'Two people, a designer and a developer, stood on opposite banks of a river called Handoff. The designer shouted “It is obvious!” across the water. The developer heard “It is obnoxious” and built something very cautious.',
       'Power travels best between matched ends, said the old electricians, so the two banks built a bridge: tokens named the same on both sides, a component for each repeating thing, states written out, and a preview link in place of a deck. The signal crossed with almost no loss, and everybody went home on time.',
       'Takeaway: shared names, written states and a working preview do more for a handoff than any amount of shouting.',
     ],
@@ -667,7 +667,7 @@ export const knowledge: Entry[] = [
     keys: ['clay learns to read a datasheet', 'clay first day', 'clay on a design team', 'clay datasheet', 'clay first day on a design team', 'mascot first day'],
     answer: [
       'Fiction. Mostly. Any resemblance to real incidents is a bug.',
-      'On its first morning at the design team, Clay, the LED-eyed mascot, was handed a datasheet and told, “Read the absolute maximum ratings.” Clay read every one, then asked the team to stay below them. “Maximum meetings per day,” it said, “is four.” Nobody had ever thought to write that down, and by lunch four became the law. The datasheet filled in: coffee, derated at 3 p.m.; sprint scope, do not exceed. Clay blinked twice, which in Clay means approved.',
+      'On its first morning at the design team, Clay, the LED-eyed mascot, was handed a datasheet and told, “Read the absolute maximum ratings,” the limits a part must never exceed. Clay read every one, then asked the team to stay below them. “Maximum meetings per day,” it said, “is four.” Nobody had ever thought to write that down, and by lunch four became the law. The datasheet filled in: coffee, derated at 3 p.m.; sprint scope, do not exceed. Clay blinked twice, which in Clay means approved.',
       'Takeaway: limits written down are kinder than limits discovered. Say what the system can take.',
     ],
     related: ['f-mascot', 'st-resistors', 'st-menu'],

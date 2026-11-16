@@ -28,7 +28,7 @@ export default function BomFilter() {
         })}
       </ul>
       <div className="el-bomout" role="status" aria-live="polite">
-        {!pick ? <p className="el-bomout__hint">Press a part to see where I used it.</p> : hits.length === 0 ? (
+        {!pick ? <p className="el-bomout__hint">Press a tool to see where I used it.</p> : hits.length === 0 ? (
           <p className="el-bomout__hint"><b>{pick}</b> is not listed in any of the four featured case studies yet.</p>
         ) : (
           <>

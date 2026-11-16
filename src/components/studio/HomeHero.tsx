@@ -54,7 +54,7 @@ export default function HomeHero() {
       <motion.h1 className="hhero__title" {...rise(0.45)}>
         Hi, I’m Vijay. I turn messy user journeys into <em>clear</em> ones.
       </motion.h1>
-      <motion.p className="hhero__sub" {...rise(0.6)}>UX/UI product designer in Hyderabad. Ask me anything, or pick a door.</motion.p>
+      <motion.p className="hhero__sub" {...rise(0.6)}>UX/UI product designer in Hyderabad. Ask me anything, or see the work below.</motion.p>
       <motion.div className="hhero__ask" {...rise(0.75)}>
         <AskBox onAsk={q => nav(`/ask?q=${encodeURIComponent(q)}`)} nudges={quirks.askNudges} />
         <HeroActions />

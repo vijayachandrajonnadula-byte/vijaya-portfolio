@@ -20,8 +20,8 @@ import { closeCircuit, openCircuit, useCircuit } from '../story/circuitStore';
 
 const LOOP = 'M60 66V36H460V126H60V80'; // battery, top wire, switch, lamp, return wire
 const MAIL = `mailto:${profile.email}?subject=${encodeURIComponent('Hello from your portfolio')}`;
-const CAP_OPEN = 'Circuit open: nothing flows yet. Press the switch.';
-const CAP_NOW = 'Circuit closed. Your mail app is opening: say hello.';
+const CAP_OPEN = 'Circuit open. Press the switch to start an email.';
+const CAP_NOW = 'Circuit closed. Your email app is opening.';
 const CAP_BACK = 'Circuit closed. Say hello whenever you are ready.';
 
 /** Opens the visitor's mail app through a real anchor click (so it behaves exactly like a mailto link). */
@@ -85,8 +85,8 @@ export default function CloseTheCircuit() {
     <div ref={root} className={`cts${closed ? ' is-closed' : ''}${seen ? ' is-seen' : ''}${reduced ? ' is-still' : ''}`}>
       <h3 className="cts__h">{closed ? 'Circuit closed.' : 'Close the circuit.'}</h3>
       <p className="cts__why">{closed
-        ? 'Current is flowing. Your message is the next step: say hello, and a project or a role can start from here.'
-        : 'Nothing flows until someone reaches out. This is how a project, or a role, starts.'}</p>
+        ? 'Current is flowing. Send your note and a project or a role can start from here.'
+        : 'Nothing happens until someone reaches out. Press the switch to email me about a project or a role.'}</p>
 
       <div className="cts__fig">
         <svg className="cts__svg" viewBox="0 0 520 150" focusable="false" aria-hidden="true">
@@ -126,7 +126,7 @@ export default function CloseTheCircuit() {
           No aria-pressed: the visible label already carries the state, and a changing label plus a pressed state double-announces. */}
       <button type="button" className="cts__btn" data-switch data-href={MAIL} onClick={press}>
         <span className="cts__tog" aria-hidden="true"><i /></span>
-        <span>{closed ? 'Circuit closed: open my mail again' : 'Close the circuit: email me'}</span>
+        <span>{closed ? 'Circuit closed: open email again' : 'Close the circuit: email me'}</span>
       </button>
 
       <div className="cts__row">

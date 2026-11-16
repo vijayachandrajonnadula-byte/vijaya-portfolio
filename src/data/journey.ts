@@ -51,7 +51,7 @@ export const journey: JourneyNode[] = [
     id: 'ece', track: 'study', year: 'Aug 2017', when: 'Aug 2017 – Jul 2021', title: 'B.Tech, Electronics and Communications',
     doing: 'Electronics and Communications Engineering at RGUKT-IIIT Nuzvid, with exposure to Python, C, HTML, CSS, Java, machine learning concepts and experimental technical projects.',
     carried: 'How I think about it: ask what is signal and what is noise, make feedback immediate, and treat anything undefined as a bug waiting to happen.',
-    wink: 'Resistance is futile. Tolerance is not.',
+    wink: 'Where the thinking in signals started.',
     fiction: 'The oscilloscope has no comment.',
   },
   {
@@ -65,7 +65,7 @@ export const journey: JourneyNode[] = [
     id: 'calarts', track: 'learning', year: 'Oct 2020', when: 'Oct 2020 – Feb 2021', title: 'CalArts UI/UX Specialisation', course: true,
     doing: 'A course, taken in the last year of the degree and while Amigos Arts was running. The resume names it and its dates; I have not written a syllabus here.',
     carried: 'How I think about it: a course is scaffolding for practice. The real test is whether the flow survives real use.',
-    wink: 'Course nodes live on their own track, as they should.',
+    wink: 'Courses get their own track, as they should.',
     fiction: 'The wireframes were grey. The grey was extremely confident.',
   },
   {

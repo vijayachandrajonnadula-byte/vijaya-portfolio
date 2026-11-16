@@ -186,8 +186,8 @@ export default function TwoReadings() {
       <div className="signal__in">
         <ChapterLabel n="02" name="two readings" />
         <h2 id="signal-h" className="two__h">
-          <span>A circuit is an interface nobody sees.</span>{' '}
-          <span>An interface is a circuit everybody uses.</span>
+          <span>A circuit board and an app screen can share one layout.</span>{' '}
+          <span>Drag to read one drawing both ways.</span>
         </h2>
 
         <div className="two__stage" ref={stage} onPointerDown={down} onPointerMove={move} onPointerUp={up} onPointerCancel={up}>

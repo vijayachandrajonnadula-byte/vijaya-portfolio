@@ -9,10 +9,10 @@ export const thumbImage = (id: string) => `/images/thumb/${id}.jpg`;
 
 /** The four projects shown as bento groups. Order is the order on the page. */
 export const spotlight = [
-  { id: 'pulse-design-system', tint: '#a9c0f2', prop: 'blocks', line: 'A design system AI could not read, made AI-readable: components, micro templates, rules and governance.' },
-  { id: 'electronic-execution', tint: '#f6cdb4', prop: 'calendar', line: 'Running a validation protocol on screen: record, sign, verify, with an assistant that proposes and never signs.' },
-  { id: 'afs-enterprise-workflow', tint: '#c9bdf0', prop: 'dial', line: 'Configuring how an AI scores accounts, inside an enterprise admin portal.' },
-  { id: 'ai-workflow', tint: '#b9e3cf', prop: 'spark', line: 'From brief to deployed prototype, with AI speeding up the work and me making the calls.' },
+  { id: 'pulse-design-system', tint: '#a9c0f2', prop: 'blocks', line: 'A design system AI tools could not read, rebuilt so they can: components, micro templates, written rules and governance.' },
+  { id: 'electronic-execution', tint: '#f6cdb4', prop: 'calendar', line: 'A validation protocol, run on screen: record each step, sign it, verify it. The AI assistant proposes and never signs.' },
+  { id: 'afs-enterprise-workflow', tint: '#c9bdf0', prop: 'dial', line: 'Setting up how an AI model scores accounts, inside an enterprise admin portal.' },
+  { id: 'ai-workflow', tint: '#b9e3cf', prop: 'spark', line: 'From brief to deployed prototype. AI speeds up the work, and I make the calls.' },
 ] as const;
 
 /**
@@ -86,12 +86,12 @@ export const workPreviews: WorkPreview[] = [
     id: 'ai-workflow',
     layout: 'band',
     status: 'Process',
-    problem: 'AI is fast, and open-ended AI sessions produce diffs nobody can review.',
+    problem: 'AI is fast, but open-ended AI sessions produce changes nobody can review.',
     role: 'UX/UI Designer + Product Builder',
     users: 'Anyone who picks up the repo or reviews the work',
     decision: 'One AI session, one scoped task.',
     why: 'Narrow sessions give small, auditable changes that can be accepted or rejected cleanly.',
-    proof: 'tsc and vite build before every merge',
+    proof: 'Type check and build before every merge',
     stack: ['Claude', 'Codex', 'GitHub PRs'],
   },
 ];
@@ -121,7 +121,7 @@ export const stats = [
   { value: 5, suffix: '+', label: 'Years in product design' },
   { value: projects.length, suffix: '', label: 'Projects documented' },
   { value: projects.filter(p => p.prototypeUrl).length, suffix: '', label: 'Live, clickable prototypes' },
-  { value: 390, suffix: 'px', label: 'Smallest width I QA down to', from: 1440 },
+  { value: 390, suffix: 'px', label: 'Smallest screen I test down to', from: 1440 },
 ] as const;
 
 export const capabilities = [

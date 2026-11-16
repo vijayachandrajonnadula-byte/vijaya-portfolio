@@ -1,8 +1,8 @@
 import { useEffect, useRef } from 'react';
 import './../../styles/story.css';
 
-/** The plain word beside each circuit word, so the chapter names match the header (Work, About, Contact). */
-const PLAIN: Record<string, string> = { 'two readings': 'electronics + ux', prototypes: 'work', datasheet: 'about', pinout: 'contact' };
+/** The plain word that leads each chapter label, so the names match the header (Work, About, Contact). The circuit word follows it. */
+const PLAIN: Record<string, string> = { 'power on': 'intro', 'two readings': 'electronics + ux', prototypes: 'work', datasheet: 'about', pinout: 'contact' };
 
 /**
  * A small chapter marker, e.g. "03 prototypes / work". Each one is a node on the Trace: it carries data-node,
@@ -31,7 +31,7 @@ export default function ChapterLabel({ n, name, align = 'left' }: { n: string; n
     <p ref={ref} className={`chapter chapter--${align}`} data-node data-chapter={n}>
       <span className="chapter__dot" aria-hidden="true" />
       <span className="chapter__n">{n}</span>
-      <span className="chapter__name">{name}{plain ? <span className="chapter__plain"> / {plain}</span> : null}</span>
+      <span className="chapter__name">{plain ? <><span className="chapter__plain">{plain}</span> / {name}</> : name}</span>
     </p>
   );
 }

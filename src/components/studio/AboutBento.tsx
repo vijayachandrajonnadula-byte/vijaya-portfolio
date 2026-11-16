@@ -28,10 +28,10 @@ function Tile({ children, className = '', delay = 0 }: { children: React.ReactNo
 const d = quirks.datasheet;
 
 /**
- * About as a friendly datasheet for Vijay: header, description, specifications (real values), features,
- * absolute maximum ratings (jokes), recommended operating conditions, a bill of materials of tools,
- * revision history (the timeline) and the full parts list (skills). Content is in src/data/quirks.ts
- * and src/data/home.ts. The pun is the frame; every spec value is a true statement.
+ * About as a friendly datasheet for Vijay: header, about, at a glance (real values), what I do,
+ * quirks (jokes), works best with, tools, experience (the timeline) and skills. Content is in
+ * src/data/quirks.ts and src/data/home.ts. The datasheet is the frame; every label is plain language
+ * and every spec value is a true statement.
  */
 export default function AboutBento() {
   const [now, setNow] = useState(clock);
@@ -56,11 +56,11 @@ export default function AboutBento() {
           </Tile>
 
           <Tile className="el-t el-t--story" delay={0.05}>
-            <p className="atile__k">Description</p>
+            <p className="atile__k">About me</p>
             {d.story.map(p => <p key={p} className="el-story">{p}</p>)}
-            <p className="atile__k el-gap">Features</p>
+            <p className="atile__k el-gap">What I do</p>
             <ul className="el-feat">{d.features.map(f => <li key={f}>{f}</li>)}</ul>
-            <p className="atile__k el-gap">Applications</p>
+            <p className="atile__k el-gap">In practice</p>
             <p className="el-story">{profile.aboutBody}</p>
           </Tile>
 
@@ -75,28 +75,28 @@ export default function AboutBento() {
           </Tile>
 
           <Tile className="el-t el-t--half">
-            <p className="atile__k">Specifications</p>
+            <p className="atile__k">At a glance</p>
             <SpecTable rows={d.specs} />
           </Tile>
 
           <Tile className="el-t el-t--half" delay={0.05}>
-            <p className="atile__k">Absolute maximum ratings</p>
-            <p className="el-note">Stress beyond these may release magic smoke.</p>
+            <p className="atile__k">Quirks, honestly</p>
+            <p className="el-note">Push past these and I get cranky.</p>
             <SpecTable rows={d.ratings} />
           </Tile>
 
           <Tile className="el-t el-t--half">
-            <p className="atile__k">Recommended operating conditions</p>
+            <p className="atile__k">Works best with</p>
             <SpecTable rows={d.conditions} />
           </Tile>
 
           <Tile className="el-t el-t--half" delay={0.05}>
-            <p className="atile__k">Bill of materials</p>
+            <p className="atile__k">Tools</p>
             <BomFilter />
           </Tile>
 
           <Tile className="el-t el-t--wide atile--time">
-            <p className="atile__k">Revision history</p>
+            <p className="atile__k">Experience</p>
             <ul className="jobs">
               {experience.map(e => (
                 <li key={e.company}>
@@ -109,7 +109,7 @@ export default function AboutBento() {
           </Tile>
 
           <Tile className="el-t el-t--wide atile--skills">
-            <p className="atile__k">Full parts list</p>
+            <p className="atile__k">Skills</p>
             <dl>
               {skillGroups.map(g => <div key={g.label}><dt>{g.label}</dt><dd>{g.skills.join(', ')}</dd></div>)}
             </dl>
