@@ -1,10 +1,10 @@
 import { useCallback, useEffect, useRef, useState, type RefObject } from 'react';
 import { motion, useMotionValue, useMotionValueEvent, useReducedMotion, useScroll, useSpring, useTransform } from 'framer-motion';
 import './../../styles/story.css';
-import { setCircuit } from './circuitStore';
+import { setCircuit, useCircuit } from './circuitStore';
 
 type Pt = { x: number; y: number };
-type Geo = { d: string; nodes: Pt[]; w: number; h: number };
+type Geo = { d: string; nodes: Pt[]; end: Pt | null; w: number; h: number };
 
 const CHAMFER = 14; // 45 degree corner size
 const JOG = 14; // sideways step between nodes
@@ -12,12 +12,12 @@ const JOG = 14; // sideways step between nodes
 /**
  * "The Trace": one SVG path down the left gutter of the home page, lit by scroll position.
  * Geometry is measured from the real positions of every [data-node] inside `boundary`, plus the
- * footer LED. Per-frame work touches only motion values and one circle's attributes; React state
+ * contact switch (the last node: the trace ends at the thing you are meant to press). Per-frame work touches only motion values and one circle's attributes; React state
  * changes only when the number of reached nodes changes.
  */
 export default function Trace({ boundary }: { boundary: RefObject<HTMLElement> }) {
   const reduced = !!useReducedMotion();
-  const [geo, setGeo] = useState<Geo>({ d: '', nodes: [], w: 0, h: 0 });
+  const [geo, setGeo] = useState<Geo>({ d: '', nodes: [], end: null, w: 0, h: 0 });
   const [reached, setReached] = useState(0);
   const [zap, setZap] = useState(-1);
   const packet = useRef<SVGGElement>(null);
@@ -25,7 +25,8 @@ export default function Trace({ boundary }: { boundary: RefObject<HTMLElement> }
   const head = useRef<SVGGElement>(null);
   const tab = useRef({ ys: [] as number[], len: [] as number[], total: 1, top: 0, nodesY: [] as number[], nodeLen: [] as number[], ledY: Infinity });
   const labels = useRef<Element[]>([]);
-  const sentComplete = useRef(false);
+  const sw = useRef<HTMLElement | null>(null);
+  const { closed } = useCircuit();
 
   const { scrollY } = useScroll();
   const lit = useMotionValue(0);
@@ -68,11 +69,12 @@ export default function Trace({ boundary }: { boundary: RefObject<HTMLElement> }
       return y + (el as HTMLElement).offsetHeight / 2;
     };
     const nodes: Pt[] = els.map((el, i) => ({ x: gx + (i % 2 ? JOG : 0), y: yIn(el) }));
-    const led = wrap.querySelector('[data-led]');
+    const led = wrap.querySelector<HTMLElement>('[data-switch]');
     if (!nodes.length || !led) return;
+    sw.current = (led.closest('.cts') as HTMLElement | null) ?? led;
     const lr = led.getBoundingClientRect();
     const ledY = yIn(led);
-    const endX = lr.left - wr.left - 12;
+    const endX = lr.left - wr.left - 14;
 
     const pts: Pt[] = [nodes[0]!];
     for (let i = 0; i < nodes.length - 1; i++) {
@@ -92,7 +94,7 @@ export default function Trace({ boundary }: { boundary: RefObject<HTMLElement> }
       len.push(len[i - 1]! + Math.hypot(p.x - q.x, p.y - q.y));
     }
     tab.current = { ys, len, total: len[len.length - 1]! || 1, top: wr.top + window.scrollY, nodesY: nodes.map(n => n.y), nodeLen: nodes.map((_, i) => len[i * 3] ?? 0), ledY };
-    setGeo({ d, nodes, w, h });
+    setGeo({ d, nodes, end: { x: endX, y: ledY }, w, h });
     updateLit();
   }, [boundary, updateLit]);
 
@@ -109,7 +111,7 @@ export default function Trace({ boundary }: { boundary: RefObject<HTMLElement> }
     document.fonts?.ready.then(queue);
     const late = window.setTimeout(queue, 1200);
     setCircuit({ active: true });
-    return () => { cancelAnimationFrame(raf); ro.disconnect(); window.removeEventListener('resize', queue); clearTimeout(late); setCircuit({ active: false, complete: false }); sentComplete.current = false; };
+    return () => { cancelAnimationFrame(raf); ro.disconnect(); window.removeEventListener('resize', queue); clearTimeout(late); setCircuit({ active: false }); sw.current?.style.removeProperty('--glow'); sw.current = null; };
   }, [boundary, measure]);
 
   useMotionValueEvent(scrollY, 'change', updateLit);
@@ -129,7 +131,9 @@ export default function Trace({ boundary }: { boundary: RefObject<HTMLElement> }
     let n = 0;
     t.nodesY.forEach((y, i) => { const on = litY >= y; if (on) n = i + 1; labels.current[i]?.classList.toggle('is-lit', on); });
     setReached(r => (r === n ? r : n));
-    if (!sentComplete.current && litY >= t.ledY - 2) { sentComplete.current = true; setCircuit({ complete: true }); }
+    // goal gradient: the nearer the lit line gets to the switch, the more the switch glows (0 to 1, eased)
+    const s = sw.current;
+    if (s) { const g = Math.min(1, Math.max(0, 1 - (t.ledY - litY) / 650)); s.style.setProperty('--glow', (g * g).toFixed(3)); }
   }, [reduced, spring]);
   useMotionValueEvent(progress, 'change', follow);
   useEffect(() => { follow(progress.get()); }, [geo, follow, progress]);
@@ -189,6 +193,12 @@ export default function Trace({ boundary }: { boundary: RefObject<HTMLElement> }
           <circle r="3" className="trace__dot" />
         </g>
       ))}
+      {geo.end ? (
+        <g transform={`translate(${geo.end.x} ${geo.end.y})`} className={`trace__pad trace__pad--end${closed ? ' is-on' : ''}`}>
+          <circle r="7" className="trace__ring" />
+          <circle r="3" className="trace__dot" />
+        </g>
+      ) : null}
       {!reduced && (
         <g ref={packet} className="trace__packet" style={{ opacity: 0 }}>
           <circle r="7" className="trace__pk-halo" />
