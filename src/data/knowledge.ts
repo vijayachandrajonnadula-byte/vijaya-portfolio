@@ -541,9 +541,9 @@ export const knowledge: Entry[] = [
   },
   {
     id: 'hire-start', group: 'Hiring', q: 'How do we start a conversation?', chip: 'How do we start a conversation?',
-    keys: ['start a conversation', 'start conversation', 'get started', 'next step', 'next steps', 'work together', 'collaborate with you', 'project enquiry', 'say hi', 'say hello', 'interview', 'schedule a call', 'book a call', 'talk', 'chat', 'contact form', 'compose'],
+    keys: ['start a conversation', 'start conversation', 'get started', 'next step', 'next steps', 'work together', 'collaborate with you', 'project enquiry', 'say hi', 'say hello', 'interview', 'schedule a call', 'book a call', 'talk', 'chat', 'contact', 'compose'],
     answer: [
-      'Write a few lines: who you are, what you are building, and what you want from a designer. The contact section on the home page drafts the email for you and opens your email app. There is no backend, so nothing is sent until you press send.',
+      'Write a few lines: who you are, what you are building, and what you want from a designer. Then email me from the contact section on the home page, where my email, LinkedIn, GitHub and resume are listed. This site has no form and no backend, so nothing is collected here.',
       `Or write straight to ${email}. A short note with the role and a link is perfect.`,
     ],
     link: contactLink,
