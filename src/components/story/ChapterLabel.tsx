@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react';
 import './../../styles/story.css';
 
 /** The plain word beside each circuit word, so the chapter names match the header (Work, About, Contact). */
-const PLAIN: Record<string, string> = { translate: 'electronics', prototypes: 'work', datasheet: 'about', pinout: 'contact' };
+const PLAIN: Record<string, string> = { 'two readings': 'electronics + ux', prototypes: 'work', datasheet: 'about', pinout: 'contact' };
 
 /**
  * A small chapter marker, e.g. "03 prototypes / work". Each one is a node on the Trace: it carries data-node,

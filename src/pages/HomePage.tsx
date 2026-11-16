@@ -7,7 +7,7 @@ import AboutBento from '../components/studio/AboutBento';
 import ContactComposer from '../components/studio/ContactComposer';
 import Trace from '../components/story/Trace';
 import ChapterLabel from '../components/story/ChapterLabel';
-import PartsToPatterns from '../components/story/PartsToPatterns';
+import TwoReadings from '../components/story/TwoReadings';
 
 /**
  * Home reads as one circuit: power on (hero), translate (parts to patterns), prototypes (work), datasheet (about),
@@ -25,7 +25,7 @@ export default function HomePage() {
             <HomeHero />
             <div className="story-hero__label"><ChapterLabel n="01" name="power on" align="center" /></div>
           </div>
-          <PartsToPatterns />
+          <TwoReadings />
           <WorkBento />
           <div className="story-about" id="datasheet">
             <div className="story-about__label"><ChapterLabel n="04" name="datasheet" /></div>
