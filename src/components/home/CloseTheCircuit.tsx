@@ -83,8 +83,10 @@ export default function CloseTheCircuit() {
   const caption = !closed ? CAP_OPEN : just ? CAP_NOW : CAP_BACK;
   return (
     <div ref={root} className={`cts${closed ? ' is-closed' : ''}${seen ? ' is-seen' : ''}${reduced ? ' is-still' : ''}`}>
-      <h3 className="cts__h">Close the circuit.</h3>
-      <p className="cts__why">Nothing flows until someone reaches out. This is how a project, or a role, starts.</p>
+      <h3 className="cts__h">{closed ? 'Circuit closed.' : 'Close the circuit.'}</h3>
+      <p className="cts__why">{closed
+        ? 'Current is flowing. Your message is the next step: say hello, and a project or a role can start from here.'
+        : 'Nothing flows until someone reaches out. This is how a project, or a role, starts.'}</p>
 
       <div className="cts__fig">
         <svg className="cts__svg" viewBox="0 0 520 150" focusable="false" aria-hidden="true">
@@ -119,9 +121,12 @@ export default function CloseTheCircuit() {
         <Lab x={450} y={104} align="r">VIJAY</Lab>
       </div>
 
-      <button type="button" className="cts__btn" data-switch aria-pressed={closed} data-href={MAIL} onClick={press}>
+      {/* The label always says what pressing does NOW (Norman: feedback and signifiers). Before: it closes the circuit and
+          opens the mail app. After: the circuit is already closed, so the only thing left to do is open the mail app again.
+          No aria-pressed: the visible label already carries the state, and a changing label plus a pressed state double-announces. */}
+      <button type="button" className="cts__btn" data-switch data-href={MAIL} onClick={press}>
         <span className="cts__tog" aria-hidden="true"><i /></span>
-        <span>Close the circuit: email me</span>
+        <span>{closed ? 'Circuit closed: open my mail again' : 'Close the circuit: email me'}</span>
       </button>
 
       <div className="cts__row">
@@ -137,7 +142,7 @@ export default function CloseTheCircuit() {
 
       <div className="cts__aux">
         <button type="button" className="cts__ghost" onClick={copy}>Copy address</button>
-        {closed ? <button type="button" className="cts__link" onClick={reopen}>Open it again</button> : null}
+        {closed ? <button type="button" className="cts__link" onClick={reopen}>Reset the circuit</button> : null}
         <p className="cts__note" role="status">{note}</p>
       </div>
     </div>
