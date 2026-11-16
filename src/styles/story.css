@@ -1,4 +1,4 @@
-/* The story layer: the Trace, chapter labels, the Signal interlude, the footer LED. Uses the --c-* tokens. */
+/* The story layer: the Trace, chapter labels, the parts-to-patterns chapter, the footer LED. Uses the --c-* tokens. */
 
 .story { position: relative; }
 
@@ -63,24 +63,6 @@
 .signal__in { max-width: 1060px; margin: 0 auto; }
 .signal__h { margin: 0; font-family: var(--font-serif); font-weight: 400; letter-spacing: -0.02em; line-height: 1.05; font-size: clamp(2.2rem, 4.6vw, 3.6rem); max-width: 18ch; text-wrap: balance; }
 .signal__sub { margin: 10px 0 clamp(22px, 3vw, 34px); color: var(--c-mute); font-size: 1.05rem; }
-.signal__card { border-radius: 28px; background: var(--c-tile); padding: clamp(16px, 2.4vw, 28px); display: grid; gap: 18px; }
-.signal__wave { display: block; width: 100%; height: clamp(120px, 18vw, 190px); border-radius: 18px; background: var(--c-bg); overflow: hidden; }
-.signal__base { stroke: var(--c-line); stroke-width: 1; vector-effect: non-scaling-stroke; }
-.signal__ghost { fill: none; stroke: var(--c-line); stroke-width: 1.5; stroke-dasharray: 4 6; vector-effect: non-scaling-stroke; }
-.signal__line { fill: none; stroke-width: 2.25; stroke-linejoin: round; stroke-linecap: round; vector-effect: non-scaling-stroke; stroke: color-mix(in srgb, var(--c-clay-ink) calc((100 - var(--n)) * 1%), var(--c-ink2)); }
-.signal__read { display: flex; justify-content: space-between; align-items: center; gap: 8px 20px; flex-wrap: wrap; }
-.signal__tag { font: 600 0.82rem/1 ui-monospace, 'Cascadia Code', Consolas, monospace; letter-spacing: 0.06em; color: var(--c-ink); padding: 8px 12px; border-radius: 999px; background: var(--c-bg); }
-.signal__card[data-clean] .signal__tag { color: var(--c-clay-ink); }
-.signal__quip { display: inline-flex; align-items: center; gap: 10px; color: var(--c-ink2); font-size: 0.95rem; }
-.signal__ctl { display: grid; grid-template-columns: auto minmax(0, 1fr) 3.4ch; align-items: center; gap: 16px; }
-.signal__ctl label { font-weight: 600; }
-.signal__ctl output { font-variant-numeric: tabular-nums; text-align: right; color: var(--c-ink2); }
-.signal__ctl input[type='range'] { -webkit-appearance: none; appearance: none; width: 100%; height: 28px; margin: 0; background: transparent; cursor: pointer; }
-.signal__ctl input[type='range']::-webkit-slider-runnable-track { height: 6px; border-radius: 999px; background: linear-gradient(90deg, var(--c-clay) var(--v), var(--c-tile2) var(--v)); }
-.signal__ctl input[type='range']::-moz-range-track { height: 6px; border-radius: 999px; background: linear-gradient(90deg, var(--c-clay) var(--v), var(--c-tile2) var(--v)); }
-.signal__ctl input[type='range']::-webkit-slider-thumb { -webkit-appearance: none; width: 24px; height: 24px; margin-top: -9px; border-radius: 50%; background: var(--c-obj); border: 2px solid var(--c-clay-ink); box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18); }
-.signal__ctl input[type='range']::-moz-range-thumb { width: 20px; height: 20px; border-radius: 50%; background: var(--c-obj); border: 2px solid var(--c-clay-ink); box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18); }
-.signal__ctl input[type='range']:focus-visible { outline: 2px solid var(--c-accent); outline-offset: 4px; border-radius: 8px; }
 
 @media (prefers-reduced-motion: reduce) {
   .chapter__dot, .trace__dot, .trace__ring, .led { transition: none; }
