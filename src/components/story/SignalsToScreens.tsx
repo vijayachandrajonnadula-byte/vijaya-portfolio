@@ -64,16 +64,16 @@ export default function SignalsToScreens() {
   return (
     <section id="story" className="jny" aria-labelledby="jny-h">
       <header className="jny__head">
-        <p className="jny__kicker">The long answer</p>
+        <p className="jny__kicker">My timeline</p>
         <h2 id="jny-h" className="jny__title">From signals to screens</h2>
-        <p className="jny__lede">The true timeline, drawn as a signal chain. Study, learning and practice ran on three tracks at once, so they are drawn side by side. Every node comes from my resume.</p>
+        <p className="jny__lede">The true timeline, drawn like a circuit. Study, learning and practice ran at the same time, so they sit side by side. Every step comes from my resume.</p>
         <div className="jny__bar">
-          <div className="jny__step" role="group" aria-label="Move along the chain">
-            <button type="button" onClick={() => go(active - 1, true)} disabled={active === 0} aria-label="Previous node">
+          <div className="jny__step" role="group" aria-label="Move along the timeline">
+            <button type="button" onClick={() => go(active - 1, true)} disabled={active === 0} aria-label="Previous step">
               <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M19 12H5m6-6-6 6 6 6" /></svg>
             </button>
-            <span className="jny__count" aria-live="polite">Node {active + 1} of {journey.length}</span>
-            <button type="button" onClick={() => go(active + 1, true)} disabled={active === last} aria-label="Next node">
+            <span className="jny__count" aria-live="polite">Step {active + 1} of {journey.length}</span>
+            <button type="button" onClick={() => go(active + 1, true)} disabled={active === last} aria-label="Next step">
               <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6" /></svg>
             </button>
           </div>
@@ -87,7 +87,7 @@ export default function SignalsToScreens() {
             <li key={t} data-track={t}><i aria-hidden="true" />{trackMeta[t].label}<span> · {trackMeta[t].hint}</span></li>
           ))}
         </ul>
-        {fiction && <p className="jny__fnote"><strong>Fiction layer.</strong> The playful lines between nodes are invented and labelled. The nodes themselves stay true.</p>}
+        {fiction && <p className="jny__fnote"><strong>Fiction layer.</strong> The playful lines between steps are invented and labelled. The steps themselves stay true.</p>}
       </header>
 
       <div className="jny__chain">
