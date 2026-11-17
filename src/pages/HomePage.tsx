@@ -21,10 +21,7 @@ export default function HomePage() {
       <div className="story" ref={story}>
         <Trace boundary={story} />
         <main className="home">
-          <div className="story-hero">
-            <HomeHero />
-            <div className="story-hero__label"><ChapterLabel n="01" name="power on" align="center" /></div>
-          </div>
+          <HomeHero />
           <TwoReadings />
           <WorkBento />
           <div className="story-about" id="datasheet">

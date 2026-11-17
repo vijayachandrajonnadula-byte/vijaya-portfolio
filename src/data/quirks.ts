@@ -81,6 +81,10 @@ export const quirks = {
     tagline: 'Low noise, high clarity, human-friendly.',
     partHint: 'Press the part number for a surprise.',
     smoke: 'A puff of smoke. Nothing is broken.',
+    /** The About tile: the existing true copy, tightened to four sentences. */
+    about:
+      'I studied Electronics and Communication Engineering at IIIT Nuzvid (2017 to 2021) while already designing. It taught me to think in signals: what is the message, what is the noise, and does the feedback arrive in time? Now I use that habit on people’s problems, designing practical products that turn messy user journeys into clear, testable experiences. I handle the full design cycle myself: understanding the problem, mapping the flow, building in Figma, and handing off something the team can build from.',
+    more: { open: 'More about how I work', close: 'Less about how I work' },
     story: [
       'I studied Electronics and Communication Engineering at IIIT Nuzvid, 2017 to 2021, while already designing. It taught me to think in signals: what is the message, what is the noise, and does the feedback arrive in time?',
       'Now I use that habit on people’s problems. I design practical products that turn messy user journeys into clear, testable experiences.',

@@ -1,5 +1,6 @@
 import { useEffect, useId, useRef } from 'react';
 import '../../styles/electro.css';
+import { useCalm } from '../../lib/calm';
 
 /**
  * Clay: an original felt-textured mascot drawn in SVG. Poses move the arms; the eyes follow the
@@ -68,11 +69,12 @@ export default function Character({
   const pupils = useRef<SVGGElement>(null);
   const arms = ARMS[pose];
   const showProp = pose === 'hold' && prop !== 'none';
+  const calm = useCalm(); // Calm mode: no eye-follow; blink and breathe are stopped in CSS (html[data-calm='on'])
 
   // eyes follow the pointer (fine pointers only), written straight to the DOM so nothing re-renders
   useEffect(() => {
-    if (!track) return;
-    if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if (!track || calm) return;
+    if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
     let raf = 0;
     const move = (e: PointerEvent) => {
       if (raf) return;
@@ -86,8 +88,8 @@ export default function Character({
       });
     };
     window.addEventListener('pointermove', move, { passive: true });
-    return () => { window.removeEventListener('pointermove', move); if (raf) cancelAnimationFrame(raf); };
-  }, [track]);
+    return () => { window.removeEventListener('pointermove', move); if (raf) cancelAnimationFrame(raf); if (pupils.current) pupils.current.style.transform = ''; };
+  }, [track, calm]);
 
   // breathing and blinking only while visible
   useEffect(() => {

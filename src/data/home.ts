@@ -9,10 +9,10 @@ export const thumbImage = (id: string) => `/images/thumb/${id}.jpg`;
 
 /** The four projects shown as bento groups. Order is the order on the page. */
 export const spotlight = [
-  { id: 'pulse-design-system', tint: '#a9c0f2', prop: 'blocks', line: 'A design system AI tools could not read, rebuilt so they can: components, micro templates, written rules and governance.' },
-  { id: 'electronic-execution', tint: '#f6cdb4', prop: 'calendar', line: 'A validation protocol, run on screen: record each step, sign it, verify it. The AI assistant proposes and never signs.' },
-  { id: 'afs-enterprise-workflow', tint: '#c9bdf0', prop: 'dial', line: 'Setting up how an AI model scores accounts, inside an enterprise admin portal.' },
-  { id: 'ai-workflow', tint: '#b9e3cf', prop: 'spark', line: 'From brief to deployed prototype. AI speeds up the work, and I make the calls.' },
+  { id: 'pulse-design-system', tint: '#a9c0f2', prop: 'blocks', line: 'A design system rebuilt so AI tools can read it: components, rules, governance.' },
+  { id: 'electronic-execution', tint: '#f6cdb4', prop: 'calendar', line: 'A validation protocol run on screen. The AI assistant proposes and never signs.' },
+  { id: 'afs-enterprise-workflow', tint: '#c9bdf0', prop: 'dial', line: 'Setting up how an AI model scores accounts, in an enterprise admin portal.' },
+  { id: 'ai-workflow', tint: '#b9e3cf', prop: 'spark', line: 'From brief to deployed prototype. AI speeds up the work; I make the calls.' },
 ] as const;
 
 /**

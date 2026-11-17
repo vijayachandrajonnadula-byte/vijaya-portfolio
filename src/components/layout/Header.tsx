@@ -3,6 +3,8 @@ import { Link, useLocation } from 'react-router-dom';
 import VJLogo from '../ui/VJLogo';
 import { useTheme, applyThemeWithWipe } from './theme';
 import PowerSwitch from '../electro/PowerSwitch';
+import CalmSwitch from './CalmSwitch';
+import { isCalm } from '../../lib/calm';
 
 const links = [
   { label: 'Work', href: '/#work', key: 'work' },
@@ -46,12 +48,13 @@ export default function Header() {
   // phone: hide the pill while scrolling down and while the footer is on screen; transform only
   useEffect(() => {
     const phone = window.matchMedia('(max-width: 700px)');
-    const calm = window.matchMedia('(prefers-reduced-motion: reduce)');
     let lastY = window.scrollY;
     let inFooter = false;
     let down = false;
     let raf = 0;
-    const apply = () => { raf = 0; setHidden(phone.matches && !calm.matches && (down || inFooter)); };
+    // Calm mode keeps the pill in place (no sliding bar while scrolling)
+    const apply = () => { raf = 0; setHidden(phone.matches && !isCalm() && (down || inFooter)); };
+    window.addEventListener('vj-calm', apply);
     const onScroll = () => {
       const y = window.scrollY;
       const dy = y - lastY;
@@ -73,7 +76,7 @@ export default function Header() {
     };
     watchFooter();
     const t = window.setTimeout(watchFooter, 600);
-    return () => { window.removeEventListener('scroll', onScroll); io?.disconnect(); clearTimeout(t); if (raf) cancelAnimationFrame(raf); };
+    return () => { window.removeEventListener('scroll', onScroll); window.removeEventListener('vj-calm', apply); io?.disconnect(); clearTimeout(t); if (raf) cancelAnimationFrame(raf); };
   }, [pathname]);
 
   // a new page always starts with the pill shown
@@ -104,6 +107,8 @@ export default function Header() {
             </Link>
           );
         })}
+        <span className="nav__sep nav__sep--tools" aria-hidden="true" />
+        <CalmSwitch />
         <PowerSwitch dark={dark} onToggle={origin => applyThemeWithWipe(dark ? 'light' : 'dark', origin)} />
       </nav>
     </header>

@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { useEffect, useRef, useState } from 'react';
-import { motion, useReducedMotion } from 'framer-motion';
+import { motion, MotionConfig } from 'framer-motion';
+import { isCalm, useCalm } from './lib/calm';
 import HomePage from './pages/HomePage';
 import CaseStudyPage from './pages/CaseStudyPage';
 import RenewlyCaseStudyPage from './pages/RenewlyCaseStudyPage';
@@ -95,7 +96,7 @@ function ScrollToHash() {
     // Prefer Lenis when active so native smooth-scroll does not fight it.
     const go = (el: HTMLElement) => {
       if (window.__lenis) window.__lenis.scrollTo(el, { offset: -72 });
-      else el.scrollIntoView({ behavior: 'smooth' });
+      else el.scrollIntoView({ behavior: isCalm() ? 'auto' : 'smooth' });
     };
     const el = document.getElementById(id);
     if (el) {
@@ -123,13 +124,13 @@ function PageMode() {
 // on its own; there is no exit animation, so navigation never feels delayed.
 function RouteFade({ children }: { children: React.ReactNode }) {
   const { pathname } = useLocation();
-  const reduced = useReducedMotion();
+  const reduced = useCalm();
   return (
     <motion.div
       key={pathname}
       initial={reduced ? false : { opacity: 0 }}
       animate={{ opacity: 1 }}
-      transition={{ duration: 0.24, ease: [0.22, 1, 0.36, 1] }}
+      transition={{ duration: reduced ? 0 : 0.24, ease: [0.22, 1, 0.36, 1] }}
     >
       {children}
     </motion.div>
@@ -137,7 +138,10 @@ function RouteFade({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
+  // Calm mode (header switch, or the system's reduced-motion setting): every framer-motion component behaves as reduced motion.
+  const calm = useCalm();
   return (
+    <MotionConfig reducedMotion={calm ? 'always' : 'user'}>
     <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
       <SkipLink />
       <RouteMeta />
@@ -164,5 +168,6 @@ export default function App() {
       </RouteFade>
       <Guide />
     </BrowserRouter>
+    </MotionConfig>
   );
 }

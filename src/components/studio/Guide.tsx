@@ -4,8 +4,8 @@ import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
 import Character, { type Pose } from './Character';
 import { profile } from '../../data/profile';
 import { quirks } from '../../data/quirks';
-import { askHref } from '../../data/knowledge';
-import SuggestionChips from '../ask/SuggestionChips';
+import { askHref, entryById } from '../../data/knowledge';
+import { guideStarterIds } from '../../data/topics';
 import '../../styles/ask.css';
 
 interface Line { text: string; pose: Pose; action?: { label: string; href: string } }
@@ -19,13 +19,11 @@ const HOME: Record<string, Line> = {
 };
 const CASE: Line = { text: quirks.guide.page, pose: 'think' };
 
-const HINT_KEY = 'vj-guide';
-
 /**
- * The guide: Clay sits in the corner. The launcher opens a small, non-modal "Ask Clay" popover with a field
- * that sends your question to the ask page. Esc closes it and hands focus back to the launcher; opening it
- * moves focus to the field. It never opens by itself on small screens or on case studies. On the home page it
- * gives one quiet hint per session, after the visitor has scrolled past the hero, and puts it away on scroll.
+ * The guide: Clay sits in the corner. The launcher opens a small, non-modal "Ask Clay" popover: one line, the field
+ * and two starter questions (Hick's law). Esc closes it and hands focus back to the launcher; opening it moves focus
+ * to the field. It never opens by itself. While the home hero (`[data-hero]`) is on screen the launcher fades out,
+ * because the hero has its own ask box, and returns once the hero has scrolled away.
  */
 export default function Guide() {
   const { pathname } = useLocation();
@@ -33,14 +31,12 @@ export default function Guide() {
   const reduced = useReducedMotion();
   const titleId = useId();
   const [open, setOpen] = useState(false);
-  const [hint, setHint] = useState(false); // opened by itself: no focus theft, closes on scroll
+  const [away, setAway] = useState(false); // the home hero is on screen
   const [section, setSection] = useState('top');
   const [hop, setHop] = useState(0);
   const [value, setValue] = useState('');
   const launcher = useRef<HTMLButtonElement>(null);
   const input = useRef<HTMLInputElement>(null);
-  const hintRef = useRef(false);
-  hintRef.current = hint;
   const onHome = pathname === '/';
   const hidden = pathname === '/ask';
 
@@ -55,22 +51,40 @@ export default function Guide() {
   }, [onHome]);
 
   useEffect(() => { setHop(h => h + 1); }, [section, pathname]);
-  useEffect(() => { setOpen(false); setHint(false); }, [pathname]);
+  useEffect(() => { setOpen(false); }, [pathname]);
+
+  // hide the launcher while the home hero is on screen; the hero may mount a moment after the route changes
+  useEffect(() => {
+    setAway(false);
+    if (!onHome) return;
+    let io: IntersectionObserver | undefined;
+    let tries = 0;
+    let raf = 0;
+    const find = () => {
+      const hero = document.querySelector('[data-hero]');
+      if (hero) {
+        io = new IntersectionObserver(([en]) => { const on = !!en?.isIntersecting; setAway(on); if (on) setOpen(false); }, { threshold: 0.15 });
+        io.observe(hero);
+      } else if (tries++ < 60) raf = window.requestAnimationFrame(find);
+    };
+    find();
+    return () => { io?.disconnect(); window.cancelAnimationFrame(raf); };
+  }, [onHome]);
 
   const close = useCallback((returnFocus: boolean) => {
-    setOpen(false); setHint(false);
+    setOpen(false);
     if (returnFocus) window.requestAnimationFrame(() => launcher.current?.focus());
   }, []);
 
   const toggle = () => {
-    if (open && !hint) { close(true); return; }
-    setHint(false); setOpen(true);
+    if (open) { close(true); return; }
+    setOpen(true);
   };
 
-  // moving focus to the field only when the visitor opened it themselves
+  // opening moves focus to the field
   useEffect(() => {
-    if (open && !hint) window.requestAnimationFrame(() => input.current?.focus());
-  }, [open, hint]);
+    if (open) window.requestAnimationFrame(() => input.current?.focus());
+  }, [open]);
 
   // Esc: clear the field first, then close and give focus back to the launcher
   useEffect(() => {
@@ -86,41 +100,13 @@ export default function Guide() {
     return () => document.removeEventListener('keydown', onKey);
   }, [open, value, close]);
 
-  // one gentle hint on the home page: wide screens only, once per session, after the hero has scrolled away
-  useEffect(() => {
-    if (!onHome) return;
-    let seen = false; try { seen = sessionStorage.getItem(HINT_KEY) === '1'; } catch { /* ignore */ }
-    if (seen || window.matchMedia('(max-width: 767px)').matches) return;
-    let hideTimer = 0, armTimer = 0, startY = 0, shown = false;
-    const putAway = () => { if (hintRef.current) { setOpen(false); setHint(false); } };
-    const hero = document.getElementById('top');
-    const past = () => (hero ? hero.getBoundingClientRect().bottom < 0 : window.scrollY > window.innerHeight);
-    const onScroll = () => {
-      if (!shown) {
-        if (!past() || document.getElementById('guide-q') === document.activeElement) return;
-        shown = true; startY = window.scrollY;
-        try { sessionStorage.setItem(HINT_KEY, '1'); } catch { /* ignore */ }
-        setHint(true); setOpen(true);
-        hideTimer = window.setTimeout(putAway, 9000);
-        // the hint puts itself away if the visitor keeps scrolling
-        armTimer = window.setTimeout(() => window.addEventListener('scroll', away, { passive: true }), 800);
-      }
-    };
-    const away = () => {
-      if (Math.abs(window.scrollY - startY) < 160) return;
-      window.removeEventListener('scroll', away);
-      putAway();
-    };
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => { window.removeEventListener('scroll', onScroll); window.removeEventListener('scroll', away); clearTimeout(hideTimer); clearTimeout(armTimer); };
-  }, [onHome]);
-
   if (hidden) return null;
   const line = onHome ? (HOME[section] ?? HOME.top!) : CASE;
   const placeholder = onHome ? quirks.guide.placeholders[hop % quirks.guide.placeholders.length]! : quirks.guide.pagePlaceholder;
+  const starters = guideStarterIds.map(id => entryById(id)).filter((e): e is NonNullable<typeof e> => !!e);
 
   return (
-    <div className="guide" data-hop={hop} data-hint={hint ? 'true' : undefined}>
+    <div className="guide" data-hop={hop} data-away={away ? 'true' : undefined}>
       <AnimatePresence>
         {open && (
           <motion.div
@@ -141,7 +127,9 @@ export default function Guide() {
             </div>
             <p>{line.text}</p>
             {line.action && <a className="guide__act" href={line.action.href}>{line.action.label}</a>}
-            <SuggestionChips className="guide__chips" label="Suggested questions" onPick={id => { setOpen(false); setHint(false); nav(askHref(id)); }} />
+            <div className="guide__chips" role="group" aria-label="Starter questions">
+              {starters.map(e => <button key={e.id} type="button" onClick={() => { setOpen(false); nav(askHref(e.id)); }}>{e.chip ?? e.q}</button>)}
+            </div>
             <form onSubmit={e => { e.preventDefault(); const q = value.trim(); if (q) { setValue(''); nav(`/ask?q=${encodeURIComponent(q)}`); } }}>
               <label className="sr-only" htmlFor="guide-q">{onHome ? 'Ask Clay a question' : 'Ask about this project'}</label>
               <input ref={input} id="guide-q" value={value} onChange={e => setValue(e.target.value)} placeholder={placeholder} maxLength={140} autoComplete="off" enterKeyHint="send" />

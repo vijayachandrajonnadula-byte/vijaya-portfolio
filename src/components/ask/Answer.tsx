@@ -70,7 +70,7 @@ const Answer = forwardRef<HTMLHeadingElement, Props>(function Answer({ q, entry,
       initial={reduced ? false : 'hidden'}
       animate="show"
     >
-      <h2 ref={headingRef} tabIndex={-1} className="sr-only ask2-answer__h">{entry ? `${kindShort[k]}: ${entry.q}` : `No match for: ${q}`}</h2>
+      <h2 ref={headingRef} tabIndex={-1} className="ask2-answer__h">{entry ? <><span className="sr-only">{kindShort[k]}: </span>{entry.q}</> : `No match for: ${q}`}</h2>
       {entry && (
         <Item className="ask2-row" {...itemProps}>
           <p className={`turn__tag${k !== 'true' ? ' turn__tag--story' : ''}`}>{kindTag(entry)}</p>
@@ -85,7 +85,7 @@ const Answer = forwardRef<HTMLHeadingElement, Props>(function Answer({ q, entry,
         </>
       ) : (
         <Item className="ask2-row" {...itemProps}>
-          <p className="turn__lead">Hm, that one isn’t in my notes. I would rather say so than guess. Try asking it another way, or pick a question below.</p>
+          <p className="turn__lead">Hm, that one isn’t in my notes. I would rather say so than guess. Try asking it another way, or pick one of these.</p>
         </Item>
       )}
       {entry ? (

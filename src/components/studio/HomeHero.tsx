@@ -1,69 +1,64 @@
-import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, useReducedMotion } from 'framer-motion';
 import Character from './Character';
 import AskBox from './AskBox';
 import { quirks } from '../../data/quirks';
-import HeroActions from '../home/HeroActions';
-import FeaturedStrip from '../home/FeaturedStrip';
-import ScrollCue from '../home/ScrollCue';
+import { profile } from '../../data/profile';
 import '../../styles/home-v2.css';
 
 /**
- * The opening is a conversation, not a banner: a greeting, one box, three suggestions. The
- * mascot drops in and settles, its eyes follow you, and a soft clay glow trails the pointer.
+ * The first screen holds five things and one obvious action: Clay, the headline, one subline, the ask box and
+ * "See the work". Laws applied:
+ * - Hick's law: three focusable controls (input, send, See the work) and one primary action.
+ * - Miller's law + chunking: five items, in two groups (who I am / what to do).
+ * - Occam's razor + Tesler: chips, Resume, the aside, the featured strip, the scroll cue and the pointer glow are gone;
+ *   each already lives further down (Work, Contact, footer, Ask answers).
+ * - Law of Pragnanz + proximity: one centred column; 48px between the "who" group and the "do" group, 24px inside.
+ * - Von Restorff: only "See the work" is saturated; the ask box stays a quiet tile.
+ * - Aesthetic-usability: generous space, one serif headline, one body size.
+ * - Fitts: the primary button is 56px tall and wide, the ask row 56px tall.
+ * - Serial position: the headline is first, the primary button is last.
+ * - Selective attention: no competing motion; Clay sits still apart from its single boot flicker and blink.
+ * `data-hero` lets the floating Ask launcher hide itself while this section is on screen.
  */
 export default function HomeHero() {
   const nav = useNavigate();
   const reduced = useReducedMotion();
-  const sec = useRef<HTMLElement>(null);
-  const [wave, setWave] = useState(false);
 
-  // glow follows the pointer a little behind it (fine pointers, no reduced motion)
-  useEffect(() => {
-    const el = sec.current; if (!el) return;
-    if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    let raf = 0, tx = 50, ty = 30, x = 50, y = 30;
-    const move = (e: PointerEvent) => { const r = el.getBoundingClientRect(); tx = ((e.clientX - r.left) / r.width) * 100; ty = ((e.clientY - r.top) / r.height) * 100; };
-    const tick = () => { x += (tx - x) * 0.06; y += (ty - y) * 0.06; el.style.setProperty('--gx', `${x}%`); el.style.setProperty('--gy', `${y}%`); raf = requestAnimationFrame(tick); };
-    const io = new IntersectionObserver(([e]) => { if (e!.isIntersecting && !raf) raf = requestAnimationFrame(tick); if (!e!.isIntersecting && raf) { cancelAnimationFrame(raf); raf = 0; } });
-    io.observe(el); window.addEventListener('pointermove', move, { passive: true });
-    return () => { io.disconnect(); window.removeEventListener('pointermove', move); if (raf) cancelAnimationFrame(raf); };
-  }, []);
+  const goWork = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    const el = document.getElementById('work');
+    if (!el) return;
+    e.preventDefault();
+    window.dispatchEvent(new CustomEvent('vj:anchor', { detail: { target: 'work' } }));
+    history.replaceState(null, '', '#work');
+    if (window.__lenis) window.__lenis.scrollTo(el, { offset: -8 });
+    else el.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'start' });
+  };
 
-  // the mascot waves hello once, shortly after it lands
-  useEffect(() => {
-    if (reduced) return;
-    const a = window.setTimeout(() => setWave(true), 1500), b = window.setTimeout(() => setWave(false), 3300);
-    return () => { clearTimeout(a); clearTimeout(b); };
-  }, [reduced]);
-
-  const rise = (d: number) => ({ initial: reduced ? false : { opacity: 0, y: 22 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.9, ease: [0.22, 1, 0.36, 1] as const, delay: d } });
+  const fade = (d: number) => ({ initial: reduced ? false : { opacity: 0, y: 14 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] as const, delay: d } });
 
   return (
-    <section ref={sec} className="hhero" id="top" aria-label="Introduction">
-      <div className="hhero__glow" aria-hidden="true" />
-      <motion.div
-        className="hhero__char"
-        initial={reduced ? false : { y: -120, opacity: 0, scale: 0.9 }}
-        animate={{ y: 0, opacity: 1, scale: 1 }}
-        transition={{ type: 'spring', stiffness: 150, damping: 12, mass: 0.9, delay: 0.15 }}
-      >
-        <Character pose={wave ? 'wave' : 'rest'} size={124} track boot label="Clay, the site’s mascot" />
+    <section className="hhero" id="top" aria-label="Introduction" data-hero>
+      <div className="hhero__char">
+        <Character pose="rest" size={112} track boot label="Clay, the site’s mascot" />
+      </div>
+      <div className="hhero__who">
+        <motion.h1 className="hhero__title" {...fade(0.1)}>
+          Hi, I’m Vijay. I turn messy user journeys into <em>clear</em> ones.
+        </motion.h1>
+        <motion.p className="hhero__sub" {...fade(0.2)}>{profile.title} in Hyderabad, designing enterprise software.</motion.p>
+      </div>
+      <motion.div className="hhero__do" {...fade(0.3)}>
+        <div className="hhero__ask">
+          <AskBox
+            id="ask-hero"
+            label="Ask me anything"
+            onAsk={q => nav(`/ask?q=${encodeURIComponent(q)}`)}
+            nudges={quirks.askNudges.slice(1)}
+          />
+        </div>
+        <a className="btn-c hhero__go" href="#work" onClick={goWork}>See the work</a>
       </motion.div>
-      <motion.h1 className="hhero__title" {...rise(0.45)}>
-        Hi, I’m Vijay. I turn messy user journeys into <em>clear</em> ones.
-      </motion.h1>
-      <motion.p className="hhero__sub" {...rise(0.6)}>UX/UI product designer in Hyderabad. Ask me anything, or see the work below.</motion.p>
-      <motion.div className="hhero__ask" {...rise(0.75)}>
-        <AskBox onAsk={q => nav(`/ask?q=${encodeURIComponent(q)}`)} nudges={quirks.askNudges} />
-        <HeroActions />
-        <p className="el-aside">{quirks.hero.aside}</p>
-      </motion.div>
-      <motion.div className="hhero__proof" {...rise(0.9)}>
-        <FeaturedStrip />
-      </motion.div>
-      <ScrollCue />
     </section>
   );
 }
