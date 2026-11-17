@@ -36,7 +36,7 @@ export default function NotFoundPage() {
           <p className="ask2-nf__p">{COPY.body}</p>
           <div className="ask2-nf__cta">
             <Link to="/" className="ask2-btn ask2-btn--lg">{COPY.home}</Link>
-            <Link to="/#work" className="ask2-btn ask2-btn--lg ask2-btn--secondary">{COPY.work}</Link>
+            <Link to="/classic#work" className="ask2-btn ask2-btn--lg ask2-btn--secondary">{COPY.work}</Link>
           </div>
           <div className="ask2-nf__fun">
             <button type="button" role="switch" aria-checked={closed} className="ask2-sw" onClick={() => setClosed(c => !c)}>

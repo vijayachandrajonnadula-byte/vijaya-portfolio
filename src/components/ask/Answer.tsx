@@ -47,7 +47,7 @@ function CopyLink({ id, onStatus }: { id: string; onStatus: (s: string) => void 
 
 /** One line at the end of every answer: the next useful action after reading is to say hello. */
 export function EmailNudge({ lead = 'Still curious?' }: { lead?: string }) {
-  return <p className="ask2-nudge">{lead} <Link to="/#contact">Email me</Link> <span className="sr-only">at {profile.email}</span></p>;
+  return <p className="ask2-nudge">{lead} <Link to="/classic#contact">Email me</Link> <span className="sr-only">at {profile.email}</span></p>;
 }
 
 interface Props {

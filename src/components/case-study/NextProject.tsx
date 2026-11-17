@@ -44,7 +44,7 @@ export default function NextProject() {
             <span className="cs-pn__k">← Previous</span>
             <span className="cs-pn__v">{prev.title}</span>
           </Link>
-          <Link to="/#work" className="cs-pn__cell cs-pn__cell--all">
+          <Link to="/classic#work" className="cs-pn__cell cs-pn__cell--all">
             <span className="cs-pn__k">Back to</span>
             <span className="cs-pn__v">All work</span>
           </Link>

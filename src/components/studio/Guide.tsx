@@ -33,7 +33,7 @@ export default function Guide() {
   const [hint, setHint] = useState('');
   const launcher = useRef<HTMLButtonElement>(null);
   const input = useRef<HTMLInputElement>(null);
-  const onHome = pathname === '/';
+  const onHome = pathname === '/classic'; // v1 home (the v2 film at / has its own chrome and no Guide)
   const hidden = pathname === '/ask';
 
   useEffect(() => { setOpen(false); }, [pathname]);

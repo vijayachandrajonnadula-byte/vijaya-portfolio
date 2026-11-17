@@ -6,9 +6,9 @@ import PowerSwitch from '../electro/PowerSwitch';
 import { isCalm } from '../../lib/calm';
 
 const links = [
-  { label: 'Work', href: '/#work', key: 'work' },
-  { label: 'About', href: '/#about', key: 'about' },
-  { label: 'Contact', href: '/#contact', key: 'contact' },
+  { label: 'Work', href: '/classic#work', key: 'work' },
+  { label: 'About', href: '/classic#about', key: 'about' },
+  { label: 'Contact', href: '/classic#contact', key: 'contact' },
 ];
 
 /**
@@ -26,7 +26,7 @@ export default function Header() {
   // scroll-spy: which home section is under the middle of the screen
   useEffect(() => {
     setActive('');
-    if (pathname !== '/' || typeof IntersectionObserver === 'undefined') return;
+    if (pathname !== '/classic' || typeof IntersectionObserver === 'undefined') return;
     let io: IntersectionObserver | undefined;
     let retry: number | undefined;
     const seen = new Map<string, boolean>();
@@ -82,13 +82,13 @@ export default function Header() {
   useEffect(() => { setHidden(false); }, [pathname]);
 
   const onAnchor = (key: string) => {
-    if (pathname === '/') window.dispatchEvent(new CustomEvent('vj:anchor', { detail: { target: key } }));
+    if (pathname === '/classic') window.dispatchEvent(new CustomEvent('vj:anchor', { detail: { target: key } }));
   };
 
   return (
     <header className="nav" data-nav data-hidden={hidden ? 'true' : undefined} ref={headerRef}>
       <nav className="nav__pill" aria-label="Main">
-        <Link to="/" className="nav__mark" aria-label="Vijay, home" onClick={() => window.scrollTo({ top: 0 })}>
+        <Link to={pathname === '/classic' ? '/classic' : '/'} className="nav__mark" aria-label="Vijay, home" onClick={() => window.scrollTo({ top: 0 })}>
           <VJLogo size={26} variant={dark ? 'light' : 'dark'} />
         </Link>
         <span className="nav__sep" aria-hidden="true" />
