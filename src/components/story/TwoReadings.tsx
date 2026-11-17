@@ -3,7 +3,7 @@ import { animate, useMotionValue, useSpring } from 'framer-motion';
 import { useCalm } from '../../lib/calm';
 import './../../styles/story.css';
 import './../../styles/two-readings.css';
-import ChapterLabel from './ChapterLabel';
+import SectionHead from '../home/SectionHead';
 import { ELEMENTS, H, PULSE_END, PULSE_PATH, REST, TEXTS, W, ZONE, textCentre } from './twoReadings/elements';
 import { boardTextOpacity, lensCentre, paint, screenAmount, screenTextOpacity } from './twoReadings/morph';
 
@@ -183,11 +183,11 @@ export default function TwoReadings() {
   };
 
   return (
-    <section className="signal two" id="signal" aria-labelledby="signal-h" ref={section}>
+    <section className="signal two sec" id="signal" aria-labelledby="signal-h" ref={section}>
       <div className="signal__in">
-        <ChapterLabel n="02" name="two readings" />
-        {/* Copy trimmed to the headline, the two end labels and one caption (Occam, cognitive load) */}
-        <h2 id="signal-h" className="two__h">A circuit board and an app screen can share one layout.</h2>
+        <SectionHead n="02" name="two readings" id="signal-h" title="A circuit board and an app screen can share one layout.">
+          My electronics degree taught me to read a layout like a circuit: what carries the signal, and what is noise.
+        </SectionHead>
 
         <div className="two__stage" ref={stage} onPointerDown={down} onPointerMove={move} onPointerUp={up} onPointerCancel={up}>
           <svg className="two__art" viewBox={`0 0 ${W} ${H}`} aria-hidden="true" focusable="false" onPointerMove={hover} onPointerLeave={() => setTag(null)}>

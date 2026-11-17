@@ -1,22 +1,8 @@
-/* Home v2: hero input sizing and the closed-circuit contact. Tokens are the --c-* set. Hero layout lives in site.css (.hhero*). */
-
-/* ---------- hero: one input at body size, 56px tall target ---------- */
-.hhero .ask .ask__label { display: block; margin: 0 0 8px 18px; color: var(--c-ink2); font: 600 1.125rem/1.5 var(--font-sans); text-align: left; }
-.hhero .ask__form { min-height: 56px; }
-.hhero .ask input { font-size: 1.125rem; height: 44px; }
-.hhero .ask__go { width: 44px; height: 44px; }
-@media (max-width: 480px) {
-  .hhero { padding-top: 84px; padding-bottom: 32px; }
-  .hhero__do { margin-top: 32px; gap: 20px; }
-  .hhero__who { gap: 16px; }
-}
-@media (max-height: 700px) { .hhero__do { margin-top: 32px; } }
+/* Home v2: the closed-circuit contact. Tokens are the --c-* set. Hero layout lives in site.css (.hhero*). */
 
 /* ---------- contact: close the circuit ---------- */
-.cts { --glow: 0; margin: 4px 0 0; }
-.cts__h { margin: 0 0 6px; font: 600 1.35rem/1.2 var(--font-sans); letter-spacing: -0.01em; }
-.cts__why { margin: 0 0 18px; max-width: 52ch; text-wrap: balance; color: var(--c-ink2); line-height: 1.55; font-size: 1.02rem; }
-.cts__fig { position: relative; width: 100%; max-width: 560px; margin: 0 0 14px; aspect-ratio: 520 / 150; padding: 0; border-radius: 22px; background: var(--c-tile); }
+.cts { --glow: 0; margin: 0; min-width: 0; }
+.cts__fig { position: relative; width: 100%; max-width: 560px; margin: 0 0 16px; aspect-ratio: 520 / 150; padding: 0; border-radius: 22px; background: var(--c-tile); }
 .cts__svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
 .cts__wire { fill: none; stroke: var(--c-ink2); opacity: 0.55; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
 .cts__wire--lit { stroke: var(--c-clay); opacity: 1; stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset 0.8s linear; }
@@ -47,14 +33,14 @@
 .cts__btn { position: relative; display: flex; align-items: center; justify-content: center; gap: 14px; width: 100%; max-width: 560px; min-height: 60px; margin: 0; padding: 10px 22px; border: 0; border-radius: 999px; background: var(--c-clay); color: #17171a; font: 700 1.05rem/1.2 var(--font-sans); cursor: pointer; text-align: left;
   box-shadow: 0 1px 0 rgba(255, 255, 255, 0.35) inset, 0 calc(var(--glow) * 12px) calc(var(--glow) * 34px) calc(var(--glow) * 2px) rgba(226, 112, 90, calc(var(--glow) * 0.6));
   transition: transform 0.12s ease, filter 0.2s ease; }
-.cts__btn:hover { filter: brightness(1.06); transform: translateY(-1px); }
+.cts__btn:hover { filter: brightness(1.06); transform: translateY(-2px); }
 .cts__btn:active { transform: translateY(1px) scale(0.99); }
 .cts__btn:focus-visible { outline: 3px solid var(--c-ink); outline-offset: 3px; }
 .cts__tog { position: relative; flex: none; width: 46px; height: 26px; border-radius: 99px; background: rgba(23, 23, 26, 0.18); box-shadow: inset 0 0 0 2px #17171a; }
 .cts__tog i { position: absolute; top: 4px; left: 4px; width: 18px; height: 18px; border-radius: 50%; background: #17171a; transition: transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1); }
 .cts.is-closed .cts__tog i { transform: translateX(20px); }
 .cts__row { display: flex; align-items: center; justify-content: space-between; gap: 12px; max-width: 560px; margin: 12px 0 0; min-height: 64px; }
-.cts__cap { flex: 1 1 auto; margin: 0; min-width: 0; font: 500 0.88rem/1.45 ui-monospace, 'Cascadia Code', Consolas, monospace; color: var(--c-ink2); }
+.cts__cap { flex: 1 1 auto; margin: 0; min-width: 0; font: 500 1rem/1.5 var(--font-sans); color: var(--c-ink2); }
 .cts.is-closed .cts__cap { color: var(--c-ink); }
 .cts__clay { position: relative; flex: none; width: 64px; height: 64px; opacity: 0; transform: translateY(16px) scale(0.9); transform-origin: 50% 100%; transition: opacity 0.25s ease, transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1); pointer-events: none; }
 .cts.is-closed .cts__clay { opacity: 1; transform: none; transition-delay: 0.45s; }

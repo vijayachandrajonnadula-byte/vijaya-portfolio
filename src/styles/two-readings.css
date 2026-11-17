@@ -1,6 +1,5 @@
 /* Chapter 02: "Two readings". One layout drawn as a circuit board and as an app screen. Tokens only. */
 .two { --tr-cu: color-mix(in srgb, var(--c-clay) 40%, var(--c-tile2)); }
-.two__h { margin: 0 0 clamp(22px, 3.4vw, 40px); max-width: none; font-family: var(--font-serif); font-weight: 400; letter-spacing: -0.02em; line-height: 1.1; font-size: clamp(1.8rem, 3.4vw, 2.4rem); text-wrap: balance; }
 
 .two__stage { position: relative; touch-action: pan-y; user-select: none; -webkit-user-select: none; cursor: ew-resize; }
 .two__art { display: block; width: 100%; height: auto; overflow: visible; }

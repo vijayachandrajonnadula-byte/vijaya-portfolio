@@ -2,12 +2,6 @@
 
 .story { position: relative; }
 
-.story-hero { position: relative; }
-.story-hero__label { position: absolute; left: 0; right: 0; bottom: 26px; display: flex; justify-content: center; pointer-events: none; }
-.story-hero__label .chapter { margin: 0; }
-.story-about__label { max-width: 1060px; margin: 0 auto; padding: clamp(32px, 5vw, 64px) var(--px) 0; box-sizing: content-box; }
-.story-about__label .chapter { margin: 0; }
-.story-about { margin-bottom: 0; }
 
 /* ---------- chapter label ----------
    Quiet by design (Occam, cognitive load, Selective Attention): a small dot and one plain word. No number, no
@@ -53,17 +47,15 @@
 @keyframes caret { 50% { opacity: 0; } }
 @media (prefers-reduced-motion: reduce) { .chapter.is-relay .chapter__dot, .led-ring { animation: none; } .led-ring { display: none; } }
 .circuit-end { flex: 0 0 100%; box-sizing: border-box; display: flex; align-items: center; gap: 14px; width: 100%; margin: 0 0 4px; padding: 10px max(0px, calc((100% - 1060px) / 2)) 14px; color: var(--c-ink2); }
-.circuit-end__line { margin: 0; font: 500 0.8125rem/1.5 ui-monospace, 'Cascadia Code', Consolas, monospace; letter-spacing: 0.02em; }
+.circuit-end__line { margin: 0; font: 500 0.9375rem/1.5 var(--font-sans); }
 .circuit-end__go { display: inline-flex; align-items: center; min-height: 44px; margin-left: 4px; color: var(--c-accent); text-decoration: underline; text-underline-offset: 3px; font-weight: 600; }
 .circuit-end__go:focus-visible { outline: 3px solid var(--c-accent); outline-offset: 2px; border-radius: 4px; }
 .led:not(.is-on) { border-color: var(--c-ink2); }
 .trace__pad--end .trace__ring { stroke: var(--c-clay); }
 
 /* ---------- signal interlude ---------- */
-.signal { padding: clamp(24px, 5vw, 72px) var(--px) clamp(24px, 4vw, 56px); }
+.signal { padding-bottom: 0; }
 .signal__in { max-width: 1060px; margin: 0 auto; }
-.signal__h { margin: 0; font-family: var(--font-serif); font-weight: 400; letter-spacing: -0.02em; line-height: 1.05; font-size: clamp(2.2rem, 4.6vw, 3.6rem); max-width: 18ch; text-wrap: balance; }
-.signal__sub { margin: 10px 0 clamp(22px, 3vw, 34px); color: var(--c-ink2); font-size: 1.05rem; }
 
 @media (prefers-reduced-motion: reduce) {
   .chapter__dot, .trace__dot, .trace__ring, .led { transition: none; }

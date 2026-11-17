@@ -17,7 +17,8 @@ const SHOWN_STATUS = new Set(['Working prototype', 'Process']);
  * image, one meta line (year, category), title, one sentence, then the call to action.
  * The title is the only link in the card's flow; its ::after covers the whole card, so a click or tap anywhere opens
  * the case study (stretched link, Fitts). The optional "Open prototype" link sits above that overlay.
- * Motion: a 2px lift on hover (fine pointer, Calm off) and nothing else: no tilt, no cursor-follow, no image zoom.
+ * All four cards are the same size so the screens can be compared (Similarity, Common region).
+ * Motion: a 2px lift on hover (fine pointer, reduced motion off) and nothing else: no tilt, no cursor-follow, no image zoom.
  */
 export default function WorkCard({ item, index }: { item: Item; index: number }) {
   const p = getProject(item.id);
@@ -26,11 +27,11 @@ export default function WorkCard({ item, index }: { item: Item; index: number })
   const status = statusLabel(p);
   const proto = p.prototypeUrl;
   const external = proto ? isExternal(proto) : false;
-  const size = index === 0 || index === 3 ? 'wide' : 'narrow';
 
   return (
     <motion.article
-      className={`wk-card wk-card--${size}`}
+      className="wk-card"
+      data-index={index}
       style={{ ['--tint' as string]: item.tint }}
       initial={calm ? false : { opacity: 0, y: 16 }}
       whileInView={{ opacity: 1, y: 0 }}

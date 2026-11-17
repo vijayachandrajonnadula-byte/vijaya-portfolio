@@ -85,10 +85,13 @@ export const quirks = {
     about:
       'I studied Electronics and Communication Engineering at IIIT Nuzvid (2017 to 2021) while already designing. It taught me to think in signals: what is the message, what is the noise, and does the feedback arrive in time? Now I use that habit on people’s problems, designing practical products that turn messy user journeys into clear, testable experiences. I handle the full design cycle myself: understanding the problem, mapping the flow, building in Figma, and handing off something the team can build from.',
     more: { open: 'More about how I work', close: 'Less about how I work' },
+    /** About tile heading and body: the same facts as `about`, in three short paragraphs. */
+    heading: 'Designer by trade, engineer by training.',
     story: [
-      'I studied Electronics and Communication Engineering at IIIT Nuzvid, 2017 to 2021, while already designing. It taught me to think in signals: what is the message, what is the noise, and does the feedback arrive in time?',
-      'Now I use that habit on people’s problems. I design practical products that turn messy user journeys into clear, testable experiences.',
+      'I studied Electronics and Communication Engineering at IIIT Nuzvid (2017 to 2021) while already designing. It taught me to think in signals: what is the message, what is the noise, and does the feedback arrive in time?',
+      'Now I use that habit on people’s problems, designing practical products that turn messy user journeys into clear, testable experiences.',
     ],
+    cycle: 'I handle the full design cycle myself: understanding the problem, mapping the flow, building in Figma, and handing off something the team can build from.',
     features: [
       'Turns messy user journeys into clear, testable flows',
       'Designs in components first, pages second',

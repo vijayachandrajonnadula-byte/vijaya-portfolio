@@ -5,6 +5,7 @@ import { experience, skillGroups } from '../../data/home';
 import { quirks } from '../../data/quirks';
 import SpecTable from '../electro/SpecTable';
 import ToolFilter from '../electro/ToolFilter';
+import ChapterLabel from '../story/ChapterLabel';
 import { useCalm } from '../../lib/calm';
 
 const d = quirks.datasheet;
@@ -21,11 +22,11 @@ function LocalTime() {
 }
 
 /**
- * About, calmed down. Laws applied: Hick and Miller (two tiles and one button instead of ten tiles), Occam and
- * Tesler (the detail is still there, behind one disclosure, so the work is moved off the first read), Common region
- * (one tile style, one boundary per group), Proximity (24px+ between groups, 8-16px inside), Von Restorff (the
- * photo and the one button are the only emphasis), Pragnanz (plain rows, no hover effects on things that cannot be pressed).
- * 1. About tile: photo, a four-sentence story, four facts.  2. Experience: five rows.
+ * About. Same header pattern as every section (marker, one heading, then the content), but the heading sits inside the
+ * tile next to the photo so the person comes first. Laws applied: Chunking (three short paragraphs instead of one wall),
+ * Common region (one tile style, one boundary per group), Proximity (24px+ between groups, 8-16px inside),
+ * Von Restorff (the photo and the availability pill are the only emphasis), Hick (one button reveals the rest).
+ * 1. About tile: photo, story, availability, four facts.  2. Experience: five rows.
  * 3. One button reveals the rest: works best with, quirks, tools (filter) and skills. Collapsed by default.
  * Content lives in src/data/quirks.ts and src/data/home.ts.
  */
@@ -35,16 +36,18 @@ export default function AboutBento() {
   const panelId = useId();
 
   return (
-    <section className="abt" id="about" aria-labelledby="about-h">
+    <section className="abt sec" id="about" aria-labelledby="about-h">
       <div className="abt__in">
+        <ChapterLabel n="04" name="datasheet" />
         <div className="ab-tile ab-about">
           <div className="ab-photo">
             <img src="/images/profile.jpg" alt={`Portrait of ${profile.name}`} loading="lazy" onError={e => { (e.target as HTMLImageElement).style.display = 'none'; }} />
           </div>
           <div className="ab-about__text">
-            <h2 id="about-h" className="ab-h">About me</h2>
-            <p className="ab-story">{d.about}</p>
-            <p className="ab-status">{profile.status}</p>
+            <h2 id="about-h" className="sec-h">{d.heading}</h2>
+            {d.story.map(p => <p key={p} className="ab-story">{p}</p>)}
+            <p className="ab-story">{d.cycle}</p>
+            <p className="ab-status"><span className="ab-status__dot" aria-hidden="true" />{profile.status}</p>
             <SpecTable rows={GLANCE} />
             <LocalTime />
           </div>

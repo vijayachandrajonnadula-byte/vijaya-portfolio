@@ -20,7 +20,7 @@ import { closeCircuit, openCircuit, useCircuit } from '../story/circuitStore';
 
 const LOOP = 'M60 66V36H460V126H60V80'; // battery, top wire, switch, lamp, return wire
 const MAIL = `mailto:${profile.email}?subject=${encodeURIComponent('Hello from your portfolio')}`;
-const CAP_OPEN = 'Circuit open. Press the switch to start an email.';
+const CAP_OPEN = 'Press the switch to close the circuit. It opens a draft in your email app.';
 const CAP_NOW = 'Circuit closed. Your email app is opening.';
 const CAP_BACK = 'Circuit closed. Say hello whenever you are ready.';
 
@@ -83,11 +83,6 @@ export default function CloseTheCircuit() {
   const caption = !closed ? CAP_OPEN : just ? CAP_NOW : CAP_BACK;
   return (
     <div ref={root} className={`cts${closed ? ' is-closed' : ''}${seen ? ' is-seen' : ''}${reduced ? ' is-still' : ''}`}>
-      <h3 className="cts__h">{closed ? 'Circuit closed.' : 'Close the circuit.'}</h3>
-      <p className="cts__why">{closed
-        ? 'Current is flowing. Send your note and a project or a role can start from here.'
-        : 'Nothing happens until someone reaches out. Press the switch to email me about a project or a role.'}</p>
-
       <div className="cts__fig">
         <svg className="cts__svg" viewBox="0 0 520 150" focusable="false" aria-hidden="true">
           <path id="cts-loop" d={LOOP} fill="none" stroke="none" />

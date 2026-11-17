@@ -16,17 +16,12 @@
  *   without saying so, Esc and Back always go up one level).
  */
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { entryById, isFiction, knowledge, type Entry } from '../../data/knowledge';
+import { entryById, isFiction, knowledge, relatedQuestions, type Entry } from '../../data/knowledge';
 import { kindShort } from './Answer';
+import { Chev, TopicIcon } from './icons';
 import { startHereIds, topicEntries, topicOfEntry, topics, type Topic } from '../../data/topics';
 
 const PAGE = 6;
-
-const Chev = ({ dir = 'right' }: { dir?: 'right' | 'left' }) => (
-  <svg className="tb-chev" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-    <path d={dir === 'right' ? 'm9 6 6 6-6 6' : 'm15 6-6 6 6 6'} />
-  </svg>
-);
 
 const words = (s: string) => s.toLowerCase().replace(/[^a-z0-9+#]+/g, ' ').split(' ').filter(Boolean);
 const haystack = new Map(knowledge.map(e => [e.id, ` ${words([e.q, ...e.keys].join(' ')).join(' ')} `]));
@@ -35,14 +30,14 @@ export function BackButton({ children, onClick, ...rest }: { children: React.Rea
   return <button type="button" className="tb-back" onClick={onClick} {...rest}><Chev dir="left" /><span>{children}</span></button>;
 }
 
-/** State A: "Start here" (4) and "Or browse by topic" (6). Nothing else. */
+/** State A: "What people usually ask" (4 plain rows) and "Browse by topic" (6 cards with an icon). Nothing else. */
 export function Overview({ onOpen, onTopic }: { onOpen: (id: string) => void; onTopic: (t: Topic) => void }) {
   const starts = startHereIds.map(id => entryById(id)!).filter(Boolean);
   return (
     <>
       <section className="tb-sec" aria-labelledby="tb-start-h">
-        <h2 id="tb-start-h" tabIndex={-1} className="tb-h">Start here</h2>
-        <ul className="tb-list">
+        <h2 id="tb-start-h" tabIndex={-1} className="tb-h">What people usually ask</h2>
+        <ul className="tb-list tb-list--plain">
           {starts.map(e => (
             <li key={e.id}>
               <button type="button" className="tb-q" data-qid={e.id} onClick={() => onOpen(e.id)}><span>{e.q}</span><Chev /></button>
@@ -56,6 +51,7 @@ export function Overview({ onOpen, onTopic }: { onOpen: (id: string) => void; on
           {topics.map(t => (
             <li key={t.id}>
               <button type="button" className="tb-card" data-topic={t.id} onClick={() => onTopic(t)}>
+                <span className="tb-card__ic"><TopicIcon id={t.id} /></span>
                 <span className="tb-card__t">{t.title}</span>
                 <span className="tb-card__d">{t.blurb}</span>
                 <span className="tb-card__n">{topicEntries(t).length} questions<Chev /></span>
@@ -169,30 +165,31 @@ export function TopicList({ topic, initialShown = PAGE, headingRef, onBack, onOp
 }
 
 /** Back, Previous / Next inside the topic, and at most 2 related questions. Sits under one answer. */
-export function AnswerNav({ entry, onOpen, related }: {
+export function AnswerNav({ entry, onOpen }: {
   entry: Entry;
   onOpen: (id: string, how: 'step' | 'jump') => void;
-  related: Entry[];
 }) {
   const topic = topicOfEntry(entry);
   const list = useMemo(() => topicEntries(topic), [topic]);
   const i = list.findIndex(e => e.id === entry.id);
   const prev = i > 0 ? list[i - 1] : undefined;
   const next = i >= 0 && i < list.length - 1 ? list[i + 1] : undefined;
+  // never offer the same question twice: Related skips whatever Previous / Next already show
+  const related = useMemo(() => relatedQuestions(entry, [entry.id, ...(prev ? [prev.id] : []), ...(next ? [next.id] : [])], 2), [entry, prev, next]);
   return (
     <>
       <nav className="tb-pn" aria-label={`More in ${topic.title}`}>
         <button type="button" className="tb-step" disabled={!prev} onClick={() => prev && onOpen(prev.id, 'step')}>
           <small>Previous</small><span>{prev ? prev.q : 'This is the first one'}</span>
         </button>
-        <p className="tb-pos" aria-hidden="true">{i + 1} of {list.length}</p>
+        <p className="tb-pos">{i + 1} of {list.length}<span className="sr-only"> in {topic.title}</span></p>
         <button type="button" className="tb-step tb-step--next" disabled={!next} onClick={() => next && onOpen(next.id, 'step')}>
           <small>Next</small><span>{next ? next.q : 'This is the last one'}</span>
         </button>
       </nav>
       {related.length > 0 && (
         <section className="tb-rel" aria-labelledby="tb-rel-h">
-          <h3 id="tb-rel-h" className="tb-h tb-h--small">Related</h3>
+          <h3 id="tb-rel-h" className="tb-h tb-h--small">You might also ask</h3>
           <ul className="tb-list">
             {related.slice(0, 2).map(r => (
               <li key={r.id}><button type="button" className="tb-q" onClick={() => onOpen(r.id, 'jump')}><span>{r.q}</span><Chev /></button></li>

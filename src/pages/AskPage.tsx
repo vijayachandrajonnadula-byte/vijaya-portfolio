@@ -1,15 +1,15 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
-import { useReducedMotion } from 'framer-motion';
 import Header from '../components/layout/Header';
 import Footer from '../components/layout/Footer';
 import AskBox from '../components/studio/AskBox';
 import Answer from '../components/ask/Answer';
 import { AnswerNav, BackButton, Overview, TopicList } from '../components/ask/TopicBrowser';
 import SignalsToScreens from '../components/story/SignalsToScreens';
-import { bestMatch, entryById, relatedQuestions, suggestionPool, type Entry } from '../data/knowledge';
+import { bestMatch, entryById, suggestionPool, type Entry } from '../data/knowledge';
 import { topicById, topicEntries, topicOfEntry, type Topic } from '../data/topics';
 import { quirks } from '../data/quirks';
+import { PenIcon } from '../components/ask/icons';
 import '../styles/ask.css';
 
 type View =
@@ -63,10 +63,12 @@ export default function AskPage() {
   const [params, setParams] = useSearchParams();
   const { hash } = useLocation();
   const nav = useNavigate();
-  const reduced = !!useReducedMotion();
   const view = useMemo(() => viewFromUrl(params), [params]);
   const key = viewKey(view);
   const [status, setStatus] = useState('');
+  const beat = useRef(0);
+  // the same sentence twice in a row would not be announced again; a zero-width space on every other call makes it new
+  const say = (s: string) => { beat.current += 1; setStatus(beat.current % 2 ? s : `${s}​`); };
   const prev = useRef<View | null>(null);
   const heading = useRef<HTMLHeadingElement>(null);
   const stage = useRef<HTMLDivElement>(null);
@@ -87,7 +89,7 @@ export default function AskPage() {
     const before = prev.current;
     prev.current = view;
     if (!before || viewKey(before) === key) return; // first paint (also under StrictMode's second run): do not steal focus
-    setStatus(message(view));
+    say(message(view));
     const q = <T extends HTMLElement>(s: string) => stage.current?.querySelector<T>(s) ?? null;
     const raf = window.requestAnimationFrame(() => {
       let el: HTMLElement | null = null;
@@ -144,40 +146,42 @@ export default function AskPage() {
       <Header />
       <main id="main" tabIndex={-1} className="askpage tb-page">
         <div className="tb-col">
-          <header className="tb-head">
+          <header className={`tb-head${view.kind === 'overview' ? '' : ' tb-head--compact'}`}>
             <h1 className="tb-h1">Ask Vijay</h1>
-            <AskBox id="ask-field" onAsk={q => go({ q })} compact nudges={quirks.askNudges} label="Ask a question, or search my notes" placeholder="Ask me anything…" />
-            <p className="tb-honest">{quirks.guide.honest} Stories are labelled as stories.</p>
+            <AskBox id="ask-field" onAsk={q => go({ q })} onEmpty={() => say('Type a question or pick one')} describedBy="ask-trust" compact nudges={quirks.askNudges} label="What would you like to know?" placeholder="Ask me anything…" />
+            <p id="ask-trust" className="tb-honest"><PenIcon /><span>Every answer is written by Vijay, not generated. Stories are labelled as stories.</span></p>
           </header>
         </div>
 
         <div ref={stage} className={view.kind === 'timeline' ? 'tb-wide' : 'tb-col'}>
-          {view.kind === 'overview' && <Overview onOpen={id => open(id)} onTopic={t => toTopic(t)} />}
+          <div key={key} className="ask2-view">
+            {view.kind === 'overview' && <Overview onOpen={id => open(id)} onTopic={t => toTopic(t)} />}
 
-          {view.kind === 'topic' && (
-            <TopicList key={view.topic.id} topic={view.topic} initialShown={initialShown} headingRef={heading} onBack={() => toOverview()} onOpen={id => open(id)} onTimeline={() => go({ view: 'timeline' })} />
-          )}
+            {view.kind === 'topic' && (
+              <TopicList key={view.topic.id} topic={view.topic} initialShown={initialShown} headingRef={heading} onBack={() => toOverview()} onOpen={id => open(id)} onTimeline={() => go({ view: 'timeline' })} />
+            )}
 
-          {view.kind === 'timeline' && (
-            <section aria-label="My timeline" className="tb-timeline">
-              <div className="tb-col"><BackButton onClick={back} data-back="up">{backLabel}</BackButton></div>
-              <TimelineFocus headingRef={heading} />
-            </section>
-          )}
+            {view.kind === 'timeline' && (
+              <section aria-label="My timeline" className="tb-timeline">
+                <div className="tb-col"><BackButton onClick={back} data-back="up">{backLabel}</BackButton></div>
+                <TimelineFocus headingRef={heading} />
+              </section>
+            )}
 
-          {(view.kind === 'answer' || view.kind === 'nomatch') && (
-            <section className="tb-ans" aria-label="Answer">
-              <BackButton onClick={back} data-back="up">{backLabel}</BackButton>
-              {view.kind === 'answer' ? (
-                <>
-                  <Answer ref={heading} q={view.typed ?? view.entry.q} entry={view.entry} doors={[]} next={[]} reduced={reduced} onOpen={id => open(id)} />
-                  <AnswerNav entry={view.entry} related={relatedQuestions(view.entry, [view.entry.id], 2)} onOpen={(id, how) => open(id, how === 'step')} />
-                </>
-              ) : (
-                <Answer ref={heading} q={view.q} entry={null} doors={view.doors} next={[]} reduced={reduced} onOpen={id => open(id)} />
-              )}
-            </section>
-          )}
+            {(view.kind === 'answer' || view.kind === 'nomatch') && (
+              <section className="tb-ans" aria-label="Answer">
+                <BackButton onClick={back} data-back="up">{backLabel}</BackButton>
+                {view.kind === 'answer' ? (
+                  <>
+                    <Answer ref={heading} typed={view.typed} entry={view.entry} doors={[]} onOpen={id => open(id)} onStatus={say} />
+                    <AnswerNav entry={view.entry} onOpen={(id, how) => open(id, how === 'step')} />
+                  </>
+                ) : (
+                  <Answer ref={heading} typed={view.q} entry={null} doors={view.doors} onOpen={id => open(id)} onStatus={say} />
+                )}
+              </section>
+            )}
+          </div>
         </div>
         <div id="tb-live" className="sr-only" role="status" aria-live="polite" aria-atomic="true">{status}</div>
       </main>

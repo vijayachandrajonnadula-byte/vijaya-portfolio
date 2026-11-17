@@ -1,22 +1,20 @@
 import WorkCard from '../work/WorkCard';
 import MoreWork from './MoreWork';
-import ChapterLabel from '../story/ChapterLabel';
+import SectionHead from '../home/SectionHead';
 import { spotlight } from '../../data/home';
 
 /**
- * Four featured projects as cards, then a collapsed "More projects" disclosure.
- * Each card is one big target (see work/WorkCard.tsx). The id and the chapter label are what the
- * story Trace measures, so they stay.
+ * Four featured projects as equal cards (same size, same anatomy: the screen, one meta line, title, one sentence, one
+ * call to action), then a collapsed "More projects" disclosure. Each card is one big target (see work/WorkCard.tsx).
+ * The id and the section marker are what the story Trace measures, so they stay.
  */
 export default function WorkBento() {
   return (
-    <div className="work" id="work">
+    <div className="work sec" id="work">
       <section className="work__in" aria-labelledby="work-h">
-        <ChapterLabel n="03" name="prototypes" />
-        <div className="sec-head">
-          <h2 id="work-h">Prototypes, not just pictures.</h2>
-          <p>Four projects, each with its own case study. Click a card to read it.</p>
-        </div>
+        <SectionHead n="03" name="prototypes" id="work-h" title="Prototypes, not just pictures.">
+          Four case studies: the problem, my decisions and what came out of them.
+        </SectionHead>
         <div className="wk-grid">
           {spotlight.map((s, i) => <WorkCard key={s.id} item={s} index={i} />)}
         </div>

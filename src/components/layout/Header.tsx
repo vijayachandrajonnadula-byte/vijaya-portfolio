@@ -3,7 +3,6 @@ import { Link, useLocation } from 'react-router-dom';
 import VJLogo from '../ui/VJLogo';
 import { useTheme, applyThemeWithWipe } from './theme';
 import PowerSwitch from '../electro/PowerSwitch';
-import CalmSwitch from './CalmSwitch';
 import { isCalm } from '../../lib/calm';
 
 const links = [
@@ -52,7 +51,7 @@ export default function Header() {
     let inFooter = false;
     let down = false;
     let raf = 0;
-    // Calm mode keeps the pill in place (no sliding bar while scrolling)
+    // With "reduce motion" on, the pill stays in place (no sliding bar while scrolling)
     const apply = () => { raf = 0; setHidden(phone.matches && !isCalm() && (down || inFooter)); };
     window.addEventListener('vj-calm', apply);
     const onScroll = () => {
@@ -108,7 +107,6 @@ export default function Header() {
           );
         })}
         <span className="nav__sep nav__sep--tools" aria-hidden="true" />
-        <CalmSwitch />
         <PowerSwitch dark={dark} onToggle={origin => applyThemeWithWipe(dark ? 'light' : 'dark', origin)} />
       </nav>
     </header>

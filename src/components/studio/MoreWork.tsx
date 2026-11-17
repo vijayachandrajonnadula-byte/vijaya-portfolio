@@ -11,7 +11,7 @@ import '../../styles/work.css';
  * "More projects": collapsed by default (progressive disclosure, Hick), expands in place. Each row is one big link
  * (stretched title link) with only what helps a choice: title, one sentence, year. Status chips, categories, row numbers
  * and the cursor-following preview are gone (Occam, Selective Attention). On narrow screens a small thumbnail is shown inline.
- * The panel opens with a short tween, and instantly in Calm mode.
+ * The panel opens with a short tween, and instantly when the system asks for reduced motion.
  */
 export default function MoreWork() {
   const rows = moreIds.map(getProject);
@@ -33,9 +33,9 @@ export default function MoreWork() {
   return (
     <section className="wk-more" id="more" aria-labelledby="more-h">
       <div className="wk-more__head">
-        <h2 id="more-h" className="wk-more__h">
+        <h3 id="more-h" className="wk-more__h">
           More projects <span className="wk-more__count"><span aria-hidden="true">· </span>{rows.length}<span className="sr-only"> more</span></span>
-        </h2>
+        </h3>
         <button
           type="button"
           className="wk-toggle"
