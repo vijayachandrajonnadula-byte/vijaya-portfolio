@@ -3,6 +3,8 @@ import { useSearchParams } from 'react-router-dom';
 import '@fontsource-variable/bricolage-grotesque/wght.css';
 import './tokens.css';
 import './v2.css';
+import './styles/s1-film.css';
+import './styles/s1-title.css';
 import { useCalm } from '../lib/calm';
 import { beats, type BeatKind } from './data/brief';
 import { Beat } from './components/Beat';

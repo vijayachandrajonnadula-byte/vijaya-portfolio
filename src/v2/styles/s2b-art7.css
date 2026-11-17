@@ -1,0 +1,37 @@
+/* Art 7: close the loop. Stage is 480 x 360; chapter vars only (the clay dot uses the one accent). */
+.a7 { position: absolute; inset: 0; color: var(--ink); --d: 0; --sw: 0; --t1: 0; --t2: 0; --t3: 0; --cl: 1; }
+.a7 > * { position: absolute; }
+
+.a7__wire { left: 0; top: 0; overflow: visible; pointer-events: none; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.a7__wire .g { stroke: color-mix(in srgb, var(--ink) 38%, transparent); stroke-width: 5; }
+.a7__wire .d { stroke: var(--ink); stroke-width: 5; stroke-dasharray: 1; stroke-dashoffset: calc(1 - var(--d)); }
+.a7__wire .br { stroke: var(--ink); stroke-width: 5; opacity: var(--sw); transition: opacity 0.2s; }
+
+/* the lamp, home of the feedback */
+.a7__lamp { left: 50px; top: 120px; width: 0; height: 0; }
+.a7__lamp b { position: absolute; left: -19px; top: -19px; width: 38px; height: 38px; border-radius: 50%; border: 3.5px solid var(--ink); background: color-mix(in srgb, var(--bg) 70%, var(--ink)); box-shadow: inset 0 0 0 5px var(--bg); transition: background-color 0.3s; }
+.a7__lamp b::after { content: ''; position: absolute; inset: 7px; border-radius: 50%; background: var(--accent); opacity: var(--t3); transition: opacity 0.35s; }
+.a7__halo { position: absolute; left: -46px; top: -46px; width: 92px; height: 92px; border-radius: 50%; background: radial-gradient(closest-side, color-mix(in srgb, var(--accent) 70%, transparent), transparent); opacity: var(--t3); transform: scale(calc(0.5 + 0.5 * var(--t3))); transition: opacity 0.4s, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
+.a7__lamp span { position: absolute; left: 30px; top: -9px; padding: 3px 7px; border-radius: 6px; background: var(--bg); font: 700 13px/1 var(--f-mono); white-space: nowrap; z-index: 3; }
+
+/* the switch / button */
+.a7__btn { left: 50px; top: 210px; width: 58px; height: 58px; margin: -29px 0 0 -29px; display: grid; place-items: center; padding: 0; border: 3px solid var(--ink); border-radius: 50%; background: var(--ink); color: var(--bg); font: 800 13px/1 var(--f-mono); cursor: pointer; z-index: 4; box-shadow: 0 6px 0 color-mix(in srgb, var(--ink) 45%, transparent); transform: translateY(calc(var(--sw) * 5px)); transition: transform 0.15s, box-shadow 0.15s; }
+.a7__btn:hover { background: color-mix(in srgb, var(--ink) 88%, var(--accent)); }
+.a7__btn:active { transform: translateY(6px); box-shadow: 0 0 0 transparent; }
+.a7:not([data-on='1']) .a7__btn { box-shadow: 0 calc(6px - var(--sw) * 5px) 0 color-mix(in srgb, var(--ink) 45%, transparent); }
+.a7__ring { left: 50px; top: 120px; width: 40px; height: 40px; margin: -20px 0 0 -20px; border-radius: 50%; border: 3px solid var(--accent); opacity: 0; pointer-events: none; }
+.a7[data-on='1'] .a7__ring { animation: a7-ring 0.9s ease-out both; }
+@keyframes a7-ring { 0% { opacity: 1; transform: scale(0.6); } 100% { opacity: 0; transform: scale(3); } }
+
+/* ticks */
+.a7__tick { padding: 6px 10px; border: 2px solid var(--ink); border-radius: 999px; background: var(--bg); font: 700 13px/1 var(--f-mono); white-space: nowrap; pointer-events: none; z-index: 3; }
+.a7__tick--1 { left: 84px; top: 246px; opacity: var(--t1); transform: translateY(calc((1 - var(--t1)) * 8px)); transition: opacity 0.3s, transform 0.4s; }
+.a7__tick--2 { left: 196px; top: 54px; opacity: var(--t2); transform: translateY(calc((1 - var(--t2)) * 8px)); transition: opacity 0.3s, transform 0.4s; }
+.a7__tick--3 { left: 84px; top: 148px; opacity: var(--t3); transform: translateY(calc((1 - var(--t3)) * 8px)); transition: opacity 0.3s, transform 0.4s; background: var(--ink); color: var(--bg); }
+
+/* the signal: a clay dot that leaves and comes back */
+.a7__dot { left: 0; top: 0; width: 20px; height: 20px; border-radius: 50%; background: var(--accent); border: 3px solid var(--ink); offset-rotate: 0deg; offset-distance: calc(var(--d) * 100%); z-index: 2; pointer-events: none; }
+
+/* clay stands inside its own loop, leans to the button, then goes back to the middle */
+.a7__clay { left: 196px; top: 82px; pointer-events: none; z-index: 1; transform: translateX(calc(var(--cl) * -86px)) rotate(calc(var(--cl) * -7deg)); transform-origin: 50% 100%; }
+.a7__clay .clay { width: 150px !important; }

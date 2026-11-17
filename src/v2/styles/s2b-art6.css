@@ -1,0 +1,42 @@
+/* Art 6: be tolerant of people. Stage is 480 x 360; chapter vars only. */
+.a6 { position: absolute; inset: 0; color: var(--ink); --lit: 0; --br: 0; --done: 0; }
+.a6 > * { position: absolute; }
+
+.a6__wires { left: 0; top: 0; overflow: visible; pointer-events: none; fill: none; stroke: var(--ink); stroke-width: 2.5; stroke-linecap: round; }
+.a6__wires .g { stroke-opacity: 0.16; stroke-dasharray: 3 7; }
+.a6__wires .d { stroke-dasharray: 1; stroke-dashoffset: calc(1 - var(--w, 0)); transition: stroke-dashoffset 0.2s linear; }
+
+.a6__chip { left: 0; width: 134px; height: 34px; display: flex; align-items: center; justify-content: space-between; gap: 6px; padding: 0 10px; border: 2px solid color-mix(in srgb, var(--ink) 55%, transparent); border-radius: 10px; font: 600 16px/1 var(--f-mono); transition: opacity 0.4s, background-color 0.3s, border-color 0.3s; background: color-mix(in srgb, var(--ink) calc(var(--c, 0) * 12%), transparent); border-color: color-mix(in srgb, var(--ink) calc(35% + var(--c, 0) * 65%), transparent); }
+.a6__chip span { white-space: nowrap; min-height: 1em; }
+.a6__chip span:empty::after { display: none; }
+.a6__chip span::after { content: '▌'; font-size: 0.8em; opacity: calc(0.5 * (1 - var(--c, 0))); margin-left: 1px; }
+.a6__chip i { font-style: normal; font-weight: 800; color: var(--acc); opacity: var(--c, 0); }
+.a6:not([data-mode='demo']) .a6__chip, .a6:not([data-mode='demo']) .a6__wires { opacity: 0.3; }
+
+.a6__res { left: 200px; top: 52px; overflow: visible; pointer-events: none; }
+.a6__res text { fill: var(--ink); font: 700 17px var(--f-mono); opacity: var(--br); }
+.a6__brk { fill: none; stroke: var(--ink); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 1; stroke-dashoffset: calc(1 - var(--br)); }
+.a6__lead { stroke: var(--ink); stroke-width: 3; stroke-linecap: round; }
+.a6__body { fill: color-mix(in srgb, var(--ink) 16%, var(--bg)); stroke: var(--ink); stroke-width: 2.5; }
+.a6__band { transform-box: fill-box; transform-origin: 50% 50%; transform: scaleY(calc(0.35 + 0.65 * var(--lit))); transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
+.a6__band--0 { fill: var(--acc); }
+.a6__band--1 { fill: var(--ink); }
+.a6__band--2 { fill: color-mix(in srgb, var(--acc) 50%, var(--bg)); }
+.a6__band--t { fill: color-mix(in srgb, var(--ink) 50%, var(--acc)); }
+
+.a6__card { left: 150px; top: 188px; width: 228px; padding: 12px 16px 12px; border-radius: 14px; background: var(--ink); color: var(--bg); box-shadow: 5px 5px 0 color-mix(in srgb, var(--ink) 30%, transparent); display: grid; gap: 3px; transform: scale(calc(0.94 + 0.06 * var(--lit))); opacity: calc(0.35 + 0.65 * var(--lit)); transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s; }
+.a6[data-mode='mine'] .a6__card, .a6[data-mode='miss'] .a6__card { opacity: 1; transform: none; }
+.a6__k { font: 600 12px/1 var(--f-mono); opacity: 0.85; }
+.a6__v { font: 800 27px/1.05 var(--f-voice); letter-spacing: -0.03em; }
+.a6[data-mode='miss'] .a6__v { font-size: 22px; font-weight: 700; }
+.a6__n { font: 500 12px/1.3 var(--f-mono); opacity: 0.9; }
+
+.a6__in { left: 0; top: 290px; width: 372px; display: grid; gap: 5px; }
+.a6__lbl { font: 700 12px/1 var(--f-mono); }
+.a6__in input { width: 100%; height: 48px; padding: 0 14px; border: 2.5px solid var(--ink); border-radius: 12px; background: color-mix(in srgb, var(--ink) 10%, transparent); color: var(--ink); font: 600 18px/1 var(--f-mono); caret-color: var(--acc); }
+.a6__in input::placeholder { color: var(--dim); opacity: 1; }
+.a6__in input:focus { outline: none; background: color-mix(in srgb, var(--ink) 20%, transparent); box-shadow: 0 0 0 3px var(--acc); }
+
+.a6__clay { left: 390px; top: 196px; transform: rotate(-5deg); transform-origin: 50% 100%; pointer-events: none; }
+.a6__clay .clay { width: 100px !important; }
+.a6__say { left: 384px; top: 166px; padding: 6px 10px; border: 2px solid var(--ink); border-radius: 12px 12px 12px 2px; font: 700 13px/1 var(--f-mono); white-space: nowrap; opacity: var(--lit); transform: translateY(calc((1 - var(--lit)) * 8px)); transition: opacity 0.4s, transform 0.4s; pointer-events: none; }

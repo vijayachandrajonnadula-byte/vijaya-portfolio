@@ -39,6 +39,10 @@
   /* grain strength */
   --grain: 0.05;
 
+  /* the strip at the bottom taken by the fixed footer pills (36px pill + 2 x 12px gutter + device inset). Scenes pad their bottom with it. */
+  --v2-safe-bottom: calc(60px + env(safe-area-inset-bottom, 0px));
+  --v2-top-safe: 104px; /* the strip under the HUD pills */
+
   /* the colours the current section wears; every .v2-ch element sets these from its data-chapter */
   --bg: var(--bg-paper); --ink: var(--ink-paper); --dim: var(--dim-paper); --acc: var(--acc-paper);
 }
