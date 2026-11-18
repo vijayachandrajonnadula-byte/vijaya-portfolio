@@ -1,28 +1,28 @@
 import { useEffect, useRef } from 'react';
 import './../../styles/story.css';
-import { isCalm } from '../../lib/calm';
 
-/** The one plain word shown for each chapter. The circuit words (prototypes, datasheet, pinout) are gone from the page. */
-const PLAIN: Record<string, string> = { 'power on': 'Intro', 'two readings': 'Electronics + UX', prototypes: 'Work', datasheet: 'About', pinout: 'Contact' };
+/** The plain word that leads each chapter label, so the names match the header (Work, About, Contact). The circuit word follows it. */
+const PLAIN: Record<string, string> = { 'power on': 'intro', 'two readings': 'electronics + ux', prototypes: 'work', datasheet: 'about', pinout: 'contact' };
 
 /**
- * A quiet chapter marker: a small dot and one plain word (Work, About, Contact). Each one is a node on the Trace:
- * it carries data-node and data-chapter, and the Trace adds `is-lit` when the visitor reaches it. The dot lights once as
- * it crosses ~40% up the viewport (a single 140ms blink; none in Calm mode). Classes are set on the element directly so
- * the Trace's own class changes are never overwritten.
- * Occam / cognitive load: the number and the metaphor word were decoration, so they are gone.
+ * A small chapter marker, e.g. "03 prototypes / work". Each one is a node on the Trace: it carries data-node,
+ * and the Trace adds `is-lit` when the visitor reaches it. When it first crosses ~40% up the viewport the node
+ * flickers on like a relay (~140ms) and the name slides in 6px. Classes are set on the element directly so the
+ * Trace's own class changes are never overwritten. Reduced motion: lit, no flicker.
  */
 export default function ChapterLabel({ n, name, align = 'left' }: { n: string; name: string; align?: 'left' | 'center' }) {
   const ref = useRef<HTMLParagraphElement>(null);
-  const word = PLAIN[name] ?? name;
+  const plain = PLAIN[name];
   useEffect(() => {
     const el = ref.current; if (!el) return;
-    if (isCalm() || !('IntersectionObserver' in window)) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) return;
+    el.classList.add('is-pre');
     const io = new IntersectionObserver(([e]) => {
       if (!e || !e.isIntersecting) return;
       io.disconnect();
+      el.classList.remove('is-pre');
       el.classList.add('is-relay');
-      window.setTimeout(() => el.classList.remove('is-relay'), 400);
+      window.setTimeout(() => el.classList.remove('is-relay'), 700);
     }, { rootMargin: '0px 0px -40% 0px' });
     io.observe(el);
     return () => io.disconnect();
@@ -30,7 +30,8 @@ export default function ChapterLabel({ n, name, align = 'left' }: { n: string; n
   return (
     <p ref={ref} className={`chapter chapter--${align}`} data-node data-chapter={n}>
       <span className="chapter__dot" aria-hidden="true" />
-      <span className="chapter__name">{word}</span>
+      <span className="chapter__n">{n}</span>
+      <span className="chapter__name">{plain ? <><span className="chapter__plain">{plain}</span> / {name}</> : name}</span>
     </p>
   );
 }

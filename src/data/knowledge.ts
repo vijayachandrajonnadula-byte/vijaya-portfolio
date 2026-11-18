@@ -55,7 +55,7 @@ const stages = workflowStages.map(s => s.stage).join(', then ');
 const email = profile.email;
 const RESUME = '/Vijaya_Chandra_Jonnadula.pdf';
 const SILENT = 'That is not something I have written down here. Ask me directly.';
-const contactLink = { label: 'Get in touch', href: '/classic#contact' };
+const contactLink = { label: 'Get in touch', href: '/#contact' };
 
 export const knowledge: Entry[] = [
   /* ------------------------------------------------------------------ THE JOURNEY */
@@ -66,7 +66,7 @@ export const knowledge: Entry[] = [
       `I’m Vijay (Vijaya Chandra Jonnadula), a UX and product designer in ${profile.location}. I have more than five years of experience designing enterprise SaaS products, admin portals, scheduling flows, chat experiences and data-heavy interfaces.`,
       'Right now I am a Senior UX Designer at ValGenesis, mixing UX strategy, UI design, design systems, React-based UI work and AI-assisted delivery. I turn messy user journeys into clear, testable experiences.',
     ],
-    link: { label: 'About me', href: '/classic#about' },
+    link: { label: 'About me', href: '/#about' },
     related: ['j-why', 'c-all', 'w-first'],
   },
   {
@@ -86,7 +86,7 @@ export const knowledge: Entry[] = [
       'Mostly a way of thinking, not a skill list. I still ask what is signal and what is noise on a screen, I want feedback to arrive immediately, and I treat anything left undefined as a bug waiting to happen.',
       'That is my approach, not a claim about any one past project. The degree also gave me exposure to Python, C, HTML, CSS, Java and machine learning concepts, which is why talking to engineers does not feel like a foreign language.',
     ],
-    link: { label: 'Read the datasheet', href: '/classic#about' },
+    link: { label: 'Read the datasheet', href: '/#about' },
     related: ['j-circuits', 'j-budget', 'h-engineers'],
   },
   {
@@ -166,7 +166,7 @@ export const knowledge: Entry[] = [
       'Four borrowed ideas, held as analogies. Signal versus noise: every element either carries the message or competes with it. Feedback loops: an action should answer back at once, or people press again. Debouncing: one intention should count once. Tolerances: design for the sloppy tap and the long name, not only the clean demo.',
       'This is how I think about interface work, not a claim about any specific past project.',
     ],
-    link: { label: 'Read the datasheet', href: '/classic#about' },
+    link: { label: 'Read the datasheet', href: '/#about' },
     related: ['j-budget', 'j-carried', 'f-pullup'],
   },
   {
@@ -198,7 +198,7 @@ export const knowledge: Entry[] = [
       `${featuredCount} I would show first: ${list(featured.map(p => p.title))}.`,
       `There is more under “More projects”: ${list(['ZoomInfo Schedule', 'Riverside General Hospital Booking', 'CareSync Clinical Command Centre', 'Renewly SaaS Renewal Management', 'Illustration Systems & Vector Portraits'])}.`,
     ],
-    link: { label: 'See the work', href: '/classic#work' },
+    link: { label: 'See the work', href: '/#work' },
     related: ['w-pulse', 'w-execution', 'h-ai'],
   },
   {
@@ -310,7 +310,7 @@ export const knowledge: Entry[] = [
       `My process runs ${stages}.`,
       'I get clear on the problem before opening a tool, build a flow and information architecture before UI, design in components first and pages second, and ship a working prototype link the team can open.',
     ],
-    link: { label: 'See the workflow', href: '/classic#about' },
+    link: { label: 'See the workflow', href: '/#about' },
     related: ['h-research', 'h-system', 'h-qa'],
   },
   {
@@ -320,7 +320,7 @@ export const knowledge: Entry[] = [
       'The methods on my resume are contextual enquiry, user interviews, stakeholder workshops, personas, scenarios, usability testing and design critique, held together by product thinking: what problem, for whom, and how would we know it worked.',
       'I should be honest about scale: the portfolio case studies are mostly sprint or reconstructed work, and each one lists what was and was not tested with real users.',
     ],
-    link: { label: 'See the case studies', href: '/classic#work' },
+    link: { label: 'See the case studies', href: '/#work' },
     related: ['h-process', 'h-qa', 'w-impact'],
   },
   {
@@ -360,7 +360,7 @@ export const knowledge: Entry[] = [
       'Because a link people can open on their phone settles arguments that a static frame only starts. A React prototype has real states, real overflow and real keyboard behaviour, and the team can build from it.',
       'Riverside, Renewly and CareSync are deployed prototypes, and Electronic execution runs every function. I use Figma for exploration and handoff, and React where behaviour is the question.',
     ],
-    link: { label: 'See the work', href: '/classic#work' },
+    link: { label: 'See the work', href: '/#work' },
     related: ['w-execution', 'w-riverside', 'h-engineers'],
   },
   {
@@ -402,7 +402,7 @@ export const knowledge: Entry[] = [
       `More than five years in product design. ${experience.map(e => `${e.role} at ${e.company} (${e.period})`).join('; ')}.`,
       'The timeline on this page puts those five roles beside the degree and the two courses, so you can see how they overlap.',
     ],
-    link: { label: 'See the timeline', href: '/classic#about' },
+    link: { label: 'See the timeline', href: '/#about' },
     related: ['c-valgenesis', 'c-zoominfo', 'j-story'],
   },
   {
@@ -526,7 +526,7 @@ export const knowledge: Entry[] = [
       `Email is the fastest: ${email}. I am also on LinkedIn and GitHub, and the resume is a download away.`,
       'I do not publish a phone number on this site, so email is the way in.',
     ],
-    link: { label: 'Open the contact section', href: '/classic#contact' },
+    link: { label: 'Open the contact section', href: '/#contact' },
     related: ['hire-start', 'hire-resume', 'hire-roles'],
   },
   {

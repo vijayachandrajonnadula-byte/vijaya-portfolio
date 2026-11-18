@@ -1,5 +1,4 @@
 import { useEffect } from 'react';
-import { useCalm } from '../../lib/calm';
 
 declare global {
   interface Window {
@@ -10,14 +9,22 @@ declare global {
 
 /**
  * Native scrolling only. This used to run Lenis (inertial scroll); the brief forbids scroll
- * hijacking, so it now only enables CSS smooth scrolling for anchor links, and only when calm mode
- * is off (calm follows the visitor's reduced-motion setting unless they chose otherwise). Renders nothing.
+ * hijacking, so it now only enables CSS smooth scrolling for anchor links, and only when the
+ * visitor has not asked for reduced motion. Renders nothing.
  */
 export default function SmoothScroll() {
-  const calm = useCalm();
   useEffect(() => {
-    document.documentElement.style.scrollBehavior = calm ? 'auto' : 'smooth';
-    return () => { document.documentElement.style.scrollBehavior = ''; };
-  }, [calm]);
+    if (typeof window.matchMedia !== 'function') return;
+    const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const apply = () => {
+      document.documentElement.style.scrollBehavior = mq.matches ? 'auto' : 'smooth';
+    };
+    apply();
+    mq.addEventListener('change', apply);
+    return () => {
+      mq.removeEventListener('change', apply);
+      document.documentElement.style.scrollBehavior = '';
+    };
+  }, []);
   return null;
 }

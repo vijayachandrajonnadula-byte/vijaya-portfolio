@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { isCalm } from '../../lib/calm';
 
 export type Theme = 'light' | 'dark';
 const KEY = 'vj-theme';
@@ -18,12 +17,12 @@ type VTDoc = Document & { startViewTransition?: (cb: () => void) => { ready: Pro
 
 /**
  * Switch theme with a "power-on" reveal: a circle grows from the switch (View Transitions API).
- * No support: a short crossfade. Calm mode (or the system's reduced-motion setting): instant.
- * Persistence is unchanged (applyTheme).
+ * No support: a short crossfade. Reduced motion: instant. Persistence is unchanged (applyTheme).
  */
 export function applyThemeWithWipe(t: Theme, origin?: { x: number; y: number }) {
   const root = document.documentElement;
-  if (isCalm()) { applyTheme(t); return; }
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduced) { applyTheme(t); return; }
   const doc = document as VTDoc;
   if (typeof doc.startViewTransition === 'function' && origin) {
     const { x, y } = origin;

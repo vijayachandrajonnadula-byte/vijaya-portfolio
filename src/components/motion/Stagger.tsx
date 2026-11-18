@@ -1,5 +1,4 @@
-import { motion } from 'framer-motion';
-import { useCalm } from '../../lib/calm';
+import { motion, useReducedMotion } from 'framer-motion';
 import type { ReactNode } from 'react';
 import { jFadeUp, jStaggerParent, JVIEWPORT } from '../case-study/jump';
 
@@ -36,7 +35,7 @@ export function Stagger({
   delayChildren = 0,
   id,
 }: StaggerProps) {
-  const reduced = useCalm();
+  const reduced = useReducedMotion();
   const Tag = TAGS[as] ?? motion.div;
 
   return (

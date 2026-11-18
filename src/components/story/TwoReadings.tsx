@@ -1,9 +1,8 @@
 import { useCallback, useEffect, useLayoutEffect, useRef, useState, type KeyboardEvent, type PointerEvent } from 'react';
-import { animate, useMotionValue, useSpring } from 'framer-motion';
-import { useCalm } from '../../lib/calm';
+import { animate, useMotionValue, useReducedMotion, useSpring } from 'framer-motion';
 import './../../styles/story.css';
 import './../../styles/two-readings.css';
-import SectionHead from '../home/SectionHead';
+import ChapterLabel from './ChapterLabel';
 import { ELEMENTS, H, PULSE_END, PULSE_PATH, REST, TEXTS, W, ZONE, textCentre } from './twoReadings/elements';
 import { boardTextOpacity, lensCentre, paint, screenAmount, screenTextOpacity } from './twoReadings/morph';
 
@@ -17,7 +16,7 @@ const PERIOD = 7000;
  * the other. Elements morph as the lens passes. All per-frame work is direct attribute writes driven by one motion value.
  */
 export default function TwoReadings() {
-  const reduced = !!useCalm();
+  const reduced = !!useReducedMotion();
   const raw = useMotionValue(reduced ? REST : 0);
   const spring = useSpring(raw, { stiffness: 190, damping: 30, mass: 0.8 });
   const lens = reduced ? raw : spring;
@@ -183,11 +182,13 @@ export default function TwoReadings() {
   };
 
   return (
-    <section className="signal two sec" id="signal" aria-labelledby="signal-h" ref={section}>
+    <section className="signal two" id="signal" aria-labelledby="signal-h" ref={section}>
       <div className="signal__in">
-        <SectionHead n="02" name="two readings" id="signal-h" title="A circuit board and an app screen can share one layout.">
-          My electronics degree taught me to read a layout like a circuit: what carries the signal, and what is noise.
-        </SectionHead>
+        <ChapterLabel n="02" name="two readings" />
+        <h2 id="signal-h" className="two__h">
+          <span>A circuit board and an app screen can share one layout.</span>{' '}
+          <span>Drag to read one drawing both ways.</span>
+        </h2>
 
         <div className="two__stage" ref={stage} onPointerDown={down} onPointerMove={move} onPointerUp={up} onPointerCancel={up}>
           <svg className="two__art" viewBox={`0 0 ${W} ${H}`} aria-hidden="true" focusable="false" onPointerMove={hover} onPointerLeave={() => setTag(null)}>
@@ -253,7 +254,7 @@ export default function TwoReadings() {
         </div>
         <div className="two__foot">
           <span>board</span>
-          <span className="two__quiet">Drag to read one drawing both ways.</span>
+          <span className="two__quiet">Same drawing. Two readings.</span>
           <span>screen</span>
         </div>
       </div>

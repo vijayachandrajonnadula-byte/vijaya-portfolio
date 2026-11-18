@@ -1,6 +1,5 @@
 import { useRef, type ReactNode } from 'react';
-import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
-import { useCalm } from '../../lib/calm';
+import { motion, useMotionValue, useReducedMotion, useSpring, useTransform } from 'framer-motion';
 import { useFinePointer } from './useOnScreen';
 
 interface TiltCardProps {
@@ -16,7 +15,7 @@ interface TiltCardProps {
  */
 export default function TiltCard({ children, className, max = 7 }: TiltCardProps) {
   const ref = useRef<HTMLDivElement>(null);
-  const reduced = useCalm();
+  const reduced = useReducedMotion();
   const fine = useFinePointer();
   const enabled = fine && !reduced;
 

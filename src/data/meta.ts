@@ -15,13 +15,6 @@ const HOME: RouteMetaInfo = {
     'Vijaya Chandra Jonnadula (Vijay), UX/UI product designer in Hyderabad, India. Product case studies, working prototypes, design systems and an AI-assisted workflow where the design judgement stays human.',
 };
 
-/** The v2 film at `/`: VIJAY.md. The same words live in src/v2/data/brief.ts. */
-const V2_HOME: RouteMetaInfo = {
-  title: `VIJAY.md | ${SITE_NAME}, UX/UI product designer`,
-  description:
-    'Vijaya Chandra Jonnadula (Vijay), UX/UI product designer in Hyderabad, India. A working brief written as a file: seven principles, each with a real project behind it. Ex-electronics.',
-};
-
 const ASK: RouteMetaInfo = {
   title: `Ask | ${SITE_NAME}`,
   description:
@@ -42,8 +35,7 @@ function firstSentence(text: string, max = 158): string {
 
 export function getRouteMeta(pathname: string): RouteMetaInfo {
   const path = pathname.length > 1 ? pathname.replace(/\/+$/, '') : pathname;
-  if (path === '/') return V2_HOME;
-  if (path === '/classic') return HOME;
+  if (path === '/') return HOME;
   if (path === '/ask') return ASK;
   const p = projects.find(x => x.href === path);
   if (p) {

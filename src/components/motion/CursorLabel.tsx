@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { AnimatePresence, motion, useMotionValue, useSpring } from 'framer-motion';
 import { useFinePointer } from './useOnScreen';
-import { useCalm } from '../../lib/calm';
 
 /**
  * A pill that trails the cursor over any element carrying `data-cursor="Label"`.
@@ -9,9 +8,7 @@ import { useCalm } from '../../lib/calm';
  * reduced-motion users never see it; the underlying links stay fully usable.
  */
 export default function CursorLabel() {
-  const finePointer = useFinePointer();
-  const calm = useCalm(); // Calm mode removes the cursor-follow label (Selective Attention, WCAG 2.3.3)
-  const fine = finePointer && !calm;
+  const fine = useFinePointer();
   const [label, setLabel] = useState<string | null>(null);
   const x = useMotionValue(-100);
   const y = useMotionValue(-100);
@@ -19,7 +16,7 @@ export default function CursorLabel() {
   const sy = useSpring(y, { stiffness: 420, damping: 32, mass: 0.4 });
 
   useEffect(() => {
-    if (!fine) return;
+    if (!fine || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     let last = { x: -100, y: -100 };
     const resolve = (el: Element | null) => {
       const target = el?.closest?.('[data-cursor]');

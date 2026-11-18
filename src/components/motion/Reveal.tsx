@@ -1,5 +1,4 @@
-import { motion } from 'framer-motion';
-import { useCalm } from '../../lib/calm';
+import { motion, useReducedMotion } from 'framer-motion';
 import type { ReactNode } from 'react';
 import { jFadeUp, JVIEWPORT } from '../case-study/jump';
 
@@ -41,7 +40,7 @@ export default function Reveal({
   y = 18,
   id,
 }: RevealProps) {
-  const reduced = useCalm();
+  const reduced = useReducedMotion();
   const Tag = TAGS[as] ?? motion.div;
 
   return (

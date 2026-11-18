@@ -1,7 +1,0 @@
-/* S2a arts: shared pieces. Everything is sized from the art slot with container units so one rule set serves 1440 and 390. */
-.s2a { position: absolute; inset: 0; container-type: size; --p: 0; color: var(--ink); font-family: var(--f-mono); -webkit-user-select: none; user-select: none; }
-.s2a *, .s2a *::before, .s2a *::after { box-sizing: border-box; }
-.s2a-clay { position: absolute; pointer-events: none; }
-.s2a-clay .clay { width: 100% !important; }
-.s2a-mono { font: 700 clamp(11px, 2.7cqw, 13.5px)/1.1 var(--f-mono); letter-spacing: 0.03em; }
-.s2a svg { display: block; }

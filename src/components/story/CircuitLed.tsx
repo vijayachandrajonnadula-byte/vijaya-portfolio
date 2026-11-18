@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import './../../styles/story.css';
 import { useCircuit } from './circuitStore';
 
-const OPEN = 'The light comes on when you get in touch.';
+const OPEN = 'Not in touch yet? The contact switch is just above.';
 const DONE = 'Circuit closed. Thanks for stopping by.';
 
 /** Smooth-scroll to the contact switch and move focus onto it (the footer link is a shortcut to the one action). */
@@ -45,7 +45,7 @@ export default function CircuitLed() {
         {ring ? <span className="led-ring" aria-hidden="true" /> : null}
       </span>
       <p className="circuit-end__line" role="status" aria-live="polite">
-        {closed ? DONE : <>{OPEN} <a className="circuit-end__go" href="#contact" onClick={goToSwitch}>Say hello</a></>}
+        {closed ? DONE : <>{OPEN} <a className="circuit-end__go" href="#contact" onClick={goToSwitch}>Go to the switch</a></>}
       </p>
     </div>
   );

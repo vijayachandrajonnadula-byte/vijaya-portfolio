@@ -3,12 +3,11 @@ import { Link, useLocation } from 'react-router-dom';
 import VJLogo from '../ui/VJLogo';
 import { useTheme, applyThemeWithWipe } from './theme';
 import PowerSwitch from '../electro/PowerSwitch';
-import { isCalm } from '../../lib/calm';
 
 const links = [
-  { label: 'Work', href: '/classic#work', key: 'work' },
-  { label: 'About', href: '/classic#about', key: 'about' },
-  { label: 'Contact', href: '/classic#contact', key: 'contact' },
+  { label: 'Work', href: '/#work', key: 'work' },
+  { label: 'About', href: '/#about', key: 'about' },
+  { label: 'Contact', href: '/#contact', key: 'contact' },
 ];
 
 /**
@@ -26,7 +25,7 @@ export default function Header() {
   // scroll-spy: which home section is under the middle of the screen
   useEffect(() => {
     setActive('');
-    if (pathname !== '/classic' || typeof IntersectionObserver === 'undefined') return;
+    if (pathname !== '/' || typeof IntersectionObserver === 'undefined') return;
     let io: IntersectionObserver | undefined;
     let retry: number | undefined;
     const seen = new Map<string, boolean>();
@@ -47,13 +46,12 @@ export default function Header() {
   // phone: hide the pill while scrolling down and while the footer is on screen; transform only
   useEffect(() => {
     const phone = window.matchMedia('(max-width: 700px)');
+    const calm = window.matchMedia('(prefers-reduced-motion: reduce)');
     let lastY = window.scrollY;
     let inFooter = false;
     let down = false;
     let raf = 0;
-    // With "reduce motion" on, the pill stays in place (no sliding bar while scrolling)
-    const apply = () => { raf = 0; setHidden(phone.matches && !isCalm() && (down || inFooter)); };
-    window.addEventListener('vj-calm', apply);
+    const apply = () => { raf = 0; setHidden(phone.matches && !calm.matches && (down || inFooter)); };
     const onScroll = () => {
       const y = window.scrollY;
       const dy = y - lastY;
@@ -75,20 +73,20 @@ export default function Header() {
     };
     watchFooter();
     const t = window.setTimeout(watchFooter, 600);
-    return () => { window.removeEventListener('scroll', onScroll); window.removeEventListener('vj-calm', apply); io?.disconnect(); clearTimeout(t); if (raf) cancelAnimationFrame(raf); };
+    return () => { window.removeEventListener('scroll', onScroll); io?.disconnect(); clearTimeout(t); if (raf) cancelAnimationFrame(raf); };
   }, [pathname]);
 
   // a new page always starts with the pill shown
   useEffect(() => { setHidden(false); }, [pathname]);
 
   const onAnchor = (key: string) => {
-    if (pathname === '/classic') window.dispatchEvent(new CustomEvent('vj:anchor', { detail: { target: key } }));
+    if (pathname === '/') window.dispatchEvent(new CustomEvent('vj:anchor', { detail: { target: key } }));
   };
 
   return (
     <header className="nav" data-nav data-hidden={hidden ? 'true' : undefined} ref={headerRef}>
       <nav className="nav__pill" aria-label="Main">
-        <Link to={pathname === '/classic' ? '/classic' : '/'} className="nav__mark" aria-label="Vijay, home" onClick={() => window.scrollTo({ top: 0 })}>
+        <Link to="/" className="nav__mark" aria-label="Vijay, home" onClick={() => window.scrollTo({ top: 0 })}>
           <VJLogo size={26} variant={dark ? 'light' : 'dark'} />
         </Link>
         <span className="nav__sep" aria-hidden="true" />
@@ -106,7 +104,6 @@ export default function Header() {
             </Link>
           );
         })}
-        <span className="nav__sep nav__sep--tools" aria-hidden="true" />
         <PowerSwitch dark={dark} onToggle={origin => applyThemeWithWipe(dark ? 'light' : 'dark', origin)} />
       </nav>
     </header>

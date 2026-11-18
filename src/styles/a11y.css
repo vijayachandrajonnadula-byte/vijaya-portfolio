@@ -1,49 +1,20 @@
 /* ============================================================
-   A11Y + SHELL: skip link, live region, Calm mode, screen-reader-only text, touch targets, mobile pill clearance, theme wipe
+   A11Y + SHELL: skip link, live region, touch targets, mobile pill clearance, theme wipe
    ============================================================ */
 
 /* Skip link: first focusable element on every route, visible on focus */
 .skip-link { position: fixed; top: 12px; left: 12px; z-index: 600; padding: 12px 18px; border-radius: 999px; background: var(--c-accent, #1e3a6e); color: var(--c-accent-ink, #fff); font: 600 0.95rem var(--font-sans, system-ui); text-decoration: none; box-shadow: 0 10px 30px -12px rgba(0, 0, 0, 0.5); transform: translateY(-160%); transition: transform 0.2s var(--ease-out, ease); }
-.skip-link:focus, .skip-link:focus-visible { transform: none; outline: 3px solid var(--c-ink, #17171a); outline-offset: 3px; }
+.skip-link:focus, .skip-link:focus-visible { transform: none; outline: 2px solid var(--c-ink, #17171a); outline-offset: 3px; }
 html[data-page='case'] .skip-link { background: #1e3a6e; color: #fff; }
 main:focus, main h1:focus { outline: none; }
-
-/* Screen-reader-only text (also kept under its old name .wk-sr) */
-.sr-only, .wk-sr { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
-
-/* ============================================================
-   REDUCED MOTION: html[data-calm='on'] (set from the operating system's reduce-motion setting; there is no switch in the page).
-   Decorative motion stops everywhere (WCAG 2.3.3). State changes (a switch flipping, a panel opening, a chip selected)
-   still happen, they just happen at once: transitions are cut to 0.01ms, not removed, so JS that waits for
-   transitionend still fires. Keyframe animations (blink, breathe, pulse, wave, sweeps) are switched off.
-   ============================================================ */
-html[data-calm='on'], html[data-calm='on'] body { scroll-behavior: auto !important; }
-html[data-calm='on'] *, html[data-calm='on'] *::before, html[data-calm='on'] *::after {
-  animation: none !important;
-  transition-duration: 0.01ms !important;
-  transition-delay: 0s !important;
-  scroll-behavior: auto !important;
-}
-/* the theme wipe and view transitions never run in Calm mode */
-html[data-calm='on']::view-transition-group(*), html[data-calm='on']::view-transition-old(*), html[data-calm='on']::view-transition-new(*) { animation: none !important; }
-/* the decorative signal dots on the Trace are hidden outright */
-html[data-calm='on'] .trace__head, html[data-calm='on'] .trace__packet { display: none; }
-/* the lit line grows with scroll through a spring, so it is hidden in Calm mode; the nodes still light as you reach them */
-html[data-calm='on'] .trace__lit { display: none; }
-
-/* Labels on the contact switch drawing: never below 12px (the drawing sits in src/components/home, owned by the hero work) */
-html .cts__lab, html .cts__lab { font-size: 0.75rem; letter-spacing: 0.04em; }
-
-/* Text spacing (WCAG 1.4.12): headings and body text never sit in fixed-height boxes on the home page */
-.home h1, .home h2, .home h3, .home p, .home li, .home dd, .home dt { overflow-wrap: break-word; }
 
 /* Polite route announcements, visually hidden */
 .vj-live { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
 
 html { scroll-padding-top: 80px; }
 
-/* Footer links: one row, 44px tall, 16px apart */
-.site-foot__links { display: flex; flex-wrap: wrap; gap: 0 16px; align-items: center; }
+/* Footer links */
+.site-foot__links { display: flex; flex-wrap: wrap; gap: 4px 18px; align-items: center; }
 .site-foot a, .site-foot button { display: inline-flex; align-items: center; }
 
 /* Theme wipe: the reveal is animated from script (clip-path on the new snapshot) */
@@ -61,17 +32,11 @@ html.vj-xfade, html.vj-xfade *, html.vj-xfade *::before, html.vj-xfade *::after 
 @media (max-width: 700px) {
   html { scroll-padding-bottom: 96px; }
   .site-foot { padding-bottom: calc(var(--vj-pill-clear, 84px) + 24px + env(safe-area-inset-bottom, 0px)); }
-  .site-foot__links { gap: 0 8px; }
+  .site-foot a, .site-foot button { min-height: 44px; }
+  .site-foot__links { gap: 0 14px; }
+  html .nav__link { min-height: 44px; display: inline-flex; align-items: center; }
+  html .nav__mark { min-width: 44px; min-height: 44px; align-items: center; justify-content: center; }
+  html .nav__theme.el-power { height: 44px; min-width: 44px; justify-content: center; }
   .ask__chips button, .turn__doors button { min-height: 44px; }
   .ask__chips .ask__refresh { width: 44px; height: 44px; }
 }
-
-/* Narrow phones: the pill (mark, three links, theme) must fit 360px and still keep 44px targets */
-@media (max-width: 480px) {
-  html .nav__sep { display: none; }
-  html .nav__pill { padding: 4px; }
-  html .nav__link { padding: 0 9px; }
-  html .nav__mark { min-width: 40px; padding: 0 4px; }
-  html .el-power-wrap { margin-left: 0; }
-}
-@media (max-width: 360px) { html .nav__link { padding: 0 6px; font-size: 0.875rem; } html .nav__mark { min-width: 36px; } }

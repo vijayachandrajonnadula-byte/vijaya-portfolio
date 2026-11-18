@@ -1,5 +1,4 @@
-import { motion } from 'framer-motion';
-import { useCalm } from '../../lib/calm';
+import { motion, useReducedMotion } from 'framer-motion';
 import { EASE } from './motion-presets';
 import { isJumping, JVIEWPORT } from '../case-study/jump';
 
@@ -17,7 +16,7 @@ interface BlurRevealProps {
  * unchanged. Reduced motion renders the final state directly.
  */
 export default function BlurReveal({ text, className, delay = 0, immediate = false }: BlurRevealProps) {
-  const reduced = useCalm();
+  const reduced = useReducedMotion();
   const words = text.split(' ');
   let highlight = false;
 

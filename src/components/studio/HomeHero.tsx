@@ -1,57 +1,69 @@
-import { Link } from 'react-router-dom';
+import { useEffect, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { motion, useReducedMotion } from 'framer-motion';
 import Character from './Character';
-import { profile } from '../../data/profile';
+import AskBox from './AskBox';
+import { quirks } from '../../data/quirks';
+import HeroActions from '../home/HeroActions';
+import FeaturedStrip from '../home/FeaturedStrip';
+import ScrollCue from '../home/ScrollCue';
 import '../../styles/home-v2.css';
 
 /**
- * The first screen: what I do, who I am, and ONE thing to do next.
- * Job of the screen: a recruiter decides in under 10 seconds whether to look at the work.
- * - Von Restorff + Hick: one primary button ("See the work"), one quiet text link ("Ask me anything"). The ask input,
- *   its label and the chips are gone; the Ask page and the floating Ask launcher are where people ask.
- * - Interactive elements above the fold besides the nav: two.
- * - Visual hierarchy: serif headline first, one sentence second, the action row last (serial position).
- * - Composition: headline left, Clay on a quiet stage at the right (desktop); a centred stack on phones.
- * - Selective attention: Clay blinks and breathes only while on screen and never under reduced motion; nothing else moves.
- * `data-hero` lets the floating Ask launcher hide itself while this section is on screen.
+ * The opening is a conversation, not a banner: a greeting, one box, three suggestions. The
+ * mascot drops in and settles, its eyes follow you, and a soft clay glow trails the pointer.
  */
 export default function HomeHero() {
+  const nav = useNavigate();
   const reduced = useReducedMotion();
+  const sec = useRef<HTMLElement>(null);
+  const [wave, setWave] = useState(false);
 
-  const goWork = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    const el = document.getElementById('work');
-    if (!el) return;
-    e.preventDefault();
-    window.dispatchEvent(new CustomEvent('vj:anchor', { detail: { target: 'work' } }));
-    history.replaceState(null, '', '#work');
-    if (window.__lenis) window.__lenis.scrollTo(el, { offset: -8 });
-    else el.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'start' });
-  };
+  // glow follows the pointer a little behind it (fine pointers, no reduced motion)
+  useEffect(() => {
+    const el = sec.current; if (!el) return;
+    if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    let raf = 0, tx = 50, ty = 30, x = 50, y = 30;
+    const move = (e: PointerEvent) => { const r = el.getBoundingClientRect(); tx = ((e.clientX - r.left) / r.width) * 100; ty = ((e.clientY - r.top) / r.height) * 100; };
+    const tick = () => { x += (tx - x) * 0.06; y += (ty - y) * 0.06; el.style.setProperty('--gx', `${x}%`); el.style.setProperty('--gy', `${y}%`); raf = requestAnimationFrame(tick); };
+    const io = new IntersectionObserver(([e]) => { if (e!.isIntersecting && !raf) raf = requestAnimationFrame(tick); if (!e!.isIntersecting && raf) { cancelAnimationFrame(raf); raf = 0; } });
+    io.observe(el); window.addEventListener('pointermove', move, { passive: true });
+    return () => { io.disconnect(); window.removeEventListener('pointermove', move); if (raf) cancelAnimationFrame(raf); };
+  }, []);
 
-  const fade = (d: number) => ({ initial: reduced ? false : { opacity: 0, y: 14 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] as const, delay: d } });
+  // the mascot waves hello once, shortly after it lands
+  useEffect(() => {
+    if (reduced) return;
+    const a = window.setTimeout(() => setWave(true), 1500), b = window.setTimeout(() => setWave(false), 3300);
+    return () => { clearTimeout(a); clearTimeout(b); };
+  }, [reduced]);
+
+  const rise = (d: number) => ({ initial: reduced ? false : { opacity: 0, y: 22 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.9, ease: [0.22, 1, 0.36, 1] as const, delay: d } });
 
   return (
-    <section className="hhero" id="top" aria-label="Introduction" data-hero>
-      <div className="hhero__in">
-        <div className="hhero__copy">
-          <motion.h1 className="hhero__title" {...fade(0.05)}>
-            Hi, I’m Vijay. I turn messy user journeys into <em>clear</em> ones.
-          </motion.h1>
-          <motion.p className="hhero__sub" {...fade(0.15)}>{profile.title} in Hyderabad, designing enterprise software.</motion.p>
-          <motion.div className="hhero__act" {...fade(0.25)}>
-            <a className="btn-c btn-c--lg" href="#work" onClick={goWork}>See the work</a>
-            <Link className="link-q" to="/ask">
-              Ask me anything
-              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
-            </Link>
-          </motion.div>
-        </div>
-        <div className="hhero__art">
-          <div className="hhero__stage">
-            <Character pose="rest" size={248} track boot label="Clay, the site’s mascot" />
-          </div>
-        </div>
-      </div>
+    <section ref={sec} className="hhero" id="top" aria-label="Introduction">
+      <div className="hhero__glow" aria-hidden="true" />
+      <motion.div
+        className="hhero__char"
+        initial={reduced ? false : { y: -120, opacity: 0, scale: 0.9 }}
+        animate={{ y: 0, opacity: 1, scale: 1 }}
+        transition={{ type: 'spring', stiffness: 150, damping: 12, mass: 0.9, delay: 0.15 }}
+      >
+        <Character pose={wave ? 'wave' : 'rest'} size={124} track boot label="Clay, the site’s mascot" />
+      </motion.div>
+      <motion.h1 className="hhero__title" {...rise(0.45)}>
+        Hi, I’m Vijay. I turn messy user journeys into <em>clear</em> ones.
+      </motion.h1>
+      <motion.p className="hhero__sub" {...rise(0.6)}>UX/UI product designer in Hyderabad. Ask me anything, or see the work below.</motion.p>
+      <motion.div className="hhero__ask" {...rise(0.75)}>
+        <AskBox onAsk={q => nav(`/ask?q=${encodeURIComponent(q)}`)} nudges={quirks.askNudges} />
+        <HeroActions />
+        <p className="el-aside">{quirks.hero.aside}</p>
+      </motion.div>
+      <motion.div className="hhero__proof" {...rise(0.9)}>
+        <FeaturedStrip />
+      </motion.div>
+      <ScrollCue />
     </section>
   );
 }
