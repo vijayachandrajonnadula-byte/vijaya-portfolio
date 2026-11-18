@@ -1,109 +1,102 @@
-import { forwardRef } from 'react';
+import { forwardRef, useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { motion, type Variants } from 'framer-motion';
-import { isFiction, kindLabel, type Entry, type Kind } from '../../data/knowledge';
-
-const arrow = (
-  <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6" /></svg>
-);
+import { kindLabel, type Entry, type Kind } from '../../data/knowledge';
+import { profile } from '../../data/profile';
+import { Chev, CheckIcon, LinkIcon, PenIcon } from './icons';
 
 export const kindShort: Record<Kind, string> = { true: 'From my notes', parable: 'Parable', 'tall-tale': 'Tall tale', analogy: 'Analogy' };
 
-/** The line above an answer. Facts say where they come from; stories say they are stories. */
+/** The line above an answer. Facts say who wrote them; stories say they are stories. */
 export function kindTag(e: Entry): string {
   const k = e.kind ?? 'true';
-  return k === 'true' ? 'Written by Vijay, found in this portfolio. Not generated.' : `${kindLabel[k]}. Written by Vijay. Not generated.`;
+  return k === 'true' ? 'Written by Vijay. Not generated.' : `${kindLabel[k]}. Written by Vijay. Not generated.`;
 }
 
-/** A link that is a route, a hash on this site, or a mailto / file. */
+/** The source link of an answer: a route on this site, a mailto, a file or another site. The one primary action of the answer. */
 export function EntryLink({ link }: { link: NonNullable<Entry['link']> }) {
   const external = link.href.startsWith('mailto:') || link.href.endsWith('.pdf') || link.href.startsWith('http');
   return external
-    ? <a className="btn-c" href={link.href} {...(link.href.startsWith('http') ? { target: '_blank', rel: 'noreferrer' } : {})}>{link.label}</a>
-    : <Link className="btn-c" to={link.href}>{link.label}</Link>;
+    ? <a className="ask2-btn" href={link.href} {...(link.href.startsWith('http') ? { target: '_blank', rel: 'noreferrer' } : {})}>{link.label}</a>
+    : <Link className="ask2-btn" to={link.href}>{link.label}</Link>;
 }
 
-/** The answer text on its own, for the browse list. Same copy, same link, same label as the thread. */
-export function AnswerCard({ entry }: { entry: Entry }) {
-  const k = entry.kind ?? 'true';
-  const fic = isFiction(entry);
+/** "Copy link to this answer": the deep link is /ask?id=<id>, so it opens the same answer for anyone. */
+function CopyLink({ id, onStatus }: { id: string; onStatus: (s: string) => void }) {
+  const [state, setState] = useState<'idle' | 'copied' | 'failed'>('idle');
+  const timer = useRef(0);
+  useEffect(() => () => window.clearTimeout(timer.current), []);
+  useEffect(() => { setState('idle'); }, [id]);
+  const copy = async () => {
+    const url = `${window.location.origin}/ask?id=${encodeURIComponent(id)}`;
+    let ok = false;
+    try { await navigator.clipboard.writeText(url); ok = true; } catch {
+      try { const t = document.createElement('textarea'); t.value = url; t.setAttribute('readonly', ''); t.style.position = 'fixed'; t.style.opacity = '0'; document.body.appendChild(t); t.select(); ok = document.execCommand('copy'); t.remove(); } catch { ok = false; }
+    }
+    setState(ok ? 'copied' : 'failed');
+    onStatus(ok ? 'Link copied' : 'Could not copy. The link is in the address bar.');
+    window.clearTimeout(timer.current);
+    timer.current = window.setTimeout(() => setState('idle'), 2600);
+  };
   return (
-    <div className="ask2-card" data-kind={k} role="group" aria-label={`${kindShort[k]}: ${entry.q}`}>
-      {k !== 'true' && <p className="ask2-kind">{kindLabel[k]}</p>}
-      {entry.answer.map((p, i) => <p key={i} className={i === 0 && !fic ? 'ask2-card__lead' : undefined}>{p}</p>)}
-      {entry.link && <EntryLink link={entry.link} />}
-    </div>
+    <button type="button" className="ask2-btn ask2-btn--ghost" data-state={state} onClick={copy}>
+      {state === 'copied' ? <CheckIcon /> : <LinkIcon />}
+      <span>{state === 'copied' ? 'Link copied' : state === 'failed' ? 'Copy failed. Use the address bar' : 'Copy link to this answer'}</span>
+    </button>
   );
 }
 
-const container: Variants = { hidden: {}, show: { transition: { staggerChildren: 0.06 } } };
-const item: Variants = {
-  hidden: { opacity: 0, y: 12 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.42, ease: [0.22, 1, 0.36, 1] } },
-};
+/** One line at the end of every answer: the next useful action after reading is to say hello. */
+export function EmailNudge({ lead = 'Still curious?' }: { lead?: string }) {
+  return <p className="ask2-nudge">{lead} <Link to="/#contact">Email me</Link> <span className="sr-only">at {profile.email}</span></p>;
+}
 
 interface Props {
-  q: string;
+  /** What the visitor typed, when this answer was found by typing. */
+  typed?: string;
   entry: Entry | null;
   /** Real entries to try when nothing matched. */
   doors: Entry[];
-  /** Related questions for an answered entry. */
-  next: Entry[];
-  reduced: boolean;
   onOpen: (id: string) => void;
+  onStatus: (s: string) => void;
 }
 
 /**
- * One resolved answer. It "streams in": the tag, paragraphs, link and chips rise 12px with a 60ms stagger.
- * Under reduced motion it simply appears. The heading is the focus target after an answer resolves.
+ * One resolved answer. Direct answer large, details smaller, one source link, a quiet copy-link button and one line to email.
+ * It appears at once (retrieval, no fake thinking); the page fades the view in. The heading is the focus target.
  */
-const Answer = forwardRef<HTMLHeadingElement, Props>(function Answer({ q, entry, doors, next, reduced, onOpen }, headingRef) {
-  const Item = (reduced ? 'div' : motion.div) as typeof motion.div;
-  const itemProps = reduced ? {} : { variants: item };
+const Answer = forwardRef<HTMLHeadingElement, Props>(function Answer({ typed, entry, doors, onOpen, onStatus }, headingRef) {
   const k = entry?.kind ?? 'true';
-  const fic = entry ? isFiction(entry) : false;
   return (
-    <motion.div
-      className="turn__body ask2-answer"
-      data-kind={k}
-      variants={container}
-      initial={reduced ? false : 'hidden'}
-      animate="show"
-    >
-      <h2 ref={headingRef} tabIndex={-1} className="sr-only ask2-answer__h">{entry ? `${kindShort[k]}: ${entry.q}` : `No match for: ${q}`}</h2>
-      {entry && (
-        <Item className="ask2-row" {...itemProps}>
-          <p className={`turn__tag${k !== 'true' ? ' turn__tag--story' : ''}`}>{kindTag(entry)}</p>
-        </Item>
-      )}
+    <article className="ask2-answer" data-kind={entry ? k : 'none'}>
+      {typed && <p className="ask2-asked">You asked: <q>{typed}</q>{entry ? '. Closest note:' : ''}</p>}
       {entry ? (
         <>
-          {entry.answer.map((p, i) => (
-            <Item key={i} className="ask2-row" {...itemProps}><p className={i === 0 && !fic ? 'turn__lead' : undefined}>{p}</p></Item>
-          ))}
-          {entry.link && <Item className="ask2-row" {...itemProps}><EntryLink link={entry.link} /></Item>}
+          <h2 ref={headingRef} tabIndex={-1} className="ask2-answer__h"><span className="sr-only">{kindShort[k]}: </span>{entry.q}</h2>
+          <p className={`ask2-prov${k !== 'true' ? ' ask2-prov--story' : ''}`}><PenIcon /><span>{kindTag(entry)}</span></p>
+          <div className="ask2-body">
+            {entry.answer.map((p, i) => <p key={i} className={i === 0 && !(k === 'parable' || k === 'tall-tale') ? 'ask2-lead' : undefined}>{p}</p>)}
+          </div>
+          <div className="ask2-actions">
+            {entry.link && <EntryLink link={entry.link} />}
+            <CopyLink id={entry.id} onStatus={onStatus} />
+          </div>
+          <EmailNudge />
         </>
       ) : (
-        <Item className="ask2-row" {...itemProps}>
-          <p className="turn__lead">Hm, that one isn’t in my notes. I would rather say so than guess. Try asking it another way, or pick a question below.</p>
-        </Item>
+        <>
+          <h2 ref={headingRef} tabIndex={-1} className="ask2-answer__h">That one isn’t in my notes yet.</h2>
+          <div className="ask2-body">
+            <p className="ask2-lead">I would rather say so than guess. Try asking it another way, or pick one of these.</p>
+          </div>
+          <ul className="tb-list ask2-doors" aria-label="Questions I can answer">
+            {doors.map(d => (
+              <li key={d.id}><button type="button" className="tb-q" onClick={() => onOpen(d.id)}><span>{d.q}</span><Chev /></button></li>
+            ))}
+          </ul>
+          <EmailNudge lead="Want to ask me directly?" />
+        </>
       )}
-      {entry ? (
-        next.length > 0 && (
-          <Item className="ask2-row ask2-next" {...itemProps}>
-            <p className="ask2-next__label" id={`next-${entry.id}`}>Next question <span>picked from related notes on this site</span></p>
-            <div role="group" aria-labelledby={`next-${entry.id}`}>
-              {next.map(d => <button key={d.id} type="button" className="ask2-next__chip" onClick={() => onOpen(d.id)}><span>{d.q}</span>{arrow}</button>)}
-            </div>
-          </Item>
-        )
-      ) : (
-        <Item className="ask2-row turn__doors" {...itemProps}>
-          <p>Questions I can answer</p>
-          <div>{doors.map(d => <button key={d.id} type="button" onClick={() => onOpen(d.id)}>{d.chip ?? d.q}</button>)}</div>
-        </Item>
-      )}
-    </motion.div>
+    </article>
   );
 });
 

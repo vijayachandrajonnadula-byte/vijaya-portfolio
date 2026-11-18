@@ -71,3 +71,6 @@
   .jny__step button, .jny__sw, .jny__sw i, .jny__dot, .jny__btn { transition: none; }
   .jny__step button:hover:not(:disabled) { transform: none; }
 }
+
+/* the timeline as its own view on /ask: the page wrapper already provides the top spacing */
+.tb-timeline .jny { padding-top: 12px; }
