@@ -1,63 +1,54 @@
-import { useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { motion, useReducedMotion } from 'framer-motion';
-import Character from '../studio/Character';
+import { motion } from 'framer-motion';
 import { workImage } from '../../data/home';
 import type { spotlight } from '../../data/home';
-import { getProject, roleOf, statusLabel, isExternal } from './workMeta';
-import { useCardFx } from './useCardFx';
+import { getProject, statusLabel, isExternal } from './workMeta';
+import { useCalm } from '../../lib/calm';
 import ArrowIcon from './ArrowIcon';
 import '../../styles/work.css';
 
 type Item = (typeof spotlight)[number];
 
+/** Only these two statuses say something a visitor can act on or should know; "Complete" is the default and is not shown. */
+const SHOWN_STATUS = new Set(['Working prototype', 'Process']);
+
 /**
- * One featured project. The title is the only link in the card's flow; its ::after covers the whole
- * card, so a click or tap anywhere opens the case study (stretched-link pattern). The optional
- * "Open prototype" link sits above that overlay. Everything a visitor needs to choose is visible
- * without hover: status, title, summary, meta and the call to action.
+ * One featured project, reduced to what a visitor needs to choose (Hick, Occam, Miller):
+ * image, one meta line (year, category), title, one sentence, then the call to action.
+ * The title is the only link in the card's flow; its ::after covers the whole card, so a click or tap anywhere opens
+ * the case study (stretched link, Fitts). The optional "Open prototype" link sits above that overlay.
+ * All four cards are the same size so the screens can be compared (Similarity, Common region).
+ * Motion: a 2px lift on hover (fine pointer, reduced motion off) and nothing else: no tilt, no cursor-follow, no image zoom.
  */
 export default function WorkCard({ item, index }: { item: Item; index: number }) {
   const p = getProject(item.id);
-  const ref = useRef<HTMLElement>(null);
-  const [hover, setHover] = useState(false);
-  const reduced = useReducedMotion();
-  useCardFx(ref);
+  const calm = useCalm();
 
   const status = statusLabel(p);
-  const role = roleOf(p);
   const proto = p.prototypeUrl;
   const external = proto ? isExternal(proto) : false;
-  const size = index === 0 || index === 3 ? 'wide' : 'narrow';
 
   return (
     <motion.article
-      ref={ref}
-      className={`wk-card wk-card--${size}${hover ? ' is-hover' : ''}`}
+      className="wk-card"
+      data-index={index}
       style={{ ['--tint' as string]: item.tint }}
-      onPointerEnter={e => { if (e.pointerType === 'mouse') setHover(true); }}
-      onPointerLeave={() => setHover(false)}
-      initial={reduced ? false : { opacity: 0, y: 40 }}
+      initial={calm ? false : { opacity: 0, y: 16 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.15 }}
-      transition={reduced ? { duration: 0 } : { type: 'spring', stiffness: 90, damping: 20, mass: 0.9, delay: (index % 2) * 0.09 }}
+      transition={calm ? { duration: 0 } : { duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
     >
       <div className="wk-media" aria-hidden="true">
         <div className="wk-media__shot"><img src={workImage(p.id)} alt="" loading="lazy" draggable={false} /></div>
-        <div className="wk-media__char"><Character size={112} pose={hover ? 'wave' : 'hold'} prop={item.prop} /></div>
       </div>
 
       <div className="wk-body">
-        <div className="wk-body__top">
-          <span className={`wk-chip wk-chip--${status.toLowerCase().replace(/\s+/g, '-')}`}>{status}</span>
-          <ul className="wk-meta" aria-label="Project details">
-            <li>{p.year}</li>
-            <li>{p.category.split(' / ')[0]}</li>
-            {role && size === 'wide' && <li>{role.split(',')[0]}</li>}
-          </ul>
-        </div>
+        <p className="wk-meta">
+          <span>{p.year} · {p.category.split(' / ')[0]}</span>
+          {SHOWN_STATUS.has(status) && <span className="wk-chip">{status}</span>}
+        </p>
         <h3 className="wk-title">
-          <Link to={p.href} className="wk-link">{p.title}<span className="wk-sr"> case study</span></Link>
+          <Link to={p.href} className="wk-link">{p.title}<span className="sr-only"> case study</span></Link>
         </h3>
         <p className="wk-line">{item.line}</p>
         <div className="wk-foot">

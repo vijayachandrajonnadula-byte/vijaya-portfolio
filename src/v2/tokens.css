@@ -1,0 +1,63 @@
+/* ============================================================
+   V2 TOKENS: VIJAY.md, the film
+   One accent (clay). One flat colour per chapter. Three voices of type.
+   Every chapter pair below was measured (see docs/v2-concept.md): body ink, dimmed ink and accent text are all >= 4.5:1.
+   ============================================================ */
+
+.v2 {
+  /* the one accent. Fill: the mascot, dots, caret, selection. Text: the darker variants per chapter. */
+  --accent: #E2705A;
+  --accent-text: #B3402B; /* on warm paper 5.42:1 */
+
+  /* chapter colours: --bg-<key> (flat fill), --ink-<key> (text on it), --dim-<key> (unlit words, still >= 4.5:1),
+     --acc-<key> (accent as text on that fill) */
+  --bg-paper: #FAF9F7;  --ink-paper: #17171A;  --dim-paper: #706F70;  --acc-paper: #B3402B;  /* 17.0 / 4.76 / 5.42 */
+  --bg-clay: #EE8670;   --ink-clay: #17171A;   --dim-clay: #48312E;   --acc-clay: #17171A;   /* 7.05 / 4.72 */
+  --bg-violet: #4A2FC0; --ink-violet: #FFFFFF; --dim-violet: #C3BAEA; --acc-violet: #FFC2B2; /* AFS  8.54 / 4.69 */
+  --bg-pulse: #1844C4;  --ink-pulse: #FFFFFF;  --dim-pulse: #BCC9EE;  --acc-pulse: #FFC2B2;  /* PULSE  7.89 / 4.78 */
+  --bg-exec: #0F2A4A;   --ink-exec: #F3F0EA;   --dim-exec: #8A95A0;   --acc-exec: #7BE0A8;   /* Electronic execution  12.73 / 4.75 */
+  --bg-ai: #34C07C;     --ink-ai: #08170F;     --dim-ai: #14452C;     --acc-ai: #08170F;     /* AI workflow  7.88 / 4.68 */
+  --bg-amber: #F5B83D;  --ink-amber: #17171A;  --dim-amber: #5E4B25;  --acc-amber: #17171A;  /* Schedule  10.06 / 4.71 */
+  --bg-plum: #5B2A4E;   --ink-plum: #FFFFFF;   --dim-plum: #B8A3B3;   --acc-plum: #FFB9A8;   /* CareSync  11.13 / 4.73 */
+  --bg-teal: #0B6470;   --ink-teal: #FFFFFF;   --dim-teal: #C4DADD;   --acc-teal: #FFD0C4;   /* Renewly  6.84 / 4.70 */
+  --bg-ink: #17171A;    --ink-ink: #F3F0EA;    --dim-ink: #858382;    --acc-ink: #F4A090;    /* 15.73 / 4.74 */
+
+  /* type: voice (heavy grotesque), feeling (italic serif), machine (mono) */
+  --f-voice: 'Bricolage Grotesque Variable', 'Instrument Sans', system-ui, sans-serif;
+  --f-feel: 'Newsreader', Georgia, 'Times New Roman', serif;
+  --f-mono: ui-monospace, 'JetBrains Mono Variable', 'Cascadia Code', Consolas, Menlo, monospace;
+
+  /* scale (fluid, 390 to 1440) */
+  --t-hero: clamp(3.4rem, 4rem + 9vw, 11.5rem);
+  --t-h2: clamp(2.1rem, 1.3rem + 3.6vw, 4.6rem);
+  --t-h3: clamp(1.9rem, 1.1rem + 3.4vw, 4.2rem);
+  --t-body: clamp(1.08rem, 0.98rem + 0.5vw, 1.5rem);
+  --t-small: clamp(0.8rem, 0.76rem + 0.2vw, 0.92rem);
+  --pad: clamp(20px, 5vw, 72px); /* side gutter */
+  --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* grain strength */
+  --grain: 0.05;
+
+  /* the strip at the bottom taken by the fixed footer pills (36px pill + 2 x 12px gutter + device inset). Scenes pad their bottom with it. */
+  --v2-safe-bottom: calc(60px + env(safe-area-inset-bottom, 0px));
+  --v2-top-safe: 104px; /* the strip under the HUD pills */
+
+  /* the colours the current section wears; every .v2-ch element sets these from its data-chapter */
+  --bg: var(--bg-paper); --ink: var(--ink-paper); --dim: var(--dim-paper); --acc: var(--acc-paper);
+}
+
+.v2 [data-chapter='paper'], .v2[data-chapter='paper'] { --bg: var(--bg-paper); --ink: var(--ink-paper); --dim: var(--dim-paper); --acc: var(--acc-paper); }
+.v2 [data-chapter='clay'],  .v2[data-chapter='clay']  { --bg: var(--bg-clay);  --ink: var(--ink-clay);  --dim: var(--dim-clay);  --acc: var(--acc-clay); }
+.v2 [data-chapter='violet'],.v2[data-chapter='violet']{ --bg: var(--bg-violet);--ink: var(--ink-violet);--dim: var(--dim-violet);--acc: var(--acc-violet); }
+.v2 [data-chapter='pulse'], .v2[data-chapter='pulse'] { --bg: var(--bg-pulse); --ink: var(--ink-pulse); --dim: var(--dim-pulse); --acc: var(--acc-pulse); }
+.v2 [data-chapter='exec'],  .v2[data-chapter='exec']  { --bg: var(--bg-exec);  --ink: var(--ink-exec);  --dim: var(--dim-exec);  --acc: var(--acc-exec); }
+.v2 [data-chapter='ai'],    .v2[data-chapter='ai']    { --bg: var(--bg-ai);    --ink: var(--ink-ai);    --dim: var(--dim-ai);    --acc: var(--acc-ai); }
+.v2 [data-chapter='amber'], .v2[data-chapter='amber'] { --bg: var(--bg-amber); --ink: var(--ink-amber); --dim: var(--dim-amber); --acc: var(--acc-amber); }
+.v2 [data-chapter='plum'],  .v2[data-chapter='plum']  { --bg: var(--bg-plum);  --ink: var(--ink-plum);  --dim: var(--dim-plum);  --acc: var(--acc-plum); }
+.v2 [data-chapter='teal'],  .v2[data-chapter='teal']  { --bg: var(--bg-teal);  --ink: var(--ink-teal);  --dim: var(--dim-teal);  --acc: var(--acc-teal); }
+.v2 [data-chapter='ink'],   .v2[data-chapter='ink']   { --bg: var(--bg-ink);   --ink: var(--ink-ink);   --dim: var(--dim-ink);   --acc: var(--acc-ink); }
+
+/* The film is always light-paper based; v2 does not follow the v1 dark theme switch. */
+html[data-v2='on'] { color-scheme: light; background: #17171A; }
+html[data-v2='on'] body { background: #17171A; margin: 0; }

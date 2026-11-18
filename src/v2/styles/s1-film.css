@@ -1,0 +1,48 @@
+/* ============================================================
+   S1: film glue. HUD polish, the take-apart of art slots, shared micro-interactions. Loaded after v2.css.
+   ============================================================ */
+
+/* ---------- HUD ---------- */
+.v2-hud, .v2-foot { --s1-ease: cubic-bezier(0.16, 1, 0.3, 1); }
+.v2-pill, .v2-foot__link, .v2-hint { transition: background-color 0.6s var(--s1-ease), color 0.6s var(--s1-ease), border-color 0.6s var(--s1-ease), transform 0.35s var(--s1-ease); }
+.v2-pill--file:active, .v2-pill--index:active, .v2-foot__link:active { transform: scale(0.96); }
+@media (hover: hover) and (pointer: fine) {
+  .v2-pill--file:hover, .v2-pill--index:hover, .v2-foot__link:hover { border-color: var(--ink); transform: translateY(-1px); }
+}
+.v2-pill:focus-visible, .v2-foot__link:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
+
+/* progress hairline: scroll-linked (transform only), in the colour the chapter writes with */
+.v2-prog { position: absolute; left: 0; top: 0; width: 100%; height: 3px; background: var(--ink); transform: scaleX(0); transform-origin: 0 50%; pointer-events: none; transition: background-color 0.6s var(--s1-ease); will-change: transform; }
+
+/* breadcrumb: the pill opens (expo, 0.9s), its text arrives a beat later */
+.v2-crumb { animation: v2-grow 0.9s var(--s1-ease) both; }
+.v2-crumb__t, .v2-crumb__n { animation: v2-crumb-t 0.6s var(--s1-ease) 0.18s both; }
+@keyframes v2-crumb-t { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: none; } }
+
+/* burger -> X morph: two bars cross into an X with a little overshoot, the label stays */
+.v2-burger i { transition: transform 0.55s cubic-bezier(0.34, 1.4, 0.4, 1), top 0.45s var(--s1-ease); }
+
+/* the key hint: arrives after 4s idle */
+.v2-hint { transform: translateY(6px); }
+.v2-hint.is-idle { transform: none; }
+.v2-hint > span { display: none; } /* the middle dot is only for the plain text copy */
+
+.v2-foot__link { white-space: nowrap; flex: none; }
+/* footer: keep the utility pills quiet, never over body text (scenes pad their bottom with --v2-safe-bottom) */
+.v2-foot { padding-bottom: max(12px, env(safe-area-inset-bottom)); }
+
+/* ---------- take-apart of art slots (principle scenes' .v2-pa): leave is published by the stage ---------- */
+.v2-pa { transform: translate3d(calc(var(--leave, 0) * 48px), calc(var(--leave, 0) * -64px), 0) rotate(calc(var(--leave, 0) * 4deg)); opacity: calc(1 - var(--leave, 0) * 0.85); transform-origin: 50% 100%; }
+
+/* ---------- selection and text feel (fine pointers) ---------- */
+.v2 ::selection { background: var(--accent); color: #17171A; text-shadow: none; }
+.v2-words, .v2-body, .v2-h2, .v2-h3 { -webkit-user-select: text; user-select: text; }
+.v2-w { transition: none; }
+@media (hover: hover) and (pointer: fine) { .v2-words { cursor: text; } }
+
+/* ---------- signal vs noise (StatementScene) ---------- */
+.v2-signal { position: absolute; inset: 0; z-index: 0; pointer-events: none; color: var(--ink); }
+.v2-signal svg { display: block; width: 100%; height: 100%; }
+.v2-signal:not(.v2-signal--top) { opacity: 0.2; -webkit-mask-image: linear-gradient(90deg, rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.55) 42%, #000 72%); mask-image: linear-gradient(90deg, rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.55) 42%, #000 72%); }
+.v2-signal--top { z-index: 3; }
+@media (max-width: 700px) { .v2-signal:not(.v2-signal--top) { opacity: 0.16; -webkit-mask-image: none; mask-image: none; } }

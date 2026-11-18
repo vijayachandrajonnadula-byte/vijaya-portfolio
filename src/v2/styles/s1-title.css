@@ -1,0 +1,76 @@
+/* ============================================================
+   S1: the title scene and the opening. Loaded after v2.css.
+   Everything animated here is transform / opacity (the iris mask is the one exception: a single full-screen element, ~1s, once).
+   ============================================================ */
+
+.v2-scene--title { align-items: center; }
+.v2-scene__col--title { width: min(100%, 1500px); }
+
+/* the composition: VIJAY. + md, Clay standing on the same baseline */
+.v2-hero { --h: clamp(3.5rem, 19.4vw, 21rem); position: relative; width: max-content; max-width: 100%; font-size: var(--h); margin: 0 0 0.16em; }
+.v2-title { display: flex; flex-wrap: nowrap; align-items: baseline; font: 800 1em/0.84 var(--f-voice); letter-spacing: -0.045em; margin: 0 0 0 -0.04em; white-space: nowrap; }
+.v2-title__a { display: inline-flex; clip-path: inset(-0.35em -0.2em 0.02em -0.2em); }
+.v2-title__l { display: inline-block; animation: v2-rise 0.95s cubic-bezier(0.3, 1.45, 0.5, 1) both; animation-delay: calc(0.36s + var(--i) * 0.065s); will-change: transform; }
+@keyframes v2-rise { from { transform: translateY(1.05em) rotate(8deg); opacity: 0; } 40% { opacity: 1; } to { transform: none; opacity: 1; } }
+
+/* the full stop: the dot. it is the eye of the film. */
+.v2-title__stop { display: inline-block; flex: none; width: 0.17em; height: 0.17em; margin: 0 0.05em 0 0.035em; }
+.v2-title__dot { position: relative; display: block; width: 100%; height: 100%; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0.35em color-mix(in srgb, var(--accent) 70%, transparent); animation: v2-dotpop 0.8s cubic-bezier(0.3, 1.7, 0.5, 1) 0.62s both; }
+.v2-title__dot::after { content: ''; position: absolute; inset: -0.12em; border-radius: 50%; border: 0.025em solid var(--accent); opacity: 0; animation: v2-ring 3.6s ease-out 2.2s infinite; }
+@keyframes v2-dotpop { from { transform: scale(0); } to { transform: scale(1); } }
+@keyframes v2-ring { 0% { transform: scale(0.7); opacity: 0.5; } 70%, 100% { transform: scale(1.5); opacity: 0; } }
+.v2-beat[data-active='false'] .v2-title__dot::after { animation-play-state: paused; }
+
+.v2-title__b { display: inline-flex; font: 400 0.4em/1 var(--f-mono); letter-spacing: -0.03em; margin-left: 0.02em; }
+.v2-title__b > span { animation: v2-type 0.001s linear both; animation-delay: calc(0.9s + var(--i) * 0.15s); }
+@keyframes v2-type { from { opacity: 0; } to { opacity: 1; } }
+.v2-title__caret { font-size: 0.34em; margin-left: 0.08em; align-self: center; animation: v2-type 0.001s linear 1.05s both, v2-blink 1.05s step-end 1.3s infinite; }
+
+.v2-meta--title { margin: 0 0 1.5em; max-width: 46rem; animation: v2-fadein 0.7s var(--ease-expo) 1s both; }
+@keyframes v2-fadein { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+.v2-scene--title .v2-prompts { max-width: 58rem; }
+
+/* Clay stands right of the word, feet on the baseline; it is a little taller than the letters */
+.v2-hero .v2-clay--title { display: flex; align-items: flex-end; position: absolute; z-index: 1; left: 100%; right: auto; top: auto; bottom: 0.03em; width: 0.9em; margin-left: 0.07em; }
+.v2-hero .v2-clay--title .clay { animation: v2-claydrop 1s cubic-bezier(0.3, 1.4, 0.5, 1) 0.75s both; transform-origin: 50% 96%; }
+@keyframes v2-claydrop { from { transform: translateY(-0.5em) scale(0.92, 1.08); opacity: 0; } 50% { opacity: 1; } to { transform: none; opacity: 1; } }
+
+/* skipped: every opening animation lands at once (the continuous ones are left alone) */
+.v2-scene--title[data-skip='true'] :is(.v2-title__l, .v2-title__b > span, .v2-title__dot, .v2-meta--title, .v2-hero .v2-clay--title .clay, .v2-cue) { animation-duration: 0.001s; animation-delay: 0s; }
+.v2-scene--title[data-skip='true'] .v2-title__caret { animation: v2-blink 1.05s step-end infinite; }
+
+/* the cue: only after 3s idle at the top */
+.v2-cue { position: absolute; z-index: 3; left: 50%; bottom: calc(var(--v2-safe-bottom, 76px) + 6px); margin: 0; display: flex; flex-direction: column; align-items: center; gap: 10px; transform: translateX(-50%); font: 600 0.8rem/1 var(--f-mono); color: var(--ink); opacity: 0; pointer-events: none; transition: opacity 0.7s var(--ease-expo); }
+.v2-cue.is-on { opacity: 1; }
+.v2-cue__line { width: 1.5px; height: 34px; background: var(--ink); transform-origin: top; transform: scaleY(0.2); }
+.v2-cue.is-on .v2-cue__line { animation: v2-cueline 2.2s var(--ease-expo) infinite; }
+@keyframes v2-cueline { 0% { transform: scaleY(0.1); transform-origin: top; } 55% { transform: scaleY(1); transform-origin: top; } 56% { transform-origin: bottom; } 100% { transform: scaleY(0.05); transform-origin: bottom; } }
+.v2-cue kbd { font: 700 0.8rem var(--f-mono); padding: 1px 6px; border: 1.5px solid currentColor; border-radius: 6px; }
+.v2-cue__touch { display: none; }
+@media (hover: none), (pointer: coarse) { .v2-cue__fine { display: none; } .v2-cue__touch { display: inline; } }
+
+/* the HUD arrives after the iris */
+.v2-hud, .v2-foot { transition: opacity 0.7s var(--ease-expo); }
+html[data-v2-intro='play'] .v2-hud, html[data-v2-intro='play'] .v2-foot { opacity: 0; }
+
+/* the iris: ink screen with a hole growing from the dot */
+@property --v2-ir { syntax: '<length>'; inherits: false; initial-value: 0px; }
+.v2-iris { position: fixed; inset: 0; z-index: 70; pointer-events: none; background: #17171A;
+  -webkit-mask-image: radial-gradient(circle at var(--ix) var(--iy), transparent var(--v2-ir), #000 calc(var(--v2-ir) + 1.5px));
+  mask-image: radial-gradient(circle at var(--ix) var(--iy), transparent var(--v2-ir), #000 calc(var(--v2-ir) + 1.5px));
+  animation: v2-iris 0.95s cubic-bezier(0.5, 0, 0.12, 1) 0.2s both; transition: opacity 0.3s ease-out; }
+.v2-iris[data-phase='done'] { opacity: 0; }
+@keyframes v2-iris { from { --v2-ir: 0px; } to { --v2-ir: var(--ir-end, 160vmax); } }
+.v2-iris__dot { position: fixed; z-index: 71; border-radius: 50%; background: #E2705A; transform: translate(-50%, -50%); box-shadow: 0 0 22px 6px rgba(226, 112, 90, 0.55); animation: v2-iris-dot 1.5s cubic-bezier(0.3, 1.5, 0.5, 1) both; }
+@keyframes v2-iris-dot { 0% { transform: translate(-50%, -50%) scale(0); } 25% { transform: translate(-50%, -50%) scale(1.25); } 40% { transform: translate(-50%, -50%) scale(1); opacity: 1; } 62% { opacity: 1; } 78%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0; } }
+.v2-iris[data-phase='done'] .v2-iris__dot { animation: none; opacity: 0; }
+
+@media (max-width: 640px) {
+  .v2-hero { --h: clamp(3rem, 23.4vw, 6.4rem); }
+  /* on a phone the line is too short for a standing Clay: it stands on top of the small "md" instead */
+  .v2-hero .v2-clay--title { left: auto; right: 0; margin: 0; width: 1.22em; bottom: 0.38em; }
+  .v2-scene--title { padding-top: 112px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .v2-iris, .v2-title__dot::after { display: none; }
+}

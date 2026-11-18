@@ -2,46 +2,37 @@
 
 .story { position: relative; }
 
-.story-hero { position: relative; }
-.story-hero__label { position: absolute; left: 0; right: 0; bottom: 26px; display: flex; justify-content: center; pointer-events: none; }
-.story-hero__label .chapter { margin: 0; }
-.story-about__label { max-width: 1060px; margin: 0 auto; padding: clamp(32px, 5vw, 64px) var(--px) 0; box-sizing: content-box; }
-.story-about__label .chapter { margin: 0; }
-.story-about { margin-bottom: 0; }
 
-/* ---------- chapter label ---------- */
-.chapter { display: inline-flex; align-items: center; gap: 10px; margin: 0 0 14px; font: 500 0.78rem/1 ui-monospace, 'Cascadia Code', Consolas, monospace; letter-spacing: 0.08em; color: var(--c-mute); }
+/* ---------- chapter label ----------
+   Quiet by design (Occam, cognitive load, Selective Attention): a small dot and one plain word. No number, no
+   metaphor word, sans not mono, 13px. The dot still lights when the Trace reaches it. */
+.chapter { display: inline-flex; align-items: center; gap: 8px; margin: 0 0 14px; font: 500 0.8125rem/1.2 var(--font-sans); letter-spacing: 0.01em; color: var(--c-ink2); }
 .chapter--center { justify-content: center; }
-.chapter__dot { width: 7px; height: 7px; border-radius: 50%; border: 1.5px solid var(--c-mute); background: transparent; transition: background 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease; }
-.chapter__n { color: var(--c-clay-ink); font-weight: 600; }
-.chapter__name { text-transform: lowercase; }
-.chapter__plain { color: var(--c-ink2); }
-/* relay click: the node flickers on (~140ms) and the name slides in 6px as the label crosses ~40% up the viewport */
-.chapter.is-pre .chapter__name { transform: translateX(-6px); }
-.chapter__name { display: inline-block; transition: transform 0.45s var(--ease-out); }
+.chapter__dot { width: 7px; height: 7px; border-radius: 50%; border: 1.5px solid var(--c-mute); background: transparent; transition: background 0.4s ease, border-color 0.4s ease; }
+.chapter__name { display: inline-block; }
+/* one 140ms blink when the label first crosses ~40% up the viewport; none in Calm mode */
 .chapter.is-relay .chapter__dot { animation: relay 0.14s steps(2, end) 1; }
-@keyframes relay { 0% { background: var(--c-clay); box-shadow: 0 0 0 4px var(--c-glow); } 50% { background: transparent; box-shadow: none; } 100% { background: var(--c-clay); box-shadow: 0 0 0 4px var(--c-glow); } }
-.chapter.is-lit .chapter__dot { background: var(--c-clay); border-color: var(--c-clay); box-shadow: 0 0 0 4px var(--c-glow); }
+@keyframes relay { 0% { background: var(--c-clay); } 50% { background: transparent; } 100% { background: var(--c-clay); } }
+.chapter.is-lit .chapter__dot { background: var(--c-clay); border-color: var(--c-clay); }
 
-/* ---------- the trace (desktop gutter only) ---------- */
-.trace { display: none; position: absolute; left: 0; top: 0; pointer-events: none; z-index: 1; overflow: visible; }
-@media (min-width: 1200px) { .trace { display: block; } }
+/* ---------- the trace (wide desktops only, decorative) ----------
+   Hidden below 1280px. Thinner and lower in contrast than before; it is aria-hidden and never carries meaning. */
+.trace { display: none; position: absolute; left: 0; top: 0; pointer-events: none; z-index: 1; overflow: visible; opacity: 0.8; }
+@media (min-width: 1280px) { .trace { display: block; } }
 .trace__track, .trace__lit { fill: none; stroke-linecap: round; stroke-linejoin: round; }
-.trace__track { stroke: var(--c-line); stroke-width: 1.5; }
-.trace__lit { stroke: var(--c-clay); stroke-width: 1.5; }
-.trace__ring { fill: var(--c-bg); stroke: var(--c-line); stroke-width: 1.5; transition: stroke 0.4s ease; }
-.trace__dot { fill: var(--c-clay); transform: scale(0); transform-box: fill-box; transform-origin: center; transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1); }
+.trace__track { stroke: var(--c-line); stroke-width: 1; }
+.trace__lit { stroke: var(--c-clay); stroke-width: 1; opacity: 0.7; }
+.trace__ring { fill: var(--c-bg); stroke: var(--c-line); stroke-width: 1.25; transition: stroke 0.4s ease; }
+.trace__dot { fill: var(--c-clay); transform: scale(0); transform-box: fill-box; transform-origin: center; transition: transform 0.35s ease; }
 .trace__pad.is-on .trace__ring { stroke: var(--c-clay); }
 .trace__pad.is-on .trace__dot { transform: scale(1); }
 .trace__packet { transition: opacity 0.15s ease; }
 .trace__pk-halo { fill: var(--c-clay); opacity: 0.3; }
-.trace__pad.is-zap .trace__ring { stroke: var(--c-clay); stroke-width: 2.5; }
-.trace__pad.is-zap .trace__dot { transform: scale(1.5); }
+.trace__pad.is-zap .trace__ring { stroke: var(--c-clay); stroke-width: 2; }
+.trace__pad.is-zap .trace__dot { transform: scale(1.4); }
 .trace__head { transition: opacity 0.3s ease; }
 .trace__spark { fill: var(--c-clay); }
-.trace__halo { fill: var(--c-clay); opacity: 0.22; transform-box: fill-box; transform-origin: center; animation: trace-pulse 1.8s ease-in-out infinite; }
-.trace.is-paused .trace__halo { animation-play-state: paused; }
-@keyframes trace-pulse { 0%, 100% { transform: scale(0.55); opacity: 0.32; } 50% { transform: scale(1); opacity: 0.08; } }
+.trace__halo { fill: var(--c-clay); opacity: 0.16; } /* static: the old endless pulse competed with the content (Selective Attention) */
 
 /* ---------- LED ---------- */
 .led { position: relative; flex: none; width: 12px; height: 12px; border-radius: 50%; background: var(--c-tile2); border: 1.5px solid var(--c-line); transition: background 0.5s ease, border-color 0.5s ease, box-shadow 0.5s ease; }
@@ -54,23 +45,21 @@
 @keyframes led-ring { from { transform: scale(1); opacity: 0.9; } to { transform: scale(2.4); opacity: 0; } }
 .caret { display: inline-block; width: 1px; height: 1em; margin-left: 2px; vertical-align: -0.12em; background: var(--c-clay); animation: caret 0.5s steps(2) infinite; }
 @keyframes caret { 50% { opacity: 0; } }
-@media (prefers-reduced-motion: reduce) { .chapter.is-relay .chapter__dot, .led-ring { animation: none; } .led-ring { display: none; } .chapter__name { transition: none; } }
+@media (prefers-reduced-motion: reduce) { .chapter.is-relay .chapter__dot, .led-ring { animation: none; } .led-ring { display: none; } }
 .circuit-end { flex: 0 0 100%; box-sizing: border-box; display: flex; align-items: center; gap: 14px; width: 100%; margin: 0 0 4px; padding: 10px max(0px, calc((100% - 1060px) / 2)) 14px; color: var(--c-ink2); }
-.circuit-end__line { margin: 0; font: 500 0.82rem/1.5 ui-monospace, 'Cascadia Code', Consolas, monospace; letter-spacing: 0.02em; }
+.circuit-end__line { margin: 0; font: 500 0.9375rem/1.5 var(--font-sans); }
 .circuit-end__go { display: inline-flex; align-items: center; min-height: 44px; margin-left: 4px; color: var(--c-accent); text-decoration: underline; text-underline-offset: 3px; font-weight: 600; }
-.circuit-end__go:focus-visible { outline: 2px solid var(--c-accent); outline-offset: 2px; border-radius: 4px; }
+.circuit-end__go:focus-visible { outline: 3px solid var(--c-accent); outline-offset: 2px; border-radius: 4px; }
 .led:not(.is-on) { border-color: var(--c-ink2); }
 .trace__pad--end .trace__ring { stroke: var(--c-clay); }
 
 /* ---------- signal interlude ---------- */
-.signal { padding: clamp(24px, 5vw, 72px) var(--px) clamp(24px, 4vw, 56px); }
+.signal { padding-bottom: 0; }
 .signal__in { max-width: 1060px; margin: 0 auto; }
-.signal__h { margin: 0; font-family: var(--font-serif); font-weight: 400; letter-spacing: -0.02em; line-height: 1.05; font-size: clamp(2.2rem, 4.6vw, 3.6rem); max-width: 18ch; text-wrap: balance; }
-.signal__sub { margin: 10px 0 clamp(22px, 3vw, 34px); color: var(--c-mute); font-size: 1.05rem; }
 
 @media (prefers-reduced-motion: reduce) {
   .chapter__dot, .trace__dot, .trace__ring, .led { transition: none; }
-  .led.is-on, .trace__halo { animation: none; }
+  .led.is-on, .led.is-on { animation: none; }
 }
 
 /* Keep the footer's right-hand link clear of the floating Clay launcher. */

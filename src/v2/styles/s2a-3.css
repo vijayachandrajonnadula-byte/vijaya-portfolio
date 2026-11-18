@@ -1,0 +1,76 @@
+/* Art 3: prototype to find the truth. A breadboard bench; the toys are in a live layer that sits in the scene (not in the aria-hidden slot). */
+.s2a3-live { position: absolute; z-index: 2; right: clamp(8px, 4vw, 80px); top: clamp(88px, 14vh, 160px); bottom: clamp(56px, 8vh, 96px); width: min(46%, 640px); pointer-events: none; }
+.s2a3-live .s2a { pointer-events: none; }
+@media (max-width: 760px) { .s2a3-live { left: 8px; right: 8px; top: auto; bottom: 56px; width: auto; height: 34svh; } }
+
+.s2a3 { --pu: clamp(44px, 7.5cqmin, 60px); }
+.a3-bench { position: absolute; left: 0; right: 0; bottom: 0; height: 66cqh; }
+.a3-board {
+  position: absolute; inset: 0; border-radius: 2.4cqmin; overflow: hidden;
+  background-color: color-mix(in srgb, var(--ink) 8%, var(--bg));
+  background-image: radial-gradient(circle, color-mix(in srgb, var(--ink) 42%, transparent) 1.3px, transparent 1.8px);
+  background-size: 2.6cqmin 2.6cqmin; background-position: 1.3cqmin 1.3cqmin;
+  box-shadow: inset 0 0 0 2px color-mix(in srgb, var(--ink) 24%, transparent), 0 1.2cqh 0 color-mix(in srgb, var(--bg), #000 42%);
+}
+.a3-rail { position: absolute; left: 3cqmin; right: 3cqmin; height: 0.7cqmin; border-radius: 2px; }
+.a3-rail--t { top: 2.2cqmin; background: var(--acc); opacity: 0.85; }
+.a3-rail--b { bottom: 2.2cqmin; background: var(--dim); opacity: 0.8; }
+.a3-chan { position: absolute; left: 0; right: 0; top: 47%; height: 3.4cqmin; background: color-mix(in srgb, var(--bg), #000 38%); box-shadow: inset 0 2px 0 rgba(0,0,0,0.25); }
+
+.a3-clay { --cw: min(34cqh, 30cqw); left: 30%; width: var(--cw); bottom: calc(66cqh - var(--cw) * 0.62); }
+
+/* wireframe card that flips */
+.a3-flipwrap { position: absolute; left: 55%; top: 9%; width: 39%; height: 74%; perspective: 900px; }
+.a3-flip { position: absolute; inset: 0; transform-style: preserve-3d; transform: translateY(calc(var(--lift) * -2.4cqh)) rotateY(calc(var(--f) * 180deg)); }
+.a3-face { position: absolute; inset: 0; backface-visibility: hidden; -webkit-backface-visibility: hidden; border-radius: 1.8cqmin; padding: 2.4cqmin; display: flex; flex-direction: column; gap: 2cqmin; }
+.a3-wire { border: 2px dashed color-mix(in srgb, var(--ink) 55%, transparent); background: color-mix(in srgb, var(--bg), #000 12%); }
+.a3-x { width: 100%; height: 34%; flex: none; fill: none; stroke: color-mix(in srgb, var(--ink) 55%, transparent); stroke-width: 1.4; stroke-dasharray: 4 3; vector-effect: non-scaling-stroke; }
+.a3-x * { vector-effect: non-scaling-stroke; }
+.a3-wl { display: block; height: 1.7cqmin; border-radius: 3px; background: color-mix(in srgb, var(--ink) 38%, transparent); }
+.a3-wl--s { width: 58%; }
+.a3-wbtn { margin-top: auto; height: 5.4cqmin; border-radius: 6px; border: 2px dashed color-mix(in srgb, var(--ink) 55%, transparent); }
+.a3-works { transform: rotateY(180deg); background: color-mix(in srgb, var(--ink) 94%, var(--bg)); color: var(--bg); box-shadow: 0 1cqh 0 color-mix(in srgb, var(--bg), #000 45%); }
+.a3-works .a3-wl { background: color-mix(in srgb, var(--bg) 60%, transparent); }
+.a3-chart { height: 34%; flex: none; display: flex; align-items: flex-end; gap: 2.4cqmin; padding: 0 2cqmin; border-radius: 1.2cqmin; background: color-mix(in srgb, var(--acc) 30%, transparent); }
+.a3-chart i { flex: 1; height: calc(100% * var(--h) * var(--g)); background: var(--bg); border-radius: 3px 3px 0 0; transform-origin: bottom; }
+.a3-row { margin-top: auto; display: flex; align-items: center; justify-content: space-between; }
+.a3-sbtn { display: grid; place-items: center; width: 40%; height: 5.4cqmin; border-radius: 99px; background: var(--bg); }
+.a3-sbtn svg { width: 3.4cqmin; height: 3.4cqmin; fill: none; stroke: var(--acc); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.a3-stog { width: 8cqmin; height: 4.4cqmin; border-radius: 99px; background: var(--acc); position: relative; }
+.a3-stog::after { content: ''; position: absolute; right: 0.5cqmin; top: 0.5cqmin; bottom: 0.5cqmin; aspect-ratio: 1; border-radius: 50%; background: var(--bg); }
+.a3-state { position: absolute; left: 0; right: 0; bottom: -2.2cqh; height: 1.2em; margin: 0; text-align: center; transform: translateY(100%); }
+.a3-state span { position: absolute; inset: 0; }
+.a3-state__a { opacity: calc(1 - var(--f)); color: var(--dim); }
+.a3-state__b { opacity: var(--f); color: var(--acc); }
+
+/* the toys */
+.a3-p { position: absolute; z-index: 2; pointer-events: auto; cursor: grab; touch-action: none; outline: none; display: flex; align-items: center; gap: 1.6cqmin; color: var(--bg); box-shadow: 0 4px 0 rgba(0,0,0,0.32), 0 10px 18px -8px rgba(0,0,0,0.5); will-change: transform; }
+.a3-p:active { cursor: grabbing; }
+.a3-p:focus-visible { box-shadow: 0 0 0 3px var(--bg), 0 0 0 6px var(--acc); }
+.a3-p i { display: block; }
+.p-btn { left: 5%; top: 8%; width: max(82px, 22cqw); height: var(--pu); border-radius: 99px; background: var(--acc); justify-content: center; }
+.p-lbl { width: 46%; height: 0.9cqmin; min-height: 5px; border-radius: 99px; background: var(--bg); }
+.p-sld { left: 28.5%; top: 8%; width: max(90px, 24cqw); height: var(--pu); border-radius: 1.6cqmin; background: color-mix(in srgb, var(--ink) 94%, var(--bg)); padding: 0 12px; }
+.p-rail { position: absolute; left: 12px; right: 12px; top: 50%; height: 5px; margin-top: -2.5px; border-radius: 3px; background: color-mix(in srgb, var(--bg) 25%, transparent); }
+.p-thumb { position: absolute; left: 58%; top: 50%; width: 24px; height: 24px; margin: -12px 0 0 -12px; border-radius: 50%; background: var(--bg); box-shadow: 0 0 0 4px var(--acc); }
+.p-tog { left: 5%; top: 38%; width: max(60px, 14cqw); height: var(--pu); border-radius: 99px; background: color-mix(in srgb, var(--ink) 30%, var(--bg)); padding: 6px; }
+.p-knob { height: 100%; aspect-ratio: 1; border-radius: 50%; background: color-mix(in srgb, var(--ink) 94%, var(--bg)); transition: transform 0.28s var(--ease-expo, ease), background-color 0.2s; }
+.p-knob.is-on { transform: translateX(calc(max(60px, 14cqw) - var(--pu) + 0px)); background: var(--acc); }
+.p-tog:has(.is-on) { background: color-mix(in srgb, var(--acc) 35%, var(--bg)); }
+.p-crd { left: 28.5%; top: 38%; width: max(72px, 18cqw); height: calc(var(--pu) * 1.5); border-radius: 1.6cqmin; background: color-mix(in srgb, var(--ink) 94%, var(--bg)); flex-direction: column; align-items: stretch; justify-content: flex-start; padding: 7px; gap: 5px; }
+.p-img { flex: 1; border-radius: 5px; background: var(--acc); }
+.p-ln { height: 5px; border-radius: 3px; background: color-mix(in srgb, var(--bg) 55%, transparent); }
+.p-ln--s { width: 60%; }
+.p-tst { left: 5%; top: 66%; width: max(150px, 36cqw); height: var(--pu); border-radius: 1.6cqmin; background: var(--bg); color: var(--ink); padding: 0 12px; gap: 10px; box-shadow: 0 0 0 2px var(--ink), 0 4px 0 rgba(0,0,0,0.32), 0 10px 18px -8px rgba(0,0,0,0.5); }
+.p-tst .p-ln { background: color-mix(in srgb, var(--ink) 60%, transparent); }
+.p-tst span { flex: 1; display: grid; gap: 5px; }
+.p-dot { width: 12px; height: 12px; border-radius: 50%; background: var(--acc); flex: none; }
+.p-x { width: 10px; height: 10px; flex: none; background: linear-gradient(45deg, transparent 43%, var(--ink) 43% 57%, transparent 57%), linear-gradient(-45deg, transparent 43%, var(--ink) 43% 57%, transparent 57%); }
+
+.a3-hint { position: absolute; left: 5%; bottom: 5%; font-size: 1.1em; pointer-events: none; color: var(--acc); }
+@media (max-width: 760px) { .a3-state { display: none; } .a3-hint { left: auto; right: 4%; bottom: 3%; font-size: 1em; } }
+.a3-throw { display: inline-flex; align-items: center; gap: 6px; }
+.a3-throw svg { width: 30px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.a3-tidy { pointer-events: auto; min-height: 36px; padding: 0 14px; border-radius: 99px; border: 2px solid var(--acc); background: transparent; color: var(--acc); font: inherit; cursor: pointer; }
+.a3-tidy:hover { background: var(--acc); color: var(--bg); }
+.a3-tidy:focus-visible { outline: 3px solid var(--ink); outline-offset: 2px; }

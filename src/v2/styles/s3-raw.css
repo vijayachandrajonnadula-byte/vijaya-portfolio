@@ -1,0 +1,50 @@
+/* ============================================================
+   S3: the raw file window. A terminal: #101012 window, #E8E4DC text, accent glyphs #F4A090, links #7BE0A8.
+   ============================================================ */
+
+.s3-raw { position: fixed; z-index: 120; inset: 0; display: grid; place-items: center; padding: 16px; background: rgba(10, 10, 12, 0.66); backdrop-filter: blur(3px); }
+.s3-raw__win { width: min(880px, 100%); max-height: min(88svh, 800px); display: flex; flex-direction: column; border-radius: 14px; overflow: hidden; background: #101012; color: #E8E4DC; border: 1.5px solid #3a3a40; font-family: var(--f-mono); box-shadow: 0 40px 90px -30px rgba(0, 0, 0, 0.85), 0 0 0 1px rgba(255, 255, 255, 0.03); }
+.s3-raw__bar { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 9px 12px 9px 14px; background: #1c1c20; border-bottom: 1px solid #34343a; }
+.s3-raw__dots { display: inline-flex; gap: 7px; }
+.s3-raw__dots i { width: 12px; height: 12px; border-radius: 50%; background: #5a5a62; }
+.s3-raw__dots i:nth-child(1) { background: #E2705A; }
+.s3-raw__dots i:nth-child(2) { background: #F5B83D; }
+.s3-raw__dots i:nth-child(3) { background: #34C07C; }
+.s3-raw__title { font-size: 0.88rem; font-weight: 700; color: #E8E4DC; letter-spacing: 0.02em; }
+.s3-raw__btns { margin-left: auto; display: inline-flex; flex-wrap: wrap; gap: 8px; }
+.s3-raw__btns button { min-height: 36px; padding: 0 13px; border-radius: 8px; border: 1.5px solid #8a8a94; background: #101012; color: #E8E4DC; cursor: pointer; font: 700 0.8rem var(--f-mono); }
+.s3-raw__btns button:hover { border-color: #F4A090; color: #F4A090; }
+.s3-raw__btns kbd { margin-left: 4px; font: 600 0.72rem var(--f-mono); opacity: 0.9; }
+.s3-raw :focus-visible { outline: 3px solid #FAF9F7; outline-offset: 2px; }
+
+.s3-raw__pre { margin: 0; padding: 14px 16px 18px 6px; overflow: auto; flex: 1; font: 400 0.86rem/1.65 var(--f-mono); color: #E8E4DC; counter-reset: ln; -webkit-overflow-scrolling: touch; }
+.s3-raw__pre code { font: inherit; display: block; }
+.s3-l { position: relative; display: block; min-height: 1.65em; padding-left: 3.7em; white-space: pre-wrap; overflow-wrap: anywhere; }
+.s3-l::before { counter-increment: ln; content: counter(ln); position: absolute; left: 0; width: 2.6em; text-align: right; color: #8a8a94; user-select: none; -webkit-user-select: none; }
+.m-g { color: #F4A090; }
+.m-h { color: #FAF9F7; font-weight: 800; }
+.m-h1 { font-size: 1.12em; }
+.m-h2 { font-size: 1.06em; }
+.m-q { color: #CFCAC0; }
+.m-lab { color: #7BE0A8; }
+.m-url { color: #9a9aa4; }
+.m-em { color: #FFD0C4; font-style: italic; }
+.m-key { color: #F4A090; font-weight: 700; }
+
+.s3-raw__foot { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 4px 14px; padding: 10px 14px; border-top: 1px solid #34343a; background: #1c1c20; font-size: 0.78rem; }
+.s3-raw__meta { color: #B8B3A8; }
+.s3-raw__note { min-height: 1.2em; color: #E8E4DC; font-weight: 700; }
+.s3-raw__prompt { color: #F4A090; }
+.s3-raw__caret { display: inline-block; width: 0.55em; height: 1em; margin-left: 4px; vertical-align: -0.15em; background: #F4A090; animation: s3-rawblink 1.05s steps(1) infinite; }
+@keyframes s3-rawblink { 0%, 55% { opacity: 1; } 56%, 100% { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .s3-raw__caret { animation: none; } }
+
+@media (max-width: 520px) {
+  .s3-raw { padding: 10px; }
+  .s3-raw__win { max-height: 92svh; }
+  .s3-raw__btns { width: 100%; margin-left: 0; }
+  .s3-raw__btns button { flex: 1 1 auto; min-height: 44px; }
+  .s3-raw__pre { font-size: 0.78rem; padding-left: 4px; }
+  .s3-l { padding-left: 2.9em; }
+  .s3-l::before { width: 2em; }
+}

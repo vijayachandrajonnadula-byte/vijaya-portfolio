@@ -1,0 +1,11 @@
+/* S2b shared: the fixed design stage that scales to the art slot */
+.s2b-fit { position: absolute; inset: 0; --k: 1; }
+.s2b-fit__in { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%) scale(var(--k)); transform-origin: 50% 50%; }
+.s2b-fit__in, .s2b-fit__in * { box-sizing: border-box; }
+.s2b-fit__in button { font-family: var(--f-mono); }
+.s2b-fit__in :focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
+@media (prefers-reduced-motion: reduce) {
+  .s2b-fit__in *, .s2b-fit__in *::before, .s2b-fit__in *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
+}
+/* the art slot sits under the text column by default; at mid widths the column overlaps the left edge of the art and would eat clicks */
+.v2-scene--principle .v2-pa:has(.s2b-fit) { z-index: 3; }

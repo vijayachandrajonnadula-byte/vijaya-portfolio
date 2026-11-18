@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
-import { animate, useInView, useReducedMotion } from 'framer-motion';
+import { animate, useInView } from 'framer-motion';
+import { useCalm } from '../../lib/calm';
 
 interface CountUpProps {
   to: number;
@@ -13,7 +14,7 @@ interface CountUpProps {
 export default function CountUp({ to, from = 0, suffix = '', duration = 1.6 }: CountUpProps) {
   const ref = useRef<HTMLSpanElement>(null);
   const inView = useInView(ref, { once: true, margin: '-10% 0px' });
-  const reduced = useReducedMotion();
+  const reduced = useCalm();
   const [value, setValue] = useState(reduced ? to : from);
 
   useEffect(() => {

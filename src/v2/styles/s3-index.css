@@ -1,0 +1,63 @@
+/* ============================================================
+   S3: the index of collectible cards. Ink room, paper polaroids, chapter-coloured photos.
+   Tilt = rotate(var(--a)); hover/focus = lift + tilt toward the pointer; flip = rotateY on .s3-card__flip (transform only).
+   ============================================================ */
+
+.s3-index { position: fixed; z-index: 80; inset: 0; overflow-y: auto; overscroll-behavior: contain; background-color: var(--bg-ink); background-image: radial-gradient(rgba(243, 240, 234, 0.08) 1px, transparent 1.4px); background-size: 24px 24px; color: var(--ink-ink); }
+.s3-index__in { padding: 92px var(--pad) 64px; max-width: 1400px; margin: 0 auto; }
+.s3-index__h { margin: 0 0 clamp(22px, 4vh, 44px); font: 800 clamp(2rem, 1.2rem + 3vw, 4rem)/1 var(--f-voice); letter-spacing: -0.03em; color: var(--ink-ink); }
+.s3-index__h > span:first-child { font-family: var(--f-mono); font-weight: 500; color: var(--acc-ink); }
+.s3-index__sub { display: block; margin-top: 12px; font: 500 0.9rem/1.35 var(--f-mono); letter-spacing: 0; color: var(--ink-ink); }
+
+.s3-cards { list-style: none; margin: 0; padding: 0 0 8px; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 150px), 1fr)); gap: 30px 22px; }
+.s3-cardli { position: relative; display: flex; flex-direction: column; gap: 4px; }
+@media (prefers-reduced-motion: no-preference) {
+  .s3-index:not([data-calm='true']) .s3-cardli { animation: s3-deal 0.7s cubic-bezier(0.16, 1, 0.3, 1) both; animation-delay: calc(var(--i) * 45ms + 380ms); }
+}
+@keyframes s3-deal { from { opacity: 0; translate: 0 34px; } to { opacity: 1; translate: 0 0; } }
+
+.s3-card { position: relative; flex: 1; transform: rotate(var(--a, 0deg)) perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)); transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1); will-change: transform; }
+.s3-card:focus-within, .s3-card.is-flipped { transform: rotate(0deg) translateY(-8px) scale(1.03) perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)); z-index: 2; }
+@media (hover: hover) and (pointer: fine) {
+  .s3-card:hover { transform: rotate(0deg) translateY(-10px) scale(1.04) perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)); z-index: 2; }
+}
+.s3-card__flip { position: relative; height: 100%; transform-style: preserve-3d; transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1); }
+.s3-card.has-back:hover .s3-card__flip { transform: rotateY(180deg); transition-delay: 0.14s; }
+.s3-card.has-back.is-flipped .s3-card__flip { transform: rotateY(180deg); }
+.s3-card__front, .s3-card__back { -webkit-backface-visibility: hidden; backface-visibility: hidden; border-radius: 6px; }
+.s3-card__front { position: relative; height: 100%; background: #FAF9F7; color: #17171A; box-shadow: 0 16px 28px -16px rgba(0, 0, 0, 0.85), 0 1px 0 rgba(255, 255, 255, 0.6) inset; }
+.s3-card.is-here .s3-card__front { box-shadow: 0 0 0 3px #E2705A, 0 0 0 7px rgba(226, 112, 90, 0.28), 0 16px 28px -16px rgba(0, 0, 0, 0.85); }
+
+.s3-card__jump { display: flex; flex-direction: column; align-items: stretch; gap: 8px; width: 100%; height: 100%; min-height: 44px; padding: 9px 9px 12px; border: 0; border-radius: 6px; background: transparent; color: inherit; text-align: left; cursor: pointer; font: inherit; }
+.s3-card__jump:focus-visible { outline: 3px solid #FAF9F7; outline-offset: 5px; }
+.s3-card__photo { position: relative; display: grid; place-items: center; aspect-ratio: 5 / 4; border-radius: 3px; background: var(--bg); overflow: hidden; box-shadow: inset 0 0 0 1px rgba(23, 23, 26, 0.12); }
+.s3-card__mark { font: italic 600 clamp(3.2rem, 5vw, 4.4rem)/1 var(--f-feel); letter-spacing: -0.03em; color: var(--ink); }
+.s3-card__t { padding: 0 3px; font: 800 1.02rem/1.12 var(--f-voice); letter-spacing: -0.02em; text-wrap: balance; color: #17171A; }
+.s3-card__l { margin-top: auto; padding: 0 3px; font: 500 0.76rem/1.35 var(--f-mono); color: #17171A; }
+.s3-card__here { position: absolute; top: -11px; left: -8px; z-index: 3; padding: 4px 9px; border-radius: 999px; background: #E2705A; color: #17171A; font: 800 0.7rem/1 var(--f-mono); transform: rotate(-4deg); box-shadow: 0 4px 10px -4px rgba(0, 0, 0, 0.7); pointer-events: none; }
+
+/* the back of the card: the project behind it, in its own chapter colour */
+.s3-card__back { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: flex-end; gap: 8px; padding: 14px 12px 12px; background: var(--bg); color: var(--ink); transform: rotateY(180deg); box-shadow: 0 16px 28px -16px rgba(0, 0, 0, 0.85), inset 0 0 0 6px #FAF9F7; }
+.s3-card__jumpb { position: absolute; inset: 0; border-radius: 6px; cursor: pointer; }
+.s3-card__proofname { position: relative; pointer-events: none; font: 800 1.12rem/1.1 var(--f-voice); letter-spacing: -0.02em; text-wrap: balance; }
+.s3-card__hint { position: relative; pointer-events: none; font: 500 0.74rem/1.3 var(--f-mono); }
+.s3-card__case { position: relative; z-index: 2; display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 0 12px; border-radius: 999px; border: 2px solid var(--ink); background: var(--ink); color: var(--bg); font: 800 0.82rem/1 var(--f-mono); text-decoration: none; }
+.s3-card__case:hover { background: transparent; color: var(--ink); }
+.s3-card__case:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
+
+/* no flip (touch, reduced motion): the proof is plain text under the card */
+.s3-card__proof { display: inline-flex; align-items: center; min-height: 44px; padding: 0 3px; color: var(--ink-ink); font: 600 0.78rem/1.3 var(--f-mono); text-decoration: underline; text-underline-offset: 4px; }
+.s3-card__proof:focus-visible { outline: 3px solid #FAF9F7; outline-offset: 2px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .s3-card, .s3-card__flip { transition: none; }
+  .s3-card:focus-within, .s3-card:hover { transform: rotate(0deg); }
+}
+.s3-index[data-calm='true'] .s3-card, .s3-index[data-calm='true'] .s3-card__flip { transition: none; }
+
+@media (max-width: 640px) {
+  .s3-index__in { padding-top: 84px; padding-bottom: 48px; }
+  .s3-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px 14px; }
+  .s3-card__t { font-size: 0.98rem; }
+  .s3-card__l { font-size: 0.74rem; }
+}

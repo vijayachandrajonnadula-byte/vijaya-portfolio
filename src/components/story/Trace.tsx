@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState, type RefObject } from 'react';
-import { motion, useMotionValue, useMotionValueEvent, useReducedMotion, useScroll, useSpring, useTransform } from 'framer-motion';
+import { motion, useMotionValue, useMotionValueEvent, useScroll, useSpring, useTransform } from 'framer-motion';
+import { useCalm } from '../../lib/calm';
 import './../../styles/story.css';
 import { setCircuit, useCircuit } from './circuitStore';
 
@@ -16,7 +17,7 @@ const JOG = 14; // sideways step between nodes
  * changes only when the number of reached nodes changes.
  */
 export default function Trace({ boundary }: { boundary: RefObject<HTMLElement> }) {
-  const reduced = !!useReducedMotion();
+  const reduced = !!useCalm();
   const [geo, setGeo] = useState<Geo>({ d: '', nodes: [], end: null, w: 0, h: 0 });
   const [reached, setReached] = useState(0);
   const [zap, setZap] = useState(-1);
@@ -189,14 +190,14 @@ export default function Trace({ boundary }: { boundary: RefObject<HTMLElement> }
       <motion.path d={geo.d} className="trace__lit" style={{ pathLength: reduced ? 1 : progress }} />
       {geo.nodes.map((n, i) => (
         <g key={i} transform={`translate(${n.x} ${n.y})`} className={`trace__pad${i < reached ? ' is-on' : ''}${i === zap ? ' is-zap' : ''}`}>
-          <circle r="7" className="trace__ring" />
-          <circle r="3" className="trace__dot" />
+          <circle r="5" className="trace__ring" />
+          <circle r="2.5" className="trace__dot" />
         </g>
       ))}
       {geo.end ? (
         <g transform={`translate(${geo.end.x} ${geo.end.y})`} className={`trace__pad trace__pad--end${closed ? ' is-on' : ''}`}>
-          <circle r="7" className="trace__ring" />
-          <circle r="3" className="trace__dot" />
+          <circle r="5" className="trace__ring" />
+          <circle r="2.5" className="trace__dot" />
         </g>
       ) : null}
       {!reduced && (
@@ -207,7 +208,7 @@ export default function Trace({ boundary }: { boundary: RefObject<HTMLElement> }
       )}
       {!reduced && (
         <g ref={head} className="trace__head" style={{ opacity: 0 }}>
-          <circle r="9" className="trace__halo" />
+          <circle r="7" className="trace__halo" />
           <circle r="3" className="trace__spark" />
         </g>
       )}

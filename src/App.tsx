@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
-import { useEffect, useRef, useState } from 'react';
-import { motion, useReducedMotion } from 'framer-motion';
+import { lazy, Suspense, useEffect, useRef, useState } from 'react';
+import { motion, MotionConfig } from 'framer-motion';
+import { isCalm, useCalm } from './lib/calm';
 import HomePage from './pages/HomePage';
 import CaseStudyPage from './pages/CaseStudyPage';
 import RenewlyCaseStudyPage from './pages/RenewlyCaseStudyPage';
@@ -40,7 +41,7 @@ function RouteMeta() {
     setTag('meta[name="description"]', metaTag('name', 'description'), 'content', m.description);
     setTag('meta[property="og:title"]', metaTag('property', 'og:title'), 'content', m.title);
     setTag('meta[property="og:description"]', metaTag('property', 'og:description'), 'content', m.description);
-    setTag('meta[property="og:type"]', metaTag('property', 'og:type'), 'content', pathname === '/' ? 'website' : 'article');
+    setTag('meta[property="og:type"]', metaTag('property', 'og:type'), 'content', pathname === '/' || pathname === '/classic' ? 'website' : 'article');
     setTag('meta[property="og:url"]', metaTag('property', 'og:url'), 'content', window.location.origin + pathname);
     setTag('meta[name="twitter:card"]', metaTag('name', 'twitter:card'), 'content', 'summary');
     setTag('link[rel="canonical"]', () => { const l = document.createElement('link'); l.rel = 'canonical'; return l; }, 'href', window.location.origin + pathname);
@@ -95,7 +96,7 @@ function ScrollToHash() {
     // Prefer Lenis when active so native smooth-scroll does not fight it.
     const go = (el: HTMLElement) => {
       if (window.__lenis) window.__lenis.scrollTo(el, { offset: -72 });
-      else el.scrollIntoView({ behavior: 'smooth' });
+      else el.scrollIntoView({ behavior: isCalm() ? 'auto' : 'smooth' });
     };
     const el = document.getElementById(id);
     if (el) {
@@ -123,32 +124,45 @@ function PageMode() {
 // on its own; there is no exit animation, so navigation never feels delayed.
 function RouteFade({ children }: { children: React.ReactNode }) {
   const { pathname } = useLocation();
-  const reduced = useReducedMotion();
+  const reduced = useCalm();
   return (
     <motion.div
       key={pathname}
       initial={reduced ? false : { opacity: 0 }}
       animate={{ opacity: 1 }}
-      transition={{ duration: 0.24, ease: [0.22, 1, 0.36, 1] }}
+      transition={{ duration: reduced ? 0 : 0.24, ease: [0.22, 1, 0.36, 1] }}
     >
       {children}
     </motion.div>
   );
 }
 
+// The v2 film (VIJAY.md) at `/` brings its own chrome: its own skip link, HUD and scroll handling. The v1 chrome
+// (skip link, scroll progress, cursor label, Guide, smooth-scroll switch) stays on /classic, /ask and the case studies.
+function V1Chrome({ part }: { part: 'top' | 'guide' }) {
+  const { pathname } = useLocation();
+  if (pathname === '/') return null;
+  return part === 'top'
+    ? <><SkipLink /><SmoothScroll /><ScrollProgress /><CursorLabel /></>
+    : <Guide />;
+}
+
+const V2App = lazy(() => import('./v2/V2App'));
+
 export default function App() {
+  // Calm mode (header switch, or the system's reduced-motion setting): every framer-motion component behaves as reduced motion.
+  const calm = useCalm();
   return (
+    <MotionConfig reducedMotion={calm ? 'always' : 'user'}>
     <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
-      <SkipLink />
+      <V1Chrome part="top" />
       <RouteMeta />
       <PageMode />
       <ScrollToHash />
-      <SmoothScroll />
-      <ScrollProgress />
-      <CursorLabel />
       <RouteFade>
       <Routes>
-        <Route path="/" element={<HomePage />} />
+        <Route path="/" element={<Suspense fallback={<div style={{ minHeight: '100vh', background: '#FAF9F7' }} />}><V2App /></Suspense>} />
+        <Route path="/classic" element={<HomePage />} />
         <Route path="/ask" element={<AskPage />} />
         <Route path="/projects/riverside-general" element={<CaseStudyPage />} />
         <Route path="/projects/renewly" element={<RenewlyCaseStudyPage />} />
@@ -162,7 +176,8 @@ export default function App() {
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
       </RouteFade>
-      <Guide />
+      <V1Chrome part="guide" />
     </BrowserRouter>
+    </MotionConfig>
   );
 }
