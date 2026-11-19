@@ -282,11 +282,6 @@ export default function PulseCaseStudyPage() {
               { icon: 'cross', title: 'What was hard', items: ['Exports miss anything that is not a fill or a text style', 'A value that looks backwards is not always wrong', 'Keeping written rules and code in step', limits[0] ?? 'Measuring the effect'] },
               { icon: 'arrow', title: 'What I would do next', items: nextSteps.slice(0, 4) },
             ]} />
-            <h3 className="pk-h3">Still open</h3>
-            <Bullets items={[
-              'A few parts are partial: the transfer list, the data grid’s pagination and column menu, and one text-cursor animation.',
-              'Two design questions are unanswered and the page does not claim an answer: which surface sits behind a table, and whether grid headers are regular or semibold.',
-            ]} />
           </Sec>
         </CaseShell>
       </main>
