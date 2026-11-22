@@ -7,9 +7,9 @@ import '../../styles/home-v2.css';
 
 /** The three windows on the stage. Positions are percentages of the stage so it scales as one piece. */
 const WINDOWS = [
-  { id: 'pulse-design-system', title: 'PULSE design system', w: '68%', l: '31%', t: '1%', z: 1, d: 10, r: '1.2deg', tone: 'a', delay: 0.5 },
+  { id: 'pulse-storybook', title: 'PULSE Storybook', w: '68%', l: '31%', t: '1%', z: 1, d: 10, r: '1.2deg', tone: 'a', delay: 0.5 },
   { id: 'electronic-execution', title: 'Working prototype', w: '52%', l: '0%', t: '31%', z: 2, d: 22, r: '-2.4deg', tone: 'b', delay: 0.68 },
-  { id: 'caresync', title: 'CareSync briefing', w: '45%', l: '50%', t: '55%', z: 3, d: 34, r: '2deg', tone: 'a', delay: 0.86 },
+  { id: 'afs-enterprise-workflow', title: 'Account Fit Score', w: '45%', l: '50%', t: '55%', z: 3, d: 34, r: '2deg', tone: 'a', delay: 0.86 },
 ] as const;
 
 /**
