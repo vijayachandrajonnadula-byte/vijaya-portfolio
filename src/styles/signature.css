@@ -1,0 +1,26 @@
+/* The hero signature and the animated VJ mark. Everything runs once; reduced motion draws the finished state. */
+.sig { display: block; width: clamp(190px, 17vw, 250px); height: auto; overflow: visible; color: var(--c-clay-ink); }
+.sig__line { fill: none; stroke: var(--c-clay); stroke-width: 2.5px; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; stroke-dasharray: 1; stroke-dashoffset: 1; animation: sig-trace 0.9s 0.2s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
+.sig__m { stroke-dasharray: 1; stroke-dashoffset: 1; animation: sig-write 2.3s 1.5s cubic-bezier(0.45, 0.05, 0.3, 1) forwards; }
+.sig__mf { opacity: 0; animation: sig-fill 0.5s 3.6s ease forwards; }
+@keyframes sig-trace { to { stroke-dashoffset: 0; } }
+@keyframes sig-write { to { stroke-dashoffset: 0; } }
+@keyframes sig-fill { to { opacity: 1; } }
+.sig--static .sig__line, .sig--static .sig__m { animation: none; stroke-dashoffset: 0; }
+.sig--static .sig__mf { animation: none; opacity: 1; }
+@media (prefers-reduced-motion: reduce) {
+  .sig__line, .sig__m { animation: none; stroke-dashoffset: 0; }
+  .sig__mf { animation: none; opacity: 1; }
+}
+
+/* VJ mark: one continuous pen stroke, V into J, drawn once on load and again on hover */
+.vjl__p { stroke-dasharray: 1; stroke-dashoffset: 1; animation: vjl-draw 1.25s 0.35s cubic-bezier(0.5, 0.05, 0.25, 1) forwards; }
+.vjl__dot { transform-box: fill-box; transform-origin: center; transform: scale(0); animation: vjl-dot 0.45s 1.4s cubic-bezier(0.3, 1.6, 0.5, 1) forwards; }
+@keyframes vjl-draw { to { stroke-dashoffset: 0; } }
+@keyframes vjl-dot { to { transform: scale(1); } }
+.vjl--static .vjl__p { animation: none; stroke-dashoffset: 0; }
+.vjl--static .vjl__dot { animation: none; transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  .vjl__p { animation: none; stroke-dashoffset: 0; }
+  .vjl__dot { animation: none; transform: none; }
+}

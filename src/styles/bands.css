@@ -57,12 +57,12 @@ main.home + .site-foot { border-top-color: var(--bi-line); }
    HERO: the headline is the design
    ============================================================ */
 /* The hero is a stage: a plain statement on the left, three real project clips playing on the right. */
-.hhero { position: relative; min-height: 100svh; display: flex; padding: 104px var(--px) 0; overflow: clip; }
+.hhero { position: relative; min-height: 100svh; display: flex; padding: 92px var(--px) 0; overflow: clip; }
 .hhero__in { width: 100%; max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: minmax(0, 1fr); align-content: center; gap: clamp(28px, 5vw, 48px); padding-bottom: clamp(40px, 7vh, 80px); }
-.hhero__copy { display: flex; flex-direction: column; align-items: flex-start; gap: 28px; min-width: 0; }
-.hhero__who { margin: 0; display: inline-flex; align-items: center; gap: 10px; color: var(--c-ink2); font-size: 1rem; font-weight: 600; }
-.hhero__who::before { content: ''; width: 28px; height: 2px; background: var(--c-clay); border-radius: 2px; }
-.hhero__title { margin: 0; font-family: var(--font-serif); font-weight: 400; letter-spacing: -0.04em; line-height: 0.98; font-size: clamp(3rem, 8.4vw, 5.6rem); text-wrap: balance; }
+.hhero__copy { display: flex; flex-direction: column; align-items: flex-start; gap: 22px; min-width: 0; }
+.hhero__id { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; }
+.hhero__who { margin: 0; color: var(--c-ink2); font-size: 1rem; font-weight: 600; }
+.hhero__title { margin: 0; font-family: var(--font-serif); font-weight: 400; letter-spacing: -0.04em; line-height: 1; font-size: clamp(2.6rem, 5.1vw, 4rem); text-wrap: balance; }
 .hhero .hhero__sub { margin: 0; max-width: 40ch; color: var(--c-ink2); font-size: clamp(1.1875rem, 1.5vw, 1.35rem); line-height: 1.55; text-wrap: pretty; }
 .hhero__act { display: flex; align-items: center; flex-wrap: wrap; gap: 8px 28px; }
 

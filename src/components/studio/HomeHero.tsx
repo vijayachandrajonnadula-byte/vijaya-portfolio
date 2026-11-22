@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, useReducedMotion } from 'framer-motion';
 import GlimpseVideo from './GlimpseVideo';
+import Signature from './Signature';
 import { glimpseOf } from '../../data/glimpses';
 import '../../styles/home-v2.css';
 
@@ -61,14 +62,17 @@ export default function HomeHero() {
     <section className="hhero" id="top" aria-label="Introduction" data-hero>
       <div className="hhero__in">
         <div className="hhero__copy">
-          <motion.p className="hhero__who" {...fade(0.05)}>Vijay Jonnadula · Senior UX Designer · Hyderabad</motion.p>
-          <motion.h1 className="hhero__title" {...fade(0.12)}>
+          <div className="hhero__id">
+            <Signature />
+            <p className="hhero__who">Vijaya Chandra Jonnadula · Senior UX Designer · Hyderabad</p>
+          </div>
+          <motion.h1 className="hhero__title" {...fade(0.6)}>
             I make complicated software feel obvious.
           </motion.h1>
-          <motion.p className="hhero__sub" {...fade(0.3)}>
+          <motion.p className="hhero__sub" {...fade(0.85)}>
             I started as an electronics engineer, so I design the same way I debug: find the signal, remove the noise, then build a working prototype to prove it.
           </motion.p>
-          <motion.div className="hhero__act" {...fade(0.45)}>
+          <motion.div className="hhero__act" {...fade(1.1)}>
             <a className="btn-c btn-c--lg" href="#work" onClick={goWork}>See the work</a>
             <Link className="link-q" to="/ask">
               Ask me anything
