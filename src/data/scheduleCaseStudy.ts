@@ -1,22 +1,25 @@
 export interface ScheduleScreen {
   num: string;
   title: string;
-  purpose: string;
-  keyElements: string[];
-  uxNote: string;
-  src: string;
-}
-
-export interface ScheduleDemonstratesItem {
-  title: string;
+  /** Bold first clause: the decision the screen shows. */
+  lead: string;
   body: string;
+  alt: string;
+  keyElements: string[];
+  src: string;
 }
 
 export interface ScheduleDecision {
   num: string;
   title: string;
-  body: string;
-  why: string;
+  saw: string;
+  reading: string;
+  alternative?: string;
+  instrument: string;
+  /** 'designed' only when the owner confirms it; the default is 'observed'. */
+  basis: 'designed' | 'observed';
+  screens: string;
+  crop?: { src: string; pos: string; alt: string };
 }
 
 export interface ScheduleComponentPattern {
@@ -30,22 +33,23 @@ export interface ScheduleHandoffCard {
   body: string;
 }
 
+export interface ScheduleNote {
+  text: string;
+  criteria: string;
+}
+
 export const scheduleCaseStudy = {
   id: 'zoominfo-schedule',
   title: 'ZoomInfo Schedule',
   subtitle:
-    "ZoomInfo's answer to Calendly — scheduling built directly into ZoomInfo Marketing. Availability setup, meeting types, and email reminders for sales and RevOps teams.",
-  tags: [
-    'Enterprise UX',
-    'Scheduling',
-    'Calendar Settings',
-    'B2B SaaS',
-    'ZoomInfo',
-    'Configuration UI',
-    'Email Reminders',
-    'Workflow Design',
-    'Design System',
-  ],
+    'Scheduling settings inside ZoomInfo Marketing: default availability, meeting types and email reminders, with booking links ready to share.',
+  tags: ['Enterprise UX', 'Scheduling', 'Calendar Settings', 'B2B SaaS', 'Configuration UI', 'Figma'],
+
+  myPart:
+    'UX/UI Design Contributor on ZoomInfo Marketing. Focus of this write-up: availability setup, meeting type creation and reminder configuration.',
+  outcome:
+    'Final Figma screens from a company project. No shipped result or metrics are claimed: this page reconstructs the structure and reasoning from those screens.',
+  statusLabel: 'Final screens, reconstructed',
 
   snapshot: [
     { label: 'Role', value: 'UX/UI Design Contributor, ZoomInfo Marketing' },
@@ -53,478 +57,419 @@ export const scheduleCaseStudy = {
     { label: 'Platform', value: 'ZoomInfo Marketing web application' },
     { label: 'Source', value: 'Final Figma UI screens, company project' },
     { label: 'Focus', value: 'Availability setup, meeting type creation, reminder configuration' },
-    { label: 'Comparable', value: 'Calendly, Chili Piper — built natively within ZoomInfo' },
+    { label: 'Output', value: 'A design audit of the final screens: flow, decisions, notes for build' },
   ],
 
-  confidentialityNote:
-    'This case study is based on UI screens from a company project within ZoomInfo Marketing. Business context, internal workflows, and specific team details are kept at a high level. Prototype data visible in the screens — "Product Related Queries", "Chennai", "ZI Schedule Demo", "JD" — are test values used during design, not real customer or business data.',
-
-  demonstrates: [
-    {
-      title: 'Enterprise scheduling UX',
-      body: 'ZoomInfo Schedule lives in the same nav as Audiences, Advertising, and Buying Signals. The feature had to feel like it belonged there — not like a Calendly widget dropped into a B2B platform.',
-    },
-    {
-      title: 'Two-phase setup flow',
-      body: 'Availability and meeting types are separate concerns that reference each other. Default availability is pre-set so users can skip straight to creating their first meeting type if Mon–Fri 9–5 already matches their schedule.',
-    },
-    {
-      title: 'Smart defaults and guided setup',
-      body: 'Mon–Fri 9–5 is set before you touch anything. A 30-minute reminder is already added. The email reminders section leads with "Adding a reminder can reduce no-shows up to 60%" — a reason to actually read it instead of skipping straight to Save.',
-    },
-    {
-      title: 'Constraint communication at the boundary',
-      body: "The 3-reminder cap doesn't appear in the form. You only see it when you try to add a fourth — the link is disabled and a tooltip explains why. No need to flag limits to users who'll never reach them.",
-    },
-    {
-      title: 'Destructive action protection',
-      body: "Hitting Cancel on a partially completed meeting type shows a confirmation: \"Discard Meeting Type? Your changes won't be saved.\" One accidental tap shouldn't wipe out a form someone just spent five minutes filling in.",
-    },
-    {
-      title: 'Email customisation with live preview',
-      body: 'Edit the reminder email on the left, see what the recipient gets on the right. The preview updates as you type. No sending yourself a test email to check how the formatting landed.',
-    },
-  ] as ScheduleDemonstratesItem[],
+  readingNote: {
+    title: 'How to read this page',
+    items: [
+      'This is company work. Business context, internal workflows and team details are left out on purpose.',
+      'It is reconstructed from final Figma screens. There is no research or discovery artifact behind it, so every reason given is my reading of the screens, not a recorded fact.',
+      'Each decision is tagged "Observed from the final screens" unless the owner has confirmed it was designed by Vijay.',
+      'Values such as "Product Related Queries", "Chennai", "ZI Schedule Demo" and "JD" are test data from the prototype. The sample email body in the editor names a real company; it is placeholder copy.',
+    ],
+  },
 
   overview:
-    "ZoomInfo Schedule is essentially Calendly inside ZoomInfo Marketing. Sales reps and account executives configure their availability, create named meeting types, set up email reminders, and share booking links with prospects — without switching to a separate tool. The feature sits in Calendar Settings, one of four sub-tabs under Settings.",
+    'From the screens, Schedule lives under Settings, Calendar Settings in ZoomInfo Marketing. A user sets default availability, creates up to three meeting types (the list header counts "0/3 Created"), configures email reminders for each, and copies a booking URL or shares slots from the meeting type card.',
 
   problem: {
-    main: 'Teams using ZoomInfo still needed a scheduling tool. Without one built in, they were sending prospects to Calendly or Chili Piper — separate products that break the flow of an outreach sequence and add another thing to manage.',
+    main: 'Setting up scheduling involves several linked settings: when you are available, what a meeting is, and what reminders go out. A form that asks for all of it up front would be slow to finish.',
     detail:
-      "A native scheduling tool fixes this. Booking links can be shared directly from ZoomInfo workflows, and reps don't need to jump between products to get a meeting on the calendar. The design challenge was keeping setup fast — someone who has used Calendly before should be up and running in a few minutes, not an afternoon.",
+      'My reading of the screens: the design tries to make the first meeting type quick (sensible defaults, one required field group) while leaving the controls that busy people need within reach (split shifts, custom reminder emails, per-meeting availability).',
     highlight:
-      'A scheduling tool that takes too long to set up is one people configure once and never touch again. Getting started needs to be fast; coming back to edit needs to be obvious.',
+      'Getting started has to be fast, and coming back to edit has to be obvious.',
   },
+
+  userFlowDescription:
+    'Two paths start from Calendar Settings. Availability is already filled in, so a user can skip it. Creating a meeting type is the main task.',
+
+  userFlowAvailability: [
+    'Calendar Settings',
+    'Manage Availability',
+    'Time zone and active days',
+    'Time slots and buffers',
+    'Save',
+    'Back to Calendar Settings, toast',
+  ],
+
+  userFlowCreateMeeting: [
+    'Calendar Settings',
+    'Create Meeting Type',
+    'Title, description, video conferencing',
+    'Reminders',
+    '(Customize email)',
+    'Save',
+    'Meeting type card with share actions',
+  ],
+
+  decisions: [
+    {
+      num: '01',
+      title: 'Pre-fill availability and say so on the empty state',
+      saw: 'The empty state reads "We have set up default availability for you. You can edit it if needed." Availability opens as Monday to Friday, 9:00 AM to 5:00 PM, in Eastern Time (New York).',
+      reading:
+        'Most people can skip availability and go straight to their first meeting type. The inline "edit" link is a quiet way back that does not compete with the main button.',
+      alternative: 'Requiring availability before the first meeting type would add a step many people may not need.',
+      instrument:
+        'What I would instrument: the share of users who open Manage Availability before creating a meeting type, and how often they change the defaults. I cannot tell from the screens whether the time zone comes from browser detection.',
+      basis: 'observed',
+      screens: '01, 02',
+      crop: {
+        src: '/images/projects/schedule/screens/schedule-01-empty-state.png',
+        pos: '50% 78%',
+        alt: 'Empty state reading Setup your first meeting type, with copy saying default availability has been set up and an edit link, above a Create Meeting Type button.',
+      },
+    },
+    {
+      num: '02',
+      title: 'Explain the reminder limit at the moment it applies',
+      saw: 'The form does not mention a cap. With three reminders added, "Add new reminder" turns grey and a tooltip reads "Only 3 reminders are possible".',
+      reading:
+        'Users who add one or two reminders never see the message, so the form stays clean for the common case and the explanation appears right where it is needed.',
+      alternative: 'Stating the limit up front, which adds text for people who will not reach it.',
+      instrument:
+        'What I would instrument: how often people hit the limit. Risk: a hover-only tooltip is easy to miss, so I would check that it is reachable by keyboard and touch.',
+      basis: 'observed',
+      screens: '06',
+      crop: {
+        src: '/images/projects/schedule/screens/schedule-07-create-filled.png',
+        pos: '0% 82%',
+        alt: 'Email Reminders card with three reminders and a disabled Add new reminder link under a dark tooltip reading Only 3 reminders are possible.',
+      },
+    },
+    {
+      num: '03',
+      title: 'Edit the reminder email beside a rendered preview',
+      saw: 'The Customize Reminder Email modal has an editor on the left (subject, locked blocks, token chips such as {Meeting_Title}, a formatting toolbar, a reset link) and a preview on the right with desktop, tablet and mobile toggles and an "Email Yourself" button.',
+      reading:
+        'The preview shows the shape of the email while the editor controls the wording. The preview in the screen uses placeholder date text, and "Email Yourself" suggests a real test send is also offered. I cannot tell from a static screen whether the preview updates as you type.',
+      alternative: 'Editing in a plain text area and finding out by sending a test.',
+      instrument:
+        'What I would instrument: how many people open the editor, save a change, or use Reset. Risk: token chips need clear behavior when a value is empty.',
+      basis: 'observed',
+      screens: '07',
+      crop: {
+        src: '/images/projects/schedule/screens/schedule-08-email-editor-1.png',
+        pos: '60% 30%',
+        alt: 'Customize Reminder Email modal with an editor on the left and a rendered email preview on the right, including device toggles and an Email Yourself button.',
+      },
+    },
+    {
+      num: '04',
+      title: 'Stack extra time windows under the day',
+      saw: 'After a second window is added, each active day shows a 9:00 AM to 12:00 PM row and a 2:00 PM to 5:00 PM row. The first row carries a plus, the second a trash icon. "Apply to all" sits on the Monday row.',
+      reading: 'Stacking keeps the grid readable however many windows are added, and each window can be removed without touching the rest of the day.',
+      instrument: 'What I would instrument: how often split shifts are used, and how often overlapping windows are entered (see open questions).',
+      basis: 'observed',
+      screens: '02, 03',
+    },
+    {
+      num: '05',
+      title: 'Confirm before discarding a half-filled meeting type',
+      saw: 'Cancel opens "Discard Meeting Type?" with the buttons Cancel and Discard. The copy says the changes will not be saved.',
+      reading: 'A confirmation protects the work without needing autosave. The button labels say what each does.',
+      instrument: 'What I would instrument: how often Discard is chosen versus Cancel. I would also check that focus and Escape behave safely (see notes for build).',
+      basis: 'observed',
+      screens: '09',
+    },
+    {
+      num: '06',
+      title: 'Put sharing on the meeting type card',
+      saw: 'After saving, the card shows "Share slots" and a "Copy booking URL" control directly, next to chips for the video tool, reminder count and duration.',
+      reading: 'Sharing a link appears to be the likely next step, so it is one action away without reopening settings.',
+      instrument: 'What I would instrument: use of Copy booking URL versus Share slots, and return visits to edit.',
+      basis: 'observed',
+      screens: '10',
+    },
+    {
+      num: '07',
+      title: 'Persuasion line above the reminder rows',
+      saw: 'The Email Reminders card carries the helper line "Adding a reminder can reduce no-shows up to 60%".',
+      reading:
+        'It appears to be there to encourage people to leave reminders on. I cannot verify the figure and I do not use it as evidence in this case study; it is quoted as it appears in the product copy.',
+      instrument: 'What I would instrument: reminder on/off rate with and without the line, if the claim can be sourced.',
+      basis: 'observed',
+      screens: '05, 06',
+    },
+  ] as ScheduleDecision[],
+
+  iaDescription:
+    'Reconstructed from the visible top navigation and the Settings tabs. Nothing here comes from a documented sitemap.',
+
+  iaTree: [
+    { label: 'ZoomInfo Marketing: Dashboard, Audiences, Advertising, Buying Signals, Conversion, Workflows, Lists', level: 0 },
+    { label: 'Settings', level: 1 },
+    { label: 'My Account, Integrations, Customisation', level: 2 },
+    { label: 'Calendar Settings (active)', level: 2, active: true },
+    { label: 'Manage Availability: time zone, work hours, buffer time, meeting buffers', level: 3 },
+    { label: 'My Meeting Types (0/3 created)', level: 3 },
+    { label: 'Create Meeting Type: basic settings, email reminders, availability, cancel and reschedule links', level: 4 },
+    { label: 'Customize Reminder Email (per reminder)', level: 5 },
+    { label: 'Meeting type card: Share slots, Copy booking URL, "..." menu', level: 4 },
+  ],
 
   users: [
     {
       type: 'Primary',
       label: 'Sales representatives and account executives',
       description:
-        'Users who configure their own scheduling page and share booking links with prospects during outreach. They need to set up availability and meeting types quickly and get back to selling.',
+        'Inferred from the feature, not from research: people who set up their own scheduling page and share booking links.',
       tasks: [
-        'Set or review default availability (work hours, time zone)',
-        'Adjust split-shift availability if needed',
-        'Create a named meeting type (title, description, video conferencing)',
-        'Configure email reminders for the meeting type',
-        'Customise the reminder email template if needed',
-        'Copy booking URL to share in emails or messages',
-        'Share specific available time slots directly with a prospect',
+        'Review default availability',
+        'Adjust split shifts',
+        'Create a meeting type',
+        'Set and customize reminders',
+        'Copy a booking URL or share slots',
       ],
     },
     {
       type: 'Secondary',
-      label: 'Marketing operations and RevOps teams',
+      label: 'Marketing operations and RevOps',
       description:
-        'Users who configure scheduling for team-wide use or embed booking URLs into ZoomInfo Marketing Workflows and campaign sequences.',
-      tasks: [
-        'Configure default availability for a team or workspace',
-        'Create standardised meeting types for consistent outreach',
-        'Embed booking URLs in ZoomInfo Workflows',
-        'Manage and audit existing meeting types',
-      ],
+        'Inferred from the product area: people who might standardize meeting types for a team. Nothing on the screens confirms team-level controls.',
+      tasks: ['Create consistent meeting types', 'Review existing meeting types'],
     },
   ],
-
-  iaDescription:
-    'ZoomInfo Schedule sits under Settings → Calendar Settings, alongside My Account, Integrations, and Customisation. From the Calendar Settings landing you can go to Manage Availability or Create a Meeting Type. Created meeting types show up as cards with sharing actions directly on each card.',
-
-  iaTree: [
-    { label: 'ZoomInfo Marketing', level: 0 },
-    { label: 'Dashboard', level: 1 },
-    { label: 'Audiences', level: 1 },
-    { label: 'Advertising', level: 1 },
-    { label: 'Buying Signals', level: 1 },
-    { label: 'Conversion', level: 1 },
-    { label: 'Workflows', level: 1 },
-    { label: 'Lists', level: 1 },
-    { label: 'Settings', level: 1, active: true },
-    { label: 'My Account', level: 2 },
-    { label: 'Integrations', level: 2 },
-    { label: 'Customisation', level: 2 },
-    { label: 'Calendar Settings', level: 2, active: true },
-    { label: 'Manage Availability', level: 3 },
-    { label: 'Time Zone', level: 4 },
-    { label: 'Work Hours (day toggles + time slots)', level: 4 },
-    { label: 'Buffer Time + Meeting Buffers', level: 4 },
-    { label: 'My Meeting Types', level: 3 },
-    { label: 'Create Meeting Type', level: 4 },
-    { label: 'Basic Settings (title, description, video conf)', level: 5 },
-    { label: 'Email Reminders (up to 3)', level: 5 },
-    { label: 'Customize Reminder Email (per reminder)', level: 5 },
-    { label: 'Availability (per meeting type override)', level: 5 },
-    { label: 'Meeting Type Card', level: 4 },
-    { label: 'Share slots', level: 5 },
-    { label: 'Copy booking URL', level: 5 },
-    { label: '... overflow menu (edit, delete)', level: 5 },
-  ],
-
-  userFlowDescription:
-    'Two paths from Calendar Settings. Availability is pre-configured by default — skip it or adjust it. Creating a meeting type is the main task and references whatever availability is set.',
-
-  userFlowAvailability: [
-    'Calendar Settings',
-    'Manage Availability',
-    'Set time zone',
-    'Toggle active days',
-    'Configure time slots',
-    'Set buffer times',
-    'Save',
-    'Back to Calendar Settings',
-  ],
-
-  userFlowCreateMeeting: [
-    'Calendar Settings',
-    'Create Meeting Type',
-    'Title + description',
-    'Select video conf',
-    'Configure reminders',
-    '(Customise email)',
-    'Save',
-    'Meeting type card',
-  ],
-
-  decisions: [
-    {
-      num: '01',
-      title: 'Default availability pre-configured removes the blank-state setup blocker',
-      body: 'New users arrive at Calendar Settings with Mon-Fri 9:00 AM - 5:00 PM already set in their detected time zone. The empty state tells them availability is ready and includes an inline link to edit if needed.',
-      why: 'Most sales reps work standard business hours. Forcing every user to configure availability from scratch before creating their first meeting type is unnecessary friction. The default lets people skip straight to meeting type creation if it already fits their schedule.',
-    },
-    {
-      num: '02',
-      title: 'Split-shift availability supports flexible and blocked schedules',
-      body: 'Each day supports multiple time slots, stacked vertically under the day label. Users add slots with a + button and remove individual slots with a trash icon without affecting other rows.',
-      why: 'Enterprise users often have midday breaks, internal meeting blocks, or split hours across time zones. A single start/end time per day would force users to either over-expose their availability or block off time they are actually free.',
-    },
-    {
-      num: '03',
-      title: 'Email reminder toggle anchored to a no-show reduction stat',
-      body: 'The Email Reminders section leads with "Adding a reminder can reduce no-shows up to 60%" directly below the section label. The toggle is on by default with a 30-minute reminder already configured.',
-      why: "Left as a plain toggle, most users skip past it. Pairing it with a concrete business outcome gives people a reason to actually engage with the setting rather than switch it off and move on.",
-    },
-    {
-      num: '04',
-      title: 'Reminder limit communicated at the boundary, not upfront',
-      body: 'The maximum of 3 reminders is not stated in the form. When the user tries to add a fourth, the add link becomes disabled and a tooltip reads "Only 3 reminders are possible".',
-      why: 'Stating limits upfront adds noise for users who never reach them. Showing the constraint only when it becomes relevant keeps the form clean and puts the information exactly where it is needed.',
-    },
-    {
-      num: '05',
-      title: 'Live email preview cuts out the test-send step',
-      body: 'The Customize Reminder Email modal shows a rendered preview alongside the editor. Changes update in real time — you see what recipients will receive without sending a test email to yourself.',
-      why: 'Editing email templates without a preview means holding a mental model of how tokens and formatting will render. Seeing it live removes that guesswork and makes the editing loop much shorter.',
-    },
-    {
-      num: '06',
-      title: 'Discard confirmation protects unsaved work on accidental cancel',
-      body: "Clicking Cancel on a partially completed Create Meeting Type form triggers a modal: \"Discard Meeting Type? The changes you have made won't be saved.\" Users must explicitly choose to discard or return to the form.",
-      why: 'Cancel on a configuration form is an easy accidental tap. A confirmation modal keeps someone from losing work without needing an auto-save system. Cancel / Discard makes each action clear — no ambiguity about which button does what.',
-    },
-    {
-      num: '07',
-      title: 'Booking URL and Share slots surface as primary actions on the card',
-      body: 'After a meeting type is created, "Share slots" and "Copy booking URL" appear directly on the card in the list view — not inside an edit flow or settings drawer.',
-      why: "The most common thing you do after creating a meeting type is share it. One-click access to the booking URL from the list means you don't have to go back into the meeting type settings just to get a link.",
-    },
-  ] as ScheduleDecision[],
 
   designSystemDescription:
-    'The visual language here is noticeably lighter than the Admin Portal in the AFS case study — more form-focused, almost consumer-grade in feel despite the B2B context. These are the component patterns visible across the screens.',
+    'Component language that repeats across the screens, redrawn here as small decorations. Colors are approximate, estimated from screenshots and not extracted from Figma.',
 
   designSystemColors: [
-    { name: 'ZoomInfo blue', hex: '#1B7AFF', usage: 'CTAs, active pill states, links, toggle on, focus rings' },
-    { name: 'Near-black', hex: '#0F172A', usage: 'Page titles, section headings, input values' },
-    { name: 'Body text', hex: '#374151', usage: 'Form labels, descriptions, card body copy' },
-    { name: 'Muted', hex: '#6B7280', usage: 'Placeholder text, helper copy, metadata chips on cards' },
-    { name: 'Border', hex: '#E5E7EB', usage: 'Card borders, input outlines, section dividers' },
-    { name: 'Surface', hex: '#F9FAFB', usage: 'Page background, card fills, disabled input backgrounds' },
-    { name: 'Success green', hex: '#16A34A', usage: 'Success toast icon and accent border' },
-    { name: 'Toast background', hex: '#1F2937', usage: 'Dark background on success and action confirmation toasts' },
+    { name: 'Primary blue (approx.)', hex: '#1B7AFF' },
+    { name: 'Near-black text (approx.)', hex: '#0F172A' },
+    { name: 'Body text (approx.)', hex: '#374151' },
+    { name: 'Muted text (approx.)', hex: '#6B7280' },
+    { name: 'Border (approx.)', hex: '#E5E7EB' },
+    { name: 'Surface (approx.)', hex: '#F9FAFB' },
+    { name: 'Success green (approx.)', hex: '#16A34A' },
+    { name: 'Toast (approx.)', hex: '#1F2937' },
   ],
 
   screens: [
     {
       num: '01',
-      title: 'Calendar Settings — empty state',
-      purpose: 'Entry point for first-time scheduling setup. Communicates that default availability is already configured and directs users to create their first meeting type.',
+      title: 'Calendar Settings, empty state',
+      lead: 'Make the next step obvious and say availability is already handled.',
+      body: '"My Meeting Types" shows 0/3 Created above an illustration and "Setup your first meeting type". The copy says default availability is set up and links "edit". Create Meeting Type appears top right and in the center; Manage Availability sits beside it. A hover state on the center button appears in a second export with the same layout.',
+      alt: 'Calendar Settings page under Settings with 0 of 3 meeting types created, an illustration, and Setup your first meeting type with a Create Meeting Type button.',
       keyElements: [
-        'ZoomInfo Marketing top nav: Dashboard, Audiences, Advertising, Buying Signals, Conversion, Workflows, Lists',
-        'Settings breadcrumb with sub-tabs: My Account, Integrations, Customisation, Calendar Settings (active)',
-        '"My Meeting Types" heading with 0/3 Created counter',
-        'Empty state illustration',
-        '"Setup your first meeting type" heading with descriptive body copy',
-        'Inline "edit" text link for availability — escape hatch without disrupting CTA hierarchy',
-        '"Create Meeting Type" CTA at centre and top right',
-        '"Manage Availability" outline button at top right',
+        'Marketing top navigation and Settings tabs, Calendar Settings active',
+        '0/3 Created counter',
+        '"edit" link inside the body copy',
+        'Create Meeting Type (top right and center), Manage Availability',
       ],
-      uxNote: 'The empty state pulls two jobs at once — it makes Create Meeting Type the obvious next step while quietly telling you availability is already set. The "edit" link in the body copy gives you an out if your hours are different, without it competing with the main button for attention.',
       src: '/images/projects/schedule/screens/schedule-01-empty-state.png',
     },
     {
       num: '02',
-      title: 'Manage Default Availability — single slot view',
-      purpose: 'Availability configuration showing the pre-set Mon-Fri 9:00 AM to 5:00 PM defaults. Users can adjust time zone, toggle active days, and change or add time slots.',
+      title: 'Manage Default Availability',
+      lead: 'Pre-fill a standard week.',
+      body: 'Time zone is Eastern Time (New York). Day pills show Monday to Friday active. Each weekday runs 9:00 AM to 5:00 PM, with "Apply to all" on the Monday row. Buffer time is on (24 hours) and Meeting buffers are on (5 minutes before and after).',
+      alt: 'Manage Default Availability form with a time zone selector, day pills for Monday to Friday, weekday rows of 9:00 AM to 5:00 PM, and buffer settings below.',
       keyElements: [
-        'Breadcrumb: < Calendar Settings / Manage Default Availability',
-        'Cancel + Save buttons (top right)',
-        'Time Zone: (GMT -4:00) Eastern Time - New York',
-        'Work Hours Availability section with explanatory description',
-        'Day toggle pills: Sun/Sat inactive, Mon-Fri active (blue filled)',
-        'Day / Start Time / End Time column table',
-        'Mon-Fri: 9:00 AM - 5:00 PM single slot each',
-        '"Apply to all" shortcut on Monday row',
-        'Buffer time: toggle ON, set to 24 Hours',
-        'Meeting buffers: toggle ON, Before: 5 Mins, After: 5 Mins',
+        'Breadcrumb with back arrow, Cancel and Save',
+        'Time zone selector',
+        'Day pills: Sun and Sat inactive',
+        'Start and end time selects with a plus per row',
+        '"Apply to all" on Monday',
+        'Buffer time and Meeting buffers cards',
       ],
-      uxNote: 'The day pill pattern (filled/empty circle per day) scans faster than a checkbox list for a small, fixed set of items. "Apply to all" on the Monday row broadcasts a single schedule across all active days in one click — cuts out the repetitive input for the most common setup.',
       src: '/images/projects/schedule/screens/schedule-02-availability-default.png',
     },
     {
       num: '03',
-      title: 'Manage Default Availability — split shifts added',
-      purpose: 'Same availability screen after a second time slot has been added to each active day, showing a split schedule with a midday gap visible to prospects.',
+      title: 'Availability with split shifts',
+      lead: 'Stack extra time windows under the day.',
+      body: 'Each active day has two rows: 9:00 AM to 12:00 PM and 2:00 PM to 5:00 PM. The first row has a plus, the second a trash icon. The pointer is over Save.',
+      alt: 'Availability form where each weekday has a morning and an afternoon time row, with plus and trash icons at the end of the rows.',
       keyElements: [
-        'Each active day (Mon-Fri) shows two stacked time slot rows',
-        'Morning slot: 9:00 AM - 12:00 PM',
-        'Afternoon slot: 2:00 PM - 5:00 PM',
-        'Each slot row has + (add another slot) and trash (remove this slot) controls inline',
-        'Slots stack vertically under the day label without horizontal crowding',
-        'Buffer time section visible at the scroll bottom',
+        'Two stacked rows per active day',
+        'Plus on the first row, trash on the second',
+        'Buffer time card visible at the bottom',
       ],
-      uxNote: 'Stacking multiple slots under a single day label keeps the grid readable no matter how many windows are added. Individual trash icons per slot make it clear you can remove a specific time window without touching the rest of the day.',
       src: '/images/projects/schedule/screens/schedule-03-availability-split.png',
     },
     {
       num: '04',
-      title: 'Calendar Settings — availability saved with success toast',
-      purpose: 'Return to Calendar Settings after saving updated availability. A success toast at the bottom left confirms the change was applied.',
-      keyElements: [
-        'Back at Calendar Settings landing — 0/3 Created, empty state intact',
-        'Success toast: "Default Availability has been changed successfully"',
-        'Toast uses dark background, green check icon, and X dismiss button',
-        '"Create Meeting Type" CTA still prominent — clear next step in the flow',
-        'No data loss or navigation disruption on return',
-      ],
-      uxNote: 'Saving availability brings you back to the Calendar Settings landing — not a dedicated confirmation page. The toast tells you it worked, and you land exactly where the next task starts: creating a meeting type.',
+      title: 'Back on Calendar Settings, saved',
+      lead: 'Return to the list and confirm with a toast.',
+      body: 'After Save the user lands on Calendar Settings, still at 0/3, with a dark toast: "Default Availability has been changed successfully".',
+      alt: 'Calendar Settings empty state with a dark toast at bottom left reading Default Availability has been changed successfully.',
+      keyElements: ['Toast with check icon and close', 'Create Meeting Type still primary'],
       src: '/images/projects/schedule/screens/schedule-04-availability-saved.png',
     },
     {
       num: '05',
-      title: 'Calendar Settings — ready to create',
-      purpose: 'Calendar Settings landing in its pre-creation state. Availability is configured; the user is ready to start their first meeting type.',
+      title: 'Create Meeting Type, empty form',
+      lead: 'Keep Save disabled until required fields are filled.',
+      body: 'Meeting Title and Video Conferencing are required (marked *). Save is greyed out. One reminder is pre-added (30 minutes, "Edit default email"). The checkbox for cancel and reschedule links is checked and labeled recommended.',
+      alt: 'Create Meeting Type form with empty title, description and video conferencing fields, one 30-minute reminder, an availability card and a checked cancel and reschedule box. Save is disabled.',
       keyElements: [
-        'Same Calendar Settings shell — 0/3 Created, empty state',
-        '"Create Meeting Type" as the single primary CTA',
-        '"Manage Availability" accessible if the user wants to revisit hours',
-        'Clean state with no pending notifications',
+        'Basic Settings: *Meeting Title, Meeting Description, *Select Video Conferencing',
+        'Email Reminders toggle with one reminder',
+        'Availability card with "Edit default availability"',
+        'Checkbox for cancel and reschedule links',
       ],
-      uxNote: "Whether you just saved availability or loaded the page fresh, you end up in the same place — the empty state with Create Meeting Type front and centre. There's no dependency on how you got here.",
-      src: '/images/projects/schedule/screens/schedule-05-pre-create.png',
-    },
-    {
-      num: '06',
-      title: 'Create Meeting Type — empty form',
-      purpose: 'Initial Create Meeting Type form state. Required fields are unfilled, Save is disabled, one default reminder is pre-configured, and the cancel/reschedule links checkbox is pre-checked.',
-      keyElements: [
-        'Breadcrumb: < Calendar Settings / Create Meeting Type',
-        'Cancel + Save (disabled, greyed out) top right',
-        'Basic Settings card: *Meeting Title (required), Meeting Description, *Select Video Conferencing (required dropdown)',
-        'Email Reminders card: toggle ON, "Adding a reminder can reduce no-shows up to 60%"',
-        '1 default reminder: Send email 30 Minutes before, "Edit default email" link',
-        '"+ Add new reminder" available',
-        'Availability card: "Edit default availability" link, description text',
-        'Checkbox: Include cancel and reschedule links (pre-checked, labelled recommended)',
-      ],
-      uxNote: 'Save is greyed out on load — it tells you required fields still need filling without spraying the form with red errors on arrival. The pre-added 30-minute reminder and pre-checked reschedule link are suggestions, not mandates. Both can be removed.',
       src: '/images/projects/schedule/screens/schedule-06-create-empty.png',
     },
     {
-      num: '07',
-      title: 'Create Meeting Type — filled form, 3 reminders at limit',
-      purpose: 'Form complete with meeting details and the maximum of 3 email reminders configured. Save is now active. The reminder constraint is surfaced via tooltip.',
+      num: '06',
+      title: 'Create Meeting Type, filled, at the reminder limit',
+      lead: 'Explain the limit where it applies.',
+      body: 'The form is filled with test data. Video conferencing is Custom with a free-text location. Three reminders exist (30 minutes, 1 hour, 30 minutes). "Add new reminder" is disabled under the tooltip "Only 3 reminders are possible". Save is active.',
+      alt: 'Filled Create Meeting Type form with three reminders and a disabled Add new reminder link under the tooltip Only 3 reminders are possible. Save is enabled.',
       keyElements: [
-        'Meeting Title: "Product Related Queries" (prototype data)',
-        'Description: "Discuss about the product related queries and helps to clarify other queries"',
-        'Video Conferencing: Custom type with "Chennai" as custom location (prototype data)',
-        '3 reminders: 30 Minutes, 01 Hour, 30 Minutes before',
-        'Tooltip on disabled "+ Add new reminder": "Only 3 reminders are possible"',
-        'Save button now active blue — validation passes',
+        'Custom video conferencing with a location field',
+        'Three reminder rows, each with "Edit default email" and a trash icon',
+        'Disabled add link and tooltip',
+        'Save active',
       ],
-      uxNote: 'The constraint tooltip only appears when you hit the limit, not before. The disabled state on the add link is the visual signal; the tooltip gives the reason. Users who add two reminders and stop never see this message — the form stays clean for the common case.',
       src: '/images/projects/schedule/screens/schedule-07-create-filled.png',
     },
     {
-      num: '08',
-      title: 'Customize Reminder Email — editor with live preview',
-      purpose: 'Modal for editing the reminder email template. A split-panel layout shows the editor and live rendered preview side by side.',
+      num: '07',
+      title: 'Customize Reminder Email',
+      lead: 'Pair the editor with a preview.',
+      body: 'A modal over the dimmed form. Left: subject with a {Meeting_Title} chip, greyed locked blocks, an editable sentence with a {Remaining_Time} chip, a toolbar and "Reset to default". Right: preview with device toggles, "Email Yourself" and the sample email. A second export of this modal is identical except that the reset link reads "Reset to suggested default".',
+      alt: 'Customize Reminder Email modal with a subject field, token chips and a formatting toolbar on the left, and a rendered email preview with device toggles on the right.',
       keyElements: [
-        'Modal overlay on dimmed Create Meeting Type background',
-        '"Customize Reminder Email" heading with X close',
-        'Subject line field with dynamic token tags (Meeting_Title)',
-        'Rich text editor with formatting toolbar',
-        'Right panel: live rendered email preview',
-        'Preview shows prototype meeting details: "ZI Schedule Demo", date/time, Google Meet link',
-        '"Reset to suggested default" link for safety net',
-        'Cancel | Save buttons',
+        'Subject with token chip',
+        'Locked blocks and token chips for meeting details',
+        'Formatting toolbar and "Reset to default"',
+        'Preview with desktop, tablet and mobile toggles',
+        '"Email Yourself" button, Cancel and Save',
       ],
-      uxNote: 'Edit on the left, see what the recipient gets on the right. "Reset to suggested default" is the safety net — you can rewrite freely knowing you can get back to the original without starting over.',
       src: '/images/projects/schedule/screens/schedule-08-email-editor-1.png',
     },
     {
-      num: '09',
-      title: 'Customize Reminder Email — second reminder state',
-      purpose: 'The same email editor modal opened for a second reminder, showing consistent structure across different reminder templates.',
+      num: '08',
+      title: 'Create Meeting Type, custom email saved',
+      lead: 'Change the link label to show a custom email is in use.',
+      body: 'Back on the form, the reminder link now reads "Edit custom email" instead of "Edit default email". Only one reminder is present.',
+      alt: 'Create Meeting Type form with one reminder whose link reads Edit custom email, and an Availability card with Edit Default Availability.',
       keyElements: [
-        'Same modal structure as Screen 08',
-        'Subject and body content may differ for this reminder',
-        '"Reset to suggested default" available for this template',
-        'Live preview updated for this reminder content',
+        '"Edit custom email" on the reminder',
+        'Availability link capitalized as "Edit Default Availability"',
+        'Save active',
       ],
-      uxNote: 'Same modal regardless of which reminder you are editing. You can write a brief 30-minute heads-up or a more detailed 24-hour notice — each gets its own template, but the editing experience never changes.',
-      src: '/images/projects/schedule/screens/schedule-09-email-editor-2.png',
-    },
-    {
-      num: '10',
-      title: 'Create Meeting Type — custom email saved',
-      purpose: 'Create Meeting Type form after the reminder email has been customised and saved. The action label changes to confirm the customisation is stored.',
-      keyElements: [
-        'Form shows "Product Related Queries" and the filled configuration',
-        'Email Reminders: "Edit custom email" label (was "Edit default email")',
-        'Label change confirms the custom template is saved and active',
-        'Availability section shows "Edit Default Availability" (capitalised)',
-        'Save button active — form ready to finalise',
-      ],
-      uxNote: 'The label flipping from "Edit default email" to "Edit custom email" is a small thing that matters. It tells you your version is saved and that clicking again opens what you wrote — not a reset to the system template.',
       src: '/images/projects/schedule/screens/schedule-10-create-custom-email.png',
     },
     {
-      num: '11',
-      title: 'Discard Meeting Type — confirmation modal',
-      purpose: 'Confirmation dialog protecting against accidental data loss when Cancel is clicked on a partially completed or unsaved meeting type.',
-      keyElements: [
-        'Modal overlay on dimmed Create Meeting Type form',
-        'Info icon + "Discard Meeting Type?" heading',
-        '"The changes you have made in the meeting type won\'t be saved. Are you still sure you want to discard?"',
-        'Cancel — returns user to the form',
-        'Discard — confirms exit without saving',
-        'Clean two-action layout with clear labels',
-      ],
-      uxNote: 'Cancel and Discard do exactly what they say — Cancel puts you back in the form, Discard confirms you want to leave. No ambiguity about which button closes the modal versus which one abandons the work.',
+      num: '09',
+      title: 'Discard Meeting Type confirmation',
+      lead: 'Confirm before throwing work away.',
+      body: 'Cancel opens a small modal with an info icon, the title "Discard Meeting Type?", the copy "The changes you have made in the meeting type won\'t be saved. Are you still sure you want to discard?", and the buttons Cancel and Discard. A copy inconsistency: the availability link reads "Edit default availability" on screen 05, "Edit Default Availability" on screen 08 and "Edit Custom Availability" behind this modal.',
+      alt: 'Small modal titled Discard Meeting Type with a warning sentence and Cancel and Discard buttons over a dimmed form.',
+      keyElements: ['Info icon and title', 'Warning sentence', 'Cancel and Discard buttons', 'Close icon'],
       src: '/images/projects/schedule/screens/schedule-11-discard-modal.png',
     },
     {
-      num: '12',
-      title: 'Calendar Settings — meeting type created, 1/3',
-      purpose: 'Calendar Settings list view after a meeting type has been saved. The card shows the meeting type summary and exposes the primary sharing actions directly.',
+      num: '10',
+      title: 'Meeting type card, 1/3 created',
+      lead: 'Put sharing on the card.',
+      body: 'The list shows 1/3 Created and a card titled "Product Related Queries" with placeholder text, chips for Zoom, 3 Reminders and 30 Mins, a "Share slots" link, a "Copy booking URL" control and a "..." menu. A toast says "Meeting Type has been discarded successfully", which probably refers to a separate draft.',
+      alt: 'My Meeting Types list with one card showing a title, a short description, Zoom, 3 Reminders and 30 Mins chips, a Share slots link and a Copy booking URL control.',
       keyElements: [
-        '"My Meeting Types" counter: 1/3 Created',
-        'Meeting type card: "Product Related Queries" title (prototype data)',
-        'Card description: prototype placeholder copy',
-        'Metadata chips: Zoom icon | 3 Reminders | 30 Mins',
-        '"Share slots" and "Copy booking URL" dropdown as primary card actions',
-        '"..." overflow menu for additional management',
-        'Success toast: "Meeting Type has been discarded successfully" (a subsequent draft was discarded)',
-        '"Create Meeting Type" button still accessible — 2 more allowed',
+        '1/3 Created counter',
+        'Card with chips for video tool, reminders and duration',
+        'Share slots and Copy booking URL',
+        '"..." menu',
+        'Toast about a discard',
       ],
-      uxNote: '"Share slots" and "Copy booking URL" are on the card because that\'s what you do immediately after creating a meeting type. You shouldn\'t have to open an edit flow just to grab a link. The 1/3 counter sets expectations on remaining capacity before someone tries to create a fourth.',
       src: '/images/projects/schedule/screens/schedule-12-meeting-created.png',
     },
   ] as ScheduleScreen[],
 
   componentPatterns: [
     {
-      name: 'Day toggle pills',
-      description: 'A horizontal row of day abbreviations (Sun-Sat). Active days render as a blue filled circle with white text; inactive days show a bordered circle with grey text.',
-      usage: 'Availability days selection. Faster to scan and tap than a checkbox list for seven fixed options with clear active/inactive states.',
+      name: 'Day pills',
+      description: 'A row of day abbreviations. Active days are outlined and blue, inactive days grey.',
+      usage: 'Chooses active days; quick to scan for seven fixed options.',
     },
     {
       name: 'Time slot row',
-      description: 'A day label followed by Start Time and End Time dropdowns, a + button to add another slot for the same day, and a trash icon to remove the current slot.',
-      usage: 'Core of the availability form. Multiple rows under one day label handle split shifts cleanly — no horizontal crowding.',
+      description: 'A day label, start and end selects, a plus to add a window and a trash icon to remove one.',
+      usage: 'Core of the availability form; stacked rows handle split shifts.',
     },
     {
       name: 'Reminder row',
-      description: '"Send email [number spinner] [Minutes/Hours dropdown] before" with an edit email link and a trash icon. The unit dropdown handles both short and long lead times in a single compact row.',
-      usage: 'Email Reminders section. Up to 3 per meeting type, each independently configurable and editable.',
+      description: '"Send email [number] [unit] before", an edit-email link and a trash icon.',
+      usage: 'Up to three per meeting type.',
     },
     {
-      name: 'Constraint tooltip at boundary',
-      description: 'Tooltip on a disabled action link appearing only when the user has reached the maximum allowed items ("Only 3 reminders are possible").',
-      usage: 'The 3-reminder cap only shows up when you hit it. No reason to mention it before that point.',
+      name: 'Constraint tooltip',
+      description: 'A dark tooltip on a disabled add link at the limit.',
+      usage: 'Explains the cap only when it applies.',
     },
     {
-      name: 'Conversion nudge helper text',
-      description: 'A data-backed sentence immediately below a section title: "Adding a reminder can reduce no-shows up to 60%". Pairs with the toggle to create a meaningful decision point.',
-      usage: 'Email Reminders toggle. Turns an easy "skip" into a deliberate decision by giving users a reason to engage.',
-    },
-    {
-      name: 'Split editor/preview modal',
-      description: 'A modal with an editable content area on the left and a live rendered preview on the right. Changes update the preview in real time.',
-      usage: 'Customize Reminder Email. You see what the recipient gets as you type — no test sends needed.',
+      name: 'Editor and preview modal',
+      description: 'An editor on the left and a rendered preview on the right.',
+      usage: 'Customize Reminder Email.',
     },
     {
       name: 'Meeting type card',
-      description: 'A list card showing meeting name, description, metadata chips (video platform, reminder count, duration), and inline action buttons (Share slots, Copy booking URL, overflow menu).',
-      usage: 'Main view for created meeting types. Sharing actions sit directly on the card because that is the most common thing you do right after creating one.',
+      description: 'Title, description, chips, and inline actions.',
+      usage: 'Main view for created meeting types.',
     },
     {
-      name: 'Dark action toast',
-      description: 'A dark-background notification at the bottom left of the screen. Green check icon for success states. Includes an X dismiss. Appears after saves and destructive confirmations.',
-      usage: 'Confirms saves and discards without a full page reload or dedicated confirmation screen.',
+      name: 'Dark toast',
+      description: 'A dark message at the bottom left with a check icon and a close icon.',
+      usage: 'Confirms saves and discards.',
     },
   ] as ScheduleComponentPattern[],
 
-  accessibility: [
-    'Day toggle pills function as a radio group — each pill should use radio button semantics within a fieldset with a "Active days" legend',
-    'Time dropdowns use standard select semantics and are keyboard navigable',
-    'Required fields marked with * — screen reader labels should include the word "required"',
-    'Save button disabled state should use aria-disabled="true" with a visible or accessible explanation',
-    'Trash icon buttons on slot and reminder rows are icon-only — each needs an aria-label (e.g. "Remove Monday morning slot")',
-    'Constraint tooltip ("Only 3 reminders are possible") must be keyboard-accessible, not hover-only',
-    'Discard modal: focus should move into the modal on open, be trapped within it, and Escape should trigger Cancel (not Discard)',
-    'Success toast should be announced via an aria-live="polite" region',
-    'Email preview panel is decorative — mark as aria-hidden to avoid double-reading by screen readers',
-    'Recommended: "Apply to all" should provide visible feedback (brief toast or row highlight) confirming the propagation completed',
-  ],
+  notesForBuild: [
+    { text: 'Day pills behave like a group of toggles. Use a fieldset with a legend such as "Active days" and expose the pressed state.', criteria: 'WCAG 1.3.1, 4.1.2' },
+    { text: 'Required fields are marked with an asterisk. Make sure the accessible label says "required".', criteria: 'WCAG 3.3.2, 1.3.1' },
+    { text: 'Save is greyed out until the form is valid. A visible or accessible reason helps people who cannot see the contrast difference.', criteria: 'WCAG 3.3.2, 1.4.1' },
+    { text: 'Trash and plus icons on rows are icon-only. Each needs a name such as "Remove Monday afternoon slot".', criteria: 'WCAG 4.1.2, 2.5.3' },
+    { text: 'The "Only 3 reminders are possible" tooltip must open on keyboard focus, not hover only.', criteria: 'WCAG 1.4.13, 2.1.1' },
+    { text: 'The discard modal should move focus in, keep it inside, restore it on close, and make Escape behave like Cancel, not Discard.', criteria: 'WCAG 2.4.3, 2.1.2' },
+    { text: 'Toasts should be announced through a polite live region.', criteria: 'WCAG 4.1.3' },
+    { text: 'The email preview is a rendering of content, not a control; check how it is announced.', criteria: 'WCAG 1.3.1' },
+    { text: 'Small controls (plus, trash, "...") should be checked against the minimum target size.', criteria: 'WCAG 2.5.8' },
+    { text: '"Apply to all" should give visible feedback that it worked.', criteria: 'WCAG 4.1.3' },
+  ] as ScheduleNote[],
 
   handoff: [
     {
-      title: 'Time zone detection and defaults',
-      body: 'The time zone selector defaults to browser locale. Open questions for handoff: what happens if detection fails, whether timezone changes update existing meeting types retroactively, and whose timezone shows on the booking page — the host\'s or the guest\'s.',
+      title: 'Time zone',
+      body: 'The selector appears pre-filled with Eastern Time (New York). Whether that comes from the browser is not visible. Open questions: what if detection fails, do changes affect existing meeting types, and whose time zone shows on the booking page.',
     },
     {
-      title: 'Dynamic email tokens',
-      body: 'The email editor uses tokens rendered as tag chips — Meeting_Title and others. The handoff needs to define the full token list, what happens if a token value is empty when the reminder fires, and how they render in the actual sent email.',
+      title: 'Email tokens',
+      body: 'Tokens appear as chips ({Meeting_Title}, {Remaining_Time}, {Meeting_Description}). A build needs the full list, empty-value behavior, and how they render in the sent email.',
     },
     {
-      title: 'Slot conflict validation',
-      body: 'Multiple slots per day can overlap. The handoff needs to define when validation runs (on blur or on save), how conflicts are surfaced, and whether overlapping windows are blocked entirely or just warned.',
+      title: 'Overlapping slots',
+      body: 'Stacked windows can overlap. When does validation run, how are conflicts shown, and are they blocked or only warned?',
     },
     {
-      title: 'Meeting type plan limit (3 of 3)',
-      body: 'The 0/3 counter is a plan-level cap. What happens when all three slots are used — is the CTA disabled, hidden, or does it prompt an upgrade? And does deleting a meeting type free the count back up?',
+      title: 'The 3-meeting-type cap',
+      body: 'The counter reads 0/3 and 1/3. I assume it is a plan-level limit but cannot confirm. What happens at 3/3, and does deleting one free a slot?',
     },
     {
-      title: 'Booking URL routing',
-      body: '"Copy booking URL" generates a shareable link to the prospect-facing booking page. The handoff needs URL structure, how it routes to the right meeting type, guest session handling, and what the confirmation flow looks like after a slot is booked.',
+      title: 'Booking URL',
+      body: 'The prospect-facing page is not in the screens. URL structure, routing to the right meeting type and the post-booking confirmation are open.',
     },
     {
-      title: 'Reminder email delivery',
-      body: 'Reminders fire at configured intervals. The handoff needs to clarify what happens when a meeting is rescheduled or cancelled after reminders are set, how unsubscribes work, and what sending infrastructure backs this.',
+      title: 'Reminder delivery',
+      body: 'What happens to reminders when a meeting is rescheduled or cancelled, how unsubscribes work, and what sends them are not visible.',
     },
   ] as ScheduleHandoffCard[],
 
   limitations: [
-    'Case study reconstructed from final UI screens. Original discovery artefacts, wireframes, and research findings were not available.',
-    '"Product Related Queries", "Chennai", "ZI Schedule Demo", "JD" and supporting text are prototype test values used during design, not real customer or business data.',
-    'The prospect-facing booking page (what a guest sees when opening the booking URL) is not represented in the available screens.',
-    'Business-specific configuration options, plan tier limits, and backend behaviour are described at a pattern level only.',
-    'The 30-minute meeting duration chip in Screen 12 is prototype data — the duration configuration field is not visible in the available screens.',
-    'Internal team structure and project timeline details have been omitted from this portfolio case study.',
+    'Reconstructed from final UI screens. Discovery artifacts, wireframes and research were not available, so reasons are my reading, not recorded decisions.',
+    'No usability testing or product metrics are claimed. The "what I would instrument" lines are proposals.',
+    'The prospect-facing booking page is not in the available screens.',
+    'Business configuration, plan limits and backend behavior are described at a pattern level only.',
+    'The 30-minute chip on the card is test data; the duration field is not visible in the screens.',
+    'Colors are approximate, estimated from screenshots. No design tokens were extracted from Figma.',
+    'Per-decision authorship is not marked beyond "observed from the final screens" until the owner confirms which decisions Vijay designed.',
+    'Two near-duplicate exports (a hover variant of the empty state, and a second email editor export that differs only in one link label) are folded into the screens above instead of shown again.',
   ],
 
   reflection:
-    "The interesting challenge here wasn't scheduling itself. Calendly figured that out years ago. It was making a familiar product feel like it belonged inside a platform where scheduling was never the main feature. A few decisions land well: defaults that skip the blank-slate problem on first load, a reminder section that gives you a reason to configure it rather than dismiss it, constraints that stay out of sight until you actually hit them. The discard modal is probably the least glamorous thing in the product and the most important. One mis-tap on Cancel shouldn't wipe out someone's work. The card design gets the post-creation priority right too: you built the meeting type to share it, and that's the first thing the card lets you do. Small calls, but they add up.",
+    'The interesting part here is not scheduling itself but how a familiar tool is fitted into a platform where scheduling is not the main feature. In my reading of the screens, a few choices carry the design: defaults that skip the blank-form problem, a limit that stays out of sight until it applies, and a card that puts sharing first. The discard confirmation is small but protects the most work. Because there is no research or test data in the file, I treat all of this as an audit with proposals, not as proof that it worked.',
 };

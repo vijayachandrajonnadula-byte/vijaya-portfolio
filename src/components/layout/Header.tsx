@@ -23,6 +23,7 @@ export default function Header() {
   const [hidden, setHidden] = useState(false);
   const headerRef = useRef<HTMLElement>(null);
 
+
   // scroll-spy: which home section is under the middle of the screen
   useEffect(() => {
     setActive('');
@@ -88,7 +89,12 @@ export default function Header() {
   return (
     <header className="nav" data-nav data-hidden={hidden ? 'true' : undefined} ref={headerRef}>
       <nav className="nav__pill" aria-label="Main">
-        <Link to="/" className="nav__mark" aria-label="Vijay, home" onClick={() => window.scrollTo({ top: 0 })}>
+        <Link
+          to="/"
+          className="nav__mark"
+          aria-label="Vijay, home"
+          onClick={() => window.scrollTo({ top: 0 })}
+        >
           <VJLogo size={26} variant={dark ? 'light' : 'dark'} />
         </Link>
         <span className="nav__sep" aria-hidden="true" />

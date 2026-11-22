@@ -1,0 +1,52 @@
+/* Ask finder: live suggestions (combobox popup) and the "no written answer" page.
+   Prefixes: sg- (suggestions) and nm- (no match). Tokens come from site.css (--c-*). Focus ring 3px, targets >= 44px,
+   text >= 14px. No animation at all: the popup appears and disappears. */
+
+/* ---------- live suggestions ---------- */
+.ask { position: relative; }
+.sg-wrap { position: relative; }
+.sg { position: absolute; z-index: 60; left: 0; right: 0; top: calc(100% + 8px); max-height: min(440px, 62svh); margin: 0; padding: 6px; overflow: auto; list-style: none; border: 1px solid var(--c-line); border-radius: 20px; background: var(--c-obj, var(--c-bg)); box-shadow: 0 28px 56px -28px rgba(30, 20, 10, 0.5), 0 2px 8px rgba(30, 20, 10, 0.08); overscroll-behavior: contain; }
+.sg__opt { display: flex; align-items: center; gap: 12px; min-height: 52px; padding: 8px 12px; border-radius: 14px; color: var(--c-ink); cursor: pointer; }
+.sg__opt[aria-selected='true'] { background: var(--c-tile2); box-shadow: inset 3px 0 0 var(--c-accent); }
+.sg__text { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 1px; }
+.sg__title { font: 600 1rem/1.35 var(--font-sans); overflow-wrap: anywhere; }
+.sg__desc { overflow: hidden; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; font-size: 0.875rem; line-height: 1.4; color: var(--c-ink2); }
+.sg__tag { flex: none; padding: 2px 10px; border: 1px solid var(--c-line); border-radius: 999px; background: var(--c-bg); color: var(--c-ink2); font: 600 0.8125rem/1.5 var(--font-sans); white-space: nowrap; }
+.sg__opt[data-kind='case-study'] .sg__tag { border-color: var(--c-accent); color: var(--c-accent); }
+
+/* in the narrow Ask popover the list sits in the flow, in place of the two starter questions */
+.sg-wrap--mini .sg { position: static; max-height: none; margin-top: 8px; padding: 0; border: 0; border-radius: 0; background: transparent; box-shadow: none; }
+.sg-wrap--mini .sg__opt { min-height: 48px; padding: 6px 8px; }
+.sg-wrap--mini .sg__title { font-size: 0.95rem; }
+.sg-wrap--mini .sg__desc { display: none; }
+.sg-wrap--mini .sg__tag { font-size: 0.75rem; padding: 1px 8px; }
+
+/* ---------- the no-match page: three plain blocks, never an empty state ---------- */
+.nm { max-width: 720px; }
+.nm-head { margin: 4px 0 6px; }
+.nm-sec { margin-top: 32px; padding-top: 24px; border-top: 1px solid var(--c-line); }
+.nm-sec:first-of-type { margin-top: 26px; }
+.nm-h { margin: 0 0 4px; font: 600 1.1875rem/1.3 var(--font-sans); color: var(--c-ink); }
+.nm-sub { margin: 0 0 14px; max-width: 62ch; font-size: 1rem; line-height: 1.55; color: var(--c-ink2); }
+.nm-list { display: grid; gap: 8px; margin: 0; padding: 0; list-style: none; }
+.nm-row { display: flex; align-items: center; gap: 14px; width: 100%; min-height: 60px; padding: 12px 16px; border: 1px solid var(--c-line); border-radius: 14px; background: var(--c-bg); color: var(--c-ink); text-align: left; text-decoration: none; font: inherit; cursor: pointer; transition: background 0.16s ease, border-color 0.16s ease; }
+.nm-row:hover { background: var(--c-tile); border-color: var(--c-mute); }
+.nm-row:focus-visible { outline: 3px solid var(--c-accent); outline-offset: 2px; }
+.nm-row__t { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.nm-row__t b { font: 600 1.0625rem/1.35 var(--font-sans); overflow-wrap: anywhere; }
+.nm-row__t small { font-size: 0.9375rem; line-height: 1.4; color: var(--c-ink2); }
+.nm-row .sg__tag { background: transparent; }
+.nm-mail { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 12px; }
+.nm-mail__quote { margin: 0 0 14px; padding: 10px 14px; border-left: 3px solid var(--c-accent); border-radius: 4px; background: var(--c-tile); color: var(--c-ink); font-size: 1rem; line-height: 1.5; overflow-wrap: anywhere; }
+.nm-fine { margin: 12px 0 0; font-size: 0.9375rem; line-height: 1.5; color: var(--c-ink2); }
+.nm-topics { display: grid; grid-template-columns: 1fr; gap: 8px; margin: 0; padding: 0; list-style: none; }
+@media (min-width: 600px) { .nm-topics { grid-template-columns: 1fr 1fr; } }
+.nm-topic { display: flex; align-items: center; gap: 12px; width: 100%; min-height: 56px; padding: 10px 14px; border: 1px solid var(--c-line); border-radius: 14px; background: var(--c-tile); color: var(--c-ink); text-align: left; font: 600 1rem/1.3 var(--font-sans); cursor: pointer; transition: background 0.16s ease, border-color 0.16s ease; }
+.nm-topic:hover { background: var(--c-tile2); border-color: var(--c-mute); }
+.nm-topic:focus-visible { outline: 3px solid var(--c-accent); outline-offset: 2px; }
+.nm-topic__ic { flex: none; display: grid; place-items: center; width: 36px; height: 36px; border-radius: 10px; background: color-mix(in srgb, var(--c-clay) 16%, var(--c-bg)); color: var(--c-clay-ink); }
+.nm-topic span:last-child { flex: 1; min-width: 0; }
+
+@media (prefers-reduced-motion: reduce) {
+  .nm-row, .nm-topic { transition: none; }
+}

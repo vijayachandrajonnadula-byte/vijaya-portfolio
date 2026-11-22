@@ -1,19 +1,18 @@
 import { Link } from 'react-router-dom';
 import { motion, useReducedMotion } from 'framer-motion';
-import Character from './Character';
-import { profile } from '../../data/profile';
+import SplitFlap, { BOARD_LINES } from './SplitFlap';
+import Receiver from './Receiver';
 import '../../styles/home-v2.css';
 
 /**
- * The first screen: what I do, who I am, and ONE thing to do next.
- * Job of the screen: a recruiter decides in under 10 seconds whether to look at the work.
- * - Von Restorff + Hick: one primary button ("See the work"), one quiet text link ("Ask me anything"). The ask input,
- *   its label and the chips are gone; the Ask page and the floating Ask launcher are where people ask.
- * - Interactive elements above the fold besides the nav: two.
- * - Visual hierarchy: serif headline first, one sentence second, the action row last (serial position).
- * - Composition: headline left, Clay on a quiet stage at the right (desktop); a centred stack on phones.
- * - Selective attention: Clay blinks and breathes only while on screen and never under reduced motion; nothing else moves.
- * `data-hero` lets the floating Ask launcher hide itself while this section is on screen.
+ * The first screen: a departure board and a drifting wall of work on one dark ground.
+ *  - Left: who, the headline as a split-flap board (every tile flips through noise and lands on the line; press it for
+ *    another line), one sentence, one primary action ("See the work") and one quiet link.
+ *  - Right: a tuning receiver. Turn the dial: static between projects, a clip locks in on each one (Receiver).
+ * The idea is the person: noise in, signal out, said with two objects an electronics engineer would recognise.
+ *
+ * The h1 is real text for screen readers and search (the board's tiles are decorative). `data-hero` lets the floating
+ * Ask launcher hide while this section is on screen. Reduced motion: lines change without flipping, the wall stands still.
  */
 export default function HomeHero() {
   const reduced = useReducedMotion();
@@ -34,11 +33,13 @@ export default function HomeHero() {
     <section className="hhero" id="top" aria-label="Introduction" data-hero>
       <div className="hhero__in">
         <div className="hhero__copy">
-          <motion.h1 className="hhero__title" {...fade(0.05)}>
-            Hi, I’m Vijay. I turn messy user journeys into <em>clear</em> ones.
-          </motion.h1>
-          <motion.p className="hhero__sub" {...fade(0.15)}>{profile.title} in Hyderabad, designing enterprise software.</motion.p>
-          <motion.div className="hhero__act" {...fade(0.25)}>
+          <motion.p className="hhero__who" {...fade(0.05)}>Vijaya Chandra Jonnadula</motion.p>
+          <h1 className="hhero__h1">{BOARD_LINES[0].say}</h1>
+          <SplitFlap />
+          <motion.p className="hhero__sub" {...fade(1.4)}>
+            Senior UX designer in Hyderabad. I trained as an electronics engineer, so I find the signal, remove the noise, and prove it with working prototypes.
+          </motion.p>
+          <motion.div className="hhero__act" {...fade(1.6)}>
             <a className="btn-c btn-c--lg" href="#work" onClick={goWork}>See the work</a>
             <Link className="link-q" to="/ask">
               Ask me anything
@@ -46,11 +47,7 @@ export default function HomeHero() {
             </Link>
           </motion.div>
         </div>
-        <div className="hhero__art">
-          <div className="hhero__stage">
-            <Character pose="rest" size={248} track boot label="Clay, the site’s mascot" />
-          </div>
-        </div>
+        <motion.div {...fade(0.5)} style={{ width: '100%', minWidth: 0 }}><Receiver /></motion.div>
       </div>
     </section>
   );

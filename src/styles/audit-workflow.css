@@ -1,0 +1,8 @@
+/* AF-4: workflow page-specific overrides (shared rules live in audit-shared.css). */
+.af-workflow .af-phase { border-top: 1px solid var(--color-border); padding-top: var(--space-6); margin-top: var(--space-6); }
+.af-workflow .af-phase__title { font-size: var(--text-xl); margin: 0 0 var(--space-2); color: var(--color-text-primary); }
+.af-workflow .af-group-tools { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-bottom: var(--space-2); }
+.af-workflow .af-catch__where { font-size: 0.8125rem; color: var(--color-text-secondary); margin: var(--space-3) 0 0; }
+.af-workflow .wf-command-block__body.af-region,
+.af-workflow .wf-file-tree__body.af-region { overflow-x: auto; }
+.af-workflow .af-phases { padding-bottom: var(--space-6); }

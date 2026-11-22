@@ -225,68 +225,24 @@ export function AtomicBuilder({ counts }: { counts: { atoms: number; molecules: 
 }
 
 /* ============================================================
-   3. CONTROLS PLAYGROUND (Storybook)
+   3. STORYBOOK TRY-THIS (Storybook)
+   A labelled deep link to the real Button playground. The earlier fake playground duplicated Storybook's own Controls.
    ============================================================ */
-const colourMap: Record<string, string> = {
-  primary: '#1E3A6E', error: '#EF4444', success: '#22C55E', warning: '#F59E0B', ai: 'linear-gradient(45deg, #BD06BE 0%, #653FDA 50%, #158EEF 100%)',
-};
-const heights: Record<string, number> = { xsmall: 24, small: 32, medium: 40, large: 48, xlarge: 56 };
-
-function Seg({ label, value, options, onChange }: { label: string; value: string; options: string[]; onChange: (v: string) => void }) {
+export function StorybookTry({ storybookUrl, galleryUrl }: { storybookUrl: string; galleryUrl: string }) {
+  const play = `${storybookUrl}?path=/story/actions-button--playground`;
+  const grid = `${storybookUrl}?path=/story/data-display-datagrid--all-variants`;
   return (
-    <div className="pg__row">
-      <span id={`pg-${label}`}>{label}</span>
-      <div className="pg__seg" role="radiogroup" aria-labelledby={`pg-${label}`}>
-        {options.map(o => (
-          <button key={o} type="button" role="radio" aria-checked={value === o} className={value === o ? 'is-on' : undefined} onClick={() => onChange(o)}>{o}</button>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-export function ControlsPlayground() {
-  const [variant, setVariant] = useState('contained');
-  const [color, setColor] = useState('primary');
-  const [size, setSize] = useState('medium');
-  const [label, setLabel] = useState('Save changes');
-  const [disabled, setDisabled] = useState(false);
-  const [copied, setCopied] = useState(false);
-
-  const bg = colourMap[color] ?? '#1E3A6E';
-  const solid = color === 'ai' ? '#653FDA' : bg;
-  const style: React.CSSProperties = {
-    height: heights[size], padding: `0 ${Math.round((heights[size] ?? 40) * 0.5)}px`, fontSize: size === 'xsmall' || size === 'small' ? 12 : size === 'medium' ? 14 : 16,
-    background: variant === 'contained' ? bg : 'transparent', color: variant === 'contained' ? '#fff' : solid,
-    border: variant === 'outlined' ? `1.5px solid ${solid}` : '1.5px solid transparent', opacity: disabled ? 0.38 : 1,
-  };
-  const code = `<Button${variant !== 'contained' ? ` variant="${variant}"` : ''}${color !== 'primary' ? ` color="${color}"` : ''}${size !== 'medium' ? ` size="${size}"` : ''}${disabled ? ' disabled' : ''}>${label || 'Button'}</Button>`;
-  const copy = async () => { try { await navigator.clipboard.writeText(code); setCopied(true); window.setTimeout(() => setCopied(false), 1600); } catch { /* the snippet is selectable */ } };
-
-  return (
-    <div className="ix pg">
-      <div className="pg__preview">
-        <motion.button type="button" className="pg__btn" style={style} disabled={disabled} layout transition={{ type: 'spring', stiffness: 300, damping: 26 }} aria-label={label || 'Button'}>
-          {label || 'Button'}
-        </motion.button>
-        <p className="pg__note">Illustrative preview. The real component is in the Storybook.</p>
-      </div>
-      <div className="pg__controls">
-        <Seg label="variant" value={variant} options={['contained', 'outlined', 'text']} onChange={setVariant} />
-        <Seg label="color" value={color} options={['primary', 'error', 'success', 'warning', 'ai']} onChange={setColor} />
-        <Seg label="size" value={size} options={['xsmall', 'small', 'medium', 'large', 'xlarge']} onChange={setSize} />
-        <div className="pg__row">
-          <label htmlFor="pg-label">children</label>
-          <input id="pg-label" value={label} onChange={e => setLabel(e.target.value)} maxLength={28} />
-        </div>
-        <div className="pg__row">
-          <span id="pg-disabled">disabled</span>
-          <button type="button" role="switch" aria-checked={disabled} aria-labelledby="pg-disabled" className={`pg__switch${disabled ? ' is-on' : ''}`} onClick={() => setDisabled(d => !d)}><i /></button>
-        </div>
-        <div className="pg__code">
-          <code>{code}</code>
-          <button type="button" onClick={copy}>{copied ? 'Copied' : 'Copy'}</button>
-        </div>
+    <div className="pk-try">
+      <h3>Start here: the Button playground</h3>
+      <ol>
+        <li>Open the Button playground in the real Storybook (link below).</li>
+        <li>In the Controls panel, change variant, colour and size, and turn on disabled. The preview is the real component.</li>
+        <li>Compare each state with the Figma variant. Then open the DataGrid story to see the largest component.</li>
+      </ol>
+      <div className="pk-try__links">
+        <a className="btn-c" href={play} target="_blank" rel="noopener noreferrer">Button playground (Storybook)</a>
+        <a className="btn-c btn-c--ghost" href={grid} target="_blank" rel="noopener noreferrer">DataGrid, all variants</a>
+        <a className="btn-c btn-c--ghost" href={galleryUrl} target="_blank" rel="noopener noreferrer">Component gallery</a>
       </div>
     </div>
   );
@@ -349,17 +305,18 @@ export function ScreenHotspots() {
   return (
     <div className="ix hs">
       <div className="hs__shot" onMouseLeave={() => setOn(null)}>
-        <div className="hs__page" role="img" aria-label="A list page wireframe with six labelled regions">
-          <div className={`hs__r hs__nav${dim('frame')}`} onMouseEnter={() => setOn('frame')} />
-          <div className={`hs__r hs__top${dim('frame')}`} onMouseEnter={() => setOn('frame')}><i /><b /></div>
-          <div className={`hs__r hs__crumb${dim('crumb')}`} onMouseEnter={() => setOn('crumb')}><i /></div>
-          <div className={`hs__r hs__head${dim('head')}`} onMouseEnter={() => setOn('head')}><i /><em /><u /></div>
-          <div className={`hs__r hs__tabs${dim('tabs')}`} onMouseEnter={() => setOn('tabs')}><i /><i /><i /><s /><s /><s /></div>
-          <div className={`hs__r hs__body${dim('body')}`} onMouseEnter={() => setOn('body')}>
+        {/* Pointer shortcut only: the same six regions are real buttons in the list beside it, which work by keyboard, touch and screen reader. */}
+        <div className="hs__page" role="img" aria-label="A list page wireframe with six labelled regions. The list beside it names each region.">
+          <div className={`hs__r hs__nav${dim('frame')}`} onMouseEnter={() => setOn('frame')} onClick={() => setOn('frame')} />
+          <div className={`hs__r hs__top${dim('frame')}`} onMouseEnter={() => setOn('frame')} onClick={() => setOn('frame')}><i /><b /></div>
+          <div className={`hs__r hs__crumb${dim('crumb')}`} onMouseEnter={() => setOn('crumb')} onClick={() => setOn('crumb')}><i /></div>
+          <div className={`hs__r hs__head${dim('head')}`} onMouseEnter={() => setOn('head')} onClick={() => setOn('head')}><i /><em /><u /></div>
+          <div className={`hs__r hs__tabs${dim('tabs')}`} onMouseEnter={() => setOn('tabs')} onClick={() => setOn('tabs')}><i /><i /><i /><s /><s /><s /></div>
+          <div className={`hs__r hs__body${dim('body')}`} onMouseEnter={() => setOn('body')} onClick={() => setOn('body')}>
             <div className="hs__gh" />
             {[0, 1, 2, 3, 4].map(r => <div key={r} className="hs__row" />)}
           </div>
-          <div className={`hs__r hs__cells${dim('cells')}`} onMouseEnter={() => setOn('cells')}>
+          <div className={`hs__r hs__cells${dim('cells')}`} onMouseEnter={() => setOn('cells')} onClick={() => setOn('cells')}>
             {[0, 1, 2, 3, 4].map(r => <span key={r} />)}
           </div>
         </div>
@@ -403,7 +360,11 @@ export function TabCompare() {
       </div>
       <label className="tc__range">
         <span className="sr-only">Compare the tabs as extracted and as corrected</span>
-        <input type="range" min={0} max={100} value={v} onChange={e => setV(Number(e.target.value))} />
+        <input
+          type="range" min={0} max={100} step={5} value={v} onChange={e => setV(Number(e.target.value))}
+          aria-label="Compare unselected tabs: as extracted on the left, as corrected on the right. Arrow keys move the handle."
+          aria-valuetext={v === 0 ? 'All as corrected' : v === 100 ? 'All as extracted' : `${v} percent as extracted, ${100 - v} percent as corrected`}
+        />
       </label>
       <p className="tc__cap">Left of the handle: unselected tabs as the extract read them, dark and heavy. Right: how the live product draws them, muted and darker on hover, with the selected tab semibold on a baseline underline.</p>
     </div>
@@ -599,7 +560,7 @@ export function CodePanel() {
         </div>
         <button type="button" className="cp__copy" onClick={copy}>{copied ? 'Copied' : 'Copy'}</button>
       </div>
-      <pre className="cp__code" tabIndex={0} aria-label={tab === 'page' ? 'A page built only from design-system parts' : 'The import rule'}><code>{code}</code></pre>
+      <pre className="cp__code" tabIndex={0} role="region" aria-label={tab === 'page' ? 'A page built only from design-system parts' : 'The import rule'}><code>{code}</code></pre>
     </div>
   );
 }

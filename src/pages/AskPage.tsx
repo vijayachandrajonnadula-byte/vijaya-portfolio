@@ -6,7 +6,8 @@ import AskBox from '../components/studio/AskBox';
 import Answer from '../components/ask/Answer';
 import { AnswerNav, BackButton, Overview, TopicList } from '../components/ask/TopicBrowser';
 import SignalsToScreens from '../components/story/SignalsToScreens';
-import { bestMatch, entryById, suggestionPool, type Entry } from '../data/knowledge';
+import { bestMatch, entryById, type Entry } from '../data/knowledge';
+import { suggest, type Suggestion } from '../data/siteIndex';
 import { topicById, topicEntries, topicOfEntry, type Topic } from '../data/topics';
 import { quirks } from '../data/quirks';
 import { PenIcon } from '../components/ask/icons';
@@ -17,15 +18,17 @@ type View =
   | { kind: 'topic'; topic: Topic }
   | { kind: 'timeline' }
   | { kind: 'answer'; entry: Entry; topic: Topic; typed?: string }
-  | { kind: 'nomatch'; q: string; doors: Entry[] };
+  | { kind: 'nomatch'; q: string; closest: Suggestion[] };
 
-/** Typed question: the best entry if one is close enough, else "no match" with at most 4 doors that really exist. */
+/**
+ * Typed question: the best entry if one is close enough. Otherwise "no match", and the page still has something
+ * to show: up to 3 plausibly related questions, case studies or pages (never padding), a way to email the question,
+ * and the six topics.
+ */
 function resolveText(q: string): View {
-  const { entry, hits } = bestMatch(q);
+  const { entry } = bestMatch(q);
   if (entry) return { kind: 'answer', entry, topic: topicOfEntry(entry), typed: q };
-  const rest = hits.filter(h => h.score >= 1).map(h => h.entry);
-  const fallback = suggestionPool.map(s => entryById(s.id)!).filter(e => !rest.includes(e));
-  return { kind: 'nomatch', q, doors: [...rest, ...fallback].slice(0, 4) };
+  return { kind: 'nomatch', q, closest: suggest(q, 3, { loose: true }) };
 }
 
 /** The view is a pure function of the URL: ?id=<id> answer, ?topic=<topic> list, ?view=timeline, ?q=<typed>. */
@@ -48,7 +51,7 @@ const message = (v: View): string => {
     case 'answer': return `Showing answer: ${v.entry.q}`;
     case 'topic': return `Showing topic: ${v.topic.title}, ${topicEntries(v.topic).length} questions`;
     case 'timeline': return 'Showing my timeline';
-    case 'nomatch': return `No match for ${v.q}. Showing ${v.doors.length} questions I can answer.`;
+    case 'nomatch': return v.closest.length ? `No written answer for ${v.q}. Showing closest pages and ways to reach me.` : `No written answer for ${v.q}. Showing ways to reach me and topics to start from.`;
     default: return 'Showing all topics';
   }
 };
@@ -77,6 +80,15 @@ export default function AskPage() {
   const toOverview = (replace = true) => go({}, replace);
   const toTopic = (t: Topic, replace = false) => go({ topic: t.id }, replace);
   const open = (id: string, replace = false) => { if (entryById(id)) go({ id }, replace); };
+
+  // the no-match page says so in the tab title too, and puts the old title back when it goes
+  const nomatchQ = view.kind === 'nomatch' ? view.q : null;
+  useEffect(() => {
+    if (nomatchQ === null) return;
+    const before = document.title;
+    document.title = `No written answer for ${nomatchQ.slice(0, 60)} · Ask Vijay`;
+    return () => { document.title = before; };
+  }, [nomatchQ]);
 
   // #q=<id> deep links open that answer; the hash is replaced by ?id= so Back does not loop
   useEffect(() => {
@@ -173,11 +185,11 @@ export default function AskPage() {
                 <BackButton onClick={back} data-back="up">{backLabel}</BackButton>
                 {view.kind === 'answer' ? (
                   <>
-                    <Answer ref={heading} typed={view.typed} entry={view.entry} doors={[]} onOpen={id => open(id)} onStatus={say} />
+                    <Answer ref={heading} typed={view.typed} entry={view.entry} onOpen={id => open(id)} onStatus={say} />
                     <AnswerNav entry={view.entry} onOpen={(id, how) => open(id, how === 'step')} />
                   </>
                 ) : (
-                  <Answer ref={heading} typed={view.q} entry={null} doors={view.doors} onOpen={id => open(id)} onStatus={say} />
+                  <Answer ref={heading} typed={view.q} entry={null} closest={view.closest} onOpen={id => open(id)} onTopic={t => toTopic(t)} onStatus={say} />
                 )}
               </section>
             )}

@@ -1,32 +1,31 @@
-export interface AfsDemonstratesItem {
-  title: string;
-  body: string;
-}
-
 export interface AfsDecision {
   num: string;
   title: string;
-  body: string;
-  why: string;
+  /** What is visible on the screens. */
+  saw: string;
+  /** My reading of why it is that way, hedged because there is no discovery artifact. */
+  reading: string;
+  /** One alternative, only where the screens make it inferable. */
+  alternative?: string;
+  /** What I would instrument or test. No invented numbers. */
+  instrument: string;
+  /** 'designed' only when the owner confirms it; the default is 'observed'. */
+  basis: 'designed' | 'observed';
+  /** Screen numbers this decision refers to. */
+  screens: string;
+  /** Optional screen crop shown with the decision (full image opens on zoom). */
+  crop?: { src: string; pos: string; alt: string };
 }
 
 export interface AfsScreen {
   num: string;
   title: string;
-  purpose: string;
+  /** Bold first clause: the decision the screen shows. */
+  lead: string;
+  body: string;
+  alt: string;
   keyElements: string[];
-  uxNote: string;
-  src?: string;
-  wireframeKey?: string;
-  annotated?: boolean;
-}
-
-export interface AfsAnnotationCallout {
-  id: number;
-  label: string;
-  desc: string;
-  left: string;
-  top: string;
+  src: string;
 }
 
 export interface AfsComponentPattern {
@@ -40,442 +39,390 @@ export interface AfsHandoffCard {
   body: string;
 }
 
+export interface AfsNote {
+  text: string;
+  criteria: string;
+}
+
 export const afsCaseStudy = {
   id: 'afs-enterprise-workflow',
   title: 'Account Fit Score (AFS)',
   subtitle:
-    'Enterprise UX for AI-powered account scoring configuration in ZoomInfo\'s Admin Portal. Configuration workflows, condition builder, and model management for go-to-market teams.',
-  tags: [
-    'Enterprise UX',
-    'Workflow Design',
-    'Admin Portal',
-    'B2B SaaS',
-    'Configuration UI',
-    'ZoomInfo',
-    'Figma',
-    'Information Architecture',
-    'Design System',
-  ],
+    "A configuration workflow for AI-powered account scoring in ZoomInfo's Admin Portal: choose a data source, define conditions, wait for the model, act on the result.",
+  tags: ['Enterprise UX', 'Workflow Design', 'Admin Portal', 'B2B SaaS', 'Configuration UI', 'Figma'],
+
+  myPart:
+    'UX/UI Design Contributor on the Account Fit Score team. Focus of this write-up: configuration workflow, condition builder and data source management.',
+  outcome:
+    'Final dev-ready screens (Q4 2023). No shipped result or metrics are claimed: this page reconstructs the structure and reasoning from those screens.',
+  statusLabel: 'Dev-ready, reconstructed from final screens',
 
   snapshot: [
     { label: 'Role', value: 'UX/UI Design Contributor, Account Fit Score team' },
     { label: 'Company', value: 'ZoomInfo, enterprise B2B intelligence platform' },
     { label: 'Platform', value: 'Enterprise web application, Admin Portal' },
-    { label: 'Source', value: 'Final Figma UI screens, Q4/2023, dev-ready status' },
+    { label: 'Source', value: 'Final Figma UI screens, Q4/2023, Ready for Dev status' },
     { label: 'Focus', value: 'Configuration workflow, condition builder, data source management' },
-    { label: 'Output', value: 'Case study, IA, user flow, wireframe documentation' },
+    { label: 'Output', value: 'A design audit of the final screens: flow, decisions, notes for build' },
   ],
 
-  confidentialityNote:
-    'This case study is based on UI screens from a company project connected to ZoomInfo. Business logic, internal workflows, client-specific data, and team details have been intentionally kept at a high level or omitted. The focus is on design structure, UX decisions, component thinking, and information architecture rather than proprietary product details.',
-
-  demonstrates: [
-    {
-      title: 'Enterprise UX thinking',
-      body: 'Worked within a complex admin portal containing multiple Go-to-Market modules. AFS sits within a structured hierarchy of configuration tools, each supporting a distinct part of the enterprise go-to-market setup.',
-    },
-    {
-      title: 'Information architecture',
-      body: 'The Admin Portal navigation structure is visible and well-organised: Overview, Go-to-Market (Set Up, General), and a clear placement of AFS within the Set Up section alongside related tools.',
-    },
-    {
-      title: 'Workflow mapping',
-      body: 'AFS supports two distinct data source paths (CRM and CSV), each with its own configuration flow. Mapping these paths shows how the product handles different enterprise data maturity levels.',
-    },
-    {
-      title: 'Design system extraction',
-      body: 'Consistent component language is visible across condition builder rows, info banners, toggles, radio groups, and action button pairs. These patterns appear reused across the Admin Portal.',
-    },
-    {
-      title: 'Product documentation',
-      body: 'Final dev-ready screens are translated into reconstructed IA, user flow, wireframe logic, and component documentation, showing how finished designs can still tell a clear design story.',
-    },
-    {
-      title: 'Confidentiality awareness',
-      body: 'Company project presented responsibly: business context is described at a pattern level, client identifiers are omitted, and no proprietary scoring logic or internal data is exposed.',
-    },
-  ] as AfsDemonstratesItem[],
+  readingNote: {
+    title: 'How to read this page',
+    items: [
+      'This is company work. Business logic, scoring internals and team details are left out on purpose.',
+      'It is reconstructed from final Figma screens. There is no research or discovery artifact behind it, so every reason given is my reading of the screens, not a recorded fact.',
+      'Each decision is tagged "Observed from the final screens" unless the owner has confirmed it was designed by Vijay.',
+      'The screens are shown as exported. The workspace name (Cyberlock), the placeholder user name (Bob) and the third-party company names in the account lists are sample data, not client records.',
+    ],
+  },
 
   overview:
-    'AFS (Account Fit Score) is a feature within ZoomInfo\'s enterprise Admin Portal that allows go-to-market teams to configure AI-powered account scoring. Users define conditions from their CRM data that train a model to score accounts against their ideal customer profile (ICP). The system supports two data source paths: CRM integration (using account or opportunity objects and conditions) and CSV upload (for teams whose CRM data is not yet integrated). Once configured, the model scores all accounts in the workspace and notifies users via email when scoring is complete. The design supports model retraining when conditions change.',
+    "Account Fit Score (AFS) sits in the Admin Portal under Go-to-Market, Set Up. From the screens, a team picks a data source, defines conditions, saves, and waits for scoring to finish. A list then shows the configuration, its status, a score distribution and the top factors behind the scores.",
 
   problem: {
-    main: 'Enterprise go-to-market teams manage hundreds or thousands of accounts without a reliable way to prioritise outreach. Manual CRM queries are time-consuming and inconsistent across teams. Without a configured scoring model, prioritisation relies on individual judgment rather than systematic criteria.',
+    main: 'The feature asks RevOps and sales operations users, who know their business but are not machine-learning specialists, to set up a scoring model. The work is slow (the screens promise results within 24 hours) and mostly invisible while it runs.',
     detail:
-      'AFS solves this by allowing teams to encode their institutional knowledge about ideal customers into a set of configurable conditions. The AI then applies those conditions at scale. The UX challenge is making a sophisticated ML configuration process approachable to RevOps and sales operations users who are expert in their business context but not in machine learning.',
+      'My reading of the screens: the design has to answer three questions at every step. Where am I, what have I set up, and what happens next? Most of the decisions below are answers to one of them.',
     highlight:
-      'For enterprise users, clarity is productivity. Every screen in a configuration tool needs to answer: where am I, what have I set up, and what action comes next.',
+      'The core design problem is trust during a long, invisible process: did it save, did my data arrive, when will I hear back, and what do I do with the result?',
   },
+
+  userFlowDescription:
+    'The path below is read off the twelve screens, in order. A CSV path also exists in the Figma canvas, but its screens are not in my reference set, so it is only sketched in the appendix.',
+
+  userFlowSteps: [
+    'AFS landing',
+    'Configure AFS',
+    'Pick source: Salesforce or file',
+    'Define conditions + preview',
+    'Save Configuration',
+    'Name it',
+    'Processing (up to 24 hours)',
+    'Email: AFS ready',
+    'Results and Retrain',
+  ],
+
+  decisions: [
+    {
+      num: '01',
+      title: 'Say how long scoring takes, then confirm the data arrived',
+      saw: 'After Save, the list shows a Processing badge and a toast: "AFS configuration successfully saved. Score generation is in progress and might take up to 24 hours." Expanding the row repeats the 24 hours, promises an email, and shows how many accounts were imported with a sample of them.',
+      reading:
+        'Training is slow and invisible, so the screens appear to answer two worries up front, "did it save?" and "did my data arrive?", and then let the user leave with a promise of an email.',
+      alternative: 'A progress bar would be a weak fit if the duration varies up to a day (my inference).',
+      instrument:
+        'What I would instrument: how many people return from the email versus polling the list, and whether support questions about "did it save?" drop.',
+      basis: 'observed',
+      screens: '08, 09, 10',
+      crop: {
+        src: '/images/projects/afs/screens/afs-09-processing-detail.png',
+        pos: '30% 40%',
+        alt: 'Expanded Processing row stating that scores might take up to 24 hours and that 296 accounts were imported, followed by a sample of eight accounts.',
+      },
+    },
+    {
+      num: '02',
+      title: 'Recommend Salesforce, keep a file upload one click away',
+      saw: 'The source modal lists "Import from Salesforce" with a Recommended tag and a shaded card, above "Upload a file", which asks for a CSV of website URLs for at least 100 best-fit customers.',
+      reading:
+        'This steers teams that have a CRM toward the path that reuses their data, without a dead end for teams that do not. The two cards are not equal in weight: Salesforce is the default.',
+      alternative: 'A CRM-only flow would block workspaces with no integration.',
+      instrument:
+        'What I would instrument: the split between the two sources, and drop-off on the file path, where the 100-customer minimum is a real hurdle.',
+      basis: 'observed',
+      screens: '03',
+      crop: {
+        src: '/images/projects/afs/screens/afs-03-import.png',
+        pos: '50% 50%',
+        alt: 'Modal titled Import your past deals to configure Account Fit Score, with Import from Salesforce marked Recommended above Upload a file.',
+      },
+    },
+    {
+      num: '03',
+      title: 'Show matching accounts beside the conditions',
+      saw: 'A right-hand panel reads "356 Accounts Found" with a scrollable preview of example accounts. By the naming step the count is 296 with two conditions, so it appears to recompute as conditions change.',
+      reading:
+        'It looks like a calibration loop: users can tighten or loosen conditions and see the effect before committing to a long training run.',
+      alternative: 'Showing only a count would be cheaper to build but gives no sense of what kind of accounts match.',
+      instrument:
+        'What I would instrument: how many times conditions are edited before the first save, and whether people read the preview list or ignore it. Risk: sample accounts could be mistaken for the final scored list.',
+      basis: 'observed',
+      screens: '04, 05, 06, 07',
+      crop: {
+        src: '/images/projects/afs/screens/afs-05-preview.png',
+        pos: '100% 30%',
+        alt: 'Right-hand panel headed 356 Accounts Found with a list of example accounts and their industry, size and location.',
+      },
+    },
+    {
+      num: '04',
+      title: 'Place AFS inside a Go-to-Market hierarchy',
+      saw: 'The left navigation groups AFS under Go-to-Market, Set Up, next to Target Accounts, Intent and Buying Committees, with General (Analytics, Integrations and others) below.',
+      reading: 'My reading: scoring is framed as one step in a wider setup, not a standalone technical feature.',
+      instrument: 'What I would instrument: how often users arrive at AFS from the navigation versus from the Overview or Quickstart.',
+      basis: 'observed',
+      screens: '01',
+    },
+    {
+      num: '05',
+      title: 'Edit a condition in place',
+      saw: 'The condition row turns into Field, Operator and Values dropdowns (Values accepts up to five) with confirm and cancel icons at the row end, while the other conditions and the preview stay on screen.',
+      reading: 'Editing in the row keeps the full condition set visible, which appears to make gaps and overlaps easier to spot than a modal editor would.',
+      alternative: 'A modal editor, which hides the other conditions.',
+      instrument: 'What I would instrument: abandoned edits (cancel after change) and validation errors on conflicting conditions.',
+      basis: 'observed',
+      screens: '06',
+    },
+    {
+      num: '06',
+      title: 'Start from a default condition with a dismissible explanation',
+      saw: 'A new configuration already holds one condition, {Account Type} is {Customer}, under an info banner: "This is a default condition. You can edit or add more conditions as required."',
+      reading: 'A default gives a concrete starting point and shows what a valid condition looks like before the user writes their own.',
+      instrument: 'What I would instrument: how many users save with the default unchanged.',
+      basis: 'observed',
+      screens: '04',
+    },
+    {
+      num: '07',
+      title: 'Keep the auto-update choice on the configure screen',
+      saw: 'An "Auto-update AFS model" toggle with an info icon sits beside the Add Condition row, which carries a 1/10 conditions counter.',
+      reading: 'It lets teams that want a stable model and teams that want fresh scores choose without a separate settings page. The counter shows the limit before it is reached.',
+      instrument: 'What I would instrument: toggle state at first save and how often it is changed later. Risk: the consequences of auto-update may not be clear from the icon alone.',
+      basis: 'observed',
+      screens: '04',
+    },
+    {
+      num: '08',
+      title: 'Show location with a breadcrumb',
+      saw: 'The header reads "Account Fit Score (AFS) / Configure", mirroring the sidebar depth.',
+      reading: 'A cheap orientation aid on a screen that is several levels deep.',
+      instrument: 'What I would instrument: nothing specific; I would check it exposes the current page to assistive technology (see notes for build).',
+      basis: 'observed',
+      screens: '04',
+    },
+  ] as AfsDecision[],
+
+  iaDescription:
+    'Reconstructed from the left navigation visible on the configure screen and from frame names in the Figma canvas. Nothing here comes from a documented sitemap.',
+
+  iaTree: [
+    { label: 'Admin Portal', indent: 0 },
+    { label: 'Overview', indent: 1 },
+    { label: 'Go-to-Market', indent: 1 },
+    { label: 'Set Up: Target Accounts, Intent, Account Fit Score (AFS), Buying Committees, WebSights, FormComplete, Go-to-Market Plays', indent: 2 },
+    { label: 'General: Analytics, User Management, Configurations, Privacy, Integrations, Enrich', indent: 2 },
+  ],
+
+  afsIaTree: [
+    { label: 'Configure (CRM source)', indent: 0, active: true },
+    { label: 'Account Object or Opportunity Object conditions', indent: 1 },
+    { label: 'Condition builder (add, edit, remove)', indent: 2 },
+    { label: 'Auto-update toggle', indent: 2 },
+    { label: 'Configure (file source)', indent: 0 },
+    { label: 'Default AFS', indent: 0 },
+    { label: 'Edit view', indent: 0 },
+    { label: 'Change data source', indent: 0 },
+    { label: 'Retrain model', indent: 0 },
+    { label: 'Renaming', indent: 0 },
+    { label: 'States: Salesforce not integrated, error cases, score distribution edge case', indent: 0 },
+  ],
 
   users: [
     {
       type: 'Primary',
-      label: 'RevOps and Sales Operations teams',
+      label: 'RevOps and sales operations teams',
       description:
-        'Users responsible for configuring scoring models within the Admin Portal. They understand the business criteria that define a good customer but are not necessarily technical ML practitioners.',
+        'Inferred from the product area and copy, not from research: people who configure the scoring model and understand the business criteria but are not necessarily machine-learning practitioners.',
       tasks: [
-        'Navigate to AFS configuration in Admin Portal',
-        'Select data source (CRM or CSV)',
-        'Choose CRM object type (Account or Opportunity)',
-        'Review and edit default conditions',
-        'Add new conditions to refine scoring',
-        'Enable or disable auto-update model toggle',
-        'Save configuration and trigger model training',
-        'Retrain model when conditions change',
-        'Monitor model status via email notification',
+        'Choose a data source (Salesforce or file)',
+        'Choose the CRM object (Account or Opportunity)',
+        'Review, edit and add conditions',
+        'Switch auto-update on or off',
+        'Save, name and wait for scoring',
+        'Review results and retrain',
       ],
     },
     {
       type: 'Secondary',
       label: 'System administrators and IT owners',
       description:
-        'Users who manage CRM integrations and data source connections. Relevant when Salesforce is not yet integrated or when the data source needs to change.',
-      tasks: [
-        'Connect Salesforce or CRM data source',
-        'Resolve Salesforce not integrated state',
-        'Change data source between CRM and CSV',
-        'Manage workspace-level settings',
-      ],
+        'Inferred from the "Salesforce not integrated" and "Change Data Source" frames in the canvas: people who manage integrations and data sources.',
+      tasks: ['Connect Salesforce', 'Resolve the not-integrated state', 'Change the data source'],
     },
   ],
-
-  iaDescription:
-    'The information architecture was reconstructed from the left navigation visible in the configure screen. The Admin Portal organises its features into two main sections under Go-to-Market: Set Up (where AFS lives) and General (analytics, user management, integrations). AFS is positioned alongside other go-to-market configuration tools including Target Accounts, Intent, Buying Committees, WebSights, FormComplete, and Go-to-Market Plays.',
-
-  iaTree: [
-    {
-      label: 'Admin Portal',
-      level: 0,
-      children: [
-        {
-          label: 'Overview',
-          level: 1,
-        },
-        {
-          label: 'Go-to-Market',
-          level: 1,
-          children: [
-            {
-              label: 'Set Up',
-              level: 2,
-              children: [
-                { label: 'Target Accounts', level: 3 },
-                { label: 'Intent', level: 3 },
-                { label: 'Account Fit Score (AFS)', level: 3, active: true },
-                { label: 'Buying Committees', level: 3 },
-                { label: 'WebSights', level: 3 },
-                { label: 'FormComplete', level: 3 },
-                { label: 'Go-to-Market Plays', level: 3 },
-              ],
-            },
-            {
-              label: 'General',
-              level: 2,
-              children: [
-                { label: 'Analytics', level: 3 },
-                { label: 'User Management', level: 3 },
-                { label: 'Configurations', level: 3 },
-                { label: 'Privacy', level: 3 },
-                { label: 'Integrations', level: 3 },
-                { label: 'Enrich', level: 3 },
-              ],
-            },
-          ],
-        },
-      ],
-    },
-  ],
-
-  afsIaTree: [
-    { label: 'Configure (CRM source)', indent: 0, active: true },
-    { label: 'Account Object conditions', indent: 1 },
-    { label: 'Opportunity Object conditions', indent: 1 },
-    { label: 'Condition builder (add/edit/remove)', indent: 2 },
-    { label: 'Auto-update toggle', indent: 2 },
-    { label: 'Configure (CSV source)', indent: 0 },
-    { label: 'CSV upload flow', indent: 1 },
-    { label: 'Column mapping', indent: 2 },
-    { label: 'Default AFS (view-only)', indent: 0 },
-    { label: 'Edit View', indent: 0 },
-    { label: 'Change Data Source', indent: 0 },
-    { label: 'Retrain Model', indent: 0 },
-    { label: 'States', indent: 0 },
-    { label: 'Salesforce not integrated', indent: 1 },
-    { label: 'AFS ready (email notification)', indent: 1 },
-    { label: 'Renaming', indent: 1 },
-  ],
-
-  userFlowDescription:
-    'The user flow reconstructs how an operator would move through AFS setup for the first time, and how they would return to modify the configuration later. Two paths branch at the data source selection step, reflecting different integration states across enterprise workspaces.',
-
-  userFlowSteps: [
-    'Admin Portal',
-    'Go-to-Market',
-    'Set Up',
-    'Account Fit Score (AFS)',
-    'Select data source',
-    'CRM: Define conditions',
-    'Save Configuration',
-    'Model trains',
-    'AFS ready (email)',
-    'Scores active',
-  ],
-
-  userFlowCsvBranch: [
-    'CSV: Upload file',
-    'Map columns',
-    'Save',
-    'Model trains',
-  ],
-
-  decisions: [
-    {
-      num: '01',
-      title: 'Sidebar hierarchy places AFS in workflow context',
-      body: 'AFS sits inside Set Up within Go-to-Market. Users can see where AFS fits relative to other configuration steps (Target Accounts, Intent, Buying Committees) without losing context.',
-      why: 'Enterprise admin tools often feel disconnected from business intent. Placing AFS within a structured Go-to-Market hierarchy reinforces that scoring is part of a broader setup workflow, not a standalone technical feature.',
-    },
-    {
-      num: '02',
-      title: 'Two data source paths respect different integration states',
-      body: 'CRM and CSV paths exist because enterprise workspaces have different data maturity levels. Some teams have Salesforce fully integrated; others need to upload data manually.',
-      why: 'Forcing all users down a single path creates a dead end for teams whose CRM is not yet connected. Offering CSV as an alternative lets teams start building their model immediately and migrate to CRM later.',
-    },
-    {
-      num: '03',
-      title: 'Inline condition builder keeps configuration visible',
-      body: 'Conditions are managed directly on the configure screen using a [Field] [Operator] [Value] row pattern with a contextual menu. Users can add, edit, and remove conditions without navigating away.',
-      why: 'Modal-heavy configuration flows interrupt context. Keeping condition management inline means users can see their full condition set while editing, making it easier to spot gaps or conflicts.',
-    },
-    {
-      num: '04',
-      title: 'Default condition with editable info banner guides first-time users',
-      body: 'New configurations are populated with a default condition. A blue info banner explains that the condition is editable and additional conditions can be added. The banner is dismissible.',
-      why: 'Blank state configuration is intimidating. Starting with a sensible default gives users a concrete starting point and signals what good configuration looks like before they begin customising.',
-    },
-    {
-      num: '05',
-      title: 'Auto-update toggle gives users control over model freshness',
-      body: 'A toggle allows users to enable or disable automatic model retraining when new data is available. The toggle is accompanied by an info icon for users who want to understand the implications.',
-      why: 'Some enterprise teams need predictability: they want their model to change only when they decide. Others prefer automatic updates. The toggle respects both operating models without requiring a separate settings page.',
-    },
-    {
-      num: '06',
-      title: 'Breadcrumb header communicates location within nested navigation',
-      body: 'The page header shows "Account Fit Score (AFS) / Configure" as a breadcrumb. This two-level path mirrors the left sidebar depth and helps users orient themselves within the Admin Portal.',
-      why: 'Enterprise admin portals can become disorienting when configurations are nested multiple levels deep. A persistent breadcrumb reduces the cognitive load of tracking location across long configuration sessions.',
-    },
-  ] as AfsDecision[],
 
   designSystemDescription:
-    'The AFS configure screen uses a consistent set of components that appear across the Admin Portal. Colour palette, typography, condition builder rows, info banners, toggles, and action button pairs all point to a shared design system. The patterns are recognisable and reusable rather than screen-specific.',
+    'Component language that repeats across the screens, redrawn here as small decorations. Colors are approximate, estimated from screenshots and not extracted from Figma.',
 
   designSystemColors: [
-    { name: 'Primary blue', hex: '#1B7AFF', value: 'ZoomInfo brand blue', usage: 'CTAs, active nav item, info banners, toggle on state' },
-    { name: 'White', hex: '#FFFFFF', value: 'Surface white', usage: 'Page background, card backgrounds, condition row backgrounds' },
-    { name: 'Light grey', hex: '#F7F9FC', value: 'Sidebar background', usage: 'Left navigation background, input fill, subtle surface sections' },
-    { name: 'Border grey', hex: '#E2E8F0', value: 'Divider and card borders', usage: 'Section dividers, condition row borders, input outlines' },
-    { name: 'Text primary', hex: '#0F172A', value: 'Near-black', usage: 'Page titles, section headings, body copy, condition values' },
-    { name: 'Text secondary', hex: '#64748B', value: 'Medium grey', usage: 'Nav labels, descriptions, placeholder text, helper copy' },
-  ],
-
-  designSystemComponents: [
-    { name: 'Left sidebar nav', description: 'Collapsible section groups with icon + label rows. Active state shown with background highlight.', usage: 'Persistent navigation across all Admin Portal screens' },
-    { name: 'Breadcrumb header', description: 'Page-level title with "/" separator showing current step within a section.', usage: 'All configuration screens to communicate navigation depth' },
-    { name: 'Radio group', description: 'Horizontal radio buttons with label. Selected state uses filled blue circle.', usage: 'CRM object selection (Account vs Opportunity)' },
-    { name: 'Condition row', description: '[Field tag] [Operator tag] [Value tag] with contextual "..." menu on right. Rows stack vertically in a bordered container.', usage: 'Condition builder for AFS model training criteria' },
-    { name: 'Info banner', description: 'Blue background panel with text and X dismiss button. Used for guidance and editable-state notifications.', usage: 'Default condition explanation, help text, state notifications' },
-    { name: 'Add action row', description: '"+ Add Condition" text button with a counter showing conditions added (e.g. 1/10).', usage: 'Condition builder, adding new items to a constrained list' },
-    { name: 'Toggle switch', description: 'On/off toggle with text label and optional info icon. Default state visible.', usage: 'Auto-update AFS model setting' },
-    { name: 'Action button pair', description: 'Cancel (outline) and primary CTA (blue filled) aligned to top right of configuration area.', usage: 'All configuration screens for save/discard actions' },
-    { name: 'Avatar header', description: 'Top-right cluster of notification bell, app grid, and user avatar initials.', usage: 'Persistent across all Admin Portal screens' },
+    { hex: '#1B7AFF', name: 'Primary blue (approx.)' },
+    { hex: '#FFFFFF', name: 'White' },
+    { hex: '#F7F9FC', name: 'Light surface (approx.)' },
+    { hex: '#E2E8F0', name: 'Border (approx.)' },
+    { hex: '#0F172A', name: 'Near-black text (approx.)' },
+    { hex: '#64748B', name: 'Muted text (approx.)' },
   ],
 
   screens: [
     {
       num: '01',
-      title: 'AFS landing — unconfigured state',
-      purpose: 'Entry point for a workspace that has not yet set up Account Fit Score. Shows the section description and the primary call to action to begin configuration.',
+      title: 'Landing, not configured yet',
+      lead: 'Explain the feature before asking for setup.',
+      body: 'The unconfigured page gives three benefit lines and one repeated action, "Configure AFS", at the top right and in the center. The left navigation highlights Account Fit Score under Go-to-Market, Set Up.',
+      alt: 'Account Fit Score page with no configuration yet: an illustration, three benefit bullets and a Configure AFS button, with Account Fit Score highlighted in the left navigation.',
       keyElements: [
-        'Admin Portal left navigation, AFS highlighted under Go-to-Market > Set Up',
-        'Page title: Account Fit Score (AFS)',
-        'Product description: what AFS does and how it works',
-        'Primary CTA to start the configuration process',
-        'Clean empty state — no conditions, no scores yet active',
+        'Left navigation with Account Fit Score (AFS) highlighted under Set Up',
+        'Three benefit bullets: predict fit, use firmographics, align sales and marketing',
+        '"Configure AFS" button, top right and center',
       ],
-      uxNote: 'The unconfigured landing state sets expectations before users commit to the setup flow. Establishing what AFS does at this entry point means users arrive at the configuration screen with the right mental model — they understand why they are defining conditions.',
       src: '/images/projects/afs/screens/afs-01-landing.png',
     },
     {
       num: '02',
-      title: 'AFS landing with Quickstart guide',
-      purpose: 'Onboarding panel that surfaces the three-step setup sequence for first-time users without requiring page navigation. Reduces first-visit friction.',
+      title: 'Landing with the Quickstart guide',
+      lead: 'Offer onboarding beside the page, not instead of it.',
+      body: 'A Quickstart panel opens on the right with a greeting to a placeholder name, progress (37% completed, 3 of 7 steps), an AFS explainer with a short video, and an FAQ. The Configure AFS button stays visible.',
+      alt: 'Landing page with an Admin Quickstart Guide panel open on the right, showing 37 percent progress, an AFS explainer video and three FAQ questions.',
       keyElements: [
-        'Same Admin Portal shell as Screen 01',
-        'Quickstart side panel with numbered setup steps',
-        'Step 1: Import your data',
-        'Step 2: Configure scoring conditions',
-        'Step 3: Review your results',
-        '"Hi Bob" — Figma placeholder name, not real user data',
-        'Progress indicators showing which steps remain incomplete',
-        'Dismiss option to close the panel',
+        'Progress: 37% completed, 3 of 7 steps',
+        'Account Fit Score section with explainer text, "Learn more" link and video',
+        'FAQ list, including "What is Default AFS?"',
+        'Close icon top right of the panel',
       ],
-      uxNote: 'The Quickstart panel reduces blank-state anxiety by decomposing the setup into three named steps. Users know how far the process goes before committing. The panel sits alongside the page without replacing it, so the CTA to begin is still visible and accessible.',
       src: '/images/projects/afs/screens/afs-02-quickstart.png',
     },
     {
       num: '03',
-      title: 'Import data — choose data source',
-      purpose: 'The first decision point in the configuration flow. Users choose between connecting their CRM (Salesforce) or uploading a CSV file with historical deal data.',
+      title: 'Choose a data source',
+      lead: 'Recommend one source, keep the other visible.',
+      body: 'A modal, "Import your past deals to configure Account Fit Score", offers Import from Salesforce (tagged Recommended) and Upload a file (a CSV of website URLs for at least 100 best-fit customers). The close icon is the only way out.',
+      alt: 'Modal with two options: Import from Salesforce, marked Recommended, and Upload a file for a CSV of at least 100 best-fit customers, over a dimmed landing page.',
       keyElements: [
-        'Modal overlay on the AFS page',
-        'Two option cards: CRM Integration / CSV Upload',
-        'CRM card: connect Salesforce, use account or opportunity object data',
-        'CSV card: upload a file with historical deal records',
-        'Visual parity between both cards — neither path is pre-selected',
-        'Cancel action to return without choosing',
+        'Import from Salesforce card with a Recommended tag',
+        'Upload a file card with its 100-customer minimum',
+        'Close icon top right',
       ],
-      uxNote: 'Presenting both data source options with equal visual weight respects different enterprise data maturity levels. Teams with Salesforce connected take the CRM path; teams still setting up integrations can use CSV immediately. The modal keeps users in context at the AFS section while making the decision explicit.',
       src: '/images/projects/afs/screens/afs-03-import.png',
     },
     {
       num: '04',
-      title: 'Configure Account Fit Score (CRM source)',
-      purpose: 'Main configuration screen for teams with CRM integration. Condition builder for defining scoring criteria using Salesforce account or opportunity object data.',
+      title: 'Configure with the default condition',
+      lead: 'Keep the whole configuration on one screen.',
+      body: 'Breadcrumb, a CRM object choice (Account or Opportunity), a dismissible info banner, one condition row, an Add Condition button with a 1/10 counter, and an Auto-update toggle. Cancel and Save Configuration sit top right. The right panel shows what looks like loading placeholders.',
+      alt: 'Configure Account Fit Score screen with the Account Object option selected, an info banner, one condition reading Account Type is Customer, an Add Condition button and an auto-update toggle.',
       keyElements: [
-        'Left sidebar with Go-to-Market navigation, AFS highlighted as active',
         'Breadcrumb: Account Fit Score (AFS) / Configure',
-        'Section heading: Configure Account Fit Score (AFS)',
-        'Description: AFS predicts match against ideal customer profile using CRM data and firmographics',
-        'CRM Object radio group: Account Object (selected) / Opportunity Object',
-        'Help link: How to add/edit conditions?',
-        'Blue info banner: default condition explanation, dismissible with X',
-        'Condition row: [Account Type] [Is] [Customer] with "..." context menu',
-        'Add Condition row with 1/10 conditions counter',
-        'Auto-update AFS model toggle with info icon',
-        'Cancel and Save Configuration action buttons (top right, always accessible)',
+        'Account Object (selected) and Opportunity Object',
+        'Info banner about the default condition',
+        '{Account Type} is {Customer} with a "..." menu',
+        'Add Condition, 1/10 conditions added',
+        'Auto-update AFS model toggle and info icon',
+        'Cancel and Save Configuration',
       ],
-      uxNote: 'The screen balances density with guidance. Default conditions reduce the blank-state problem. The info banner explains editability without overwhelming. The condition counter (1/10) makes the constraint boundary visible before users hit it. Positioning the action buttons top-right means they are reachable without scrolling in a desktop admin context.',
       src: '/images/projects/afs/screens/afs-04-configure.png',
     },
     {
       num: '05',
-      title: 'Configure with live account preview panel',
-      purpose: 'Split-panel extension of the configure screen. As conditions are defined, a right-side panel shows which accounts currently match — providing real-time feedback on scoring quality.',
+      title: 'Configure with the account preview',
+      lead: 'Show matching accounts next to the conditions.',
+      body: 'The right panel now reads "356 Accounts Found" and previews example accounts with industry, size and location. The names are sample data.',
+      alt: 'Configure screen with a right-hand panel headed 356 Accounts Found listing example accounts with industry, employee count and location.',
       keyElements: [
-        'Same condition builder on the left as Screen 04',
-        'Right panel: live account preview opens alongside the configuration form',
-        '"355 Accounts Found" count that updates as conditions change (demo data)',
-        'Account tiles showing matching companies: Ford, Apple, NVIDIA, Intel (demo data)',
-        'Preview panel provides immediate visual feedback on condition effectiveness',
-        'Panel can be closed to return to the full-width configuration view',
+        '"356 Accounts Found" with a one-line explanation',
+        'Scrollable list of example accounts',
+        'Same condition builder on the left',
       ],
-      uxNote: 'The "see as you configure" pattern gives enterprise users the calibration feedback they need. Showing how many real accounts match the current conditions — and which named companies — reduces the guess-and-retrain cycle. Users can tighten or loosen conditions with confidence before committing to a model training run.',
       src: '/images/projects/afs/screens/afs-05-preview.png',
     },
     {
       num: '06',
-      title: 'Inline condition editor with dropdowns open',
-      purpose: 'Condition editing stays in context. Dropdowns expand inline within the condition row — users select field, operator, and value without navigating to a separate screen or modal.',
+      title: 'Condition in edit mode',
+      lead: 'Edit a condition in place.',
+      body: 'The row expands into Field, Operator and Values dropdowns, marked required. Values accepts up to five. A check and an X confirm or cancel the edit. The preview and other controls stay put.',
+      alt: 'Condition row in edit mode with Field set to Account Type, Operator set to is (any one of) and a Customer value chip, plus confirm and cancel icons.',
       keyElements: [
-        'Condition row in active edit state with all three dropdowns visible',
-        'Field dropdown: list of available CRM fields (Account Type, Industry, Company Size, etc.)',
-        'Operator dropdown: Is, Is not, Contains, Greater than, etc.',
-        'Value dropdown: valid values for the selected field',
-        'All other conditions remain visible in the background during editing',
-        'Save/confirm action available within or immediately below the row',
+        'Field: Account Type, Operator: is (any one of)',
+        'Values: Customer, with "(Add up to 5 values)"',
+        'Required fields marked with an asterisk',
+        'Confirm (check) and cancel (X) icons',
       ],
-      uxNote: 'Inline editing with the full condition list visible prevents the loss-of-context problem that modal-based editors create. Users can compare the condition being edited against existing conditions, making it easier to spot redundancy, gaps, or conflicts in the scoring criteria without switching views.',
       src: '/images/projects/afs/screens/afs-06-condition-edit.png',
     },
     {
       num: '07',
-      title: 'Name your Account Fit Score',
-      purpose: 'Naming modal surfaced before finalising the configuration. Users give the AFS a name that identifies it in the AFS list and in reports.',
+      title: 'Name the configuration',
+      lead: 'Ask for a name only at save time.',
+      body: 'Save Configuration opens a small modal, "Name your Account Fit Score", with the field pre-filled as "New AFS 1". Behind it the configuration has two conditions and the preview shows 296 accounts.',
+      alt: 'Small modal titled Name your Account Fit Score with a text field containing New AFS 1, over the configure screen showing two conditions.',
       keyElements: [
-        'Focused modal overlay — single purpose',
-        'Heading: Name your Account Fit Score',
-        'Pre-filled text input: "Account AFS 1" (sensible default naming convention)',
-        'Helper text explaining how the name is used to identify the configuration',
-        'Cancel to return without saving',
-        'Save / Confirm to proceed to model training',
+        'Field pre-filled with "New AFS 1"',
+        'Cancel and Save Configuration',
+        'Two conditions behind the modal, 2/10 added',
       ],
-      uxNote: 'Pre-populating the name field with "Account AFS 1" solves the blank field problem and establishes a naming convention for workspaces with multiple AFS configurations. The focused modal design signals that naming is a required, distinct step — not an afterthought.',
       src: '/images/projects/afs/screens/afs-07-name.png',
     },
     {
       num: '08',
-      title: 'AFS list — model processing with success toast',
-      purpose: 'List view after saving configuration. The new AFS appears with a Processing status badge. A success toast sets time expectations for the async model training.',
+      title: 'List with a Processing status and toast',
+      lead: 'Set the time expectation at the moment of saving.',
+      body: 'The list shows one row with a Processing badge, data source CRM (Salesforce) and the toast "AFS configuration successfully saved. Score generation is in progress and might take up to 24 hours." The header counts 1/5 AFS Configured.',
+      alt: 'List of Account Fit Score configurations with one row marked Processing and a dark toast at bottom left saying scores might take up to 24 hours.',
       keyElements: [
-        'AFS list view with the newly saved configuration row',
-        'Status badge: Processing (with progress indicator)',
-        'Success toast: "Score generation is in progress and might take up to 24 hours"',
-        'Clear 24-hour time expectation communicated in the notification',
-        'Toast confirms the save action completed successfully',
-        'Other AFS configurations (if any) visible as separate rows in the list',
+        'Columns: AFS Name, Status, Data Source, Last Modified, Actions',
+        'Processing badge',
+        'Toast with a close icon',
+        '1/5 AFS Configured counter',
       ],
-      uxNote: 'Setting a 24-hour expectation in the toast is the most important UX decision on this screen. Without it, users have no indication of whether to wait minutes or days. The toast closes the immediate interaction loop — the save worked, training is running, expect results within a day — so users can confidently leave the page.',
       src: '/images/projects/afs/screens/afs-08-processing.png',
     },
     {
       num: '09',
-      title: 'Processing detail — accounts imported',
-      purpose: 'Expanded processing state showing how many accounts were successfully pulled from the CRM. Confirms the data import phase completed before the longer model-training phase begins.',
+      title: 'Processing row, expanded',
+      lead: 'Confirm that the data arrived while scoring is still running.',
+      body: 'The expanded row says scores are being processed, might take up to 24 hours, and that an email will follow. It states 296 accounts were imported for training and lists eight of them (sample data).',
+      alt: 'Expanded Processing row stating that 296 accounts were imported for training the AFS model, followed by a grid of eight sample accounts.',
       keyElements: [
-        'Expanded detail view for the processing AFS configuration',
-        '"296 Accounts have been imported" count (demo data)',
-        'Account tiles displaying imported company names: Amazon, NVIDIA, Google, Ford (demo data)',
-        'Status: import phase complete, model training now in progress',
-        'Visual confirmation that CRM data was successfully ingested',
+        '"Your AFS scores are being processed"',
+        'Email promise: "We will send you an email once the processing is completed"',
+        '296 accounts imported, sample of eight',
       ],
-      uxNote: 'The account count and sample company tiles answer an implicit anxiety: "Did my CRM data actually come through?" Showing 296 accounts (demo data) reassures users before the model-training phase — which takes longer and is less visible — completes. This prevents support requests about whether configuration succeeded.',
       src: '/images/projects/afs/screens/afs-09-processing-detail.png',
     },
     {
       num: '10',
-      title: 'AFS ready email notification',
-      purpose: 'Transactional email sent when model training completes. Closes the async feedback loop — users do not need to monitor the Admin Portal for a completion signal.',
+      title: 'Email: your AFS is ready',
+      lead: 'Close the loop outside the product.',
+      body: 'The subject is "ZoomInfo Update: Your AFS is ready to use". The body names the configuration, lists the top features behind the scores, offers a "View Account Fit Score" button and shows example great-fit accounts. The greeting uses a placeholder name.',
+      alt: 'Email titled ZoomInfo Update: Your AFS is ready to use, saying New AFS 1 has finished processing, listing top contributing features and a View Account Fit Score button.',
       keyElements: [
-        'ZoomInfo email template with dark header bar and wordmark',
-        'Subject: ZoomInfo Update: Your AFS is ready to use',
-        '"Hi Bob" — Figma placeholder name, not real user data',
-        'Body: confirmation that AFS model is trained and scores are now active',
-        'Summary of actions now available: view scores, prioritise outreach',
-        'Primary CTA: link back to Admin Portal',
-        'Professional footer with support and unsubscribe links',
+        'Subject line and greeting',
+        'Top contributing features as a bullet list',
+        'Red "View Account Fit Score" button',
+        'Examples of great-fit accounts',
       ],
-      uxNote: 'The email is a critical async UX pattern. After saving configuration, users return to their regular work. Without an email notification, they would need to periodically check the Admin Portal to find out if training completed. The email brings them back at the right moment — and the CTA restores context immediately, even if hours have passed.',
       src: '/images/projects/afs/screens/afs-10-email.png',
     },
     {
       num: '11',
-      title: 'AFS results dashboard',
-      purpose: 'Post-training view showing how accounts scored against the defined ICP. Score distribution, top factors, and account breakdowns translate the model output into actionable go-to-market intelligence.',
+      title: 'Results: score distribution and top factors',
+      lead: 'Turn the model output into something to act on.',
+      body: 'The Active row expands into a score distribution (Low, Moderate, Great fit by score range), the top factors behind the scores with expandable "more" lists, examples of great-fit accounts, and a Retrain Model button.',
+      alt: 'Active configuration expanded to show a three-band score distribution bar, a top factors panel with an open technographics list, and example great-fit accounts.',
       keyElements: [
-        'Score distribution visualisation: high / medium / low fit account breakdown',
-        'Job function analysis: accounts segmented by role or industry type',
-        'Top scoring factors: which conditions most influenced the model output',
-        'Account count totals across score tiers',
-        'Navigation context remains Admin Portal, AFS active in the sidebar',
-        'Drill-down capability for exploring high-fit account segments',
+        'Score distribution bar in three fit bands',
+        'Top factors contributing to scores, with "more" lists',
+        'Examples of great-fit accounts and an "Open in Sales OS" link',
+        'Retrain Model button and a "Scores updated on" timestamp',
       ],
-      uxNote: 'The results dashboard closes the configuration loop. Surfacing top scoring factors creates a natural iteration path: if the factors do not match expectations, users know to refine conditions and retrain. Score distribution reveals whether the ICP definition is too narrow (few high-fit accounts) or too broad (most accounts score as high fit).',
       src: '/images/projects/afs/screens/afs-11-results.png',
     },
     {
       num: '12',
-      title: 'AFS list — active configuration with actions menu',
-      purpose: 'List view for a trained, active AFS configuration. The "..." contextual menu reveals management actions: Edit, Rename, Change Data Source.',
-      keyElements: [
-        'AFS list with active configuration row',
-        'Status badge: Active (green success state)',
-        'Account count and last-trained timestamp on the row',
-        '"..." context menu open on the configuration row',
-        'Menu items: Edit / Rename / Change Data Source',
-        'Additional AFS configurations visible below if multiple exist',
-      ],
-      uxNote: 'The contextual menu pattern keeps management actions accessible without cluttering the list view. Grouping Edit, Rename, and Change Data Source in one overflow menu reflects the three distinct ongoing management tasks for an AFS. Keeping the menu on the row — not in a global header — matches the mental model of operating on a specific item in a list.',
+      title: 'Row actions menu',
+      lead: 'Keep management actions on the row.',
+      body: 'The Active row opens a menu with Edit, Rename and Change Data Source.',
+      alt: 'List row marked Active with its Actions menu open, showing Edit, Rename and Change Data Source.',
+      keyElements: ['Active badge', '"..." menu with Edit, Rename, Change Data Source'],
       src: '/images/projects/afs/screens/afs-12-actions.png',
     },
   ] as AfsScreen[],
@@ -483,100 +430,87 @@ export const afsCaseStudy = {
   componentPatterns: [
     {
       name: 'Condition builder row',
-      description: 'Three-part field row: [Field name] [Operator] [Value] with a contextual "..." menu for edit/delete actions. Rows stack vertically in a bordered container.',
-      usage: 'Used to define scoring conditions. The tag-style chips make each component of the condition visually distinct and easy to parse quickly.',
+      description: 'A row reading {Field} is {Value} with a "..." menu; in edit mode it becomes Field, Operator and Values dropdowns.',
+      usage: 'Defines scoring conditions. Text chips keep each part distinct.',
     },
     {
       name: 'Info banner',
-      description: 'Blue-tinted background panel with body text and a dismiss X. Sits inline within the configuration form, not as a page-level notification.',
-      usage: 'Used for guidance text that helps users understand default states or editable defaults without interrupting the flow.',
+      description: 'A blue-tinted panel with text and a dismiss icon, placed inline in the form.',
+      usage: 'Explains the default condition without interrupting the flow.',
     },
     {
-      name: 'Constrained add-item row',
-      description: '"+ Add Condition" with a counter badge showing progress against a limit (e.g. 1/10 conditions added). The counter helps users understand how many more items they can add.',
-      usage: 'Used anywhere a user can add items to a bounded list. The constraint boundary is visible before the user hits it.',
+      name: 'Constrained add row',
+      description: '"Add Condition" with a counter, "1/10 conditions added".',
+      usage: 'Shows the limit before the user reaches it.',
     },
     {
-      name: 'Contextual menu (dot-dot-dot)',
-      description: 'Three-dot overflow menu on the right of each condition row. Reveals edit and delete actions on hover or click.',
-      usage: 'Keeps secondary actions out of the primary view to reduce visual noise in dense lists.',
+      name: 'Toggle with info icon',
+      description: 'A switch, a text label and an info icon.',
+      usage: 'Used for the auto-update setting, where the consequence needs explaining.',
     },
     {
-      name: 'Toggle with info affordance',
-      description: 'A standard toggle switch accompanied by a text label and an (i) info icon. Tapping the info icon reveals a tooltip explaining the implications of the setting.',
-      usage: 'Used for settings where the user needs to understand the downstream effect of their choice, such as auto-update model behaviour.',
+      name: 'Status badge',
+      description: 'A small tinted pill with a text label: Processing, Active.',
+      usage: 'Shows model state in the list.',
     },
     {
-      name: 'Two-path radio selection',
-      description: 'Horizontal radio group for mutually exclusive top-level options (Account Object / Opportunity Object). Each option is labelled clearly with no ambiguity about what it selects.',
-      usage: 'Used when the two paths share the same screen structure but process different data. The radio selection determines which downstream conditions are valid.',
+      name: 'Toast',
+      description: 'A dark message at the bottom left with a close icon.',
+      usage: 'Confirms the save and sets the 24-hour expectation.',
     },
   ] as AfsComponentPattern[],
 
-  accessibility: [
-    'Radio buttons use standard form semantics and are keyboard navigable',
-    'Toggle switch labelled with visible text, not colour alone',
-    'Info banner uses text to communicate guidance, not just a colour change',
-    'Condition rows use tag-style chips with text labels for each component (field, operator, value)',
-    'Action button pair maintains clear hierarchy: Cancel (outline, secondary) vs Save (filled, primary)',
-    'Breadcrumb provides location context for screen reader navigation',
-    'Dismissible info banner has an X button with accessible interaction',
-    'Recommended: Ensure info icon tooltips are keyboard accessible',
-    'Recommended: Verify condition row "..." menus open on keyboard and have ARIA labels',
-    'Recommended: Error states for invalid or conflicting conditions should use text, not colour alone',
-  ],
+  notesForBuild: [
+    { text: 'Status badges pair color with a text label (Processing, Active). Check the pale badge fills against the background.', criteria: 'WCAG 1.4.1, 1.4.3' },
+    { text: 'The save toast carries the 24-hour message. Expose it as a status message so assistive technology hears it without a focus change.', criteria: 'WCAG 4.1.3' },
+    { text: 'Icon-only controls (info icon, dismiss X, "..." menu, row expander) need accessible names and keyboard operation.', criteria: 'WCAG 4.1.2, 2.1.1' },
+    { text: 'The info tooltip next to the auto-update toggle should open on keyboard focus and be dismissible.', criteria: 'WCAG 1.4.13' },
+    { text: 'In the inline condition editor, return focus to the edited row after confirm or cancel.', criteria: 'WCAG 2.4.3' },
+    { text: 'The source and naming modals should move focus in, contain it, and restore it on close.', criteria: 'WCAG 2.4.3, 2.1.2' },
+    { text: 'The "..." and row icons look small in the screens. Check they meet the minimum target size.', criteria: 'WCAG 2.5.8' },
+    { text: 'Errors for invalid or conflicting conditions should use text, not color alone.', criteria: 'WCAG 3.3.1, 1.4.1' },
+    { text: 'The breadcrumb should be a navigation landmark and mark the current page.', criteria: 'WCAG 1.3.1, 2.4.8' },
+  ] as AfsNote[],
 
   handoff: [
     {
-      title: 'Dev-ready status confirmed',
-      body: 'The Figma file shows "Ready for Dev" status on the project cover frame, with Jira, PRD, and video walkthrough documentation linked directly from the file.',
+      title: 'Documentation status',
+      body: 'The Figma cover frame shows a Ready for Dev badge with a documentation list. I have not reproduced the linked documents here.',
     },
     {
-      title: 'Component state documentation',
-      body: 'Each component visible in the screens requires state documentation: default, hover, focus, active, disabled, and error states for condition rows, toggles, banners, and radio groups.',
+      title: 'Component states',
+      body: 'The screens show default states. A build needs hover, focus, disabled and error states for condition rows, toggles, banners and radio options.',
     },
     {
-      title: 'Data / empty / error states',
-      body: 'The Salesforce not integrated screen represents one error state. Full handoff would document empty states (no conditions added), loading states (model training), and success states (model trained, scores active).',
+      title: 'Empty, loading and error states',
+      body: 'The canvas has groups for "Salesforce not integrated", unusual error cases and a score distribution edge case. Those frames are not in my reference set, so I do not describe them.',
     },
     {
-      title: 'Two-path flow documentation',
-      body: 'CRM and CSV paths need separate acceptance criteria and developer notes. The screen shell is shared but the input components, validation rules, and data handling differ between paths.',
+      title: 'Two data source paths',
+      body: 'The Salesforce and file paths probably need separate acceptance criteria: the shell is shared, but inputs, validation and data handling differ.',
     },
     {
-      title: 'Responsive behaviour notes',
-      body: 'The Admin Portal is a desktop-first enterprise tool (1440px primary viewport). Responsive behaviour for the condition builder, left sidebar collapse, and action button placement would need explicit documentation for smaller screens.',
+      title: 'Widths',
+      body: 'The canvas includes a block of frames that appear to be labeled with four desktop widths (1920, 1440, 1280 and 960 px). I have not reviewed them.',
     },
     {
-      title: 'Async model training feedback',
-      body: 'Save Configuration starts an asynchronous process. In-product feedback (progress indicator, pending state) and the AFS ready email represent the two feedback channels. Both need coordination between frontend and notification service.',
+      title: 'Async feedback',
+      body: 'Save starts a long process. The toast, the Processing row and the email are three feedback channels that frontend and notification services would need to keep in step.',
     },
   ] as AfsHandoffCard[],
 
   limitations: [
-    'Case study reconstructed from final UI screens. Original discovery artefacts, research findings, and early-stage wireframes were not available for this portfolio case study.',
-    'Business-specific conditions, scoring weights, and model training logic are intentionally abstracted. The portfolio documents design structure, IA, and UX decisions — not product internals.',
-    'Client workspace identifier ("Cyberlock") is visible in several screenshots and is presented as-is without digital alteration. It is noted in the confidentiality section.',
-    '"Bob" in the Quickstart panel and email screenshots is a Figma placeholder name used in the prototype, not real user data.',
-    'Account names (Amazon, NVIDIA, Google, Ford) and counts (296 accounts, 355 accounts found) visible in processing and preview screenshots are Figma demo data, not real client records.',
-    'Internal team names and roles from the Figma project cover frame have been omitted from the public case study.',
-    'Exact design token values (hex codes, font sizes, spacing units) have not been extracted from the Figma file. Colours and typography are described at a pattern level from visible screen data.',
-    'CSV configuration path, Retrain Model, and Rename flows are documented in the wireframes section as structural reconstructions. The actual CSV screens from Figma are not available in the reference set.',
+    'Reconstructed from final UI screens. Discovery artifacts, research findings and early wireframes were not available, so reasons are my reading, not recorded decisions.',
+    'Business-specific conditions, scoring weights and training logic are abstracted on purpose.',
+    'No usability testing or product metrics are claimed. The "what I would instrument" lines are proposals.',
+    'The file-upload path, Retrain and other states are only sketched in the appendix, labeled as reconstructions, because their screens are not in my reference set.',
+    'Colors and type are approximate, estimated from screenshots. No design tokens were extracted from Figma.',
+    'Per-decision authorship is not marked beyond "observed from the final screens" until the owner confirms which decisions Vijay designed.',
   ],
 
   reflection:
-    'Working from final UI screens without original discovery artefacts is a different skill than working from blank pages. The navigation structure tells you the information architecture. The component language tells you the design system. The Figma frame names tell you the full workflow. It requires precise observation, careful inference, and honest documentation of what is known versus what is assumed. Enterprise UX is often about making complex data workflows feel structured and navigable. The AFS configure screen does this well: it layers guidance (info banner), constraint visibility (condition counter), and control (auto-update toggle) without overwhelming the user with the underlying ML complexity.',
+    'Working back from final screens is closer to a design audit than to discovery. What I can do honestly is describe what is visible, say what I think each choice is for, name one alternative where the screens allow it, and propose what I would measure. The strongest part of this flow, in my reading, is how it treats the wait: a time promise at save, proof that the data arrived, an email at the end, and a results view that points to the next action. The weakest evidence is anything about users, because none is in the file.',
 
-  annotationCallouts: [
-    { id: 1, label: 'ZoomInfo logo', desc: 'Brand logo anchors the platform identity. Appears on all Admin Portal pages.', left: '3%', top: '4%' },
-    { id: 2, label: 'Workspace identifier', desc: 'Client workspace name visible below the logo — noted as client identifier, omitted in portfolio description.', left: '3%', top: '11%' },
-    { id: 3, label: 'Go-to-Market navigation', desc: 'Collapsible section group in the left sidebar. Contains both Set Up and General sub-sections.', left: '9%', top: '40%' },
-    { id: 4, label: 'Active: Account Fit Score (AFS)', desc: 'AFS is highlighted as the current page within the Set Up section. Colour + weight indicate active state.', left: '9%', top: '52%' },
-    { id: 5, label: 'Breadcrumb header', desc: '"Account Fit Score (AFS) / Configure" — two-level breadcrumb mirrors sidebar depth and confirms user location.', left: '55%', top: '10%' },
-    { id: 6, label: 'CRM object radio group', desc: 'Account Object vs Opportunity Object. The choice determines which CRM records conditions are matched against.', left: '37%', top: '28%' },
-    { id: 7, label: 'Default condition info banner', desc: 'Blue dismissible banner explaining the default condition is editable. Reduces blank-state anxiety for first-time users.', left: '58%', top: '39%' },
-    { id: 8, label: 'Condition row', desc: '[Account Type] [Is] [Customer] with a "..." context menu. Tag-style chips make the three-part condition easy to scan.', left: '58%', top: '50%' },
-    { id: 9, label: '+ Add Condition with counter', desc: '"1/10 conditions added" — constraint boundary is visible before the user hits it. Inline add keeps context.', left: '31%', top: '62%' },
-    { id: 10, label: 'Cancel / Save Configuration', desc: 'Action button pair in the top right of the configure area. Persistent and accessible without scrolling.', left: '88%', top: '10%' },
-  ] as AfsAnnotationCallout[],
+  wireframeNote:
+    'Reconstruction: not a shipped screen. Layout inferred from frame names in the Figma canvas; all copy is illustrative.',
 };

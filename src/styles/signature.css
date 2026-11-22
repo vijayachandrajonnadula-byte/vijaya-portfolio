@@ -1,0 +1,11 @@
+/* VJ mark: one continuous pen stroke, V into J, drawn once on load and again on hover. Reduced motion draws it finished. */
+.vjl__p { stroke-dasharray: 1; stroke-dashoffset: 1; animation: vjl-draw 1.25s 0.35s cubic-bezier(0.5, 0.05, 0.25, 1) forwards; }
+.vjl__dot { transform-box: fill-box; transform-origin: center; transform: scale(0); animation: vjl-dot 0.45s 1.4s cubic-bezier(0.3, 1.6, 0.5, 1) forwards; }
+@keyframes vjl-draw { to { stroke-dashoffset: 0; } }
+@keyframes vjl-dot { to { transform: scale(1); } }
+.vjl--static .vjl__p { animation: none; stroke-dashoffset: 0; }
+.vjl--static .vjl__dot { animation: none; transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  .vjl__p { animation: none; stroke-dashoffset: 0; }
+  .vjl__dot { animation: none; transform: none; }
+}

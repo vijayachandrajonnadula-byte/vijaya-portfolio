@@ -67,7 +67,7 @@ export const caresyncCaseStudy = {
   ] as DemonstratesItem[],
 
   overview:
-    'CareSync is a shift-based clinical command centre for outpatient clinicians, built around a single question: what needs to happen before the next patient walks in? The prototype covers eight connected screens — Shift Briefing, Patients, Appointments, Medical Records, Messages, Tasks, Operational Insights, and Settings — plus a deep-linkable patient profile, each mapped to a distinct mode of clinical or operational attention. The navigation order follows the sequence of a real shift: shift start, then patient, appointment, record, communication, action, analysis, and admin. The organising idea is a Now / Next / Later model: Now holds what requires clinical action before the next consultation, Next holds the coming ninety minutes with preparation status attached, and Later holds shift follow-through that can be deferred without risk. That model is not a feature on one screen, it is the structure the whole product is built on.',
+    'CareSync is a shift-based clinical command centre for outpatient clinicians, built around a single question: what needs to happen before the next patient walks in? The prototype covers eight connected screens (Shift Briefing, Patients, Appointments, Medical Records, Messages, Tasks, Operational Insights, and Settings) plus a deep-linkable patient profile, each mapped to a distinct mode of clinical or operational attention. The navigation order follows the sequence of a real shift: shift start, then patient, appointment, record, communication, action, analysis, and admin. The organising idea is a Now / Next / Later model: Now holds what requires clinical action before the next consultation, Next holds the coming ninety minutes with preparation status attached, and Later holds shift follow-through that can be deferred without risk. That model is not a feature on one screen, it is the structure the whole product is built on.',
 
   problem:
     'Provider-side healthcare software tends to surface KPIs, appointment volumes, and aggregate metrics. But a doctor starting a shift is not asking what happened, they are asking what needs to happen next. Lab results, handover tasks, upcoming appointments, and abnormal flags all arrive together with no priority model, and the first minutes of a shift are the highest-risk window: the most context switches, the most incomplete information, the most handover gaps. An analytics dashboard at that moment is noise. The second problem is inheritance. Tasks picked up from the previous shift require reconstructing context from notes the clinician did not write, and that reconstruction is slow and error-prone.',
@@ -107,7 +107,7 @@ export const caresyncCaseStudy = {
       issue:
         'Seeing a lab result without knowing when it arrived, who flagged it, and what action is expected means visiting several screens just to understand one piece of information.',
       response:
-        'Every row co-locates source, timestamp, owner, and due time. A four-dimension status model — severity, workflow, timing, ownership — exists because no single badge could carry all four.',
+        'Every row co-locates source, timestamp, owner, and due time. A four-dimension status model (severity, workflow, timing, ownership) exists because no single badge could carry all four.',
     },
     {
       title: 'Abnormal results without context are not enough',
@@ -121,7 +121,7 @@ export const caresyncCaseStudy = {
       issue:
         'Picking up tasks from the previous shift means reconstructing context from notes the clinician did not write. That reconstruction is slow, and it is where continuity between shifts breaks down.',
       response:
-        'Tasks group by time horizon — Now, Due this shift, Handed over, Waiting on others — and acknowledgement is required before a handover task is actioned, making continuity explicit.',
+        'Tasks group by time horizon (Now, Due this shift, Handed over, Waiting on others) and acknowledgement is required before a handover task is actioned, making continuity explicit.',
     },
     {
       title: 'Fast scan plus focused drill-down is the real workflow',
@@ -140,7 +140,7 @@ export const caresyncCaseStudy = {
   ] as ResearchInsight[],
 
   earlyStructureIntro:
-    'Before any visual decisions were made, the product was structured around three questions: what does a clinician need to know, in what order, and which screen owns each answer. I sketched the shift as a story in Procreate first — arrival, triage, consultation, review, handover — because I wanted to understand sequence and coordination rather than jump straight into layout. What came out of that sketch most clearly was that Now / Next / Later was not a feature. It was the fundamental structure of how clinical work unfolds.',
+    'Before any visual decisions were made, the product was structured around three questions: what does a clinician need to know, in what order, and which screen owns each answer. I sketched the shift as a story in Procreate first, arrival, triage, consultation, review, handover, because I wanted to understand sequence and coordination rather than jump straight into layout. What came out of that sketch most clearly was that Now / Next / Later was not a feature. It was the fundamental structure of how clinical work unfolds.',
 
   userJourneyDescription:
     'The flow is a loop rather than a funnel, which is the main structural difference from a patient-facing booking journey. A clinician re-enters at the briefing many times a day and exits into a different module each time, so every stage has to be both a destination and a junction. Context carries forward: the appointment detail offers the patient, the message context offers the patient, and the patient profile offers the message.',
@@ -163,14 +163,14 @@ export const caresyncCaseStudy = {
     'Low-fidelity frames for all eight screens, reduced to structure only: which region owns which question, and in what order a clinician meets them. Three structural patterns were settled here before any styling. A main work area with a persistent operational rail on the briefing, so Now, Next, and Later stay co-visible. A table with an overlay detail drawer everywhere the work is list-heavy, so the worklist never disappears during review. And a three-panel layout for Messages, so severity nav, conversation, and patient context are readable at once. Each was chosen from how the clinical work is done rather than from a 12-column grid abstraction.',
 
   wireframeImages: [
-    { src: '/images/projects/caresync/wireframes/shift-briefing.svg', label: 'A — Shift Briefing: Now / Next / Later' },
-    { src: '/images/projects/caresync/wireframes/patients.svg', label: 'B — Patients: table with detail drawer' },
-    { src: '/images/projects/caresync/wireframes/appointments.svg', label: 'C — Appointments: queue with flow status' },
-    { src: '/images/projects/caresync/wireframes/medical-records.svg', label: 'D — Medical Records: shift-level worklist' },
-    { src: '/images/projects/caresync/wireframes/messages.svg', label: 'E — Messages: three-panel layout' },
-    { src: '/images/projects/caresync/wireframes/tasks.svg', label: 'F — Tasks: grouped by time horizon' },
-    { src: '/images/projects/caresync/wireframes/operational-insights.svg', label: 'G — Operational Insights: charts with thresholds' },
-    { src: '/images/projects/caresync/wireframes/settings.svg', label: 'H — Settings: two-column card' },
+    { src: '/images/projects/caresync/wireframes/shift-briefing.svg', label: 'A: Shift Briefing: Now / Next / Later' },
+    { src: '/images/projects/caresync/wireframes/patients.svg', label: 'B: Patients: table with detail drawer' },
+    { src: '/images/projects/caresync/wireframes/appointments.svg', label: 'C: Appointments: queue with flow status' },
+    { src: '/images/projects/caresync/wireframes/medical-records.svg', label: 'D: Medical Records: shift-level worklist' },
+    { src: '/images/projects/caresync/wireframes/messages.svg', label: 'E: Messages: three-panel layout' },
+    { src: '/images/projects/caresync/wireframes/tasks.svg', label: 'F: Tasks: grouped by time horizon' },
+    { src: '/images/projects/caresync/wireframes/operational-insights.svg', label: 'G: Operational Insights: charts with thresholds' },
+    { src: '/images/projects/caresync/wireframes/settings.svg', label: 'H: Settings: two-column card' },
   ] as { src: string; label: string }[],
 
   uxDecisions: [
@@ -188,7 +188,7 @@ export const caresyncCaseStudy = {
     },
     {
       title: 'Messages sort by severity, not recency',
-      body: 'A three-panel layout — severity nav, thread list, conversation — with patient context, result source, and severity visible in the list rather than just subject lines. Sorting by time would let a safety-critical message get buried under routine traffic.',
+      body: 'A three-panel layout (severity nav, thread list, conversation) with patient context, result source, and severity visible in the list rather than just subject lines. Sorting by time would let a safety-critical message get buried under routine traffic.',
     },
     {
       title: 'Flow status replaces appointment type',
@@ -201,18 +201,18 @@ export const caresyncCaseStudy = {
   ],
 
   designSystemDescription:
-    'The design system did not start with colours. It started with a question: how should a doctor feel at the beginning of a busy shift? Not overwhelmed by data, not performing data entry — ready to act. The first direction felt too familiar: blue surfaces, generic KPI cards, rounded widgets, decorative charts. It looked like healthcare, but it did not feel operational. Blue is common in healthcare UI because it suggests trust, but it also makes most healthcare dashboards look identical to each other. Aubergine still reads as mature, serious, and trustworthy while giving CareSync a distinct enterprise identity, and it works with warm neutral surfaces that reduce eye strain across a long shift. Aubergine anchors product identity; critical, warning, and success colours anchor clinical meaning. They never compete. The screens below are captured from the design system documentation page that ships inside the prototype itself.',
+    'The design system did not start with colours. It started with a question: how should a doctor feel at the beginning of a busy shift? Not overwhelmed by data, not performing data entry, ready to act. The first direction felt too familiar: blue surfaces, generic KPI cards, rounded widgets, decorative charts. It looked like healthcare, but it did not feel operational. Blue is common in healthcare UI because it suggests trust, but it also makes most healthcare dashboards look identical to each other. Aubergine still reads as mature, serious, and trustworthy while giving CareSync a distinct enterprise identity, and it works with warm neutral surfaces that reduce eye strain across a long shift. Aubergine anchors product identity; critical, warning, and success colours anchor clinical meaning. They never compete. The screens below are captured from the design system documentation page that ships inside the prototype itself.',
 
   designSystemImages: [
-    { src: '/images/projects/caresync/system/color-system.jpg', label: 'Colour system — aubergine brand scale and semantic roles' },
-    { src: '/images/projects/caresync/system/typography.jpg', label: 'Typography — eight-step scale with tabular numerals' },
-    { src: '/images/projects/caresync/system/buttons.jpg', label: 'Buttons — primary, secondary, ghost, danger' },
+    { src: '/images/projects/caresync/system/color-system.jpg', label: 'Colour system: aubergine brand scale and semantic roles' },
+    { src: '/images/projects/caresync/system/typography.jpg', label: 'Typography: eight-step scale with tabular numerals' },
+    { src: '/images/projects/caresync/system/buttons.jpg', label: 'Buttons: primary, secondary, ghost, danger' },
     { src: '/images/projects/caresync/system/badges-status.jpg', label: 'Badges and the four-dimension status system' },
-    { src: '/images/projects/caresync/system/patient-identity.jpg', label: 'Patient identity — avatar, chip, and safety strip' },
-    { src: '/images/projects/caresync/system/clinical-alerts.jpg', label: 'Clinical alerts — safety-critical treatment' },
-    { src: '/images/projects/caresync/system/cards.jpg', label: 'Cards — priority, lab result, and preparation note' },
-    { src: '/images/projects/caresync/system/drawers.jpg', label: 'Drawers — focus-trapped detail review' },
-    { src: '/images/projects/caresync/system/charts.jpg', label: 'Charts — thresholds with accessible summaries' },
+    { src: '/images/projects/caresync/system/patient-identity.jpg', label: 'Patient identity: avatar, chip, and safety strip' },
+    { src: '/images/projects/caresync/system/clinical-alerts.jpg', label: 'Clinical alerts: safety-critical treatment' },
+    { src: '/images/projects/caresync/system/cards.jpg', label: 'Cards: priority, lab result, and preparation note' },
+    { src: '/images/projects/caresync/system/drawers.jpg', label: 'Drawers: focus-trapped detail review' },
+    { src: '/images/projects/caresync/system/charts.jpg', label: 'Charts: thresholds with accessible summaries' },
   ],
 
   desktopScreenshots: [
@@ -249,21 +249,21 @@ export const caresyncCaseStudy = {
       title: 'Medical Records',
       purpose: 'Answer which records across all patients need review this shift.',
       uxNote:
-        'The most consequential IA decision in the project. New results are surfaced at the top of the worklist, and source, time, and patient identity are visible in every row without an extra click.',
+        'New results are surfaced at the top of the worklist, and source, time, and patient identity are visible in every row without an extra click.',
     },
     {
       src: '/images/projects/caresync/desktop/messages.jpg',
       title: 'Messages',
       purpose: 'Coordinate with nurses, labs, and admin while keeping clinical context attached to the thread.',
       uxNote:
-        'Three panels — severity nav, thread list, conversation — sorted by severity rather than time, so a safety-critical message can never get buried under routine traffic.',
+        'Three panels (severity nav, thread list, conversation) sorted by severity rather than time, so a safety-critical message can never get buried under routine traffic.',
     },
     {
       src: '/images/projects/caresync/desktop/tasks.jpg',
       title: 'Tasks and handovers',
       purpose: 'Make inherited shift work visible, owned, and time-bounded.',
       uxNote:
-        'Tasks group by time horizon — Now, Due this shift, Handed over, Waiting on others — and acknowledgement is required before a handover task is actioned. The Now group is never buried below a full list.',
+        'Tasks group by time horizon (Now, Due this shift, Handed over, Waiting on others) and acknowledgement is required before a handover task is actioned. The Now group is never buried below a full list.',
     },
     {
       src: '/images/projects/caresync/desktop/operational-insights.jpg',
@@ -377,47 +377,47 @@ export const caresyncCaseStudy = {
   aiWorkflow: [
     {
       stage: '01',
-      title: 'Prompt — write the brief and the decision',
+      title: 'Prompt: write the brief and the decision',
       body: 'Framed each screen as a written design brief and an explicit decision before any implementation began, so the generation step had a specification to work against rather than an open prompt.',
-      note: 'Human task — define the clinical framing and decide what the screen is for.',
+      note: 'Human task: define the clinical framing and decide what the screen is for.',
     },
     {
       stage: '02',
-      title: 'Generate — first implementation pass',
+      title: 'Generate: first implementation pass',
       body: 'Used AI coding assistance to produce the first implementation of a screen or component from the written decision, kept narrow to one surface at a time so the diff stayed reviewable.',
-      note: 'Human task — scope each session and keep the change traceable.',
+      note: 'Human task: scope each session and keep the change traceable.',
     },
     {
       stage: '03',
-      title: 'Audit — review for visual, semantic, and clinical issues',
+      title: 'Audit: review for visual, semantic, and clinical issues',
       body: 'Reviewed every screen section by section against clinical credibility, token consistency, and accessibility compliance. This is where most of the real work happened.',
-      note: 'Human task — judge clinical credibility and catch semantic drift.',
+      note: 'Human task: judge clinical credibility and catch semantic drift.',
     },
     {
       stage: '04',
-      title: 'Refine — targeted passes per screen',
+      title: 'Refine: targeted passes per screen',
       body: 'Ran repeated narrow refinement passes rather than one broad rewrite, so each change stayed traceable and no screen was silently redesigned between sessions.',
-      note: 'Human task — decide what to change and what to leave alone.',
+      note: 'Human task: decide what to change and what to leave alone.',
     },
     {
       stage: '05',
-      title: 'Freeze — mark the screen complete',
+      title: 'Freeze: mark the screen complete',
       body: 'Explicitly froze screens once they met the bar, preventing the endless-tinkering failure mode where an accepted screen drifts during later work.',
-      note: 'Human task — decide which screens to freeze and which to refine further.',
+      note: 'Human task: decide which screens to freeze and which to refine further.',
     },
     {
       stage: '06',
-      title: 'Systematise — extract to the design system',
+      title: 'Systematise: extract to the design system',
       body: 'Pulled recurring patterns back into tokens and shared components, then documented them on a design system page inside the product so the language could extend without re-deciding.',
-      note: 'Human task — decide what belongs in the system versus one screen.',
+      note: 'Human task: decide what belongs in the system versus one screen.',
     },
   ],
 
   technicalDescription:
-    'The interface was built entirely with custom React components and CSS Modules — no Material UI, no Tailwind, no component kit. That was deliberate: it let the system match the clinical context exactly rather than inheriting the visual assumptions of a general-purpose library. All clinical content is mock data, so the full workflow is navigable without a backend, an API layer, or authentication.',
+    'The interface was built entirely with custom React components and CSS Modules, no Material UI, no Tailwind, no component kit. That was deliberate: it let the system match the clinical context exactly rather than inheriting the visual assumptions of a general-purpose library. All clinical content is mock data, so the full workflow is navigable without a backend, an API layer, or authentication.',
 
   technicalPoints: [
-    'React with TypeScript and CSS Modules — scoped styles with no cascade conflicts across components',
+    'React with TypeScript and CSS Modules: scoped styles with no cascade conflicts across components',
     'Design tokens as CSS custom properties in a single tokens.css, so the system changes in one place',
     'Custom component library of 25+ components, with no UI framework or icon-font dependency',
     'Four-dimension status system: WorkflowStatus (8 states), TimingStatus (5 states), OwnershipStatus, SeverityIndicator',
@@ -433,16 +433,16 @@ export const caresyncCaseStudy = {
     'Shift Briefing → Priority patient → Patient profile → Lab review → Message care team → Assign task → Appointment → Mark complete',
 
   testingChecklist: [
-    'Could a clinician identify the most urgent patient from the briefing without scrolling?',
-    'Did every priority card, queue row, and task lead somewhere useful rather than dead-ending?',
-    'Did the roster stay scannable, with severity readable from the chip label and not colour alone?',
-    'Did allergy and risk flags stay visible while moving between the roster, the profile, and a drawer?',
-    'Did a row click open the drawer without losing scroll position in the list behind it?',
-    'Did the drawer trap focus while open and return focus to the triggering row on close?',
-    'Did Messages keep the linked patient context attached to the correct conversation?',
-    'Did every chart carry a threshold, a narrative sentence, and a screen-reader summary?',
-    'Did all nine routes resolve, and did the patient record deep-link correctly?',
-    'Was every icon-only control reachable by keyboard with a visible focus ring?',
+    'Can a clinician identify the most urgent patient from the briefing without scrolling?',
+    'Does every priority card, queue row, and task lead somewhere useful rather than dead-ending?',
+    'Does the roster stay scannable, with severity readable from the chip label and not colour alone?',
+    'Do allergy and risk flags stay visible while moving between the roster, the profile, and a drawer?',
+    'Does a row click open the drawer without losing scroll position in the list behind it?',
+    'Does the drawer trap focus while open and return focus to the triggering row on close?',
+    'Does Messages keep the linked patient context attached to the correct conversation?',
+    'Does every chart carry a threshold, a narrative sentence, and a screen-reader summary?',
+    'Do all nine routes resolve, and does the patient record deep-link correctly?',
+    'Is every icon-only control reachable by keyboard with a visible focus ring?',
   ],
 
   iterations: [
@@ -471,7 +471,7 @@ export const caresyncCaseStudy = {
       num: '04',
       title: 'One badge could not carry clinical context',
       issue: 'Status was inconsistent across screens, and tasks showed no visible ownership or timing.',
-      fix: 'Split status into four independent axes — severity, workflow, timing, ownership — each its own component.',
+      fix: 'Split status into four independent axes (severity, workflow, timing, ownership), each its own component.',
       why: 'How severe, where in the process, when due, and who owns it are four different questions.',
     },
     {
@@ -498,20 +498,20 @@ export const caresyncCaseStudy = {
   ],
 
   responsiveQADescription:
-    'Responsive QA focused on keeping navigation reachable, preventing page-level horizontal overflow, and confirming the app shell holds when the sidebar is replaced by a bottom tab bar. Measured on the deployed build, there is no page-level horizontal overflow at any width from 1440px down to 390px, and the sidebar swaps to a bottom tab bar below the desktop breakpoint. Two things are still unfinished at mobile width. Table-heavy screens — Patients, Appointments, and Medical Records — keep their tables inside a horizontal scroll container rather than restructuring into cards, so columns run off the edge until scrolled. And four screens — Shift Briefing, patient profile, Operational Insights, and Settings — clip content inside a container that does not scroll at all. Both are recorded as limitations rather than presented as finished work.',
+    'Responsive QA focused on keeping navigation reachable, preventing page-level horizontal overflow, and confirming the app shell holds when the sidebar is replaced by a bottom tab bar. Measured on the deployed build, there is no page-level horizontal overflow at any width from 1440px down to 390px, and the sidebar swaps to a bottom tab bar below the desktop breakpoint. Two things are still unfinished at mobile width. Table-heavy screens, Patients, Appointments, and Medical Records, keep their tables inside a horizontal scroll container rather than restructuring into cards, so columns run off the edge until scrolled. And four screens, Shift Briefing, patient profile, Operational Insights, and Settings, clip content inside a container that does not scroll at all. Both are recorded as limitations rather than presented as finished work.',
 
   responsiveQA: [
     { breakpoint: '1440px', label: 'Wide desktop', status: 'Tested' },
     { breakpoint: '1280px', label: 'Laptop', status: 'Tested' },
     { breakpoint: '1024px', label: 'Tablet landscape', status: 'Tested' },
-    { breakpoint: '768px', label: 'Tablet — bottom tab bar', status: 'Tested' },
+    { breakpoint: '768px', label: 'Tablet: bottom tab bar', status: 'Tested' },
     { breakpoint: '430px', label: 'Mobile L', status: 'Partial' },
     { breakpoint: '390px', label: 'iPhone 14', status: 'Partial' },
   ],
 
   accessibilityChecklist: [
     'Keyboard operable throughout, with drawers trapping focus and restoring it to the triggering row on close',
-    'No colour-only status — every severity indicator pairs its coloured dot with a visible text label',
+    'No colour-only status: every severity indicator pairs its coloured dot with a visible text label',
     'A 3px aubergine focus ring on every interactive element, deliberately distinct from clinical status colours',
     'Touch targets held to 40–44px for primary actions, 36px for supporting actions, 36×36px for icon buttons',
     'An sr-only AccessibleChartSummary on every chart, giving a full narrative description rather than a title',
@@ -523,7 +523,7 @@ export const caresyncCaseStudy = {
   techStack: [
     { label: 'Frontend', value: 'React, TypeScript, CSS Modules' },
     { label: 'UI', value: 'Custom component library and CSS custom-property tokens, no UI framework' },
-    { label: 'Status system', value: 'Four-dimension model — severity, workflow, timing, ownership' },
+    { label: 'Status system', value: 'Four-dimension model: severity, workflow, timing, ownership' },
     { label: 'Charts', value: 'Recharts wrapped with an sr-only accessible summary per chart' },
     { label: 'Data', value: 'Module-scope mock clinical datasets, no backend' },
     { label: 'Design', value: 'Claude, Claude Code, Procreate for shift storyboarding' },
@@ -536,7 +536,7 @@ export const caresyncCaseStudy = {
     'No authentication, role-based access control, or audit logging, all of which a real provider tool requires',
     'Four screens still clip content inside a non-scrolling container at 430px and below',
     'Table-heavy screens scroll horizontally at mobile width instead of restructuring into cards',
-    'Informal clinician input rather than structured usability testing with practising GPs',
+    'Direction drew on one informal conversation with a practising physician; there was no structured usability testing with practising GPs, and no notes or quotes from that conversation are included here',
     'Search, filter, and primary actions are present but do not mutate state',
     'Charts render fixed series rather than computing from underlying appointment data',
     'No automated test coverage or CI accessibility audit',
@@ -564,6 +564,23 @@ export const caresyncCaseStudy = {
     'The design system is documented inside the product itself, not only in the case study',
   ],
 
+  reframe: {
+    title: 'What must happen before the next patient?',
+    body: 'The brief asked for a modern healthcare dashboard. A dashboard asks what happened. A clinician starting a shift needs to know what has to happen next, so I rebuilt the product around that question and around the rhythm of a shift.',
+    cells: [
+      { label: 'Now', body: 'What needs clinical action before the next consultation.' },
+      { label: 'Next', body: 'The coming ninety minutes, with preparation status attached.' },
+      { label: 'Later', body: 'Shift follow-through that can wait without risk.' },
+    ],
+    safety: 'Red is reserved for patient safety risk and nothing else, so it never turns into background noise.',
+  },
+
+  accessibilityNote:
+    'These are design and build intentions from the prototype. No axe scan, screen-reader test, or CI accessibility audit is recorded (see limitations).',
+
+  finalValidationNote:
+    'What the build was meant to satisfy, checked by me by clicking through. It is a self-review: there are no automated tests and no testing with practising clinicians.',
+
   reflection:
-    'I went into this thinking I was designing a healthcare dashboard. I came out having built something closer to a clinical workflow system, and that shift in how I understood the problem changed everything downstream: the structure, the visual language, the components, and the way I talk about the work. A dashboard asks what happened; a shift system asks what needs to happen next. Once I understood that, almost every design decision became clearer. The second lesson was that some components carry meaning rather than style. Centralising status in one component set and reserving red for patient safety were the two changes with the highest ratio of safety value to code, because an inconsistent status colour erodes trust in colour entirely and a misused red trains clinicians to ignore it. The third was that system thinking matters as much as screen polish: any individual screen looks reasonable on its own, but what makes CareSync work is that all eight speak the same visual language. Sketching the shift as a narrative in Procreate was a tool rather than a deliverable, and it forced me to think about sequence and coordination in a way wireframing alone would not have. AI moved me quickly through scaffolding, component implementation, and layout exploration, but the ordering decisions, the clinical framing, and the accessibility pass came from reading and testing the thing myself. The honest gap is testing: informal clinician input shaped the direction, but this has not yet been validated with practising GPs, and four screens still need responsive work before it would survive real bedside use.',
+    'I went into this thinking I was designing a healthcare dashboard. I came out having built something closer to a clinical workflow system, and that shift in how I understood the problem changed everything downstream: the structure, the visual language, the components, and the way I talk about the work. A dashboard asks what happened; a shift system asks what needs to happen next. Once I understood that, almost every design decision became clearer. The second lesson was that some components carry meaning rather than style. Centralising status in one component set and reserving red for patient safety were the two changes with the highest ratio of safety value to code, because an inconsistent status colour erodes trust in colour entirely and a misused red trains clinicians to ignore it. The third was that system thinking matters as much as screen polish: any individual screen looks reasonable on its own, but what makes CareSync work is that all eight speak the same visual language. Sketching the shift as a narrative in Procreate was a tool rather than a deliverable, and it forced me to think about sequence and coordination in a way wireframing alone would not have. AI moved me quickly through scaffolding, component implementation, and layout exploration, but the ordering decisions, the clinical framing, and the accessibility pass came from reading and testing the thing myself. The honest gap is testing: one informal conversation with a practising physician shaped the direction, but this has not been validated with practising GPs, and four screens still need responsive work before it would survive real bedside use.',
 };

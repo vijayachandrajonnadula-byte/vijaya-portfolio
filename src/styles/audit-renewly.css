@@ -1,0 +1,7 @@
+/* AF-4: Renewly page-specific overrides (shared rules live in audit-shared.css). */
+.af-renewly .renewly-ds-btn--primary,
+.af-renewly .renewly-ds-btn--secondary,
+.af-renewly .renewly-ds-btn--outline,
+.af-renewly .renewly-ds-btn--destructive,
+.af-renewly .renewly-ds-btn--disabled { padding-block: 10px; }
+.af-renewly .renewly-ds-full-img img { cursor: zoom-in; }

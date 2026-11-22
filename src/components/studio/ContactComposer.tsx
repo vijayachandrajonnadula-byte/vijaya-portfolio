@@ -12,7 +12,7 @@ import CloseTheCircuit from '../home/CloseTheCircuit';
 export default function ContactComposer() {
   const reduced = useReducedMotion();
   return (
-    <section className="contact sec" id="contact" aria-labelledby="contact-h">
+    <section className="contact sec band band--ink band--wipe" id="contact" aria-labelledby="contact-h">
       <motion.div
         className="contact__in"
         initial={reduced ? false : { opacity: 0, y: 24 }}

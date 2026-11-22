@@ -1,80 +1,52 @@
-import { useEffect, useId, useState } from 'react';
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { AnimatePresence, motion } from 'framer-motion';
-import { moreIds, thumbImage } from '../../data/home';
+import { moreIds, workImage } from '../../data/home';
+import { glimpseOf } from '../../data/glimpses';
 import { getProject } from '../work/workMeta';
-import { useCalm } from '../../lib/calm';
 import ArrowIcon from '../work/ArrowIcon';
+import GlimpseVideo from './GlimpseVideo';
 import '../../styles/work.css';
 
 /**
- * "More projects": collapsed by default (progressive disclosure, Hick), expands in place. Each row is one big link
- * (stretched title link) with only what helps a choice: title, one sentence, year. Status chips, categories, row numbers
- * and the cursor-following preview are gone (Occam, Selective Attention). On narrow screens a small thumbnail is shown inline.
- * The panel opens with a short tween, and instantly when the system asks for reduced motion.
+ * The smaller projects as a tidy grid, each with its own short glimpse (the illustration set stays a still).
+ * Every card is one big link (stretched title link) with the glimpse and its play button above the overlay, as in
+ * work/WorkCard.tsx. Clips are lazy: GlimpseVideo asks for a file only when the card is within 300px of the screen.
+ * The old "More projects" disclosure is gone, so these are always visible; links such as /#more or /#more-renewly still
+ * scroll to the right place.
  */
 export default function MoreWork() {
   const rows = moreIds.map(getProject);
-  const [open, setOpen] = useState(false);
-  const calm = useCalm();
-  const panelId = useId();
 
-  // A link such as /#more or /#more-renewly opens the list instead of pointing at nothing.
   useEffect(() => {
-    const check = () => {
-      const h = window.location.hash;
-      if (h === '#more' || h.startsWith('#more-')) setOpen(true);
-    };
-    check();
-    window.addEventListener('hashchange', check);
-    return () => window.removeEventListener('hashchange', check);
+    const h = window.location.hash;
+    if (h.startsWith('#more-')) document.getElementById(h.slice(1))?.scrollIntoView({ block: 'center' });
   }, []);
 
   return (
     <section className="wk-more" id="more" aria-labelledby="more-h">
-      <div className="wk-more__head">
-        <h3 id="more-h" className="wk-more__h">
-          More projects <span className="wk-more__count"><span aria-hidden="true">· </span>{rows.length}<span className="sr-only"> more</span></span>
-        </h3>
-        <button
-          type="button"
-          className="wk-toggle"
-          aria-expanded={open}
-          aria-controls={panelId}
-          onClick={() => setOpen(o => !o)}
-        >
-          <span>{open ? 'Show fewer' : 'Show more'}</span>
-          <svg className="wk-toggle__chev" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg>
-        </button>
-      </div>
-
-      <AnimatePresence initial={false}>
-        {open && (
-          <motion.div
-            id={panelId}
-            key="panel"
-            className="wk-more__panel"
-            initial={calm ? false : { height: 0, opacity: 0 }}
-            animate={{ height: 'auto', opacity: 1 }}
-            exit={calm ? { opacity: 0, transition: { duration: 0 } } : { height: 0, opacity: 0 }}
-            transition={calm ? { duration: 0 } : { duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-          >
-            <ul className="wk-rows">
-              {rows.map(p => (
-                <li key={p.id} id={`more-${p.id}`} className="wk-row">
-                  <img className="wk-row__thumb" src={thumbImage(p.id)} alt="" loading="lazy" draggable={false} />
-                  <div className="wk-row__main">
-                    <h3 className="wk-row__title"><Link to={p.href} className="wk-link">{p.title}<span className="sr-only"> case study</span></Link></h3>
-                    <p className="wk-row__line">{p.subtitle}</p>
-                  </div>
-                  <span className="wk-row__meta">{p.year}</span>
-                  <span className="wk-row__go" aria-hidden="true"><ArrowIcon size={20} /></span>
-                </li>
-              ))}
-            </ul>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      <h3 id="more-h" className="wk-more__h">And a few more</h3>
+      <ul className="wk-mini-grid">
+        {rows.map(p => {
+          const g = glimpseOf(p.id);
+          return (
+            <li key={p.id} id={`more-${p.id}`} className="wk-mini">
+              <div className="wk-mini__vis">
+                {g ? (
+                  <GlimpseVideo id={g.clip ?? g.id} poster={g.poster} label={g.label} ratio="16 / 10" />
+                ) : (
+                  <div className="wk-still" style={{ aspectRatio: '16 / 10' }}><img src={workImage(p.id)} alt="" loading="lazy" draggable={false} /></div>
+                )}
+              </div>
+              <div className="wk-mini__text">
+                <p className="wk-meta"><span>{p.year} · {p.category.split(' / ')[0]}</span></p>
+                <h4 className="wk-mini__title"><Link to={p.href} className="wk-link">{p.title}<span className="sr-only"> case study</span></Link></h4>
+                <p className="wk-mini__line">{p.subtitle}</p>
+                <span className="wk-cta" aria-hidden="true">Read the case study <ArrowIcon /></span>
+              </div>
+            </li>
+          );
+        })}
+      </ul>
     </section>
   );
 }

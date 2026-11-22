@@ -1,9 +1,11 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { markJump } from './jump';
+import '../../styles/audit-shared.css';
 
 export interface SheetSection { id: string; label: string }
 
+const HERO_TEXT = '.cs-hero__subtitle, .cs-hero__brief, .cs-hero__tags, .cs-hero__actions, .cs-hero__meta, .pk-hero__sum, .pk-hero__actions, .pk-hero__meta';
 const CHAPTERS = ['Context', 'Research', 'Design', 'Build', 'Result'];
 const RING_R = 15;
 const RING_C = 2 * Math.PI * RING_R;
@@ -66,6 +68,35 @@ export default function SectionSheet({ sections, variant }: { sections: SheetSec
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [idsKey]);
+
+  // on phones the chip stays off the opening's text, strip and buttons (audit-shared.css reads data-hero)
+  const [heroOn, setHeroOn] = useState(false);
+  useEffect(() => {
+    let io: IntersectionObserver | undefined;
+    let tries = 0;
+    let raf = 0;
+    const find = () => {
+      const parts = document.querySelectorAll(HERO_TEXT);
+      if (parts.length) {
+        const live = new Set<Element>();
+        io = new IntersectionObserver(entries => {
+          entries.forEach(en => { if (en.isIntersecting) live.add(en.target); else live.delete(en.target); });
+          setHeroOn(live.size > 0);
+        }, { threshold: 0 });
+        parts.forEach(el => io!.observe(el));
+      } else if (tries++ < 30) raf = window.requestAnimationFrame(find);
+    };
+    find();
+    return () => { io?.disconnect(); window.cancelAnimationFrame(raf); };
+  }, [idsKey]);
+
+  // while the sheet is open the floating chip and the Ask launcher step out of the way (audit-shared.css)
+  useEffect(() => {
+    if (!open) return;
+    const html = document.documentElement;
+    html.classList.add('cs-sheet-open');
+    return () => html.classList.remove('cs-sheet-open');
+  }, [open]);
 
   const close = useCallback(() => {
     setOpen(false);
@@ -132,6 +163,8 @@ export default function SectionSheet({ sections, variant }: { sections: SheetSec
         className={`cs-sheet-chip cs-sheet-chip--${variant}`}
         aria-haspopup="dialog"
         aria-expanded={open}
+        data-open={open ? 'true' : undefined}
+        data-hero={heroOn ? 'true' : undefined}
         onClick={() => setOpen(true)}
       >
         <svg className="cs-sheet-ring" viewBox="0 0 36 36" width="32" height="32" aria-hidden="true">

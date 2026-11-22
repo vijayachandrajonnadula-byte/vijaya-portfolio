@@ -1,4 +1,7 @@
 import { useEffect, useId, useRef, useState, type FormEvent } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { goToSuggestion, useSuggest } from '../ask/Suggest';
+import type { Suggestion } from '../../data/siteIndex';
 
 /**
  * The question box: a visible label, one input, one rotating example placeholder.
@@ -8,7 +11,7 @@ import { useEffect, useId, useRef, useState, type FormEvent } from 'react';
  * The placeholder changes every 6 s only while the box is on screen, not focused, empty and motion is allowed.
  * Under reduced motion it stays on the first example.
  */
-export default function AskBox({ onAsk, onEmpty, placeholder = 'Ask me anythingâ€¦', label = 'Ask me anything', labelHidden = false, compact = false, nudges, id, describedBy }: {
+export default function AskBox({ onAsk, onEmpty, placeholder = 'Ask me anythingâ€¦', label = 'Ask me anything', labelHidden = false, compact = false, nudges, id, describedBy, onPickSuggestion }: {
   onAsk: (q: string) => void;
   /** Called when the visitor sends an empty box. */
   onEmpty?: () => void;
@@ -25,7 +28,10 @@ export default function AskBox({ onAsk, onEmpty, placeholder = 'Ask me anythingâ
   chips?: boolean;
   /** Ignored, see `chips`. */
   onPick?: (id: string) => void;
+  /** What a picked suggestion does. By default a question opens its answer and a case study or page opens its route. */
+  onPickSuggestion?: (s: Suggestion) => void;
 }) {
+  const nav = useNavigate();
   const [value, setValue] = useState('');
   const [nudge, setNudge] = useState(0);
   const auto = useId();
@@ -49,19 +55,44 @@ export default function AskBox({ onAsk, onEmpty, placeholder = 'Ask me anythingâ
   const submit = (e: FormEvent) => {
     e.preventDefault();
     const q = value.trim();
+    cb.close();
     if (q) { onAsk(q); setValue(''); } else { setValue(''); onEmpty?.(); }
   };
+
+  const cb = useSuggest({
+    value,
+    onPick: s => { setValue(''); (onPickSuggestion ?? (x => goToSuggestion(x, nav)))(s); },
+  });
 
   return (
     <div ref={wrap} className={`ask${compact ? ' ask--compact' : ''}`}>
       <label className={labelHidden ? 'sr-only' : 'ask__label'} htmlFor={inputId}>{label}</label>
-      <form className="ask__form" onSubmit={submit} role="search">
-        <svg className="ask__ic" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5" /><path d="m20 20-4-4" /></svg>
-        <input id={inputId} value={value} aria-describedby={describedBy} onChange={e => setValue(e.target.value)} onKeyDown={e => { if (e.key === 'Escape' && value) { e.preventDefault(); setValue(''); } }} enterKeyHint="send" onFocus={() => { focused.current = true; }} onBlur={() => { focused.current = false; }} placeholder={nudges && nudges.length ? nudges[nudge % nudges.length] : placeholder} maxLength={140} autoComplete="off" />
-        <button type="submit" className="ask__go" aria-label="Ask">
-          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6" /></svg>
-        </button>
-      </form>
+      <div className="sg-wrap">
+        <form className="ask__form" onSubmit={submit} role="search">
+          <svg className="ask__ic" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5" /><path d="m20 20-4-4" /></svg>
+          <input
+            id={inputId}
+            value={value}
+            aria-describedby={describedBy}
+            onChange={e => setValue(e.target.value)}
+            onKeyDown={e => {
+              if (cb.onKeyDown(e)) return;
+              if (e.key === 'Escape' && value) { e.preventDefault(); setValue(''); }
+            }}
+            enterKeyHint="send"
+            {...cb.inputProps}
+            onFocus={() => { focused.current = true; cb.inputProps.onFocus(); }}
+            onBlur={() => { focused.current = false; cb.inputProps.onBlur(); }}
+            placeholder={nudges && nudges.length ? nudges[nudge % nudges.length] : placeholder}
+            maxLength={140}
+            autoComplete="off"
+          />
+          <button type="submit" className="ask__go" aria-label="Ask">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6" /></svg>
+          </button>
+        </form>
+        {cb.popup}
+      </div>
     </div>
   );
 }

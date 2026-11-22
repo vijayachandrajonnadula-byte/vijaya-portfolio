@@ -1,0 +1,3 @@
+/* AF-4: Riverside General page-specific overrides (shared rules live in audit-shared.css). */
+.af-riverside .journey-flow__label { font-size: max(12px, 0.8125rem); }
+.af-riverside .cs-insight-label { letter-spacing: .06em; }

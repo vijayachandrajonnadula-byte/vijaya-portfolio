@@ -7,6 +7,7 @@ import AboutBento from '../components/studio/AboutBento';
 import ContactComposer from '../components/studio/ContactComposer';
 import Trace from '../components/story/Trace';
 import TwoReadings from '../components/story/TwoReadings';
+import '../styles/bands.css';
 
 /**
  * Home, in the order a hiring manager needs it: hero (who, one action), work (the proof), two readings (a short breather
@@ -23,8 +24,10 @@ export default function HomePage() {
         <main className="home">
           <HomeHero />
           <WorkBento />
-          <TwoReadings />
-          <AboutBento />
+          <div className="band band--clay band--wipe">
+            <TwoReadings />
+            <AboutBento />
+          </div>
           <ContactComposer />
         </main>
         <Footer />

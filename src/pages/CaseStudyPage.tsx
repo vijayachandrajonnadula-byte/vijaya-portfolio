@@ -8,78 +8,69 @@ import IterationLog from '../components/case-study/IterationLog';
 import ResponsiveQA from '../components/case-study/ResponsiveQA';
 import Button from '../components/ui/Button';
 import Img from '../components/case-study/Img';
+import { Fold, Checklist, Shot, MobileGallery, Diagram, DsCard, sentence } from '../components/audit/AuditBlocks';
 import { imgSize } from '../data/imageSizes';
 import { riversideCaseStudy as cs } from '../data/caseStudies';
+import '../styles/audit-riverside.css';
 
-function Checklist({ items }: { items: string[] }) {
-  return (
-    <div className="cs-checklist">
-      {items.map(i => (
-        <div key={i} className="cs-checklist__item">
-          <span className="cs-checklist__icon">&#x2713;</span>
-          <span>{i}</span>
-        </div>
-      ))}
-    </div>
-  );
-}
+const navItems = [
+  { id: 'snapshot', label: 'Project snapshot' },
+  { id: 'overview', label: 'Overview' },
+  { id: 'problem', label: 'Problem' },
+  { id: 'goals', label: 'Goals' },
+  { id: 'research', label: 'Assumptions' },
+  { id: 'early-structure', label: 'Early structure' },
+  { id: 'decisions', label: 'Key UX decisions' },
+  { id: 'design-system', label: 'Design system' },
+  { id: 'screenshots', label: 'Desktop screens' },
+  { id: 'mobile-screens', label: 'Mobile screens' },
+  { id: 'ai-workflow', label: 'AI-assisted workflow' },
+  { id: 'iterations', label: 'Testing and iterations' },
+  { id: 'details', label: 'Details' },
+  { id: 'reflection', label: 'Reflection' },
+];
+
+const URL = 'hospital-booking-portfolio.vercel.app';
 
 export default function CaseStudyPage() {
+  const dsAlt = (label: string) => `Design system sheet: ${label}`;
   return (
     <>
       <Header />
-      <main className="case-study-page">
+      <main className="case-study-page af-page af-riverside">
         <CaseStudyHero
           title={cs.title}
           subtitle={cs.subtitle}
           tags={cs.tags}
           prototypeUrl={cs.prototypeUrl}
           heroImage="/images/projects/riverside/clean/desktop-home.jpg"
-          heroImageAlt="Riverside General homepage, hospital appointment booking"
-          prototypeUrlLabel="hospital-booking-portfolio.vercel.app"
+          heroImageAlt="Riverside General homepage: a booking headline, a search bar, and a card of today's appointments"
+          prototypeUrlLabel={URL}
+          statusLabel="Working prototype"
+          myPart="UX/UI design, product framing and the React prototype build. AI tools helped with exploration and implementation; the decisions and reviews were mine."
+          outcome="A live prototype you can click through end to end, on mock data. I checked it myself at five widths; it has not been tested with patients."
         />
 
         <div className="cs-layout">
-          <CaseStudyNav />
+          <CaseStudyNav items={navItems} />
           <div className="cs-content">
 
-            {/* 1. PROJECT SNAPSHOT */}
             <section className="cs-section" id="snapshot">
               <h2 className="cs-section__title">Project snapshot</h2>
               <SnapshotGrid snapshot={cs.snapshot} />
             </section>
 
-            {/* 2. WHAT THIS DEMONSTRATES */}
-            <section className="cs-section" id="demonstrates">
-              <h2 className="cs-section__title">What this case study demonstrates</h2>
-              <p className="cs-section__body">A quick scan for recruiters. The skills and mindset shown across this project.</p>
-              <div className="demonstrates-cards-grid">
-                {cs.demonstrates.map(d => (
-                  <div key={d.title} className="demonstrates-card">
-                    <div className="demonstrates-card__check">&#x2713;</div>
-                    <div className="demonstrates-card__content">
-                      <div className="demonstrates-card__title">{d.title}</div>
-                      <p className="demonstrates-card__body">{d.body}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </section>
-
-            {/* 3. OVERVIEW */}
             <section className="cs-section" id="overview">
               <h2 className="cs-section__title">Overview</h2>
               <p className="cs-section__body">{cs.overview}</p>
             </section>
 
-            {/* 4. PROBLEM */}
             <section className="cs-section" id="problem">
               <h2 className="cs-section__title">Problem</h2>
               <p className="cs-section__body">{cs.problem}</p>
               <div className="problem-highlight">{cs.problemHighlight}</div>
             </section>
 
-            {/* 5. GOALS */}
             <section className="cs-section" id="goals">
               <h2 className="cs-section__title">Goals</h2>
               <div className="cs-cards-grid">
@@ -93,17 +84,16 @@ export default function CaseStudyPage() {
               </div>
             </section>
 
-            {/* 6. RESEARCH INSIGHTS */}
             <section className="cs-section" id="research">
-              <h2 className="cs-section__title">Research insights</h2>
-              <p className="cs-section__body">Three recurring patterns shaped the key UX decisions for this project.</p>
+              <h2 className="cs-section__title">Assumptions</h2>
+              <p className="cs-section__body">{cs.assumptionsIntro}</p>
               <div className="cs-cards-grid">
                 {cs.researchInsights.map((r, i) => (
                   <div key={r.title} className="cs-card cs-card--insight">
                     <div className="cs-card__number">{String(i + 1).padStart(2, '0')}</div>
                     <div className="cs-card__title">{r.title}</div>
                     <div className="cs-insight-row cs-insight-row--issue">
-                      <span className="cs-insight-label">Issue</span>
+                      <span className="cs-insight-label">Assumption</span>
                       <p className="cs-card__body">{r.issue}</p>
                     </div>
                     <div className="cs-insight-row cs-insight-row--response">
@@ -115,69 +105,49 @@ export default function CaseStudyPage() {
               </div>
             </section>
 
-            {/* 7. EARLY STRUCTURE: WIREFRAMES, IA, AND FLOW MAPPING */}
             <section className="cs-section" id="early-structure">
               <h2 className="cs-section__title">Early structure: wireframes, IA, and flow mapping</h2>
               <p className="cs-section__body">{cs.earlyStructureIntro}</p>
 
               <h3 className="cs-section__subtitle">User flow</h3>
               <p className="cs-section__body">{cs.userJourneyDescription}</p>
-              <div className="journey-flow">
-                {cs.userJourneySteps.map((step, i) => (
-                  <div key={step} className="journey-flow__step">
-                    <span className="journey-flow__label">{step}</span>
-                    {i < cs.userJourneySteps.length - 1 && (
-                      <span className="journey-flow__arrow">&#x2192;</span>
-                    )}
-                  </div>
-                ))}
-              </div>
               {cs.flowImage && (
-                <div className="cs-image-wrap" style={{ marginTop: 'var(--space-6)' }}>
-                  <Img
-                    src={cs.flowImage} {...imgSize(cs.flowImage)}
-                    alt="User flow diagram"
-                    className="cs-image"
-                    onError={e => { (e.target as HTMLImageElement).style.display = 'none'; }}
-                  />
-                </div>
+                <Diagram
+                  src={cs.flowImage}
+                  alt="Flow diagram of the booking journey from Home through Find Doctors, Doctor Profile, slot selection and booking to Confirmation and Manage Appointment"
+                  caption="Click the diagram to enlarge it. The same flow as text:"
+                  steps={cs.userJourneySteps}
+                />
               )}
 
               <h3 className="cs-section__subtitle">Information architecture</h3>
               <p className="cs-section__body">{cs.iaDescription}</p>
               {cs.iaImage && (
-                <div className="cs-image-wrap">
-                  <Img
-                    src={cs.iaImage} {...imgSize(cs.iaImage)}
-                    alt="Information architecture diagram"
-                    className="cs-image"
-                    onError={e => { (e.target as HTMLImageElement).style.display = 'none'; }}
-                  />
-                </div>
+                <Diagram
+                  src={cs.iaImage}
+                  alt="Information architecture map separating general hospital navigation from the focused appointment booking flow"
+                  caption="Click the map to enlarge it. In text, two groups:"
+                  steps={[
+                    'Browse: Find Doctors and Departments (general hospital content)',
+                    'Book: Doctor Profile, then Book, then Confirm, then Manage (one linear path, kept separate from browsing)',
+                  ]}
+                />
               )}
 
               <h3 className="cs-section__subtitle">Wireframes</h3>
               <p className="cs-section__body">{cs.wireframesDescription}</p>
-              {cs.wireframeImages.length > 0 && (
-                <div className="wireframes-grid">
-                  {cs.wireframeImages.map(img => (
-                    <div key={img.label} className="wireframe-item">
-                      <div className="wireframe-item__frame">
-                        <Img
-                          src={img.src} {...imgSize(img.src)}
-                          alt={img.label}
-                          className="wireframe-item__img"
-                          onError={e => { (e.target as HTMLImageElement).style.display = 'none'; }}
-                        />
-                      </div>
-                      <span className="wireframe-item__label">{img.label}</span>
+              <div className="af-wf-grid">
+                {cs.wireframeImages.map(img => (
+                  <figure key={img.label} className="af-wf">
+                    <div className="af-wf__frame">
+                      <Img src={img.src} {...imgSize(img.src)} alt={`Low-fidelity wireframe. ${img.label}`} zoom />
                     </div>
-                  ))}
-                </div>
-              )}
+                    <figcaption>{img.label}. Click to enlarge.</figcaption>
+                  </figure>
+                ))}
+              </div>
             </section>
 
-            {/* 10. KEY UX DECISIONS */}
             <section className="cs-section" id="decisions">
               <h2 className="cs-section__title">Key UX decisions</h2>
               <p className="cs-section__body">Five decisions shaped the structure and clarity of the booking experience.</p>
@@ -192,29 +162,27 @@ export default function CaseStudyPage() {
               </div>
             </section>
 
-            {/* 11. DESIGN SYSTEM */}
             <section className="cs-section" id="design-system">
               <h2 className="cs-section__title">Design system</h2>
               <p className="cs-section__body">{cs.designSystemDescription}</p>
-              <div className="design-system-grid">
-                {cs.designSystemImages.map(img => (
-                  <div key={img.label} className="design-system-img">
-                    <Img
-                      src={img.src} {...imgSize(img.src)}
-                      alt={img.label}
-                      onError={e => { (e.target as HTMLImageElement).style.display = 'none'; }}
-                    />
-                    <div className="design-system-img__label">{img.label}</div>
-                  </div>
+              <div className="af-ds-grid">
+                {cs.designSystemImages.slice(0, 3).map(img => (
+                  <DsCard key={img.label} src={img.src} label={img.label} alt={dsAlt(img.label)} />
                 ))}
               </div>
+              <Fold title="More design system sheets" count={`${cs.designSystemImages.length - 3} sheets`}>
+                <div className="af-ds-grid">
+                  {cs.designSystemImages.slice(3).map(img => (
+                    <DsCard key={img.label} src={img.src} label={img.label} alt={dsAlt(img.label)} />
+                  ))}
+                </div>
+              </Fold>
             </section>
 
-            {/* 12. DESKTOP PROTOTYPE SCREENS */}
             <section className="cs-section" id="screenshots">
               <h2 className="cs-section__title">Desktop prototype screens</h2>
               <p className="cs-section__body">
-                Six screens from the built React prototype covering every step of the booking journey. Deployed to Vercel and functional end-to-end, not static mockups. Each screen was refined through multiple critique and iteration rounds.
+                Six screens from the React prototype, one for each step of the booking journey. It is deployed to Vercel and works end to end on mock data. Each screen went through several critique and iteration rounds. Click any screen to see it in full.
               </p>
               {cs.desktopScreenshots.map((s, i) => (
                 <div key={s.title} className="renewly-screen-entry">
@@ -226,159 +194,122 @@ export default function CaseStudyPage() {
                     <p className="renewly-screen-entry__purpose">{s.purpose}</p>
                     <div className="renewly-screen-entry__note">{s.uxNote}</div>
                   </div>
-                  <div className="renewly-browser-chrome">
-                    <div className="renewly-browser-bar">
-                      <span className="renewly-browser-dot" />
-                      <span className="renewly-browser-dot" />
-                      <span className="renewly-browser-dot" />
-                      <span className="renewly-browser-url-bar">hospital-booking-portfolio.vercel.app</span>
-                    </div>
-                    <div className="renewly-browser-body renewly-browser-body--full">
-                      <Img src={s.src} {...imgSize(s.src)} alt={s.title} className="renewly-browser-img"
-                        onError={e => { (e.target as HTMLImageElement).style.display = 'none'; }} />
-                    </div>
-                  </div>
+                  <Shot src={s.src} alt={`${s.title} screen, desktop. ${sentence(s.purpose)}`} url={URL} cap={760} />
                 </div>
               ))}
             </section>
 
-            {/* 13. MOBILE PROTOTYPE SCREENS */}
             <section className="cs-section" id="mobile-screens">
               <h2 className="cs-section__title">Mobile prototype screens</h2>
               <p className="cs-section__body">
-                Responsive screens validated at 430px and 390px. Single-column layout, stacked forms, tappable slot picker, compact progress indicator, and bottom tab navigation.
+                The same journey at 430px and 390px widths: single-column layout, stacked forms, a tappable slot picker, a compact progress indicator, and bottom tab navigation.
               </p>
-              <div className="renewly-mobile-gallery renewly-mobile-gallery--3col">
-                {cs.mobileScreenshots.map(s => (
-                  <div key={s.title} className="renewly-mobile-item">
-                    <div className="renewly-mobile-caption">
-                      <div className="renewly-mobile-caption__title">{s.title}</div>
-                      <div className="renewly-mobile-caption__note">{s.uxNote}</div>
-                    </div>
-                    <div className="renewly-mobile-frame">
-                      <Img src={s.src} {...imgSize(s.src)} alt={s.title} className="renewly-mobile-img"
-                        onError={e => { (e.target as HTMLImageElement).style.display = 'none'; }} />
-                    </div>
-                  </div>
-                ))}
-              </div>
+              <MobileGallery
+                label="Riverside General mobile screens"
+                cols={3}
+                items={cs.mobileScreenshots.map(s => ({
+                  src: s.src, title: s.title, note: s.uxNote,
+                  alt: `${s.title} screen on a phone. ${sentence(s.uxNote)}`,
+                }))}
+              />
             </section>
 
-            {/* 14. AI-ASSISTED WORKFLOW */}
             <section className="cs-section" id="ai-workflow">
               <h2 className="cs-section__title">AI-assisted workflow</h2>
               <p className="cs-section__body">
-                I used AI tools throughout this project for research prompts, critique, implementation planning, and code review. Every product decision, UX call, and QA check was mine. The tools accelerated the work; they did not make the calls.
+                I used AI tools for research prompts, critique, implementation planning, and code review. Every product decision, UX call, and QA check was mine. The tools accelerated the work; they did not make the calls.
               </p>
-              <div className="cs-ai-workflow-grid">
-                {cs.aiWorkflow.map(w => (
-                  <div key={w.stage} className="cs-ai-card">
-                    <span className="cs-ai-card__stage">{w.stage}</span>
-                    <div className="cs-ai-card__title">{w.title}</div>
-                    <p className="cs-ai-card__body">{w.body}</p>
-                    <p className="cs-ai-card__note">{w.note}</p>
-                  </div>
-                ))}
-              </div>
-              <div className="cs-ai-highlight">
-                AI accelerated the workflow. It did not replace UX judgement, product decisions, or responsive QA.
-              </div>
+              <Fold title="The five stages and what stayed human" count={`${cs.aiWorkflow.length} stages`}>
+                <div className="cs-ai-workflow-grid">
+                  {cs.aiWorkflow.map(w => (
+                    <div key={w.stage} className="cs-ai-card">
+                      <span className="cs-ai-card__stage">{w.stage}</span>
+                      <div className="cs-ai-card__title">{w.title}</div>
+                      <p className="cs-ai-card__body">{w.body}</p>
+                      <p className="cs-ai-card__note">{w.note}</p>
+                    </div>
+                  ))}
+                </div>
+              </Fold>
             </section>
 
-            {/* 15. TECHNICAL IMPLEMENTATION */}
-            <section className="cs-section" id="technical">
-              <h2 className="cs-section__title">Technical implementation</h2>
-              <p className="cs-section__body">{cs.technicalDescription}</p>
-              <Checklist items={cs.technicalPoints} />
-            </section>
-
-            {/* 16. TESTING */}
-            <section className="cs-section" id="testing">
-              <h2 className="cs-section__title">Testing and usability review</h2>
-              <p className="cs-section__body">
-                The full booking flow was tested end-to-end before each share. Manual testing followed the complete user path:
-              </p>
-              <div className="journey-flow" style={{ marginBottom: 'var(--space-6)' }}>
-                {cs.testingFlow.split(' → ').map((step, i, arr) => (
-                  <div key={step} className="journey-flow__step">
-                    <span className="journey-flow__label">{step}</span>
-                    {i < arr.length - 1 && <span className="journey-flow__arrow">&#x2192;</span>}
-                  </div>
-                ))}
-              </div>
-              <Checklist items={cs.testingChecklist} />
-            </section>
-
-            {/* 18. ITERATIONS */}
             <section className="cs-section" id="iterations">
-              <h2 className="cs-section__title">Feedback and iteration log</h2>
-              <p className="cs-section__body">Seven iteration rounds addressed specific UX and responsiveness issues found during testing.</p>
+              <h2 className="cs-section__title">Testing and iterations</h2>
+              <p className="cs-section__body">
+                I clicked through the full booking flow myself before each share. This was a self-review, not a usability test with patients, and no participants were recruited. Seven rounds fixed the issues I found.
+              </p>
               <IterationLog iterations={cs.iterations} />
+              <Fold title="The review path and the questions I asked" count={`${cs.testingChecklist.length} questions`}>
+                <p className="cs-section__body">{cs.testingFlow}</p>
+                <Checklist items={cs.testingChecklist} mark="dot" />
+              </Fold>
+              <Fold title="Responsive QA" count={`${cs.responsiveQA.length} widths`}>
+                <p className="cs-section__body">{cs.responsiveQADescription}</p>
+                <ResponsiveQA items={cs.responsiveQA} />
+              </Fold>
             </section>
 
-            {/* 19. RESPONSIVE QA */}
-            <section className="cs-section" id="responsive-qa">
-              <h2 className="cs-section__title">Responsive QA</h2>
-              <p className="cs-section__body">{cs.responsiveQADescription}</p>
-              <ResponsiveQA items={cs.responsiveQA} />
-            </section>
+            <section className="cs-section" id="details">
+              <h2 className="cs-section__title">Details</h2>
+              <p className="cs-section__body">Reference material, folded so the story above reads quickly.</p>
 
-            {/* 20. ACCESSIBILITY */}
-            <section className="cs-section" id="accessibility">
-              <h2 className="cs-section__title">Accessibility</h2>
-              <Checklist items={cs.accessibilityChecklist} />
-            </section>
+              <Fold title="What this case study demonstrates" count={`${cs.demonstrates.length} points`}>
+                <ul className="af-list">
+                  {cs.demonstrates.map(d => (
+                    <li key={d.title} className="af-list__item"><span className="af-mark af-mark--dot" aria-hidden="true" /><span><strong>{d.title}.</strong> {d.body}</span></li>
+                  ))}
+                </ul>
+              </Fold>
 
-            {/* 21. TECH STACK */}
-            <section className="cs-section" id="tech-stack">
-              <h2 className="cs-section__title">Technical stack</h2>
-              <div className="tech-stack-grid">
-                {cs.techStack.map(t => (
-                  <div key={t.label} className="tech-stack-card">
-                    <div className="tech-stack-card__label">{t.label}</div>
-                    <div className="tech-stack-card__value">{t.value}</div>
+              <Fold title="Technical implementation" count={`${cs.technicalPoints.length} points`}>
+                <p className="cs-section__body">{cs.technicalDescription}</p>
+                <Checklist items={cs.technicalPoints} mark="dot" />
+              </Fold>
+
+              <Fold title="Technical stack" count={`${cs.techStack.length} items`}>
+                <div className="tech-stack-grid">
+                  {cs.techStack.map(t => (
+                    <div key={t.label} className="tech-stack-card">
+                      <div className="tech-stack-card__label">{t.label}</div>
+                      <div className="tech-stack-card__value">{t.value}</div>
+                    </div>
+                  ))}
+                </div>
+              </Fold>
+
+              <Fold title="Accessibility notes" count={`${cs.accessibilityChecklist.length} notes`}>
+                <p className="cs-section__body">{cs.accessibilityNote}</p>
+                <Checklist items={cs.accessibilityChecklist} mark="dot" />
+              </Fold>
+
+              <Fold title="Limitations and next steps" count={`${cs.limitations.length} limits, ${cs.nextSteps.length} next steps`}>
+                <p className="cs-section__body">This is a portfolio prototype using mock data. It does not include:</p>
+                <div className="limitations-next-grid">
+                  <div className="limitations-box">
+                    <div className="limitations-box__heading">Current limitations</div>
+                    <div className="limitations-list">
+                      {cs.limitations.map(l => (
+                        <div key={l} className="limitations-item"><span className="limitations-item__dot" /><span>{l}</span></div>
+                      ))}
+                    </div>
                   </div>
-                ))}
-              </div>
-            </section>
-
-            {/* 22. LIMITATIONS + NEXT STEPS */}
-            <section className="cs-section" id="limitations">
-              <h2 className="cs-section__title">Limitations and next steps</h2>
-              <p className="cs-section__body">This is a portfolio prototype using mock data. It does not include:</p>
-              <div className="limitations-next-grid">
-                <div className="limitations-box">
-                  <div className="limitations-box__heading">Current limitations</div>
-                  <div className="limitations-list">
-                    {cs.limitations.map(l => (
-                      <div key={l} className="limitations-item">
-                        <span className="limitations-item__dot" />
-                        <span>{l}</span>
-                      </div>
-                    ))}
+                  <div className="next-steps-box">
+                    <div className="next-steps-box__heading">If taken further</div>
+                    <div className="limitations-list">
+                      {cs.nextSteps.map(s => (
+                        <div key={s} className="limitations-item"><span className="limitations-item__arrow">&#x2192;</span><span>{s}</span></div>
+                      ))}
+                    </div>
                   </div>
                 </div>
-                <div className="next-steps-box">
-                  <div className="next-steps-box__heading">If taken further</div>
-                  <div className="limitations-list">
-                    {cs.nextSteps.map(s => (
-                      <div key={s} className="limitations-item">
-                        <span className="limitations-item__arrow">&#x2192;</span>
-                        <span>{s}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
+              </Fold>
+
+              <Fold title="Self-check before sharing" count={`${cs.finalValidation.length} items`}>
+                <p className="cs-section__body">What I looked for in the running build before sharing the link. It is my own review, not an independent test.</p>
+                <Checklist items={cs.finalValidation} mark="dot" />
+              </Fold>
             </section>
 
-            {/* 23. FINAL VALIDATION */}
-            <section className="cs-section" id="validation">
-              <h2 className="cs-section__title">Final validation</h2>
-              <Checklist items={cs.finalValidation} />
-            </section>
-
-            {/* 24. REFLECTION */}
             <section className="cs-section" id="reflection">
               <h2 className="cs-section__title">Reflection</h2>
               <p className="cs-section__body">{cs.reflection}</p>
@@ -389,8 +320,8 @@ export default function CaseStudyPage() {
 
         <section className="cs-cta">
           <div className="container">
-            <h2 className="cs-cta__title">Explore the working prototype and project repository.</h2>
-            <p className="cs-cta__sub">React, TypeScript, and a documented product workflow from problem framing to shipped prototype.</p>
+            <h2 className="cs-cta__title">Explore the working prototype.</h2>
+            <p className="cs-cta__sub">React and TypeScript, built through a documented product workflow from problem framing to a shareable prototype.</p>
             <div className="cs-cta__actions">
               <Button href={cs.prototypeUrl} variant="dark" external size="lg">
                 View live prototype &#x2197;
