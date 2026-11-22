@@ -8,6 +8,8 @@ import GlimpseVideo from './GlimpseVideo';
 const smooth = (a: number, b: number, x: number) => { const t = Math.min(1, Math.max(0, (x - a) / (b - a))); return t * t * (3 - 2 * t); };
 const ease = (t: number) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
 const SWEEP = 270; // degrees of knob travel, -135 to +135
+/** Projects that stay in the Work section but are not stations on the hero receiver. */
+const NOT_ON_HERO = new Set(['renewly', 'caresync']);
 
 /**
  * A tuning receiver: each project is a station. Turn the dial and the screen fills with static between stations and
@@ -24,7 +26,7 @@ const SWEEP = 270; // degrees of knob travel, -135 to +135
  */
 export default function Receiver() {
   const calm = useCalm();
-  const stations = useMemo(() => projects.flatMap(p => { const g = glimpseOf(p.id); return g ? [{ p, g }] : []; }), []);
+  const stations = useMemo(() => projects.flatMap(p => { if (NOT_ON_HERO.has(p.id)) return []; const g = glimpseOf(p.id); return g ? [{ p, g }] : []; }), []);
   const N = stations.length;
   const [st, setSt] = useState(0);
 
