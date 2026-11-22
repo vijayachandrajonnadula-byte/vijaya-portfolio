@@ -54,46 +54,90 @@ main.home + .site-foot { border-top-color: var(--bi-line); }
 .home .abt__in { margin: 0 auto; }
 
 /* ============================================================
-   HERO: the headline is the design
+   HERO: an oscilloscope screen. Noise on the glass, a clean zone that follows you, work decoded on top.
+   The screen is dark in both themes on purpose: it is the one object on the page that glows.
    ============================================================ */
-/* The hero is a stage: a plain statement on the left, three real project clips playing on the right. */
-.hhero { position: relative; min-height: 100svh; display: flex; padding: 92px var(--px) 0; overflow: clip; }
-.hhero__in { width: 100%; max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: minmax(0, 1fr); align-content: center; gap: clamp(28px, 5vw, 48px); padding-bottom: clamp(40px, 7vh, 80px); }
+.hhero { position: relative; padding: 84px clamp(10px, 1.6vw, 24px) 0; }
+.hhero__screen {
+  --scope-bg: #0b0d13; --scope-ink: #f4f2ee; --scope-mute: rgba(244, 242, 238, 0.78); --scope-clay: #f08a74; --scope-blue: #7f9dff;
+  position: relative; isolation: isolate; overflow: hidden; border-radius: clamp(22px, 3vw, 40px); color: var(--scope-ink);
+  min-height: max(600px, calc(100svh - 100px)); display: flex; align-items: center;
+  background:
+    radial-gradient(52% 60% at 82% 18%, rgba(95, 128, 255, 0.30), transparent 70%),
+    radial-gradient(40% 50% at 8% 96%, rgba(226, 112, 90, 0.26), transparent 70%),
+    var(--scope-bg);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.07) inset, 0 40px 90px -40px rgba(11, 13, 19, 0.7);
+}
+/* phosphor graticule, fading toward the edges */
+.hhero__screen::before {
+  content: ''; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  background-image: linear-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
+  background-size: 56px 56px; background-position: center;
+  -webkit-mask-image: radial-gradient(75% 85% at 50% 50%, #000 30%, transparent 100%); mask-image: radial-gradient(75% 85% at 50% 50%, #000 30%, transparent 100%);
+}
+/* a soft scrim keeps the copy readable where traces pass behind it */
+.hhero__screen::after { content: ''; position: absolute; inset: 0; z-index: 0; pointer-events: none; background: linear-gradient(90deg, rgba(11, 13, 19, 0.86) 0%, rgba(11, 13, 19, 0.6) 34%, rgba(11, 13, 19, 0) 58%); }
+@media (max-width: 999px) { .hhero__screen::after { background: linear-gradient(180deg, rgba(11, 13, 19, 0.82) 0%, rgba(11, 13, 19, 0.55) 55%, rgba(11, 13, 19, 0) 100%); } }
+.scope { position: absolute; inset: 0; width: 100%; height: 100%; z-index: -1; display: block; pointer-events: none; }
+/* one bright scan line crosses the screen once while the headline resolves behind it */
+.hhero__sweep { position: absolute; top: 0; bottom: 0; left: 0; width: 2px; z-index: 0; pointer-events: none; background: linear-gradient(to bottom, transparent, var(--scope-clay) 30%, #fff 50%, var(--scope-clay) 70%, transparent); box-shadow: 0 0 28px 6px rgba(240, 138, 116, 0.55); opacity: 0; animation: hh-sweep 1.5s 0.3s linear forwards; }
+@keyframes hh-sweep { 0% { transform: translateX(0); opacity: 0; } 6% { opacity: 1; } 94% { opacity: 1; } 100% { transform: translateX(var(--sw, 1200px)); opacity: 0; } }
+
+.hhero__in { position: relative; z-index: 1; width: 100%; max-width: 1280px; margin: 0 auto; padding: clamp(28px, 3.6vw, 52px) clamp(22px, 4vw, 56px); display: grid; grid-template-columns: minmax(0, 1fr); gap: clamp(28px, 5vw, 48px); }
 .hhero__copy { display: flex; flex-direction: column; align-items: flex-start; gap: 22px; min-width: 0; }
 .hhero__id { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; }
-.hhero__who { margin: 0; color: var(--c-ink2); font-size: 1rem; font-weight: 600; }
-.hhero__title { margin: 0; font-family: var(--font-serif); font-weight: 400; letter-spacing: -0.04em; line-height: 1; font-size: clamp(2.6rem, 5.1vw, 4rem); text-wrap: balance; }
-.hhero .hhero__sub { margin: 0; max-width: 40ch; color: var(--c-ink2); font-size: clamp(1.1875rem, 1.5vw, 1.35rem); line-height: 1.55; text-wrap: pretty; }
+.hhero__who { margin: 0; color: var(--scope-mute); font-size: 1rem; font-weight: 600; }
+.hhero__title { margin: 0; font-family: var(--font-serif); font-weight: 400; letter-spacing: -0.04em; line-height: 1; font-size: clamp(2.5rem, 4.5vw, 3.7rem); text-wrap: balance; color: var(--scope-ink); }
+.hhero .hhero__sub { margin: 0; max-width: 40ch; color: var(--scope-mute); font-size: clamp(1.1875rem, 1.5vw, 1.3rem); line-height: 1.55; text-wrap: pretty; }
 .hhero__act { display: flex; align-items: center; flex-wrap: wrap; gap: 8px 28px; }
+.hhero .btn-c { background: var(--scope-ink); color: #0b0d13; box-shadow: 0 0 0 0 rgba(240, 138, 116, 0.0), 0 12px 30px -12px rgba(240, 138, 116, 0.6); }
+.hhero .btn-c:hover { background: #fff; }
+.hhero .link-q { color: var(--scope-ink); }
+.hhero .sig { color: var(--scope-clay); }
+.hhero .sig__line { stroke: rgba(244, 242, 238, 0.85); }
 
-/* Stage of windows. Pointer parallax writes --mx/--my (-1..1) and is only wired on fine pointers. */
-.hstage { --mx: 0; --my: 0; position: relative; width: 100%; aspect-ratio: 1 / 0.88; min-width: 0; }
-.hw-slot { position: absolute; width: var(--w); left: var(--l); top: var(--t); z-index: var(--z); }
+/* headline resolves letter by letter, in step with the scan line; measured once on mount (ResolveText) */
+.rt { display: inline; }
+.rt__w { display: inline-block; white-space: nowrap; }
+.rt__c { display: inline-block; }
+.rt__sr { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+.rt[data-go='0'] .rt__c { opacity: 0; }
+.rt[data-go='1'] .rt__c { animation: rt-in 0.75s cubic-bezier(0.2, 0.8, 0.2, 1) backwards; animation-delay: var(--rd, 0s); }
+@keyframes rt-in { from { opacity: 0; transform: translate(var(--dx), var(--dy)) rotate(var(--rr)) scale(1.15); filter: blur(7px); } }
+
+/* Stage of cards. Pointer sets --mx/--my (-1..1) on fine pointers; the stage leans toward it. */
+.hstage { --mx: 0; --my: 0; position: relative; width: 100%; aspect-ratio: 1 / 0.88; min-width: 0; perspective: 1400px; }
+.hstage__tilt { position: absolute; inset: 0; transform-style: preserve-3d; transform: rotateY(calc(var(--mx) * -3.5deg)) rotateX(calc(var(--my) * 2.5deg)); transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1); }
+.hw-slot { position: absolute; width: var(--w); left: var(--l); top: var(--t); z-index: var(--z); transform: translateZ(calc(var(--z) * 36px)); }
 .hw { position: relative; transform: translate3d(calc(var(--mx) * var(--d) * 1px), calc(var(--my) * var(--d) * 0.7px), 0) rotate(var(--r)); transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1); will-change: transform; }
-.hw__frame { border-radius: 14px; overflow: hidden; background: var(--c-obj, #fff); border: 1px solid var(--c-line); box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5) inset, 0 28px 50px -22px rgba(30, 58, 110, 0.45), 0 8px 18px -10px rgba(18, 18, 20, 0.35); }
-.hw__bar { display: flex; align-items: center; gap: 6px; padding: 0 12px; height: 28px; background: var(--c-tile, #efede8); border-bottom: 1px solid var(--c-line); font-size: 0.78rem; font-weight: 600; color: var(--c-ink2); white-space: nowrap; }
-.hw__bar i { width: 8px; height: 8px; border-radius: 50%; background: var(--c-line); flex: none; }
-.hw__bar i:first-child { background: var(--c-clay); }
-.hw__bar span { margin-left: 6px; overflow: hidden; text-overflow: ellipsis; }
+.hw__frame { position: relative; border-radius: 20px; overflow: hidden; background: #14171f; border: 1px solid rgba(255, 255, 255, 0.16); box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.4), 0 30px 60px -20px rgba(0, 0, 0, 0.75), 0 0 70px -18px var(--glow, rgba(127, 157, 255, 0.5)); }
+.hw--b .hw__frame { --glow: rgba(240, 138, 116, 0.55); }
 .hw .gv { border-radius: 0; }
-/* the offset tint behind each window, the same device as the Work rows */
-.hw::before { content: ''; position: absolute; inset: 14px -14px -14px 14px; border-radius: 16px; background: var(--c-clay-tint, rgba(226, 112, 90, 0.18)); z-index: -1; }
-.hw--b::before { background: rgba(30, 58, 110, 0.14); }
+/* a label pill, like an instrument readout */
+.hw__tag { position: absolute; left: 10px; top: 10px; z-index: 2; display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px 6px 10px; border-radius: 999px; background: rgba(11, 13, 19, 0.72); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); border: 1px solid rgba(255, 255, 255, 0.16); color: #f4f2ee; font-size: 0.8rem; font-weight: 600; line-height: 1; pointer-events: none; }
+.hw__tag i { width: 7px; height: 7px; border-radius: 50%; background: var(--scope-clay); box-shadow: 0 0 10px 2px rgba(240, 138, 116, 0.7); }
 
 @media (min-width: 1000px) {
-  .hhero__in { grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr); align-items: center; gap: clamp(32px, 4vw, 72px); }
+  .hhero__in { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: center; gap: clamp(32px, 4vw, 72px); }
 }
 @media (max-width: 999px) {
   .hstage { aspect-ratio: 1 / 0.8; max-width: 640px; }
 }
 @media (max-width: 700px) {
-  .hhero { padding-top: 56px; }
+  .hhero { padding-top: 72px; }
+  .hhero__screen { min-height: 0; }
   .hhero__act { flex-direction: column; align-items: flex-start; gap: 4px; width: 100%; }
   .hhero__act .btn-c { width: 100%; max-width: 360px; }
   .hstage { aspect-ratio: 1 / 0.92; }
-  .hw__bar { height: 24px; font-size: 0.72rem; }
+  .hw__tag { font-size: 0.72rem; padding: 5px 10px 5px 8px; }
 }
-@media (prefers-reduced-motion: reduce) { .hw { transition: none; transform: rotate(var(--r)); } }
+@media (prefers-reduced-motion: reduce) {
+  .hhero__sweep { display: none; }
+  .rt[data-go] .rt__c { animation: none; opacity: 1; }
+  .hstage__tilt, .hw { transition: none; }
+  .hstage__tilt { transform: none; }
+  .hw { transform: rotate(var(--r)); }
+}
 
 /* ============================================================
    ABOUT AND CONTACT on their bands

@@ -1,5 +1,5 @@
 /* The hero signature and the animated VJ mark. Everything runs once; reduced motion draws the finished state. */
-.sig { display: block; width: clamp(190px, 17vw, 250px); height: auto; overflow: visible; color: var(--c-clay-ink); }
+.sig { display: block; width: clamp(170px, 14vw, 215px); height: auto; overflow: visible; color: var(--c-clay-ink); }
 .sig__line { fill: none; stroke: var(--c-clay); stroke-width: 2.5px; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; stroke-dasharray: 1; stroke-dashoffset: 1; animation: sig-trace 0.9s 0.2s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
 .sig__m { stroke-dasharray: 1; stroke-dashoffset: 1; animation: sig-write 2.3s 1.5s cubic-bezier(0.45, 0.05, 0.3, 1) forwards; }
 .sig__mf { opacity: 0; animation: sig-fill 0.5s 3.6s ease forwards; }
