@@ -33,11 +33,11 @@ export default function HomeHero() {
     <section className="hhero" id="top" aria-label="Introduction" data-hero>
       <div className="hhero__in">
         <div className="hhero__copy">
-          <motion.p className="hhero__who" {...fade(0.05)}>Vijaya Chandra Jonnadula · Senior UX Designer · Hyderabad</motion.p>
+          <motion.p className="hhero__who" {...fade(0.05)}>Vijaya Chandra Jonnadula</motion.p>
           <h1 className="hhero__h1">{BOARD_LINES[0].say}</h1>
           <SplitFlap />
           <motion.p className="hhero__sub" {...fade(1.4)}>
-            I started as an electronics engineer, so I design the same way I debug: find the signal, remove the noise, then build a working prototype to prove it.
+            Senior UX designer in Hyderabad. I trained as an electronics engineer, so I find the signal, remove the noise, and prove it with working prototypes.
           </motion.p>
           <motion.div className="hhero__act" {...fade(1.6)}>
             <a className="btn-c btn-c--lg" href="#work" onClick={goWork}>See the work</a>
@@ -47,7 +47,7 @@ export default function HomeHero() {
             </Link>
           </motion.div>
         </div>
-        <Receiver />
+        <motion.div {...fade(0.5)} style={{ width: '100%', minWidth: 0 }}><Receiver /></motion.div>
       </div>
     </section>
   );

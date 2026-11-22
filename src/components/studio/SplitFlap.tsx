@@ -27,7 +27,7 @@ const Cell = memo(function Cell({ target, delay, accent, calm }: { target: strin
     if (cur.current === target) return;
     if (calm) { cur.current = target; setS({ cur: target, prev: target, tick: 0 }); return; }
     const seq: string[] = [];
-    const n = target === ' ' ? 1 + Math.floor(Math.random() * 3) : 3 + Math.floor(Math.random() * 5);
+    const n = target === ' ' ? 1 + Math.floor(Math.random() * 2) : 2 + Math.floor(Math.random() * 4);
     for (let i = 0; i < n; i++) seq.push(NOISE[Math.floor(Math.random() * NOISE.length)]);
     seq.push(target);
     const timers: number[] = [];
@@ -92,7 +92,6 @@ export default function SplitFlap() {
     <div className="sfw">
       <button type="button" className="sf" onClick={next}>
         <span className="sfw__live">{`Flip the board to another line about me. Showing line ${line + 1} of ${BOARD_LINES.length}.`}</span>
-        <span className="sf__screws" aria-hidden="true"><i /><i /><i /><i /></span>
         <span className="sf__grid" aria-hidden="true">
           {targets.map((ch, i) => {
             const r = Math.floor(i / COLS), c = i % COLS;
@@ -100,7 +99,7 @@ export default function SplitFlap() {
           })}
         </span>
       </button>
-      <p className="sfw__hint" aria-hidden="true"><span className="sfw__key">Press</span> the board for another line</p>
+      <p className="sfw__hint" aria-hidden="true">Press the board for another line</p>
       <p className="sfw__live" role="status" aria-live="polite">{announce}</p>
     </div>
   );

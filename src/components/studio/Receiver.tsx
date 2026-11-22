@@ -15,14 +15,14 @@ const NOT_ON_HERO = new Set(['renewly', 'caresync']);
  * A tuning receiver: each project is a station. Turn the dial and the screen fills with static between stations and
  * locks onto a clip when you land on one (the site's whole idea, signal first, as an object you can hold).
  *
- * - Drag the knob (mouse, pen or finger), press it with arrow keys / Home / End (it is a slider), use the two step
- *   buttons, or click the frequency scale. "Open case study" is a real link.
+ * Kept deliberately quiet: a screen, one line (frequency and project), a row of station dots, one link, one dial.
+ * - Drag the dial (mouse, pen or finger) or use it as a slider (arrow keys, Home, End). The dots are buttons too.
+ *   "Open case study" is a real link.
  * - It tunes itself in once on load, from static to the first station. After that it only moves when you do.
  * - Static is a tiny canvas drawn only while the dial is between stations and the hero is on screen. The clip is a
  *   GlimpseVideo (plays on screen only, has its own pause button). Reduced motion: no static, no tuning sweep, the
  *   dial jumps straight to a station, the clip stays a still until you press play.
- * - Knob angle, needle and static are written to the DOM directly (no React state per frame); React only knows
- *   which station is selected.
+ * - Dial angle and static are written to the DOM directly (no React state per frame); React only knows the station.
  */
 export default function Receiver() {
   const calm = useCalm();
@@ -32,7 +32,6 @@ export default function Receiver() {
 
   const root = useRef<HTMLDivElement>(null);
   const face = useRef<HTMLSpanElement>(null);
-  const needle = useRef<HTMLSpanElement>(null);
   const noise = useRef<HTMLCanvasElement>(null);
   const knob = useRef<HTMLDivElement>(null);
   const vRef = useRef(0);
@@ -58,7 +57,7 @@ export default function Receiver() {
     noiseRaf.current = requestAnimationFrame(drawNoise);
   }, []);
 
-  /** Put the dial at v (0..1): knob angle, needle, static amount, and which station is nearest. */
+  /** Put the dial at v (0..1): knob angle, static amount, and which station is nearest. */
   const apply = useCallback((v: number) => {
     vRef.current = v;
     const pos = v * (N - 1);
@@ -66,7 +65,6 @@ export default function Receiver() {
     const s = calmRef.current ? 0 : smooth(0.1, 0.42, Math.abs(pos - nearest));
     sAmt.current = s;
     if (face.current) face.current.style.transform = `rotate(${-SWEEP / 2 + v * SWEEP}deg)`;
-    if (needle.current) needle.current.style.left = `${v * 100}%`;
     root.current?.style.setProperty('--lock', String((1 - s).toFixed(3)));
     if (nearest !== stRef.current) { stRef.current = nearest; setSt(nearest); }
     if (s > 0.02 && !noiseRaf.current) noiseRaf.current = requestAnimationFrame(drawNoise);
@@ -91,7 +89,7 @@ export default function Receiver() {
   useEffect(() => {
     if (calm) { apply(0); return; }
     apply(0.45 / (N - 1));
-    const t = window.setTimeout(() => tuneTo(0), 700);
+    const t = window.setTimeout(() => tuneTo(0), 900);
     return () => window.clearTimeout(t);
   }, [calm, N, apply, tuneTo]);
 
@@ -122,10 +120,6 @@ export default function Receiver() {
     const map: Record<string, number> = { ArrowRight: stRef.current + 1, ArrowUp: stRef.current + 1, ArrowLeft: stRef.current - 1, ArrowDown: stRef.current - 1, Home: 0, End: N - 1 };
     if (e.key in map) { e.preventDefault(); tuneTo(map[e.key]); }
   };
-  const scaleClick = (e: React.MouseEvent) => {
-    const r = e.currentTarget.getBoundingClientRect();
-    tuneTo(Math.round(((e.clientX - r.left) / r.width) * (N - 1)));
-  };
 
   const cur = stations[st];
   if (!cur) return null;
@@ -133,11 +127,6 @@ export default function Receiver() {
 
   return (
     <div className="rx" ref={root} style={{ '--lock': 1 } as React.CSSProperties}>
-      <div className="rx__top" aria-hidden="true">
-        <span>VJ-1 · Prototype receiver</span>
-        <span className="rx__lock"><i className="rx__led" />Signal</span>
-      </div>
-
       <div className="rx__screen">
         <GlimpseVideo key={cur.p.id} id={cur.g.clip ?? cur.g.id} poster={cur.g.poster} label={cur.g.label} eager />
         <canvas ref={noise} className="rx__noise" width={160} height={100} aria-hidden="true" />
@@ -146,21 +135,16 @@ export default function Receiver() {
 
       <div className="rx__deck">
         <div className="rx__info">
-          <p className="rx__freq" aria-hidden="true"><b>{freq}</b> MHz</p>
-          <p className="rx__name">{cur.p.title}</p>
-          <div className="rx__scale" onClick={scaleClick} aria-hidden="true">
-            {stations.map((s, i) => <i key={s.p.id} className={`rx__stop${i === st ? ' is-on' : ''}`} style={{ left: `${(i / (N - 1)) * 100}%` }} />)}
-            <span className="rx__needle" ref={needle} />
+          <p className="rx__line"><i className="rx__led" aria-hidden="true" /><span className="rx__freq" aria-hidden="true">{freq} MHz</span><span className="rx__name">{cur.p.title}</span></p>
+          <div className="rx__dots" role="group" aria-label="Projects">
+            {stations.map((s, i) => (
+              <button key={s.p.id} type="button" className="rx__dot" aria-label={s.p.title} aria-current={i === st ? 'true' : undefined} onClick={() => tuneTo(i)} />
+            ))}
           </div>
-          <div className="rx__row">
-            <button type="button" className="rx__step" onClick={() => tuneTo(st - 1)} disabled={st === 0} aria-label="Previous project">
-              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false"><path d="M15 6l-6 6 6 6" /></svg>
-            </button>
-            <Link className="rx__open" to={cur.p.href}>Open case study</Link>
-            <button type="button" className="rx__step" onClick={() => tuneTo(st + 1)} disabled={st === N - 1} aria-label="Next project">
-              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false"><path d="M9 6l6 6-6 6" /></svg>
-            </button>
-          </div>
+          <Link className="rx__open" to={cur.p.href}>
+            Open case study
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+          </Link>
         </div>
 
         <div className="rx__knobwrap">
@@ -182,7 +166,7 @@ export default function Receiver() {
           >
             <span className="rx__face" ref={face} />
           </div>
-          <span className="rx__knoblabel" aria-hidden="true">Tune</span>
+          <span className="rx__knoblabel" aria-hidden="true">Turn</span>
         </div>
       </div>
       <p className="sfw__live" role="status" aria-live="polite">{`Now showing ${cur.p.title}.`}</p>
