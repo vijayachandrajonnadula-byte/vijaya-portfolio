@@ -1,15 +1,15 @@
 import { Link } from 'react-router-dom';
 import { motion, useReducedMotion } from 'framer-motion';
 import SplitFlap, { BOARD_LINES } from './SplitFlap';
-import ProjectReel from './ProjectReel';
+import Receiver from './Receiver';
 import '../../styles/home-v2.css';
 
 /**
  * The first screen: a departure board and a drifting wall of work on one dark ground.
  *  - Left: who, the headline as a split-flap board (every tile flips through noise and lands on the line; press it for
  *    another line), one sentence, one primary action ("See the work") and one quiet link.
- *  - Right: a tilted, slowly drifting wall of the projects. Point at a card and a label follows the cursor; click opens it.
- * The idea is the person: noise in, signal out, said with a mechanical object an electronics engineer would recognise.
+ *  - Right: a tuning receiver. Turn the dial: static between projects, a clip locks in on each one (Receiver).
+ * The idea is the person: noise in, signal out, said with two objects an electronics engineer would recognise.
  *
  * The h1 is real text for screen readers and search (the board's tiles are decorative). `data-hero` lets the floating
  * Ask launcher hide while this section is on screen. Reduced motion: lines change without flipping, the wall stands still.
@@ -47,7 +47,7 @@ export default function HomeHero() {
             </Link>
           </motion.div>
         </div>
-        <ProjectReel />
+        <Receiver />
       </div>
     </section>
   );
