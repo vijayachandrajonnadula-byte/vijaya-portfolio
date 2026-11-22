@@ -9,7 +9,7 @@ const WAVE = 'M0 7 C 3 0, 7 0, 10 7 S 17 14, 20 7 S 27 0, 30 7 S 37 14, 40 7 S 4
 const LINE = 'M0 7 C 3 7, 7 7, 10 7 S 17 7, 20 7 S 27 7, 30 7 S 37 7, 40 7 S 47 7, 50 7 S 57 7, 60 7 S 67 7, 70 7 S 77 7, 80 7 S 87 7, 90 7 S 97 7, 100 7';
 
 /**
- * The one moment of motion in the hero: a hand-drawn-looking wave under "clear" that settles into a straight line,
+ * The one moment of motion in the hero: a hand-drawn-looking wave under "explain" that settles into a straight line,
  * once, a beat after the headline arrives. Signal to clean line, the same idea as the electronics background.
  * It never loops. Under reduced motion it is simply drawn straight.
  */
@@ -57,10 +57,10 @@ export default function HomeHero() {
       <div className="hhero__in">
         <div className="hhero__copy">
           <motion.h1 className="hhero__title" {...fade(0.05)}>
-            Enterprise software, made <em className="hhero__clear">clear<SignalLine reduced={!!reduced} /></em> enough to build.
+            Software should <em className="hhero__clear">explain<SignalLine reduced={!!reduced} /></em> itself.
           </motion.h1>
           <motion.p className="hhero__sub" {...fade(0.15)}>
-            I’m Vijay, a Senior UX Designer in Hyderabad. I take dense workflows from first sketch to a working prototype and the design system behind it.
+            Hi, I’m Vijay, a Senior UX Designer in Hyderabad. I trained as an electronics engineer, so I look for the signal first, then design until the rest is quiet.
           </motion.p>
           <motion.div className="hhero__act" {...fade(0.25)}>
             <a className="btn-c btn-c--lg" href="#work" onClick={goWork}>See the work</a>
