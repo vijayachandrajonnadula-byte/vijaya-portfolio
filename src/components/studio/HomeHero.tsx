@@ -1,56 +1,21 @@
-import { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, useReducedMotion } from 'framer-motion';
-import GlimpseVideo from './GlimpseVideo';
-import DotField from './DotField';
-import ResolveText from './ResolveText';
-import { glimpseOf } from '../../data/glimpses';
+import SplitFlap, { BOARD_LINES } from './SplitFlap';
+import ProjectReel from './ProjectReel';
 import '../../styles/home-v2.css';
 
-/** The three cards on the stage. Positions are percentages of the stage so it scales as one piece. */
-const WINDOWS = [
-  { id: 'pulse-design-system', title: 'PULSE Storybook', w: '68%', l: '31%', t: '1%', z: 1, d: 10, r: '1.2deg', tone: 'a', delay: 0.6 },
-  { id: 'electronic-execution', title: 'Working prototype', w: '52%', l: '0%', t: '31%', z: 2, d: 22, r: '-2.4deg', tone: 'b', delay: 0.78 },
-  { id: 'afs-enterprise-workflow', title: 'Account Fit Score', w: '45%', l: '50%', t: '55%', z: 3, d: 34, r: '2deg', tone: 'a', delay: 0.96 },
-] as const;
-
 /**
- * The first screen is one dark screen, kept calm on purpose. The idea is the person: an electronics engineer who
- * became a UX designer and still works the same way, find the signal, remove the noise.
+ * The first screen: a departure board and a drifting wall of work on one dark ground.
+ *  - Left: who, the headline as a split-flap board (every tile flips through noise and lands on the line; press it for
+ *    another line), one sentence, one primary action ("See the work") and one quiet link.
+ *  - Right: a tilted, slowly drifting wall of the projects. Point at a card and a label follows the cursor; click opens it.
+ * The idea is the person: noise in, signal out, said with a mechanical object an electronics engineer would recognise.
  *
- * What happens (nothing loops except the dot grid, which runs only while on screen):
- *  - The headline resolves letter by letter, once (ResolveText).
- *  - A grid of dots rests on the glass. Around the pointer they swell and glow clay; a click sends one ring (DotField).
- *  - Three real project clips arrive as cards that lean a few degrees toward the pointer.
- * The name is written by hand in the nav logo (Header), not here, so this screen holds only what a recruiter needs.
- *
- * One primary action ("See the work") and one quiet link. `data-hero` lets the floating Ask launcher hide here.
- * Reduced motion: a still dot grid with a soft lens, finished headline, still cards with play buttons, no tilt.
+ * The h1 is real text for screen readers and search (the board's tiles are decorative). `data-hero` lets the floating
+ * Ask launcher hide while this section is on screen. Reduced motion: lines change without flipping, the wall stands still.
  */
 export default function HomeHero() {
   const reduced = useReducedMotion();
-  const stage = useRef<HTMLDivElement>(null);
-  const screen = useRef<HTMLDivElement>(null);
-
-  // Pointer lean: write two CSS variables, no React state, only for a mouse or pen and when motion is allowed.
-  useEffect(() => {
-    const el = stage.current;
-    const host = screen.current;
-    if (!el || !host || reduced || !window.matchMedia('(pointer: fine)').matches) return;
-    let raf = 0;
-    const move = (e: PointerEvent) => {
-      cancelAnimationFrame(raf);
-      raf = requestAnimationFrame(() => {
-        const r = host.getBoundingClientRect();
-        el.style.setProperty('--mx', String(((e.clientX - r.left) / r.width - 0.5) * 2));
-        el.style.setProperty('--my', String(((e.clientY - r.top) / r.height - 0.5) * 2));
-      });
-    };
-    const leave = () => { el.style.setProperty('--mx', '0'); el.style.setProperty('--my', '0'); };
-    host.addEventListener('pointermove', move);
-    host.addEventListener('pointerleave', leave);
-    return () => { cancelAnimationFrame(raf); host.removeEventListener('pointermove', move); host.removeEventListener('pointerleave', leave); };
-  }, [reduced]);
 
   const goWork = (e: React.MouseEvent<HTMLAnchorElement>) => {
     const el = document.getElementById('work');
@@ -66,50 +31,23 @@ export default function HomeHero() {
 
   return (
     <section className="hhero" id="top" aria-label="Introduction" data-hero>
-      <div className="hhero__screen" ref={screen}>
-        <DotField />
-        <div className="hhero__in">
-          <div className="hhero__copy">
-            <motion.p className="hhero__who" {...fade(0.1)}>Vijaya Chandra Jonnadula · Senior UX Designer · Hyderabad</motion.p>
-            <h1 className="hhero__title"><ResolveText text="I make complicated software feel obvious." /></h1>
-            <motion.p className="hhero__sub" {...fade(0.9)}>
-              I started as an electronics engineer, so I design the same way I debug: find the signal, remove the noise, then build a working prototype to prove it.
-            </motion.p>
-            <motion.div className="hhero__act" {...fade(1.05)}>
-              <a className="btn-c btn-c--lg" href="#work" onClick={goWork}>See the work</a>
-              <Link className="link-q" to="/ask">
-                Ask me anything
-                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
-              </Link>
-            </motion.div>
-          </div>
-
-          <div className="hstage" ref={stage}>
-            <div className="hstage__tilt">
-              {WINDOWS.map(w => {
-                const g = glimpseOf(w.id);
-                if (!g) return null;
-                return (
-                  <motion.div
-                    key={w.id}
-                    className="hw-slot"
-                    style={{ '--w': w.w, '--l': w.l, '--t': w.t, '--z': w.z } as React.CSSProperties}
-                    initial={reduced ? false : { opacity: 0, y: 40, scale: 0.96 }}
-                    animate={{ opacity: 1, y: 0, scale: 1 }}
-                    transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1], delay: w.delay }}
-                  >
-                    <div className={`hw hw--${w.tone}`} style={{ '--d': w.d, '--r': w.r } as React.CSSProperties}>
-                      <div className="hw__frame">
-                        <GlimpseVideo id={g.clip ?? g.id} poster={g.poster} label={g.label} eager />
-                        <span className="hw__tag"><i aria-hidden="true" />{w.title}</span>
-                      </div>
-                    </div>
-                  </motion.div>
-                );
-              })}
-            </div>
-          </div>
+      <div className="hhero__in">
+        <div className="hhero__copy">
+          <motion.p className="hhero__who" {...fade(0.05)}>Vijaya Chandra Jonnadula · Senior UX Designer · Hyderabad</motion.p>
+          <h1 className="hhero__h1">{BOARD_LINES[0].say}</h1>
+          <SplitFlap />
+          <motion.p className="hhero__sub" {...fade(1.4)}>
+            I started as an electronics engineer, so I design the same way I debug: find the signal, remove the noise, then build a working prototype to prove it.
+          </motion.p>
+          <motion.div className="hhero__act" {...fade(1.6)}>
+            <a className="btn-c btn-c--lg" href="#work" onClick={goWork}>See the work</a>
+            <Link className="link-q" to="/ask">
+              Ask me anything
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+            </Link>
+          </motion.div>
         </div>
+        <ProjectReel />
       </div>
     </section>
   );

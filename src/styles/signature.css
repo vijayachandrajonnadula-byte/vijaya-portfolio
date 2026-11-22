@@ -1,30 +1,4 @@
-/* The hero signature and the animated VJ mark. Everything runs once; reduced motion draws the finished state. */
-.sig { display: block; width: clamp(170px, 14vw, 215px); height: auto; overflow: visible; color: var(--c-clay-ink); }
-.sig__line { fill: none; stroke: var(--c-clay); stroke-width: 2.5px; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; stroke-dasharray: 1; stroke-dashoffset: 1; animation: sig-trace 0.9s 0.2s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
-.sig__m { stroke-dasharray: 1; stroke-dashoffset: 1; animation: sig-write 2.3s 1.5s cubic-bezier(0.45, 0.05, 0.3, 1) forwards; }
-.sig__mf { opacity: 0; animation: sig-fill 0.5s 3.6s ease forwards; }
-@keyframes sig-trace { to { stroke-dashoffset: 0; } }
-@keyframes sig-write { to { stroke-dashoffset: 0; } }
-@keyframes sig-fill { to { opacity: 1; } }
-/* the small version under the nav logo: no trace, writes straight away */
-.sig--ink { width: 84px; }
-.sig--ink .sig__m { animation-delay: 0.05s; animation-duration: 1.3s; }
-.sig--ink .sig__mf { animation-delay: 1s; animation-duration: 0.35s; }
-.sig--static .sig__line, .sig--static .sig__m { animation: none; stroke-dashoffset: 0; }
-.sig--static .sig__mf { animation: none; opacity: 1; }
-@media (prefers-reduced-motion: reduce) {
-  .sig__line, .sig__m { animation: none; stroke-dashoffset: 0; }
-  .sig__mf { animation: none; opacity: 1; }
-}
-
-/* the hand-written name that appears under the nav logo */
-.nav__mark { position: relative; }
-.nav__sign { position: absolute; left: -6px; top: calc(100% + 10px); z-index: 5; pointer-events: none; padding: 4px 16px 2px; border-radius: 16px; color: var(--c-clay-ink); background: var(--c-pill); border: 1px solid var(--c-line); box-shadow: 0 10px 30px -18px rgba(20, 15, 10, 0.4); -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px); opacity: 1; transition: opacity 0.3s ease; }
-.nav__sign.is-out { opacity: 0; }
-.nav__sign .sig { width: 78px; }
-@media (max-width: 700px) { .nav__sign { display: none; } }
-
-/* VJ mark: one continuous pen stroke, V into J, drawn once on load and again on hover */
+/* VJ mark: one continuous pen stroke, V into J, drawn once on load and again on hover. Reduced motion draws it finished. */
 .vjl__p { stroke-dasharray: 1; stroke-dashoffset: 1; animation: vjl-draw 1.25s 0.35s cubic-bezier(0.5, 0.05, 0.25, 1) forwards; }
 .vjl__dot { transform-box: fill-box; transform-origin: center; transform: scale(0); animation: vjl-dot 0.45s 1.4s cubic-bezier(0.3, 1.6, 0.5, 1) forwards; }
 @keyframes vjl-draw { to { stroke-dashoffset: 0; } }
