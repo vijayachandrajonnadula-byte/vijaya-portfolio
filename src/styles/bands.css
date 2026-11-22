@@ -56,30 +56,44 @@ main.home + .site-foot { border-top-color: var(--bi-line); }
 /* ============================================================
    HERO: the headline is the design
    ============================================================ */
-.hhero { position: relative; min-height: 100svh; display: flex; padding: 112px var(--px) 0; }
-.hhero__in { width: 100%; max-width: 1240px; margin: 0 auto; display: flex; flex-direction: column; justify-content: center; gap: clamp(32px, 4vw, 56px); padding-bottom: clamp(32px, 6vh, 72px); }
-.hhero__title { margin: 0; padding-top: clamp(0px, 3vh, 32px); font-family: var(--font-serif); font-weight: 400; letter-spacing: -0.045em; line-height: 0.93; font-size: clamp(3.6rem, 10.4vw + 0.5rem, 9rem); text-wrap: balance; }
-.hhero__title em { font-style: italic; color: var(--c-clay-ink); }
-.hhero__row { display: block; }
-.hhero__copy { display: flex; flex-direction: column; align-items: flex-start; gap: 24px; min-width: 0; }
-.hhero .hhero__sub { margin: 0; max-width: 36ch; color: var(--c-ink2); font-size: clamp(1.1875rem, 1.6vw, 1.4rem); line-height: 1.5; text-wrap: pretty; }
+/* The hero is a stage: a plain statement on the left, three real project clips playing on the right. */
+.hhero { position: relative; min-height: 100svh; display: flex; padding: 104px var(--px) 0; overflow: clip; }
+.hhero__in { width: 100%; max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: minmax(0, 1fr); align-content: center; gap: clamp(28px, 5vw, 48px); padding-bottom: clamp(40px, 7vh, 80px); }
+.hhero__copy { display: flex; flex-direction: column; align-items: flex-start; gap: 28px; min-width: 0; }
+.hhero__who { margin: 0; display: inline-flex; align-items: center; gap: 10px; color: var(--c-ink2); font-size: 1rem; font-weight: 600; }
+.hhero__who::before { content: ''; width: 28px; height: 2px; background: var(--c-clay); border-radius: 2px; }
+.hhero__title { margin: 0; font-family: var(--font-serif); font-weight: 400; letter-spacing: -0.04em; line-height: 0.98; font-size: clamp(3rem, 8.4vw, 5.6rem); text-wrap: balance; }
+.hhero .hhero__sub { margin: 0; max-width: 40ch; color: var(--c-ink2); font-size: clamp(1.1875rem, 1.5vw, 1.35rem); line-height: 1.55; text-wrap: pretty; }
 .hhero__act { display: flex; align-items: center; flex-wrap: wrap; gap: 8px 28px; }
-/* Clay stands free on the edge of the next band, not in a box */
-.hhero__art { position: absolute; right: max(var(--px), calc((100% - 1240px) / 2 + 24px)); bottom: -2px; }
-.hhero__art .clay { width: clamp(240px, 25vw, 360px) !important; }
 
-@media (max-width: 900px) {
-  .hhero__in { padding-bottom: 0; }
-  .hhero__art { position: static; display: flex; justify-content: flex-end; margin: 8px 0 -2px; }
-  .hhero__art .clay { width: clamp(120px, 28vw, 180px) !important; }
+/* Stage of windows. Pointer parallax writes --mx/--my (-1..1) and is only wired on fine pointers. */
+.hstage { --mx: 0; --my: 0; position: relative; width: 100%; aspect-ratio: 1 / 0.88; min-width: 0; }
+.hw-slot { position: absolute; width: var(--w); left: var(--l); top: var(--t); z-index: var(--z); }
+.hw { position: relative; transform: translate3d(calc(var(--mx) * var(--d) * 1px), calc(var(--my) * var(--d) * 0.7px), 0) rotate(var(--r)); transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1); will-change: transform; }
+.hw__frame { border-radius: 14px; overflow: hidden; background: var(--c-obj, #fff); border: 1px solid var(--c-line); box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5) inset, 0 28px 50px -22px rgba(30, 58, 110, 0.45), 0 8px 18px -10px rgba(18, 18, 20, 0.35); }
+.hw__bar { display: flex; align-items: center; gap: 6px; padding: 0 12px; height: 28px; background: var(--c-tile, #efede8); border-bottom: 1px solid var(--c-line); font-size: 0.78rem; font-weight: 600; color: var(--c-ink2); white-space: nowrap; }
+.hw__bar i { width: 8px; height: 8px; border-radius: 50%; background: var(--c-line); flex: none; }
+.hw__bar i:first-child { background: var(--c-clay); }
+.hw__bar span { margin-left: 6px; overflow: hidden; text-overflow: ellipsis; }
+.hw .gv { border-radius: 0; }
+/* the offset tint behind each window, the same device as the Work rows */
+.hw::before { content: ''; position: absolute; inset: 14px -14px -14px 14px; border-radius: 16px; background: var(--c-clay-tint, rgba(226, 112, 90, 0.18)); z-index: -1; }
+.hw--b::before { background: rgba(30, 58, 110, 0.14); }
+
+@media (min-width: 1000px) {
+  .hhero__in { grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr); align-items: center; gap: clamp(32px, 4vw, 72px); }
+}
+@media (max-width: 999px) {
+  .hstage { aspect-ratio: 1 / 0.8; max-width: 640px; }
 }
 @media (max-width: 700px) {
   .hhero { padding-top: 56px; }
   .hhero__act { flex-direction: column; align-items: flex-start; gap: 4px; width: 100%; }
   .hhero__act .btn-c { width: 100%; max-width: 360px; }
-  .hhero .hhero__sub { max-width: 34ch; }
+  .hstage { aspect-ratio: 1 / 0.92; }
+  .hw__bar { height: 24px; font-size: 0.72rem; }
 }
-.hhero__clear { padding-bottom: 0.02em; }
+@media (prefers-reduced-motion: reduce) { .hw { transition: none; transform: rotate(var(--r)); } }
 
 /* ============================================================
    ABOUT AND CONTACT on their bands

@@ -1,44 +1,49 @@
+import { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, useReducedMotion } from 'framer-motion';
-import Character from './Character';
+import GlimpseVideo from './GlimpseVideo';
+import { glimpseOf } from '../../data/glimpses';
 import '../../styles/home-v2.css';
-import '../../styles/hero-signal.css';
 
-/** The wave and the straight line have exactly the same commands, so one path can morph from the first to the second. */
-const WAVE = 'M0 7 C 3 0, 7 0, 10 7 S 17 14, 20 7 S 27 0, 30 7 S 37 14, 40 7 S 47 0, 50 7 S 57 14, 60 7 S 67 0, 70 7 S 77 14, 80 7 S 87 0, 90 7 S 97 14, 100 7';
-const LINE = 'M0 7 C 3 7, 7 7, 10 7 S 17 7, 20 7 S 27 7, 30 7 S 37 7, 40 7 S 47 7, 50 7 S 57 7, 60 7 S 67 7, 70 7 S 77 7, 80 7 S 87 7, 90 7 S 97 7, 100 7';
-
-/**
- * The one moment of motion in the hero: a hand-drawn-looking wave under "explain" that settles into a straight line,
- * once, a beat after the headline arrives. Signal to clean line, the same idea as the electronics background.
- * It never loops. Under reduced motion it is simply drawn straight.
- */
-function SignalLine({ reduced }: { reduced: boolean }) {
-  return (
-    <svg className="hhero__line" viewBox="0 0 100 14" preserveAspectRatio="none" aria-hidden="true" focusable="false">
-      {/* A native SVG animation: one run, no JavaScript timers, nothing left running afterwards. */}
-      <path d={reduced ? LINE : WAVE} fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" vectorEffect="non-scaling-stroke">
-        {!reduced && (
-          <animate attributeName="d" dur="1.1s" begin="1.4s" fill="freeze" calcMode="spline" keyTimes="0;1" keySplines="0.22 1 0.36 1" values={`${WAVE};${LINE}`} />
-        )}
-      </path>
-    </svg>
-  );
-}
+/** The three windows on the stage. Positions are percentages of the stage so it scales as one piece. */
+const WINDOWS = [
+  { id: 'pulse-design-system', title: 'PULSE design system', w: '68%', l: '31%', t: '1%', z: 1, d: 10, r: '1.2deg', tone: 'a', delay: 0.5 },
+  { id: 'electronic-execution', title: 'Working prototype', w: '52%', l: '0%', t: '31%', z: 2, d: 22, r: '-2.4deg', tone: 'b', delay: 0.68 },
+  { id: 'caresync', title: 'CareSync briefing', w: '45%', l: '50%', t: '55%', z: 3, d: 34, r: '2deg', tone: 'a', delay: 0.86 },
+] as const;
 
 /**
- * The first screen: what I do, who I am, and ONE thing to do next.
- * Job of the screen: a recruiter decides in under 10 seconds whether to look at the work.
- * - Von Restorff + Hick: one primary button ("See the work"), one quiet text link ("Ask me anything"). The ask input,
- *   its label and the chips are gone; the Ask page and the floating Ask launcher are where people ask.
- * - Interactive elements above the fold besides the nav: two.
- * - Visual hierarchy: serif headline first, one sentence second, the action row last (serial position).
- * - Composition: headline left, Clay on a quiet stage at the right (desktop); a centred stack on phones.
- * - Selective attention: Clay blinks and breathes only while on screen and never under reduced motion; nothing else moves.
+ * The first screen. One job: a recruiter sees, in a few seconds, what Vijay does and that it is real.
+ * - Left: who, one plain sentence about the work, one primary action ("See the work"), one quiet link.
+ * - Right: three of the project clips already moving, in windows. The proof is the hero, not a slogan.
+ * - Motion: the windows arrive once, staggered. After that only pointer parallax, on fine pointers, and only while the
+ *   pointer is over the hero. Nothing loops by itself; the clips follow the GlimpseVideo rules (on screen only, reduced motion off).
  * `data-hero` lets the floating Ask launcher hide itself while this section is on screen.
  */
 export default function HomeHero() {
   const reduced = useReducedMotion();
+  const stage = useRef<HTMLDivElement>(null);
+
+  // Pointer parallax: write two CSS variables, no React state, only for a mouse or pen and when motion is allowed.
+  useEffect(() => {
+    const el = stage.current;
+    if (!el || reduced || !window.matchMedia('(pointer: fine)').matches) return;
+    const host = el.closest('section');
+    if (!host) return;
+    let raf = 0;
+    const move = (e: PointerEvent) => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => {
+        const r = host.getBoundingClientRect();
+        el.style.setProperty('--mx', String(((e.clientX - r.left) / r.width - 0.5) * 2));
+        el.style.setProperty('--my', String(((e.clientY - r.top) / r.height - 0.5) * 2));
+      });
+    };
+    const leave = () => { el.style.setProperty('--mx', '0'); el.style.setProperty('--my', '0'); };
+    host.addEventListener('pointermove', move);
+    host.addEventListener('pointerleave', leave);
+    return () => { cancelAnimationFrame(raf); host.removeEventListener('pointermove', move); host.removeEventListener('pointerleave', leave); };
+  }, [reduced]);
 
   const goWork = (e: React.MouseEvent<HTMLAnchorElement>) => {
     const el = document.getElementById('work');
@@ -51,42 +56,49 @@ export default function HomeHero() {
   };
 
   const fade = (d: number) => ({ initial: reduced ? false : { opacity: 0, y: 14 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] as const, delay: d } });
-  /** One headline word: it rises out of a clipping mask, staggered, once on load. */
-  const word = (i: number, children: React.ReactNode) => (
-    <span className="wr wr--hero">
-      <motion.span
-        className="wr__w"
-        initial={reduced ? false : { y: '112%' }}
-        animate={{ y: 0 }}
-        transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1], delay: 0.08 + i * 0.1 }}
-      >
-        {children}
-      </motion.span>
-    </span>
-  );
 
   return (
     <section className="hhero" id="top" aria-label="Introduction" data-hero>
       <div className="hhero__in">
-        <h1 className="hhero__title">
-          {word(0, 'Software')} {word(1, 'should')} {word(2, <em className="hhero__clear">explain<SignalLine reduced={!!reduced} /></em>)} {word(3, 'itself.')}
-        </h1>
-        <div className="hhero__row">
-          <div className="hhero__copy">
-            <motion.p className="hhero__sub" {...fade(0.55)}>
-              Hi, I’m Vijay, a Senior UX Designer in Hyderabad. I trained as an electronics engineer, so I look for the signal first, then design until the rest is quiet.
-            </motion.p>
-            <motion.div className="hhero__act" {...fade(0.7)}>
-              <a className="btn-c btn-c--lg" href="#work" onClick={goWork}>See the work</a>
-              <Link className="link-q" to="/ask">
-                Ask me anything
-                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
-              </Link>
-            </motion.div>
-          </div>
-          <div className="hhero__art">
-            <Character pose="rest" size={300} track boot label="Clay, the site’s mascot" />
-          </div>
+        <div className="hhero__copy">
+          <motion.p className="hhero__who" {...fade(0.05)}>Vijay Jonnadula · Senior UX Designer · Hyderabad</motion.p>
+          <motion.h1 className="hhero__title" {...fade(0.12)}>
+            I make complicated software feel obvious.
+          </motion.h1>
+          <motion.p className="hhero__sub" {...fade(0.3)}>
+            I started as an electronics engineer, so I design the same way I debug: find the signal, remove the noise, then build a working prototype to prove it.
+          </motion.p>
+          <motion.div className="hhero__act" {...fade(0.45)}>
+            <a className="btn-c btn-c--lg" href="#work" onClick={goWork}>See the work</a>
+            <Link className="link-q" to="/ask">
+              Ask me anything
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+            </Link>
+          </motion.div>
+        </div>
+
+        <div className="hstage" ref={stage}>
+          {WINDOWS.map(w => {
+            const g = glimpseOf(w.id);
+            if (!g) return null;
+            return (
+              <motion.div
+                key={w.id}
+                className="hw-slot"
+                style={{ '--w': w.w, '--l': w.l, '--t': w.t, '--z': w.z } as React.CSSProperties}
+                initial={reduced ? false : { opacity: 0, y: 36, scale: 0.97 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1], delay: w.delay }}
+              >
+                <div className={`hw hw--${w.tone}`} style={{ '--d': w.d, '--r': w.r } as React.CSSProperties}>
+                  <div className="hw__frame">
+                    <div className="hw__bar" aria-hidden="true"><i /><i /><i /><span>{w.title}</span></div>
+                    <GlimpseVideo id={g.id} poster={g.poster} label={g.label} eager />
+                  </div>
+                </div>
+              </motion.div>
+            );
+          })}
         </div>
       </div>
     </section>
