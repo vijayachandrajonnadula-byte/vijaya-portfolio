@@ -1,8 +1,30 @@
 import { Link } from 'react-router-dom';
 import { motion, useReducedMotion } from 'framer-motion';
 import Character from './Character';
-import { profile } from '../../data/profile';
 import '../../styles/home-v2.css';
+import '../../styles/hero-signal.css';
+
+/** The wave and the straight line have exactly the same commands, so one path can morph from the first to the second. */
+const WAVE = 'M0 7 C 3 0, 7 0, 10 7 S 17 14, 20 7 S 27 0, 30 7 S 37 14, 40 7 S 47 0, 50 7 S 57 14, 60 7 S 67 0, 70 7 S 77 14, 80 7 S 87 0, 90 7 S 97 14, 100 7';
+const LINE = 'M0 7 C 3 7, 7 7, 10 7 S 17 7, 20 7 S 27 7, 30 7 S 37 7, 40 7 S 47 7, 50 7 S 57 7, 60 7 S 67 7, 70 7 S 77 7, 80 7 S 87 7, 90 7 S 97 7, 100 7';
+
+/**
+ * The one moment of motion in the hero: a hand-drawn-looking wave under "clear" that settles into a straight line,
+ * once, a beat after the headline arrives. Signal to clean line, the same idea as the electronics background.
+ * It never loops. Under reduced motion it is simply drawn straight.
+ */
+function SignalLine({ reduced }: { reduced: boolean }) {
+  return (
+    <svg className="hhero__line" viewBox="0 0 100 14" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+      {/* A native SVG animation: one run, no JavaScript timers, nothing left running afterwards. */}
+      <path d={reduced ? LINE : WAVE} fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" vectorEffect="non-scaling-stroke">
+        {!reduced && (
+          <animate attributeName="d" dur="1.1s" begin="0.9s" fill="freeze" calcMode="spline" keyTimes="0;1" keySplines="0.22 1 0.36 1" values={`${WAVE};${LINE}`} />
+        )}
+      </path>
+    </svg>
+  );
+}
 
 /**
  * The first screen: what I do, who I am, and ONE thing to do next.
@@ -35,9 +57,11 @@ export default function HomeHero() {
       <div className="hhero__in">
         <div className="hhero__copy">
           <motion.h1 className="hhero__title" {...fade(0.05)}>
-            Hi, I’m Vijay. I turn messy user journeys into <em>clear</em> ones.
+            Enterprise software, made <em className="hhero__clear">clear<SignalLine reduced={!!reduced} /></em> enough to build.
           </motion.h1>
-          <motion.p className="hhero__sub" {...fade(0.15)}>{profile.title} in Hyderabad, designing enterprise software.</motion.p>
+          <motion.p className="hhero__sub" {...fade(0.15)}>
+            I’m Vijay, a Senior UX Designer in Hyderabad. I take dense workflows from first sketch to a working prototype and the design system behind it.
+          </motion.p>
           <motion.div className="hhero__act" {...fade(0.25)}>
             <a className="btn-c btn-c--lg" href="#work" onClick={goWork}>See the work</a>
             <Link className="link-q" to="/ask">

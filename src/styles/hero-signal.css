@@ -1,0 +1,8 @@
+/* Home hero: the wave-to-line underline under "clear", and a slightly wider second line.
+   Layout and type for .hhero* live in site.css; this file only adds what the new copy needs. */
+.hhero__clear { position: relative; display: inline-block; white-space: nowrap; }
+.hhero__line { position: absolute; left: 0; right: 0; bottom: 0.04em; width: 100%; height: 0.18em; overflow: visible; color: var(--c-clay); pointer-events: none; }
+.hhero__sub { max-width: 46ch; }
+@media (max-width: 760px) {
+  .hhero__sub { max-width: 36ch; }
+}
