@@ -34,7 +34,15 @@
   --sec-y: clamp(72px, 9vw, 120px);
   --r-card: 28px;
   --r-img: 14px;
-}
+  /* COLOUR CHAPTERS (home page). Each band re-points the --c-* tokens for everything inside it (src/styles/bands.css),
+     so every component stays on tokens and every text pair below is measured AA or better.
+     bi = ink-blue band (Work, Contact, footer). bc = warm clay-tint band (Two readings, About). */
+  --bi-bg: #14233f; --bi-raise: #1d3258; --bi-raise2: #27406e; --bi-line: #3a5486;
+  --bi-ink: #f7f4ee; --bi-ink2: #d4ddef; --bi-mute: #bfcae2;
+  --bi-accent: #b4ccff; --bi-accent-ink: #0f1b3d; --bi-clay: #ef8c76; --bi-clay-ink: #f7a898;
+  --bc-bg: #f4d8cb; --bc-raise: #fbece5; --bc-raise2: #efcdbd; --bc-line: #dbb3a2;
+  --bc-ink: #17171a; --bc-ink2: #43322b; --bc-mute: #4b3830;
+  --bc-accent: #1e3a6e; --bc-accent-ink: #ffffff; --bc-clay: #e2705a; --bc-clay-ink: #8f2f1d;}
 html[data-theme='dark'] {
   --c-bg: #121214;
   --c-tile: #1b1b1e;
@@ -52,6 +60,11 @@ html[data-theme='dark'] {
   --c-glow: rgba(226, 112, 90, 0.2);
   --c-pill: rgba(27, 27, 30, 0.92);
   --c-shadow: 0 24px 60px -34px rgba(0, 0, 0, 0.8);
+  /* dark theme: the ink band goes deeper, the clay band becomes a warm umber */
+  --bi-bg: #0e1b34; --bi-raise: #172a4c; --bi-raise2: #21386a; --bi-line: #2f4a7c;
+  --bc-bg: #2b1a15; --bc-raise: #3a241d; --bc-raise2: #4a2f26; --bc-line: #5e3d31;
+  --bc-ink: #f6eee8; --bc-ink2: #e0d0c6; --bc-mute: #cdb9ad;
+  --bc-accent: #aac4ff; --bc-accent-ink: #0f1b3d; --bc-clay: #ee8a74; --bc-clay-ink: #f6a392;
 }
 /* case studies are light only for now: they keep their own dark opening and a light body */
 html[data-page='case'], html[data-page='case'][data-theme='dark'] {
@@ -139,15 +152,6 @@ html[data-page='case'] .nav__theme { display: none; }
    HOME HERO
    ============================================================ */
 .home { overflow-x: clip; }
-.hhero { position: relative; min-height: 100svh; display: flex; align-items: center; padding: 120px var(--px) 80px; }
-.hhero__in { width: 100%; max-width: 1060px; margin: 0 auto; display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); align-items: center; gap: clamp(32px, 6vw, 88px); }
-.hhero__copy { display: flex; flex-direction: column; align-items: flex-start; gap: 28px; min-width: 0; }
-.hhero__title { margin: 0; font-family: var(--font-serif); font-weight: 400; letter-spacing: -0.025em; line-height: 1.06; font-size: clamp(2.5rem, 5.6vw, 4.5rem); text-wrap: balance; }
-.hhero__title em { font-style: italic; color: var(--c-clay-ink); }
-.hhero__sub { margin: 0; max-width: 34ch; color: var(--c-ink2); font-size: 1.25rem; line-height: 1.5; text-wrap: balance; }
-.hhero__act { display: flex; align-items: center; flex-wrap: wrap; gap: 8px 28px; margin-top: 12px; }
-.hhero__art { display: flex; justify-content: center; min-width: 0; }
-.hhero__stage { position: relative; width: min(100%, 380px); aspect-ratio: 1 / 1.04; display: grid; place-items: end center; padding-bottom: 11%; border-radius: 44px; border: 1px solid var(--c-line); background: radial-gradient(75% 60% at 50% 40%, var(--c-glow), transparent 72%), var(--c-tile); box-shadow: var(--c-shadow); }
 
 /* ask box */
 .ask { width: 100%; }
@@ -356,14 +360,6 @@ html[data-page='case'] .next-project__title { font-weight: 500; letter-spacing: 
   .more__row { grid-template-columns: minmax(0, 1fr) 2.5rem; }
   .more__cat, .more__year, .more__peek { display: none; }
   .composer__two { grid-template-columns: 1fr; }
-  .hhero__in { grid-template-columns: 1fr; justify-items: center; text-align: center; gap: 28px; }
-  .hhero__art { order: -1; }
-  .hhero__copy { align-items: center; }
-  .hhero__sub { margin-inline: auto; }
-  .hhero__act { flex-direction: column; justify-content: center; gap: 4px; width: 100%; }
-  .hhero__act .btn-c { width: min(100%, 360px); }
-  .hhero__stage { width: auto; aspect-ratio: auto; padding: 0; border: 0; background: none; box-shadow: none; }
-  .hhero__stage .clay { width: clamp(112px, 20vw, 150px) !important; }
   .contact__grid { grid-template-columns: 1fr; }
 }
 @media (max-width: 700px) {
@@ -380,7 +376,6 @@ html[data-page='case'] .next-project__title { font-weight: 500; letter-spacing: 
   .askpage { padding-bottom: 190px; }
   .askpage__bar { inset: auto 0 84px 0; }
   .askpage__top { top: 16px; }
-  .hhero { padding: 56px var(--px) 120px; }
 }
 @media (hover: none) { .more__peek { display: none; } }
 @media (prefers-reduced-motion: reduce) {

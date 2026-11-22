@@ -1,0 +1,98 @@
+/* ============================================================
+   HOME: colour chapters, big type, and the hero.
+   The page is read as four chapters: paper (hero), ink-blue (Work), warm clay tint (Two readings, About), ink-blue again
+   (Contact and the footer). A band does not recolour anything by hand: it re-points the --c-* tokens for everything
+   inside it, so every component keeps working and every text pair stays on the measured values in site.css (--bi-*, --bc-*).
+   ============================================================ */
+
+.band { position: relative; background: var(--c-bg); color: var(--c-ink); }
+.band--ink, main.home + .site-foot {
+  --c-bg: var(--bi-bg); --c-tile: var(--bi-raise); --c-tile2: var(--bi-raise2); --c-obj: var(--bi-raise2); --c-line: var(--bi-line);
+  --c-ink: var(--bi-ink); --c-ink2: var(--bi-ink2); --c-mute: var(--bi-mute);
+  --c-accent: var(--bi-accent); --c-accent-ink: var(--bi-accent-ink); --c-clay: var(--bi-clay); --c-clay-ink: var(--bi-clay-ink);
+  --c-deep: #0a1428; --c-glow: rgba(239, 140, 118, 0.2); --c-pill: rgba(20, 35, 63, 0.92); --c-shadow: 0 24px 60px -34px rgba(0, 0, 0, 0.7);
+  background: var(--c-bg); color: var(--c-ink);
+}
+.band--clay {
+  --c-bg: var(--bc-bg); --c-tile: var(--bc-raise); --c-tile2: var(--bc-raise2); --c-obj: var(--bc-raise); --c-line: var(--bc-line);
+  --c-ink: var(--bc-ink); --c-ink2: var(--bc-ink2); --c-mute: var(--bc-mute);
+  --c-accent: var(--bc-accent); --c-accent-ink: var(--bc-accent-ink); --c-clay: var(--bc-clay); --c-clay-ink: var(--bc-clay-ink);
+  --c-glow: rgba(226, 112, 90, 0.2); --c-pill: rgba(251, 236, 229, 0.92);
+  background: var(--c-bg); color: var(--c-ink);
+  padding-bottom: var(--sec-y);
+}
+main.home + .site-foot { border-top-color: var(--bi-line); }
+
+/* The band wipes in as it enters the screen: it starts as a rounded, slightly narrower slab and opens to full width.
+   Native scroll-linked CSS (no script, nothing runs off-screen); browsers without view timelines, and visitors who ask
+   for reduced motion, simply get the full-width band. */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .band--wipe { animation: band-wipe linear both; animation-timeline: view(); animation-range: entry 0% entry 45%; }
+  }
+}
+@keyframes band-wipe {
+  from { clip-path: inset(0 3.5% 0 3.5% round 64px 64px 0 0); }
+  to { clip-path: inset(0 0 0 0 round 0); }
+}
+
+/* ============================================================
+   BIG TYPE
+   ============================================================ */
+/* words rise out of a clipping mask (hero on load, section titles on enter) */
+.wr { display: inline-block; overflow: hidden; vertical-align: bottom; padding: 0.12em 0.06em 0.2em; margin: -0.12em -0.06em -0.2em; }
+.wr__w { display: inline-block; will-change: transform; }
+
+.home .sec-head { max-width: 1240px; margin: 0 0 clamp(36px, 5vw, 72px); }
+.home .sec-h { font-size: clamp(2.6rem, 6.6vw, 6rem); line-height: 0.98; letter-spacing: -0.035em; max-width: 11em; }
+.home .sec-sub { margin-top: clamp(16px, 2vw, 24px); max-width: 44ch; font-size: 1.25rem; line-height: 1.5; }
+.home .two .sec-h { font-size: clamp(2.3rem, 4.8vw, 4.5rem); max-width: 14em; }
+.home .ab-about__text .sec-h { font-size: clamp(2.3rem, 4.4vw, 3.9rem); line-height: 1; letter-spacing: -0.03em; }
+
+/* every home section shares one wide container */
+.home .work__in, .home .signal__in, .home .abt__in, .home .contact__in { max-width: 1240px; }
+.home .abt__in { margin: 0 auto; }
+
+/* ============================================================
+   HERO: the headline is the design
+   ============================================================ */
+.hhero { position: relative; min-height: 100svh; display: flex; padding: 112px var(--px) 0; }
+.hhero__in { width: 100%; max-width: 1240px; margin: 0 auto; display: flex; flex-direction: column; justify-content: center; gap: clamp(32px, 4vw, 56px); padding-bottom: clamp(32px, 6vh, 72px); }
+.hhero__title { margin: 0; padding-top: clamp(0px, 3vh, 32px); font-family: var(--font-serif); font-weight: 400; letter-spacing: -0.045em; line-height: 0.93; font-size: clamp(3.6rem, 10.4vw + 0.5rem, 9rem); text-wrap: balance; }
+.hhero__title em { font-style: italic; color: var(--c-clay-ink); }
+.hhero__row { display: block; }
+.hhero__copy { display: flex; flex-direction: column; align-items: flex-start; gap: 24px; min-width: 0; }
+.hhero .hhero__sub { margin: 0; max-width: 36ch; color: var(--c-ink2); font-size: clamp(1.1875rem, 1.6vw, 1.4rem); line-height: 1.5; text-wrap: pretty; }
+.hhero__act { display: flex; align-items: center; flex-wrap: wrap; gap: 8px 28px; }
+/* Clay stands free on the edge of the next band, not in a box */
+.hhero__art { position: absolute; right: max(var(--px), calc((100% - 1240px) / 2 + 24px)); bottom: -2px; }
+.hhero__art .clay { width: clamp(240px, 25vw, 360px) !important; }
+
+@media (max-width: 900px) {
+  .hhero__in { padding-bottom: 0; }
+  .hhero__art { position: static; display: flex; justify-content: flex-end; margin: 8px 0 -2px; }
+  .hhero__art .clay { width: clamp(120px, 28vw, 180px) !important; }
+}
+@media (max-width: 700px) {
+  .hhero { padding-top: 56px; }
+  .hhero__act { flex-direction: column; align-items: flex-start; gap: 4px; width: 100%; }
+  .hhero__act .btn-c { width: 100%; max-width: 360px; }
+  .hhero .hhero__sub { max-width: 34ch; }
+}
+.hhero__clear { padding-bottom: 0.02em; }
+
+/* ============================================================
+   ABOUT AND CONTACT on their bands
+   ============================================================ */
+.home .abt.sec { padding-top: clamp(48px, 6vw, 88px); }
+.ab-tile { box-shadow: none; }
+.home .contact.sec { padding-bottom: calc(var(--sec-y) * 1.1); }
+.home .contact .sec-h { max-width: 9em; }
+
+/* the Trace in the gutter: its pads are rings only, so they read on every band */
+.trace__ring { fill: transparent; }
+.trace__track { stroke: color-mix(in srgb, var(--c-mute) 45%, transparent); }
+
+@media (prefers-reduced-motion: reduce) {
+  .wr__w { will-change: auto; }
+}

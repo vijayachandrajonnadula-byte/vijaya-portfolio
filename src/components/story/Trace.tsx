@@ -62,7 +62,7 @@ export default function Trace({ boundary }: { boundary: RefObject<HTMLElement> }
     const w = wr.width, h = wrap.offsetHeight;
     const els = Array.from(wrap.querySelectorAll('[data-node]'));
     labels.current = els;
-    const gx = Math.max(10, w / 2 - 530 - 46);
+    const gx = Math.max(10, w / 2 - 620 - 40);
     // offset-based so reveal transforms (translateY) do not skew the measurement
     const yIn = (el: Element) => {
       let y = 0, n: HTMLElement | null = el as HTMLElement;

@@ -1,101 +1,109 @@
-/* Work section: featured cards and the "More projects" disclosure. All classes are prefixed wk-.
-   Laws applied: Hick/Occam (fewer parts per card), Common region (the card is the one boundary, no inner rules),
-   Von Restorff (one accent: the call to action), Fitts (whole card is the target, 44px+ controls),
-   Selective attention (one 2px hover lift, no tilt, no follow highlight, no zoom). */
+/* Work section (on the ink-blue band): big rows with a looping glimpse, then a grid of smaller projects. All classes wk-*.
+   Colours come from the --c-* tokens, which the band re-points (src/styles/bands.css), so nothing here is hard-coded.
+   Laws applied: Hick/Occam (one sentence, one call to action per project), Fitts (the whole row is the target, 44px
+   controls), Von Restorff (the moving frame is the one thing that moves), Selective attention (a lean of a few degrees
+   on a mouse pointer, nothing animating off-screen or under reduced motion). */
 
-.wk-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+/* ---------- the big rows ---------- */
+.wk-rows2 { --wk-gap: clamp(88px, 11vw, 150px); position: relative; display: grid; gap: var(--wk-gap); padding: calc(var(--wk-gap) / 2) 0; }
 
-/* Card */
-.wk-card {
-  position: relative; display: flex; flex-direction: column; isolation: isolate;
-  background: var(--c-tile); border: 1px solid var(--c-line); border-radius: var(--r-card); overflow: hidden;
-  cursor: pointer; -webkit-tap-highlight-color: transparent;
-  transition: transform 0.25s var(--ease-out), box-shadow 0.25s var(--ease-out);
-}
+/* the signal line: a quiet track and a clay fill that grows with scroll */
+.wk-spine { position: absolute; top: 0; bottom: 0; left: 50%; width: 2px; margin-left: -1px; background: var(--c-line); pointer-events: none; }
+.wk-spine__fill { position: absolute; inset: 0; background: var(--c-clay); transform-origin: 50% 0; transform: scaleY(1); }
+.wk-spine__head { position: absolute; left: 50%; width: 14px; height: 14px; margin: -7px 0 0 -7px; border-radius: 50%; background: var(--c-clay); box-shadow: 0 0 0 5px color-mix(in srgb, var(--c-clay) 25%, transparent); }
 
-/* Media: the real screen on a soft tint. Never takes pointer events. */
-.wk-media { position: relative; height: clamp(230px, 22vw, 290px); overflow: hidden; pointer-events: none; flex: none;
-  background: radial-gradient(70% 70% at 50% 60%, color-mix(in srgb, var(--tint) 55%, transparent), transparent 78%), var(--c-tile); }
-.wk-media__shot {
-  position: absolute; left: 8%; right: 8%; top: 12%; aspect-ratio: 16 / 10; overflow: hidden; background: #fff;
-  border: 1px solid color-mix(in srgb, var(--c-ink) 14%, transparent); border-radius: var(--r-img) var(--r-img) 0 0; box-shadow: 0 30px 60px -28px rgba(30, 20, 10, 0.45);
-}
-.wk-media__shot img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: left top; }
+.wk-row2 { position: relative; isolation: isolate; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: clamp(8px, 1.4vw, 20px); align-items: center; -webkit-tap-highlight-color: transparent; }
+.wk-text { grid-column: 9 / 13; grid-row: 1; display: flex; flex-direction: column; align-items: flex-start; gap: 14px; min-width: 0; }
+.wk-vis { position: relative; z-index: 2; grid-column: 1 / 8; grid-row: 1; perspective: 1400px; pointer-events: none; min-width: 0; }
+.wk-row2--flip .wk-text { grid-column: 1 / 5; }
+.wk-row2--flip .wk-vis { grid-column: 6 / 13; }
 
-/* Body: 24px padding, 8px steps inside, so the groups read as one (Proximity) */
-.wk-body { /* deliberately not positioned: the title link's ::after must be sized by the card */ display: flex; flex-direction: column; gap: 8px; padding: 24px; flex: 1; }
-.wk-meta { display: flex; align-items: center; flex-wrap: wrap; gap: 8px 12px; margin: 0; color: var(--c-ink2); font-size: 0.875rem; line-height: 1.4; }
-.wk-chip { display: inline-flex; align-items: center; height: 24px; padding: 0 10px; border-radius: 999px; border: 1px solid var(--c-ink); color: var(--c-ink); font-size: 0.8125rem; font-weight: 600; white-space: nowrap; background: transparent; }
-.wk-title { margin: 0; font-weight: 500; font-size: clamp(1.35rem, 2vw, 1.75rem); line-height: 1.2; letter-spacing: -0.01em; }
-.wk-link { display: inline-flex; align-items: center; min-height: 44px; color: inherit; text-decoration: none; }
-.wk-link::after { content: ''; position: absolute; inset: 0; z-index: 1; }
+/* the node on the line, in the middle of the gap above each row */
+.wk-node { position: absolute; z-index: 3; left: 50%; top: calc(var(--wk-gap) / -2); width: 20px; height: 20px; margin: -10px 0 0 -10px; border-radius: 50%; border: 2px solid var(--c-line); background: var(--c-bg); transition: border-color 0.35s ease, box-shadow 0.35s ease, background 0.35s ease; }
+.wk-node::after { content: ''; position: absolute; inset: 4px; border-radius: 50%; background: var(--c-clay); transform: scale(0); transition: transform 0.4s var(--ease-out); }
+.wk-row2.is-lit .wk-node { border-color: var(--c-clay); box-shadow: 0 0 0 6px color-mix(in srgb, var(--c-clay) 22%, transparent); }
+.wk-row2.is-lit .wk-node::after { transform: scale(1); }
+
+/* the frame: a browser-style window around the clip, over a tinted shape that sits offset behind it */
+.wk-back { position: absolute; z-index: 0; inset: 8% -5% -9% 7%; border-radius: 30px; background: var(--tint); box-shadow: 0 0 140px 16px color-mix(in srgb, var(--tint) 32%, transparent); }
+.wk-row2--flip .wk-back { inset: 8% 7% -9% -5%; }
+.wk-frame { position: relative; z-index: 1; overflow: hidden; border-radius: 18px; background: var(--c-tile); border: 1px solid color-mix(in srgb, var(--c-ink) 22%, transparent); box-shadow: 0 50px 90px -34px rgba(0, 0, 0, 0.6); transform-style: preserve-3d; }
+.wk-frame__bar { display: flex; align-items: center; gap: 7px; height: 30px; padding: 0 14px; background: var(--c-tile2); }
+.wk-frame__bar i { width: 9px; height: 9px; border-radius: 50%; background: color-mix(in srgb, var(--c-ink) 38%, transparent); }
+.wk-still { position: relative; overflow: hidden; background: var(--c-tile); }
+.wk-still img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: left top; }
+
+/* The preview stays operable above the stretched link: the clip ignores the pointer (so clicks reach the link under it),
+   its play/pause button takes it back. Hovering the row reveals the button (the clip itself cannot be hovered). */
+.wk-vis .gv, .wk-mini__vis .gv { pointer-events: none; }
+.wk-vis .gv__btn, .wk-mini__vis .gv__btn { pointer-events: auto; }
+.wk-row2:hover .gv__btn, .wk-mini:hover .gv__btn { opacity: 1; }
+
+/* Clay peeks over the first frame, once */
+.wk-peek { position: absolute; left: 9%; bottom: 100%; margin-bottom: -1px; overflow: hidden; pointer-events: none; }
+.wk-peek .clay { display: block; }
+
+/* text */
+.wk-meta { display: flex; align-items: center; flex-wrap: wrap; gap: 8px 12px; margin: 0; color: var(--c-ink2); font-size: 0.9375rem; line-height: 1.4; }
+.wk-chip { display: inline-flex; align-items: center; height: 26px; padding: 0 11px; border-radius: 999px; border: 1px solid var(--c-ink); color: var(--c-ink); font-size: 0.8125rem; font-weight: 600; white-space: nowrap; background: transparent; }
+.wk-title { margin: 0; font-family: var(--font-serif); font-weight: 400; font-size: clamp(2.3rem, 4.4vw, 4rem); line-height: 1; letter-spacing: -0.03em; text-wrap: balance; }
+.wk-link { display: inline-block; min-height: 44px; color: inherit; text-decoration: none; }
+.wk-link::after { content: ''; position: absolute; inset: 0; z-index: 1; border-radius: 28px; }
 .wk-link:focus-visible { outline: none; }
-.wk-line { margin: 0; color: var(--c-ink2); font-size: 1rem; line-height: 1.5; max-width: 52ch; }
-.wk-foot { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: auto; padding-top: 8px; }
-.wk-cta { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; font-weight: 600; font-size: 1rem; color: var(--c-accent); }
+.wk-link:focus-visible::after { outline: 3px solid var(--c-accent); outline-offset: 6px; }
+.wk-line { margin: 0; color: var(--c-ink2); font-size: 1.1875rem; line-height: 1.5; max-width: 34ch; }
+.wk-foot { display: flex; align-items: center; flex-wrap: wrap; gap: 4px 20px; margin-top: 6px; }
+.wk-cta { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; font-weight: 600; font-size: 1.0625rem; color: var(--c-accent); }
 .wk-arrow { transition: transform 0.25s var(--ease-out); }
-.wk-proto { position: relative; z-index: 2; display: inline-flex; align-items: center; gap: 6px; min-height: 44px; padding: 0 8px; font-size: 0.9375rem; font-weight: 500; color: var(--c-ink); text-decoration: underline; text-underline-offset: 3px; text-decoration-color: var(--c-mute); }
+.wk-proto { position: relative; z-index: 2; display: inline-flex; align-items: center; gap: 6px; min-height: 44px; padding: 0 4px; font-size: 1rem; font-weight: 500; color: var(--c-ink); text-decoration: underline; text-underline-offset: 3px; text-decoration-color: var(--c-mute); }
 .wk-proto:hover { text-decoration-color: currentColor; }
 .wk-proto:focus-visible { outline: 3px solid var(--c-accent); outline-offset: 2px; border-radius: 6px; }
+.wk-row2:has(.wk-link:focus-visible) .wk-arrow, .wk-mini:has(.wk-link:focus-visible) .wk-arrow { transform: translateX(3px); }
 
-/* Focus on the whole card: 3px ring, accent colour, 3:1 against the page in both themes */
-.wk-card:has(.wk-link:focus-visible) { outline: 3px solid var(--c-accent); outline-offset: 4px; }
-.wk-card:has(.wk-link:focus-visible) .wk-arrow, .wk-row:has(.wk-link:focus-visible) .wk-arrow { transform: translateX(3px); }
-
-/* Hover (mouse only): a 2px lift, a soft shadow and an underlined call to action. Calm mode: colour only. */
 @media (hover: hover) and (pointer: fine) {
-  .wk-card:hover { box-shadow: var(--c-shadow); border-color: color-mix(in srgb, var(--c-ink) 28%, var(--c-line)); }
-  .wk-card:hover .wk-cta { text-decoration: underline; text-underline-offset: 4px; }
+  .wk-row2:hover .wk-cta, .wk-mini:hover .wk-cta { text-decoration: underline; text-underline-offset: 4px; }
+  .wk-row2, .wk-mini { cursor: pointer; }
 }
 @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
-  html:not([data-calm='on']) .wk-card:hover { transform: translateY(-2px); }
-  html:not([data-calm='on']) .wk-card:hover .wk-arrow { transform: translateX(3px); }
+  html:not([data-calm='on']) .wk-row2:hover .wk-arrow, html:not([data-calm='on']) .wk-mini:hover .wk-arrow { transform: translateX(4px); }
+  html:not([data-calm='on']) .wk-mini__vis { transition: transform 0.3s var(--ease-out), box-shadow 0.3s var(--ease-out); }
+  html:not([data-calm='on']) .wk-mini:hover .wk-mini__vis { transform: translateY(-4px); box-shadow: 0 30px 50px -26px rgba(0, 0, 0, 0.6); }
 }
 
-/* More projects */
-.wk-more { max-width: 1060px; margin: 0 auto; padding: clamp(48px, 6vw, 72px) 0 0; }
-.wk-more__head { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-bottom: 16px; border-bottom: 1px solid var(--c-line); }
-.wk-more__h { margin: 0; font: 600 1.375rem/1.2 var(--font-sans); letter-spacing: -0.01em; }
-.wk-more__count { color: var(--c-ink2); font-weight: 500; }
-.wk-toggle { display: inline-flex; align-items: center; gap: 8px; min-height: 48px; padding: 0 22px; border-radius: 999px; border: 1.5px solid var(--c-accent); background: transparent; color: var(--c-accent); font: inherit; font-weight: 600; font-size: 1rem; cursor: pointer; transition: background 0.2s ease, color 0.2s ease; }
-.wk-toggle:hover { background: var(--c-accent); color: var(--c-accent-ink); }
-.wk-toggle:focus-visible { outline: 3px solid var(--c-accent); outline-offset: 3px; }
-.wk-toggle__chev { transition: transform 0.25s var(--ease-out); }
-.wk-toggle[aria-expanded='true'] .wk-toggle__chev { transform: rotate(180deg); }
+/* ---------- the smaller projects ---------- */
+.wk-more { max-width: 1240px; margin: 0 auto; padding: clamp(24px, 4vw, 48px) 0 var(--sec-y); }
+.wk-more__h { margin: 0 0 clamp(24px, 3vw, 40px); font-family: var(--font-serif); font-weight: 400; font-size: clamp(1.9rem, 3.2vw, 2.75rem); line-height: 1.1; letter-spacing: -0.02em; }
+.wk-mini-grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: clamp(28px, 3.4vw, 44px) clamp(20px, 2.6vw, 32px); }
+.wk-mini { position: relative; isolation: isolate; grid-column: span 2; display: flex; flex-direction: column; gap: 16px; }
+.wk-mini:nth-child(n + 4) { grid-column: span 3; }
+.wk-mini__vis { position: relative; z-index: 2; overflow: hidden; border-radius: 16px; border: 1px solid color-mix(in srgb, var(--c-ink) 22%, transparent); background: var(--c-tile); pointer-events: none; }
+.wk-mini__text { display: flex; flex-direction: column; align-items: flex-start; gap: 6px; }
+.wk-mini__title { margin: 0; font-family: var(--font-serif); font-weight: 400; font-size: clamp(1.6rem, 2.3vw, 2.1rem); line-height: 1.08; letter-spacing: -0.02em; }
+.wk-mini__line { margin: 0; color: var(--c-ink2); font-size: 1rem; line-height: 1.5; }
 
-.wk-more__panel { overflow: hidden; }
-.wk-rows { list-style: none; margin: 0; padding: 0; }
-.wk-row {
-  position: relative; display: grid; align-items: center; gap: 8px 24px; cursor: pointer;
-  grid-template-columns: minmax(0, 1fr) auto 2rem; padding: 20px 12px; margin: 0 -12px;
-  border-bottom: 1px solid var(--c-line); border-radius: 14px; transition: background 0.2s ease;
+/* ---------- tablet and phone: one column, the line moves to the left edge, nothing depends on hover ---------- */
+@media (max-width: 900px) {
+  .wk-rows2 { --wk-gap: 72px; }
+  .wk-spine, .wk-spine__head { left: 10px; }
+  .wk-row2 { grid-template-columns: minmax(0, 1fr); padding-left: 34px; row-gap: 26px; }
+  .wk-node { left: 10px; }
+  .wk-text, .wk-row2--flip .wk-text { grid-column: 1; grid-row: 2; }
+  .wk-vis, .wk-row2--flip .wk-vis { grid-column: 1; grid-row: 1; }
+  .wk-back, .wk-row2--flip .wk-back { inset: 7% -3% -7% 5%; }
+  .wk-peek { left: 6%; }
+  .wk-peek .clay { width: 112px !important; }
+  .wk-line { max-width: 42ch; }
+  .wk-mini-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .wk-mini, .wk-mini:nth-child(n + 4) { grid-column: span 1; }
+  .wk-mini:last-child { grid-column: span 2; }
 }
-.wk-row__thumb { display: none; }
-.wk-row__title { margin: 0; font-weight: 500; font-size: clamp(1.15rem, 2vw, 1.4rem); line-height: 1.2; letter-spacing: -0.01em; }
-.wk-row__line { margin: 4px 0 0; color: var(--c-ink2); font-size: 0.9375rem; line-height: 1.45; }
-.wk-row__meta { color: var(--c-ink2); font-size: 0.9375rem; white-space: nowrap; font-variant-numeric: tabular-nums; }
-.wk-row__go { display: grid; place-items: center; color: var(--c-accent); }
-.wk-row:hover { background: var(--c-tile); }
-.wk-row:has(.wk-link:focus-visible) { outline: 3px solid var(--c-accent); outline-offset: 2px; background: var(--c-tile); }
-.wk-row:active { background: color-mix(in srgb, var(--c-ink) 8%, var(--c-tile)); }
-
-/* Tablet and phone: single column, nothing depends on hover */
-@media (max-width: 768px) {
-  .wk-grid { grid-template-columns: 1fr; gap: 20px; }
-  .wk-media { height: clamp(200px, 52vw, 310px); }
-  .wk-body { padding: 20px; }
-  .wk-foot { flex-wrap: wrap; }
-  .wk-cta { flex: 1 1 auto; min-height: 48px; }
-
-  .wk-row { grid-template-columns: 72px minmax(0, 1fr) 1.6rem; grid-template-areas: 'thumb main go' 'thumb meta go'; align-items: start; gap: 4px 14px; padding: 16px 12px; }
-  .wk-row__thumb { display: block; grid-area: thumb; width: 72px; height: 72px; object-fit: cover; object-position: left top; border-radius: 12px; border: 1px solid var(--c-line); }
-  .wk-row__main { grid-area: main; }
-  .wk-row__meta { grid-area: meta; white-space: normal; }
-  .wk-row__go { grid-area: go; align-self: center; }
+@media (max-width: 600px) {
+  .wk-mini-grid { grid-template-columns: minmax(0, 1fr); }
+  .wk-mini:last-child { grid-column: span 1; }
 }
 
-/* Calm mode and reduced motion: states change at once (a state change stays visible, it just does not travel) */
+/* Reduced motion: states change at once; the line is drawn in full and every node is lit (see WorkCard) */
 @media (prefers-reduced-motion: reduce) {
-  .wk-card, .wk-arrow, .wk-toggle__chev, .wk-row { transition: none; }
+  .wk-node, .wk-node::after, .wk-arrow { transition: none; }
 }
-html[data-calm='on'] .wk-card, html[data-calm='on'] .wk-arrow, html[data-calm='on'] .wk-toggle__chev, html[data-calm='on'] .wk-row { transition: none; }
+html[data-calm='on'] .wk-node, html[data-calm='on'] .wk-node::after, html[data-calm='on'] .wk-arrow { transition: none; }
