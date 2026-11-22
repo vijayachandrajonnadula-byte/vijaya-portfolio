@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import VJLogo from '../ui/VJLogo';
+import Signature from '../studio/Signature';
 import { useTheme, applyThemeWithWipe } from './theme';
 import PowerSwitch from '../electro/PowerSwitch';
 import { isCalm } from '../../lib/calm';
@@ -22,6 +23,23 @@ export default function Header() {
   const [active, setActive] = useState<string>('');
   const [hidden, setHidden] = useState(false);
   const headerRef = useRef<HTMLElement>(null);
+
+  // The name, written by hand under the logo: once as a greeting after the mark has drawn itself, and whenever the mark is hovered or focused.
+  const [sign, setSign] = useState<'off' | 'on' | 'out'>('off');
+  const signTimer = useRef<number>();
+  const showSign = (on: boolean) => {
+    window.clearTimeout(signTimer.current);
+    if (on) { setSign('on'); return; }
+    setSign(s => (s === 'off' ? 'off' : 'out'));
+    signTimer.current = window.setTimeout(() => setSign('off'), 320);
+  };
+  useEffect(() => {
+    if (pathname !== '/' || isCalm() || window.matchMedia('(max-width: 700px)').matches) return;
+    const a = window.setTimeout(() => showSign(true), 1500);
+    const b = window.setTimeout(() => showSign(false), 4700);
+    return () => { window.clearTimeout(a); window.clearTimeout(b); window.clearTimeout(signTimer.current); };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   // scroll-spy: which home section is under the middle of the screen
   useEffect(() => {
@@ -88,8 +106,20 @@ export default function Header() {
   return (
     <header className="nav" data-nav data-hidden={hidden ? 'true' : undefined} ref={headerRef}>
       <nav className="nav__pill" aria-label="Main">
-        <Link to="/" className="nav__mark" aria-label="Vijay, home" onClick={() => window.scrollTo({ top: 0 })}>
+        <Link
+          to="/"
+          className="nav__mark"
+          aria-label="Vijay, home"
+          onClick={() => window.scrollTo({ top: 0 })}
+          onPointerEnter={() => showSign(true)}
+          onPointerLeave={() => showSign(false)}
+          onFocus={() => showSign(true)}
+          onBlur={() => showSign(false)}
+        >
           <VJLogo size={26} variant={dark ? 'light' : 'dark'} />
+          {sign !== 'off' && (
+            <span className={`nav__sign${sign === 'out' ? ' is-out' : ''}`} aria-hidden="true"><Signature inkOnly /></span>
+          )}
         </Link>
         <span className="nav__sep" aria-hidden="true" />
         {links.map(l => {

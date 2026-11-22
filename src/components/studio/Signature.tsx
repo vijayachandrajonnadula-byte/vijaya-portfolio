@@ -34,7 +34,7 @@ const WRITE_DONE_MS = 4400;
  * Under reduced motion it is drawn finished. A mouse can hover it to watch it again (decorative; not focusable).
  * The glyphs are outlines of Mrs Saint Delafield (OFL) as a path: no font download.
  */
-export default function Signature({ className }: { className?: string }) {
+export default function Signature({ className, inkOnly }: { className?: string; inkOnly?: boolean }) {
   const calm = useCalm();
   const raw = useId();
   const id = useMemo(() => `sig${raw.replace(/[^a-zA-Z0-9]/g, '')}`, [raw]);
@@ -49,7 +49,7 @@ export default function Signature({ className }: { className?: string }) {
   }, [run, calm]);
 
   const replay = () => {
-    if (calm || !done || !window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+    if (inkOnly || calm || !done || !window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
     setRun(r => r + 1);
   };
 
@@ -57,7 +57,7 @@ export default function Signature({ className }: { className?: string }) {
     // The whole svg is re-keyed so the native SVG animation timeline starts again too.
     <svg
       key={run}
-      className={`sig${calm ? ' sig--static' : ''}${className ? ` ${className}` : ''}`}
+      className={`sig${calm ? ' sig--static' : ''}${inkOnly ? ' sig--ink' : ''}${className ? ` ${className}` : ''}`}
       viewBox={`0 0 ${w} ${h + 8}`}
       aria-hidden="true"
       focusable="false"
@@ -71,11 +71,13 @@ export default function Signature({ className }: { className?: string }) {
         </mask>
       </defs>
       <path className="sig__ink" d={d} fill="currentColor" mask={`url(#${id})`} />
-      <path className="sig__line" d={calm ? FLAT : NOISY} pathLength={1}>
-        {!calm && (
-          <animate attributeName="d" dur="0.9s" begin="1s" fill="freeze" calcMode="spline" keyTimes="0;1" keySplines="0.22 1 0.36 1" values={`${NOISY};${FLAT}`} />
-        )}
-      </path>
+      {!inkOnly && (
+        <path className="sig__line" d={calm ? FLAT : NOISY} pathLength={1}>
+          {!calm && (
+            <animate attributeName="d" dur="0.9s" begin="1s" fill="freeze" calcMode="spline" keyTimes="0;1" keySplines="0.22 1 0.36 1" values={`${NOISY};${FLAT}`} />
+          )}
+        </path>
+      )}
     </svg>
   );
 }

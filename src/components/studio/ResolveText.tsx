@@ -28,10 +28,10 @@ export default function ResolveText({ text, className }: { text: string; classNa
     el.querySelectorAll<HTMLElement>('.rt__c').forEach((c, i) => {
       const r = c.getBoundingClientRect();
       const f = Math.min(1, Math.max(0, (r.left - hr.left) / hr.width));
-      c.style.setProperty('--rd', `${(0.3 + 1.4 * f).toFixed(2)}s`);
-      c.style.setProperty('--dx', `${(rnd(i, 1) * 22).toFixed(1)}px`);
-      c.style.setProperty('--dy', `${(rnd(i, 2) * 18).toFixed(1)}px`);
-      c.style.setProperty('--rr', `${(rnd(i, 3) * 16).toFixed(1)}deg`);
+      c.style.setProperty('--rd', `${(0.25 + 0.95 * f).toFixed(2)}s`);
+      c.style.setProperty('--dx', `${(rnd(i, 1) * 14).toFixed(1)}px`);
+      c.style.setProperty('--dy', `${(rnd(i, 2) * 12).toFixed(1)}px`);
+      c.style.setProperty('--rr', `${(rnd(i, 3) * 9).toFixed(1)}deg`);
     });
     setGo('1');
   }, [calm, text]);
