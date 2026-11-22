@@ -61,7 +61,7 @@ export const knowledge: Entry[] = [
   /* ------------------------------------------------------------------ THE JOURNEY */
   {
     id: 'who', group: 'The journey', q: 'Who is Vijay?', chip: 'Who is Vijay?',
-    keys: ['who is vijay', 'who are you', 'introduce yourself', 'about you', 'tell me about yourself', 'introduction', 'who are you', 'about you', 'bio', 'background', 'summary', 'hello', 'hi', 'hey'],
+    keys: ['who is vijay', 'who are you', 'introduce yourself', 'about you', 'tell me about yourself', 'introduction', 'who are you', 'about you', 'bio', 'background', 'summary', 'hello', 'hi', 'hey', 'enterprise', 'enterprise saas', 'b2b'],
     answer: [
       `I’m Vijay (Vijaya Chandra Jonnadula), a UX and product designer in ${profile.location}. I have more than five years of experience designing enterprise SaaS products, admin portals, scheduling flows, chat experiences and data-heavy interfaces.`,
       'Right now I am a Senior UX Designer at ValGenesis, mixing UX strategy, UI design, design systems, React-based UI work and AI-assisted delivery. I turn messy user journeys into clear, testable experiences.',
@@ -193,7 +193,7 @@ export const knowledge: Entry[] = [
   /* ------------------------------------------------------------------ THE WORK */
   {
     id: 'w-first', group: 'The work', q: 'Which projects should I look at first?', chip: 'Which projects first?',
-    keys: ['which projects', 'projects first', 'look at first', 'start with', 'best project', 'best work', 'best projects', 'show me your work', 'your work', 'projects', 'portfolio', 'case studies', 'case study', 'examples', 'representative', 'highlights', 'recommend', 'recommended', 'featured'],
+    keys: ['which projects', 'projects first', 'look at first', 'start with', 'best project', 'best work', 'best projects', 'show me your work', 'projects', 'portfolio', 'case studies', 'case study', 'examples', 'representative', 'highlights', 'recommend', 'recommended', 'featured', 'best work first'],
     answer: [
       `${featuredCount} I would show first: ${list(featured.map(p => p.title))}.`,
       `There is more under “More projects”: ${list(['ZoomInfo Schedule', 'Riverside General Hospital Booking', 'CareSync Clinical Command Centre', 'Renewly SaaS Renewal Management', 'Illustration Systems & Vector Portraits'])}.`,
@@ -243,7 +243,7 @@ export const knowledge: Entry[] = [
   },
   {
     id: 'w-schedule', group: 'The work', q: 'What is ZoomInfo Schedule?', chip: 'What is ZoomInfo Schedule?',
-    keys: ['schedule', 'scheduling', 'calendar', 'calendly', 'chili piper', 'meeting types', 'availability', 'reminder', 'zoominfo marketing', 'discard'],
+    keys: ['schedule', 'scheduling', 'calendar', 'calendly', 'chili piper', 'meeting types', 'reminder', 'zoominfo marketing', 'discard'],
     answer: [
       proj('zoominfo-schedule').description,
       'My role was UX/UI design contributor at ZoomInfo Marketing. The decision I would point at: availability is pre-set to Mon to Fri, 9 to 5, so most reps go straight to creating their first meeting type.',
@@ -253,7 +253,7 @@ export const knowledge: Entry[] = [
   },
   {
     id: 'w-riverside', group: 'The work', q: 'What is Riverside General?', chip: 'What is Riverside General?',
-    keys: ['riverside', 'riverside general', 'hospital', 'hospital booking', 'booking', 'healthcare', 'appointment', 'appointments', 'doctor', 'doctors', 'patients', 'slot'],
+    keys: ['riverside', 'riverside general', 'hospital', 'hospital booking', 'booking', 'healthcare', 'appointment', 'appointments', 'doctor', 'doctors', 'patients', 'slot', 'healthcare project'],
     answer: [
       proj('riverside-general').description,
       'It was a 14-day sprint, and the prototype is live and clickable, so you can test the flow yourself rather than take my word for it.',
@@ -273,7 +273,7 @@ export const knowledge: Entry[] = [
   },
   {
     id: 'w-renewly', group: 'The work', q: 'What is Renewly?', chip: 'What is Renewly?',
-    keys: ['renewly', 'saas', 'renewal', 'renewals', 'subscription', 'subscriptions', 'finance', 'finance team', 'savings', 'savings tracker', 'renewal risk', 'approval flow', 'software renewals'],
+    keys: ['renewly', 'saas', 'renewal', 'renewals', 'subscription', 'subscriptions', 'finance', 'finance team', 'savings', 'savings tracker', 'renewal risk', 'approval flow', 'software renewals', 'dashboard', 'dashboards', 'saas dashboard'],
     answer: [
       proj('renewly').description,
       'It has a live prototype and a public GitHub repository, so you can open it on your phone and check the responsive claims.',
@@ -335,7 +335,7 @@ export const knowledge: Entry[] = [
   },
   {
     id: 'h-a11y', group: 'How I work', q: 'How do you handle accessibility?', chip: 'How do you handle accessibility?',
-    keys: ['accessibility', 'accessible', 'a11y', 'wcag', 'contrast', 'keyboard', 'screen reader', 'inclusive', 'axe', 'axe core', 'focus', 'reduced motion'],
+    keys: ['accessibility', 'accessible', 'a11y', 'wcag', 'contrast', 'keyboard', 'screen reader', 'inclusive', 'axe', 'axe core', 'focus', 'reduced motion', 'accessibility audit'],
     answer: [
       'As part of the system, not a final polish step. Accessibility sits on my resume under design systems, alongside tokens and UI states, so it is decided once in the component and inherited everywhere.',
       'The PULSE case study includes an axe-core scan and lists its limits. An automated scan finds some problems, not all, and I do not claim more than I have run.',
@@ -385,7 +385,7 @@ export const knowledge: Entry[] = [
   },
   {
     id: 'h-qa', group: 'How I work', q: 'How do you review and QA your work?', chip: 'How do you review and QA?',
-    keys: ['qa', 'quality', 'quality assurance', 'review', 'reviews', 'responsive', 'responsive layouts', 'test responsive', 'responsive qa', 'responsive testing', 'mobile', 'mobile testing', '390', '1440', 'overflow', 'critique', 'checks', 'validation checks', 'iteration', 'iteration log', 'quality gates'],
+    keys: ['qa', 'quality', 'quality assurance', 'review', 'reviews', 'responsive', 'responsive layouts', 'test responsive', 'responsive qa', 'responsive testing', 'mobile', 'mobile testing', 'responsive design', 'design for mobile', '390', '1440', 'overflow', 'critique', 'checks', 'validation checks', 'iteration', 'iteration log', 'quality gates'],
     answer: [
       'Five gates before anything is shared: flow testing, UX critique, responsive QA from 1440 down to 390px, an iteration log of issues from each review round, and a review of any AI-generated code or layout.',
       'On the build side that means type checks and a clean build before every merge, and a preview link the team can open instead of a deck they have to imagine.',
@@ -393,11 +393,21 @@ export const knowledge: Entry[] = [
     link: { label: 'See the workflow', href: proj('ai-workflow').href },
     related: ['w-aiflow', 'h-ai-human', 'h-a11y'],
   },
+  {
+    id: 'h-limits', group: 'How I work', q: 'What are your weaknesses?', chip: 'Weaknesses and limits?',
+    keys: ['weakness', 'weaknesses', 'biggest weakness', 'what are you bad at', 'bad at', 'limits', 'limitations', 'what you do not do', 'areas to improve', 'improve', 'growth areas', 'flaws'],
+    answer: [
+      'I have not written a list of personal weaknesses here, and I would rather not invent a tidy one. What I can show is the same habit in my work: every case study has a Limitations section that says what was not tested or not validated.',
+      'For example, Electronic execution is a working prototype, not a validated system, and has not been tested with the people who run protocols. For the personal version of this question, ask me directly.',
+    ],
+    link: { label: 'Read the limits in Electronic execution', href: '/projects/electronic-execution' },
+    related: ['h-research', 'h-qa', 'hire-start'],
+  },
 
   /* ------------------------------------------------------------------ CAREER */
   {
     id: 'c-all', group: 'Career', q: 'Where have you worked?', chip: 'Where have you worked?',
-    keys: ['experience', 'worked', 'work history', 'work experience', 'career history', 'jobs', 'job history', 'employers', 'employer', 'companies', 'company', 'years of experience', 'how many years', 'how long', 'roles'],
+    keys: ['experience', 'worked', 'work history', 'work experience', 'career history', 'jobs', 'job history', 'employers', 'employer', 'companies', 'company', 'roles', 'enterprise experience'],
     answer: [
       `More than five years in product design. ${experience.map(e => `${e.role} at ${e.company} (${e.period})`).join('; ')}.`,
       'The timeline on this page puts those five roles beside the degree and the two courses, so you can see how they overlap.',
@@ -407,7 +417,7 @@ export const knowledge: Entry[] = [
   },
   {
     id: 'c-valgenesis', group: 'Career', q: 'What do you do at ValGenesis?', chip: 'What do you do at ValGenesis?',
-    keys: ['valgenesis', 'val genesis', 'current job', 'current role', 'currently', 'right now', 'present', 'senior ux designer', 'senior', 'what do you do', 'day to day', 'daily', 'enterprise product', 'current employer'],
+    keys: ['valgenesis', 'val genesis', 'current job', 'current role', 'currently', 'right now', 'present', 'senior ux designer', 'role at valgenesis', 'senior', 'what do you do', 'day to day', 'daily', 'enterprise product', 'current employer'],
     answer: [
       'I am a Senior UX Designer at ValGenesis in Chennai, since Jul 2026. The work is enterprise product workflows: building and refining React UI screens and components with design-system patterns.',
       'I use Claude and Claude Code for exploration, critique, copy, component planning, documentation and QA review, and I support design-system consistency and handoff.',
@@ -417,7 +427,7 @@ export const knowledge: Entry[] = [
   },
   {
     id: 'c-zoominfo', group: 'Career', q: 'What did you do at ZoomInfo?', chip: 'What did you do at ZoomInfo?',
-    keys: ['zoominfo', 'zoom info', 'zi chat', 'formcomplete', 'form complete', 'ai enablement', 'ai enablement team', 'ux/ui designer i', 'product areas', 'train teammates', 'guide teammates', 'enablement'],
+    keys: ['zoominfo', 'zoom info', 'zi chat', 'formcomplete', 'form complete', 'ai enablement', 'ai enablement team', 'ux/ui designer i', 'role at zoominfo', 'product areas', 'train teammates', 'guide teammates', 'enablement'],
     answer: [
       'UX/UI Designer I, Chennai, Aug 2022 to Jun 2026. I worked across four major product areas: Admin Portal, Schedule, ZI Chat and FormComplete, from flows, information architecture and wireframes to hi-fi screens and prototypes, and I contributed to the design system.',
       'On the AI Enablement team I helped train and guide teammates on end-to-end AI-assisted workflows, and documented the process with prompts, specs, acceptance criteria, PR workflows, CI checks and staging-to-production handoff.',
@@ -455,6 +465,26 @@ export const knowledge: Entry[] = [
     link: { label: 'See the timeline', href: '/ask#story' },
     related: ['j-firstbrief', 'c-all', 'j-overlap'],
   },
+  {
+    id: 'c-years', group: 'Career', q: 'How many years of experience do you have?', chip: 'Years of experience?',
+    keys: ['years of experience', 'how many years', 'how long have you been designing', 'how experienced', 'seniority', 'years in design', 'years in the field', 'five years', '5 years', 'experience level'],
+    answer: [
+      `${profile.yearsExperience} years in product design, mostly on enterprise SaaS, admin tools and data-heavy interfaces. My current title is Senior UX Designer.`,
+      'The five roles are listed with their dates on the timeline, so you can count them yourself.',
+    ],
+    link: { label: 'See the timeline', href: '/#about' },
+    related: ['c-all', 'c-valgenesis', 'hire-resume'],
+  },
+  {
+    id: 'c-team', group: 'Career', q: 'Have you led or mentored other designers?', chip: 'Leading and mentoring?',
+    keys: ['mentor', 'mentoring', 'mentored', 'mentorship', 'lead a team', 'led a team', 'team lead', 'team size', 'how big was the team', 'manage', 'managed', 'management', 'leadership', 'people management', 'direct reports', 'train teammates', 'coach', 'coaching'],
+    answer: [
+      'What my resume says: on the AI Enablement team at ZoomInfo I helped train and guide teammates on AI-assisted workflows, and I documented the process. I was Design Lead at Helping Hands and I ran Amigos Arts, leading planning and client communication.',
+      'Team sizes and how many people I have led are not written down here, so I will not give a number. Ask me directly.',
+    ],
+    link: { label: 'What I did at ZoomInfo', href: '/ask?id=c-zoominfo' },
+    related: ['c-zoominfo', 'c-amigos', 'h-engineers'],
+  },
 
   /* ------------------------------------------------------------------ SKILLS AND TOOLS */
   {
@@ -469,7 +499,7 @@ export const knowledge: Entry[] = [
   },
   {
     id: 's-code', group: 'Skills and tools', q: 'Do you code?', chip: 'Do you code?',
-    keys: ['code', 'coding', 'programming', 'programmer', 'developer skills', 'javascript', 'html', 'css', 'python', 'java', 'git', 'github', 'ci', 'staging', 'production', 'technical skills', 'technical awareness', 'languages', 'tech stack'],
+    keys: ['code', 'coding', 'programming', 'programmer', 'developer skills', 'javascript', 'html', 'css', 'python', 'java', 'git', 'github', 'ci', 'staging', 'production', 'technical skills', 'technical awareness', 'languages', 'tech stack', 'repo', 'repository', 'source code'],
     answer: [
       'Enough to build and to review. My resume lists React, HTML, CSS, JavaScript, Python, Java and C, plus Git, GitHub, CI checks and staging-to-production workflow, and this portfolio is React and TypeScript.',
       'I do not replace engineers. The point is a shared language: I can read a pull request, build a working prototype and say what a layout will do at 390px.',
@@ -491,7 +521,7 @@ export const knowledge: Entry[] = [
   /* ------------------------------------------------------------------ HIRING */
   {
     id: 'hire-roles', group: 'Hiring', q: 'What roles are you looking for?', chip: 'What roles fit?',
-    keys: ['roles', 'role', 'looking for', 'hiring', 'hire', 'hire you', 'open to', 'opportunities', 'opportunity', 'job opening', 'what roles', 'which roles', 'fit', 'position', 'positions', 'job search', 'recruiter', 'recruiting'],
+    keys: ['roles', 'role', 'looking for', 'hiring', 'hire', 'hire you', 'open to work', 'open to roles', 'opportunities', 'opportunity', 'job opening', 'what roles', 'which roles', 'fit', 'position', 'positions', 'job search', 'recruiter', 'recruiting'],
     answer: [
       `${profile.status}. The fit is UX/UI and product design, design systems, and AI-enabled product delivery, mainly on enterprise SaaS, admin tools and data-heavy interfaces.`,
       'My current title is Senior UX Designer; what level or scope you have in mind is a conversation, so email me.',
@@ -511,13 +541,13 @@ export const knowledge: Entry[] = [
   },
   {
     id: 'hire-where', group: 'Hiring', q: 'Where are you based?', chip: 'Where are you based?',
-    keys: ['where', 'location', 'city', 'based', 'hyderabad', 'india', 'live', 'lives', 'country', 'remote', 'relocate', 'relocation', 'timezone', 'time zone', 'available', 'availability', 'where are you'],
+    keys: ['where', 'location', 'city', 'based', 'hyderabad', 'india', 'live', 'lives', 'country', 'timezone', 'time zone', 'where are you'],
     answer: [
       `I am based in ${profile.location}. ${profile.status}.`,
-      'Whether a role is remote, hybrid or on site, and notice periods, are not written down here, so ask me directly.',
+      'Whether a role is remote, hybrid or on site is not written down here, so ask me directly.',
     ],
     link: contactLink,
-    related: ['hire-roles', 'hire-unwritten', 'hire-contact'],
+    related: ['hire-workmode', 'hire-roles', 'hire-contact'],
   },
   {
     id: 'hire-contact', group: 'Hiring', q: 'How can I contact you?', chip: 'How can I contact you?',
@@ -550,14 +580,44 @@ export const knowledge: Entry[] = [
     related: ['hire-contact', 'hire-roles', 'hire-resume'],
   },
   {
-    id: 'hire-unwritten', group: 'Hiring', q: 'What about salary, notice period or visa?', chip: 'Salary, notice period, visa?',
-    keys: ['salary', 'pay', 'compensation', 'ctc', 'rate', 'rates', 'notice period', 'notice', 'visa', 'sponsorship', 'work permit', 'expected salary', 'expectations', 'fees', 'cost', 'price', 'budget for you', 'start date', 'join date', 'when can you join'],
+    id: 'hire-pay', group: 'Hiring', q: 'What are your salary expectations?', chip: 'Salary expectations?',
+    keys: ['salary', 'salary expectation', 'expected salary', 'current salary', 'expected ctc', 'current ctc', 'how much do you earn', 'what do you charge', 'rate', 'rates', 'fees', 'budget for you', 'package', 'pay range', 'pay expectations'],
     answer: [
-      SILENT,
-      'Those details belong in a direct conversation. The email in the contact section is the right door.',
+      'That is not written down on this site, and I will not put a number here. Pay depends on the role, the scope and the team, so it is best discussed directly.',
+      `Email me at ${email} with the role and I will reply with what I can.`,
     ],
-    link: contactLink,
-    related: ['hire-start', 'hire-where', 'hire-roles'],
+    link: { label: `Email ${email}`, href: `mailto:${email}?subject=${encodeURIComponent('Salary question from your portfolio')}` },
+    related: ['hire-notice', 'hire-workmode', 'hire-roles'],
+  },
+  {
+    id: 'hire-notice', group: 'Hiring', q: 'What is your notice period and availability?', chip: 'Notice period and availability?',
+    keys: ['notice', 'notice period', 'availability', 'available', 'joining', 'joining date', 'when can you join', 'when can you start', 'when are you available', 'start date', 'join date', 'immediate joiner', 'how soon can you join', 'freelance work', 'do you freelance', 'available for freelance', 'contract work', 'part time'],
+    answer: [
+      `My notice period and exact availability are not written down here, so I will not guess a date. This site says only this: ${profile.status.toLowerCase()}.`,
+      'Whether I can start soon, or take on freelance or contract work, is best discussed directly. Email me and we can sort out the timing.',
+    ],
+    link: { label: `Email ${email}`, href: `mailto:${email}?subject=${encodeURIComponent('Availability question from your portfolio')}` },
+    related: ['hire-pay', 'hire-workmode', 'hire-start'],
+  },
+  {
+    id: 'hire-workmode', group: 'Hiring', q: 'Are you open to remote, hybrid or relocation?', chip: 'Remote, hybrid or relocation?',
+    keys: ['remote', 'remote work', 'open to remote', 'work from home', 'work remotely', 'on site', 'in office', 'hybrid', 'onsite', 'relocate', 'relocation', 'willing to relocate', 'move to', 'work mode', 'working model', 'office'],
+    answer: [
+      `I am based in ${profile.location}. Whether I would work remotely, in a hybrid setup, on site or after relocating is not written down here, so I will not guess.`,
+      'It depends on the role, so it is best discussed directly. Email me with where the team works and what you have in mind.',
+    ],
+    link: { label: `Email ${email}`, href: `mailto:${email}?subject=${encodeURIComponent('Work-mode question from your portfolio')}` },
+    related: ['hire-where', 'hire-notice', 'hire-visa'],
+  },
+  {
+    id: 'hire-visa', group: 'Hiring', q: 'Do you need visa sponsorship or a work permit?', chip: 'Visa or work authorization?',
+    keys: ['visa', 'work permit', 'work authorization', 'work authorisation', 'sponsorship', 'sponsor', 'right to work', 'immigration', 'h1b', 'work in the us', 'work in the uk', 'eligible to work'],
+    answer: [
+      `I am based in ${profile.location}. My work authorization for other countries is not written down here, so I will not guess.`,
+      'If a role needs a visa or sponsorship, that is a conversation to have directly. Email me the country and the role.',
+    ],
+    link: { label: `Email ${email}`, href: `mailto:${email}?subject=${encodeURIComponent('Work authorization question from your portfolio')}` },
+    related: ['hire-workmode', 'hire-where', 'hire-notice'],
   },
 
   /* ------------------------------------------------------------------ JUST FOR FUN */
@@ -610,6 +670,16 @@ export const knowledge: Entry[] = [
     ],
     link: { label: 'Back to the home page', href: '/' },
     related: ['f-power', 's-creative', 'f-trace'],
+  },
+  {
+    id: 'f-site', group: 'Just for fun', q: 'How is this website built?', chip: 'How is this site built?',
+    keys: ['website', 'how is this site built', 'how was this website built', 'this site', 'this website', 'built', 'site built', 'built with', 'made with', 'tech used', 'what is this site built with', 'vercel', 'vite'],
+    answer: [
+      'With React and TypeScript, built with Vite and hosted on Vercel. The styling is plain CSS and the pages are routed with React Router.',
+      'There is no backend and no form on it, so nothing you type is collected. The Ask box searches notes I wrote, in your browser.',
+    ],
+    link: { label: 'See how I build', href: proj('ai-workflow').href },
+    related: ['h-react', 'w-aiflow', 's-code'],
   },
 
   /* ------------------------------------------------------------------ STORIES (not facts: every one is labelled) */
@@ -709,7 +779,7 @@ export const entryById = (id: string | null | undefined): Entry | undefined => (
 
 /* ------------------------------------------------------------------------------------------ search */
 
-const STOP = new Set(
+export const STOP = new Set(
   'a an the and or of to in on at is are was were be been am it its i me my mine we our us you your yours he she his her they them their this that these those do does did done have has had will would can could should may might shall what whats which who whom whose when where why how tell show give me please just really also very about any some more than then there here with for from into out so if as by not no yes want need like know get got let lets ask asking'.split(' '),
 );
 
@@ -717,55 +787,135 @@ const STOP = new Set(
 const GENERIC = new Set(['work', 'worked', 'design', 'designer', 'ux', 'ui', 'project', 'projects', 'vijay', 'vijaya', 'role', 'use', 'used', 'using', 'make', 'made', 'good', 'new', 'thing', 'things', 'one', 'time', 'people', 'product', 'products']);
 
 const STORY_INTENT = new Set(['story', 'tale', 'parable', 'fable', 'fiction', 'funny', 'joke', 'anecdote']);
-const norm = (s: string) => s.toLowerCase().replace(/&/g, ' and ').replace(/[^a-z0-9+#]+/g, ' ').trim();
-const stem = (w: string) => (w.length > 3 && w.endsWith('s') && !w.endsWith('ss') && !w.endsWith('us') ? w.slice(0, -1) : w);
-const toks = (s: string) => norm(s).split(' ').filter(Boolean).map(stem);
-const content = (s: string) => toks(s).filter(w => !STOP.has(w) && (w.length > 1 || w === 'c'));
 
-interface Prepared { entry: Entry; keyWords: Set<string>; phrases: string[]; qWords: Set<string>; body: string; qNorm: string }
+/**
+ * Words that mean the same thing for this site, folded to one word on both sides (keys and typed text), so
+ * "ctc", "pay" and "compensation" reach the same entry. Only synonyms the notes really cover are listed.
+ */
+const SYNONYMS: Record<string, string> = {
+  pay: 'salary', salaries: 'salary', ctc: 'salary', compensation: 'salary', remuneration: 'salary', earn: 'salary', earning: 'salary',
+  remotely: 'remote', hybrid: 'remote', onsite: 'remote', relocate: 'remote', relocating: 'remote', relocation: 'remote', wfh: 'remote',
+  availability: 'notice', available: 'notice', joining: 'notice', joiner: 'notice',
+  sponsorship: 'visa', sponsor: 'visa', permit: 'visa', authorization: 'visa', authorisation: 'visa', immigration: 'visa',
+  cv: 'resume', curriculum: 'resume', vitae: 'resume',
+  mentoring: 'mentor', mentored: 'mentor', mentorship: 'mentor',
+  weaknesses: 'weakness',
+  repo: 'github', repository: 'github',
+  a11y: 'accessibility', accessible: 'accessibility',
+  ux: 'ux', ui: 'ui',
+};
+
+const norm = (s: string) => s.toLowerCase().replace(/&/g, ' and ').replace(/[^a-z0-9+#]+/g, ' ').trim();
+/** Plural folding: ies to y, sses to ss, ches/shes/xes/zes drop es, otherwise drop a trailing s (not ss or us). */
+export const stem = (w: string): string => {
+  if (w.length <= 3) return w;
+  if (w.endsWith('ies') && w.length > 4) return w.slice(0, -3) + 'y';
+  if (/(sses|ches|shes|xes|zes)$/.test(w)) return w.slice(0, -2);
+  if (w.endsWith('s') && !w.endsWith('ss') && !w.endsWith('us') && !w.endsWith('is')) return w.slice(0, -1);
+  return w;
+};
+const canon = (w: string) => SYNONYMS[w] ?? w;
+const toks = (s: string) => norm(s).split(' ').filter(Boolean).map(w => canon(stem(w)));
+const isContent = (w: string) => !STOP.has(w) && (w.length > 1 || w === 'c');
+const content = (s: string) => toks(s).filter(isContent);
+
+/** Damerau-Levenshtein distance (a swap of two letters costs 1), giving up early above `max`. */
+export function editDistance(a: string, b: string, max = 2): number {
+  if (Math.abs(a.length - b.length) > max) return max + 1;
+  const d: number[][] = [];
+  for (let i = 0; i <= a.length; i++) { d[i] = [i]; }
+  for (let j = 0; j <= b.length; j++) d[0]![j] = j;
+  for (let i = 1; i <= a.length; i++) {
+    for (let j = 1; j <= b.length; j++) {
+      const cost = a[i - 1] === b[j - 1] ? 0 : 1;
+      let v = Math.min(d[i - 1]![j]! + 1, d[i]![j - 1]! + 1, d[i - 1]![j - 1]! + cost);
+      if (i > 1 && j > 1 && a[i - 1] === b[j - 2] && a[i - 2] === b[j - 1]) v = Math.min(v, d[i - 2]![j - 2]! + 1);
+      d[i]![j] = v;
+    }
+  }
+  return d[a.length]![b.length]!;
+}
+
+/** Every word the notes know, for typo correction. Other data sets (the site index) add theirs with `addVocab`. */
+const VOCAB = new Set<string>();
+export const addVocab = (words: Iterable<string>) => { for (const w of words) if (w.length >= 5 && !STOP.has(w)) VOCAB.add(w); };
+
+/**
+ * Typo tolerance. A word of 5 to 8 letters may be one edit away from a known word, a longer one two edits; shorter
+ * words are never corrected. The first letter must match, and a word that is already known is left alone.
+ */
+export function fixTypo(w: string): string {
+  if (w.length < 5 || VOCAB.has(w) || STOP.has(w) || /\d/.test(w)) return w;
+  // a half-typed word ("storyb") is not a typo: leave it for the prefix match
+  for (const v of VOCAB) if (v.length > w.length && v.startsWith(w)) return w;
+  const max = w.length >= 9 ? 2 : 1;
+  let best = w, bestD = max + 1;
+  for (const v of VOCAB) {
+    if (v[0] !== w[0]) continue;
+    const d = editDistance(w, v, max);
+    if (d < bestD || (d === bestD && d <= max && v.length > best.length)) { best = v; bestD = d; }
+  }
+  return bestD <= max ? best : w;
+}
+
+/** The words of a typed text, folded, typo-fixed and cleaned of filler. */
+export const queryWords = (s: string): string[] => toks(s).map(fixTypo).map(canon);
+
+interface Prepared { entry: Entry; keyWords: Set<string>; singleKeys: Set<string>; phrases: string[]; qWords: Set<string>; body: string; qNorm: string }
 const prepared: Prepared[] = knowledge.map(entry => {
   const keyWords = new Set<string>();
+  const singleKeys = new Set<string>();
   const phrases: string[] = [];
   for (const k of entry.keys) {
     const t = toks(k);
-    if (t.length === 1) keyWords.add(t[0]!);
+    if (t.length === 1) { keyWords.add(t[0]!); singleKeys.add(t[0]!); }
     else if (t.length > 1) { phrases.push(t.join(' ')); t.filter(w => !STOP.has(w) && !GENERIC.has(w)).forEach(w => keyWords.add(w)); }
   }
-  return { entry, keyWords, phrases, qWords: new Set(content(entry.q)), body: ' ' + toks(entry.answer.join(' ')).join(' ') + ' ', qNorm: toks(entry.q).join(' ') };
+  return { entry, keyWords, singleKeys, phrases, qWords: new Set(content(entry.q)), body: ' ' + toks(entry.answer.join(' ')).join(' ') + ' ', qNorm: toks(entry.q).join(' ') };
 });
+for (const p of prepared) addVocab([...p.keyWords, ...p.qWords]);
 
 export interface Hit { entry: Entry; score: number }
 
 /** The lowest score that counts as an answer. Below it the page shows "no match" and offers real suggestions. */
 export const MIN_SCORE = 2.9;
+/** The lowest score that counts as "plausibly related": used only to suggest, never to answer. */
+export const SUGGEST_MIN = 1.5;
 
 /**
  * Rank entries for a typed question. Exact question text wins outright. Otherwise: phrase keys score most,
  * then single key words, then words from the entry's own question; generic words score little, prefixes a
  * little more than the answer text, and unmatched words in the question lower the score, so a question the
  * notes do not cover falls below MIN_SCORE rather than landing on a loosely related entry.
+ * Typed words are folded (plurals, synonyms) and typo-fixed first. A word that is exactly a one-word key of an
+ * entry scores a little more than the same word found inside a phrase, so "zoominfo" opens the ZoomInfo entry.
  */
 export function search(question: string): Hit[] {
-  const nq = ' ' + toks(question).join(' ') + ' ';
-  const words = content(question);
+  const words = content(question).map(fixTypo).map(canon).filter(isContent);
+  const nq = ' ' + toks(question).map(fixTypo).map(canon).join(' ') + ' ';
   const hits: Hit[] = [];
   for (const p of prepared) {
-    if (nq.trim() === p.qNorm) { hits.push({ entry: p.entry, score: 100 }); continue; }
+    if (toks(question).join(' ') === p.qNorm) { hits.push({ entry: p.entry, score: 100 }); continue; }
     let score = 0, matched = 0;
     for (const w of words) {
       const generic = GENERIC.has(w);
       let s = 0;
-      if (p.keyWords.has(w)) s = generic ? 0.8 : 3;
+      if (p.singleKeys.has(w)) s = generic && words.length > 1 ? 0.8 : 3.4;
+      else if (p.keyWords.has(w)) s = generic ? 0.8 : 3;
       else if (p.qWords.has(w)) s = generic ? 0.6 : 2;
       else if (w.length >= 5 && [...p.keyWords].some(k => k.length >= 5 && (k.startsWith(w) || w.startsWith(k)))) s = generic ? 0.4 : 1.4;
       else if (w.length >= 5 && p.body.includes(' ' + w)) s = 0.5;
       if (s > 0) matched += s >= 1 ? 1 : 0.4;
       score += s;
     }
-    let phrase = 0;
-    for (const ph of p.phrases) if (nq.includes(' ' + ph + ' ')) phrase += 3.5 + ph.split(' ').length;
-    // Invented stories only answer when someone asks for a story or names one, never a factual question.
-    if (isFiction(p.entry) && !phrase && !words.some(w => STORY_INTENT.has(w))) continue;
+    let phrase = 0, covered = 0;
+    for (const ph of p.phrases) if (nq.includes(' ' + ph + ' ')) { phrase += 3.5 + ph.split(' ').length; covered += ph.split(' ').length; }
+    // Invented stories only answer when someone asks for a story, or names one and says nothing else.
+    if (isFiction(p.entry)) {
+      const intent = words.some(w => STORY_INTENT.has(w));
+      const leftover = words.filter(w => !GENERIC.has(w)).length - covered;
+      if (!intent && (!phrase || leftover > 0)) continue;
+    }
     score += Math.min(phrase, 12);
     if (!score) continue;
     const coverage = words.length ? Math.min(1, matched / words.length) : 1;
@@ -780,6 +930,33 @@ export function bestMatch(question: string): { entry: Entry | null; hits: Hit[] 
   const hits = search(question);
   const top = hits[0];
   return { entry: top && top.score >= MIN_SCORE ? top.entry : null, hits };
+}
+
+/**
+ * Questions worth offering while someone is still typing, or after nothing matched. Looser than `bestMatch`
+ * (a half-typed last word counts as a prefix) but only ever returns entries that share a real word with the
+ * text, never an invented story unless a story was asked for. Never used to answer.
+ */
+export function suggestQuestions(text: string, n = 5): Hit[] {
+  const q = text.trim();
+  if (q.length < 2) return [];
+  const byId = new Map<string, Hit>();
+  for (const h of search(q)) if (h.score >= SUGGEST_MIN) byId.set(h.entry.id, h);
+  const raw = norm(q).split(' ').filter(Boolean);
+  const last = canon(stem(raw[raw.length - 1] ?? ''));
+  if (last.length >= 3 && !STOP.has(last)) {
+    const asksStory = raw.some(w => STORY_INTENT.has(stem(w)));
+    for (const p of prepared) {
+      if (isFiction(p.entry) && !asksStory) continue;
+      const words = [...p.singleKeys, ...p.qWords];
+      const starts = words.some(w => w.startsWith(last) && !GENERIC.has(w));
+      if (!starts) continue;
+      const prev = byId.get(p.entry.id);
+      const base = 1.6;
+      if (!prev || prev.score < base) byId.set(p.entry.id, { entry: p.entry, score: base });
+    }
+  }
+  return [...byId.values()].sort((a, b) => b.score - a.score).slice(0, n);
 }
 
 /**

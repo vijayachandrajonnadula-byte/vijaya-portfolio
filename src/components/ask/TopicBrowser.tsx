@@ -1,10 +1,10 @@
 /**
- * The ask page's question browser. It replaces the old "all 63 questions" accordion with progressive disclosure:
+ * The ask page's question browser. It replaces the old "all 70 questions" accordion with progressive disclosure:
  * overview (4 + 6 choices) -> topic (6 at a time) -> one answer.
  *
  * UX laws applied
  * - Hick's law: never more than 6 choices of a kind on screen (4 start questions, 6 topics, 6 questions + "Show 6 more").
- * - Miller's law and chunking: 63 questions become 6 topics; a topic shows 6 questions at a time.
+ * - Miller's law and chunking: 70 questions become 6 topics; a topic shows 6 questions at a time.
  * - Progressive disclosure: overview -> topic -> question; the timeline and the random buttons sit inside "Stories and fun".
  * - Jakob's law: a familiar topic-card grid plus list-detail pattern, breadcrumb-style back button, Previous / Next.
  * - Serial position: the most wanted question (who) is first and the way to get in touch is last in "Start here".

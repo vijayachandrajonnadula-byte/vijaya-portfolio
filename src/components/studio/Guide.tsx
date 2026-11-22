@@ -3,6 +3,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
 import Character from './Character';
 import { SendIcon } from '../ask/icons';
+import { goToSuggestion, useSuggest } from '../ask/Suggest';
 import { askHref, entryById } from '../../data/knowledge';
 import { guideStarterIds } from '../../data/topics';
 import '../../styles/ask.css';
@@ -104,6 +105,9 @@ export default function Guide() {
     if (returnFocus) window.requestAnimationFrame(() => launcher.current?.focus());
   }, []);
 
+  // live suggestions under the field (questions, case studies, pages)
+  const cb = useSuggest({ value, onPick: s => { setValue(''); setHint(''); setOpen(false); goToSuggestion(s, nav); } });
+
   // opening moves focus to the field
   useEffect(() => {
     if (open) window.requestAnimationFrame(() => input.current?.focus());
@@ -113,7 +117,7 @@ export default function Guide() {
   useEffect(() => {
     if (!open) return;
     const onKey = (e: KeyboardEvent) => {
-      if (e.key !== 'Escape') return;
+      if (e.key !== 'Escape' || e.defaultPrevented) return; // an open suggestion list took the key
       const inside = !!(document.activeElement && document.activeElement.closest('.guide__bubble'));
       if (inside && value) { e.preventDefault(); setValue(''); return; }
       e.preventDefault();
@@ -130,6 +134,7 @@ export default function Guide() {
   const submit = (e: React.FormEvent) => {
     e.preventDefault();
     const q = value.trim();
+    cb.close();
     if (!q) { setHint(h => (h === 'Type a question or pick one' ? 'Type a question or pick one​' : 'Type a question or pick one')); return; }
     setValue(''); setHint(''); setOpen(false);
     nav(`/ask?q=${encodeURIComponent(q)}`);
@@ -157,14 +162,19 @@ export default function Guide() {
               </button>
             </div>
             <p className="ask2-pop__line">{onHome ? LINE_HOME : LINE_PAGE}</p>
-            <form onSubmit={submit} role="search">
-              <label className="sr-only" htmlFor="guide-q">Your question</label>
-              <input ref={input} id="guide-q" value={value} onChange={e => setValue(e.target.value)} placeholder="Ask me anything…" maxLength={140} autoComplete="off" enterKeyHint="send" aria-describedby={`${popId}-trust`} />
-              <button type="submit" aria-label="Ask"><SendIcon /></button>
-            </form>
-            <div className="guide__chips" role="group" aria-label="Starter questions">
-              {starters.map(e => <button key={e.id} type="button" onClick={() => { setOpen(false); nav(askHref(e.id)); }}>{e.chip ?? e.q}</button>)}
+            <div className="sg-wrap sg-wrap--mini">
+              <form onSubmit={submit} role="search">
+                <label className="sr-only" htmlFor="guide-q">Your question</label>
+                <input ref={input} id="guide-q" value={value} onChange={e => setValue(e.target.value)} onKeyDown={e => { cb.onKeyDown(e); }} {...cb.inputProps} placeholder="Ask me anything…" maxLength={140} autoComplete="off" enterKeyHint="send" aria-describedby={`${popId}-trust`} />
+                <button type="submit" aria-label="Ask"><SendIcon /></button>
+              </form>
+              {cb.popup}
             </div>
+            {!cb.open && (
+              <div className="guide__chips" role="group" aria-label="Starter questions">
+                {starters.map(e => <button key={e.id} type="button" onClick={() => { setOpen(false); nav(askHref(e.id)); }}>{e.chip ?? e.q}</button>)}
+              </div>
+            )}
             <div className="ask2-pop__foot">
               <p id={`${popId}-trust`} className="ask2-note">{TRUST}</p>
               <Link to="/ask" className="ask2-pop__more" onClick={() => setOpen(false)}>Open the full Ask page</Link>

@@ -28,6 +28,8 @@ export const quirks = {
     'Try: what did electronics teach you about design?',
     'Try: how do you use AI in your work?',
     'Try: what is a pull-up resistor in UX?',
+    'Try: are you open to remote work?',
+    'Try: do you have healthcare projects?',
   ],
   /** The electronics chip is mapped to the entry with this question in src/data/knowledge.ts. */
   electronicsChip: 'Electronics to UX: what carried over?',
