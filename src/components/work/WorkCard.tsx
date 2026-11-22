@@ -100,7 +100,7 @@ export default function WorkCard({ item, index }: { item: Item; index: number })
         <motion.div ref={frame} className="wk-frame" style={calm ? undefined : { rotateX: rx, rotateY: ry }}>
           <div className="wk-frame__bar" aria-hidden="true"><i /><i /><i /></div>
           {g ? (
-            <GlimpseVideo id={g.id} poster={g.poster} label={g.label} ratio="16 / 10" eager={index === 0} />
+            <GlimpseVideo id={g.clip ?? g.id} poster={g.poster} label={g.label} ratio="16 / 10" eager={index === 0} />
           ) : (
             <div className="wk-still" style={{ aspectRatio: '16 / 10' }}><img src={workImage(p.id)} alt="" loading="lazy" draggable={false} /></div>
           )}

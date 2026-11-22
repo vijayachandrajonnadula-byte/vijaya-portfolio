@@ -7,7 +7,7 @@ import '../../styles/home-v2.css';
 
 /** The three windows on the stage. Positions are percentages of the stage so it scales as one piece. */
 const WINDOWS = [
-  { id: 'pulse-storybook', title: 'PULSE Storybook', w: '68%', l: '31%', t: '1%', z: 1, d: 10, r: '1.2deg', tone: 'a', delay: 0.5 },
+  { id: 'pulse-design-system', title: 'PULSE Storybook', w: '68%', l: '31%', t: '1%', z: 1, d: 10, r: '1.2deg', tone: 'a', delay: 0.5 },
   { id: 'electronic-execution', title: 'Working prototype', w: '52%', l: '0%', t: '31%', z: 2, d: 22, r: '-2.4deg', tone: 'b', delay: 0.68 },
   { id: 'afs-enterprise-workflow', title: 'Account Fit Score', w: '45%', l: '50%', t: '55%', z: 3, d: 34, r: '2deg', tone: 'a', delay: 0.86 },
 ] as const;
@@ -93,7 +93,7 @@ export default function HomeHero() {
                 <div className={`hw hw--${w.tone}`} style={{ '--d': w.d, '--r': w.r } as React.CSSProperties}>
                   <div className="hw__frame">
                     <div className="hw__bar" aria-hidden="true"><i /><i /><i /><span>{w.title}</span></div>
-                    <GlimpseVideo id={g.id} poster={g.poster} label={g.label} eager />
+                    <GlimpseVideo id={g.clip ?? g.id} poster={g.poster} label={g.label} eager />
                   </div>
                 </div>
               </motion.div>

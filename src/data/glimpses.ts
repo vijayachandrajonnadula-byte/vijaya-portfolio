@@ -6,14 +6,15 @@
  */
 export interface Glimpse {
   id: string;
+  /** Clip file name when it differs from the project id (/videos/projects/<clip>.webm). */
+  clip?: string;
   /** Still image used as the poster: the project's existing work image. */
   poster: string;
   label: string;
 }
 
 export const glimpses: Glimpse[] = [
-  { id: 'pulse-design-system', poster: '/images/work/pulse-design-system.jpg', label: 'Browsing the PULSE component gallery and its states' },
-  { id: 'pulse-storybook', poster: '/images/work/pulse-storybook.jpg', label: 'Changing a Button’s variant in the PULSE Storybook and moving between its stories' },
+  { id: 'pulse-design-system', clip: 'pulse-storybook', poster: '/images/work/pulse-storybook.jpg', label: 'Changing a Button’s variant in the PULSE Storybook and moving between its stories' },
   { id: 'electronic-execution', poster: '/images/work/electronic-execution.jpg', label: 'Recording a step in the Electronic execution prototype' },
   { id: 'afs-enterprise-workflow', poster: '/images/projects/afs/screens/afs-screen-01.png', label: 'Moving through the Account Fit Score configuration screens' },
   { id: 'zoominfo-schedule', poster: '/images/projects/schedule/screens/schedule-07-create-filled.png', label: 'Moving through the Schedule setup screens' },

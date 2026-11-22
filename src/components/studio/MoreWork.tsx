@@ -32,7 +32,7 @@ export default function MoreWork() {
             <li key={p.id} id={`more-${p.id}`} className="wk-mini">
               <div className="wk-mini__vis">
                 {g ? (
-                  <GlimpseVideo id={g.id} poster={g.poster} label={g.label} ratio="16 / 10" />
+                  <GlimpseVideo id={g.clip ?? g.id} poster={g.poster} label={g.label} ratio="16 / 10" />
                 ) : (
                   <div className="wk-still" style={{ aspectRatio: '16 / 10' }}><img src={workImage(p.id)} alt="" loading="lazy" draggable={false} /></div>
                 )}
