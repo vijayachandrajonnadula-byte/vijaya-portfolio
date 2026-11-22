@@ -47,7 +47,7 @@ export const riversideCaseStudy = {
     },
     {
       title: "Build and shipping mindset",
-      body: "Created a working React prototype using feature branches and PR-style iteration, tested the complete flow end-to-end across screen sizes, and deployed a shareable live demo on Vercel.",
+      body: "Created a working React prototype using feature branches and PR-style iteration, clicked through the complete flow myself at several screen sizes, and deployed a shareable live demo on Vercel.",
     },
     {
       title: "Testing and iteration",
@@ -55,7 +55,7 @@ export const riversideCaseStudy = {
     },
     {
       title: "Responsive QA",
-      body: "Tested at 1440, 1024, 768, 430, and 390px. No horizontal overflow. Header, forms, cards, and screenshot galleries all adapt cleanly across breakpoints.",
+      body: "Checked by me in browser DevTools at 1440, 1024, 768, 430, and 390px, looking for horizontal overflow and broken layouts. Not checked on physical devices.",
     },
   ] as DemonstratesItem[],
 
@@ -220,6 +220,9 @@ export const riversideCaseStudy = {
     "Did the mobile layout remain fully usable at 390px without horizontal overflow?",
   ],
 
+  assumptionsIntro:
+    "No user research was run for this project and nothing below comes from interviews or analytics. These are three working assumptions about booking, drawn from common hospital-site patterns and my own review. Each one shaped a decision, and each should be tested with real patients.",
+
   iterations: [
     {
       num: "01",
@@ -273,14 +276,14 @@ export const riversideCaseStudy = {
   ] as Iteration[],
 
   responsiveQADescription:
-    "Responsive QA focused on preventing horizontal overflow at all target breakpoints, making the header usable on small screens, keeping the date and time slot picker tappable on mobile, stacking forms cleanly in a single column, and making appointment summaries readable at minimum sizes.",
+    "I checked five widths by resizing the live build in Chrome DevTools device emulation: no horizontal overflow, a usable header, a tappable slot picker, single-column forms, and readable appointment summaries. This was a self-check at emulated widths. No physical-device test is recorded.",
 
   responsiveQA: [
-    { breakpoint: "1440px", label: "Wide desktop", status: "Tested" },
-    { breakpoint: "1024px", label: "Laptop", status: "Tested" },
-    { breakpoint: "768px", label: "Tablet", status: "Tested" },
-    { breakpoint: "430px", label: "Mobile L", status: "Tested" },
-    { breakpoint: "390px", label: "iPhone 14", status: "Tested" },
+    { breakpoint: "1440px", label: "Wide desktop", status: "DevTools check" },
+    { breakpoint: "1024px", label: "Laptop", status: "DevTools check" },
+    { breakpoint: "768px", label: "Tablet", status: "DevTools check" },
+    { breakpoint: "430px", label: "Mobile L", status: "DevTools check" },
+    { breakpoint: "390px", label: "iPhone 14 width", status: "DevTools check" },
   ],
 
   desktopScreenshots: [
@@ -317,7 +320,7 @@ export const riversideCaseStudy = {
       caption: "Confirmation",
       title: "Booking Confirmation",
       purpose: "Resolve all post-booking uncertainty by providing a complete appointment summary, a before-visit checklist, and immediate next-step actions in one place.",
-      uxNote: "Reference number, date, doctor, location, checklist, and options to add to calendar or manage the booking. Everything the patient needs, nothing more.",
+      uxNote: "Reference number, date, doctor, location, checklist, and options to add to calendar or manage the booking. The checklist and calendar options sit lower on the page: open the full screen to see them.",
     },
     {
       src: "/images/projects/riverside/clean/desktop-manage.jpg",
@@ -385,6 +388,8 @@ export const riversideCaseStudy = {
     "Large tap targets on mobile, minimum 44x44px touch areas",
     "Readable mobile typography, minimum 14px body text size",
   ],
+  accessibilityNote:
+    "These are build intentions and my own checks. No screen-reader test or formal accessibility audit is recorded for this prototype.",
 
   techStack: [
     { label: "Frontend", value: "React 18, TypeScript 5, Vite 5" },
@@ -427,5 +432,5 @@ export const riversideCaseStudy = {
   ],
 
   reflection:
-    "The strongest learning from this project was that visual polish alone does not solve the UX problem. Several versions of the prototype looked better visually but still had unclear screen responsibilities and confusing booking flows. The biggest improvements came from two places: defining exactly what each screen should do and cutting everything that did not serve that goal, and testing the full journey on real screen sizes rather than only in design tools. Mobile issues like the broken date selector, overlong stepper labels, and compressed navigation were invisible until tested on an actual device. AI tools helped me move faster on research, layout exploration, and prototype build. The product decisions, critique rounds, and QA all stayed mine.",
+    "The strongest learning from this project was that visual polish alone does not solve the UX problem. Several versions of the prototype looked better visually but still had unclear screen responsibilities and confusing booking flows. The biggest improvements came from two places: defining exactly what each screen should do and cutting everything that did not serve that goal, and checking the full journey in the running build at real viewport sizes rather than only in design tools. Mobile issues like the broken date selector, overlong stepper labels, and compressed navigation were invisible until I resized the live build (in DevTools emulation; no physical-device test is recorded). AI tools helped me move faster on research, layout exploration, and prototype build. The product decisions, critique rounds, and QA all stayed mine.",
 };

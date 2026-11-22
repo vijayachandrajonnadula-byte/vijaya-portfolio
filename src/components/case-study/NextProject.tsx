@@ -3,6 +3,7 @@ import { projects } from '../../data/projects';
 import { thumbImage } from '../../data/home';
 import TiltCard from '../motion/TiltCard';
 import '../../styles/case-v2.css';
+import '../../styles/audit-shared.css';
 
 /**
  * End-of-page project footer: Previous / All work / Next, plus the large next-project card.

@@ -1,0 +1,112 @@
+/* UX audit fixes for the PULSE and Electronic execution case studies (AF-2).
+   Overrides the shared case.css / case-v2.css rules with specific selectors; nothing here touches other pages. */
+
+/* ---- text floor: real content at 12px or more ---- */
+.pk-hero__meta dt, .pk-hero__top, .pk-side dt, .pk-side__h, .pk-side a span, .pk-sec__eyebrow, .pk-grid4__n, .pk-card li b,
+.pk-time p.pk-time__tag, .pk-layers__k, .pk-table thead th, .ab__side li button b, .in__h, .in-badge em, .tc__tag, .ac__prompt span,
+.ld__stack button b, .ld__stack button em, .tx-type__label small, .pk-time__dot, .pk-layers__n, .pk-card__n {
+  font-size: max(0.75rem, 12px);
+}
+.ab__el--panel span { font-size: 10px; } /* decorative labels inside the wireframe, which is role=img */
+.hs__list button em, .tx-note, .tx-pick, .ac__note, .ld__note, .pg__note, .pk-panel figcaption { font-size: max(0.8125rem, 13px); }
+
+/* ---- line length ~68ch for body prose ---- */
+.pk-sec__intro, .pk-sec__intro p, .pk-p, .pk-dots, .pk-panel figcaption, .tc__cap, .pk-tldr li, .pk-start p, .pk-audit__note, .pk-own p, .pk-nv li, .pk-try li, .pk-hero__sum {
+  max-width: 68ch;
+}
+
+/* ---- controls: 44px targets for tabs, toggles and chips ---- */
+.ix__tabs button, .ss__tabs button, .pg__seg button, .ab__side li button, .ab__play, .in__cues button, .ld__stack button, .hs__list button,
+.cp__copy, .tx-btn, .tx-tab, .pk-tldr a.pk-tldr__jump, .pk-hero__actions .btn-c {
+  min-height: 44px;
+}
+.pg__seg button, .ix__tabs button, .ss__tabs button { min-width: 44px; padding-inline: 16px; display: inline-flex; align-items: center; justify-content: center; }
+.cp__copy { min-width: 44px; }
+.tx-ramp button, .tx-accents button { min-height: 44px; min-width: 44px; }
+.tx-accents button { border-radius: 50%; }
+.tc__range input { min-height: 44px; }
+.pk-side nav a { min-height: 44px; display: flex; align-items: center; }
+.pk-side nav a.cs-skip { min-height: 0; }
+
+/* ---- scrollable code: reachable by keyboard, never clipped ---- */
+.pk-code, .cp__code { max-width: 100%; white-space: pre; }
+.pk-code:focus-visible, .cp__code:focus-visible, .pk-table:focus-visible, .hs__r:focus-visible {
+  outline: 3px solid var(--c-accent, #1e3a6e); outline-offset: 2px;
+}
+
+/* ---- micro templates: never break a name mid-word ---- */
+.pk-grid4__item h3 { overflow-wrap: anywhere; hyphens: none; font-size: 1.05rem; }
+.pk-grid4 { row-gap: 12px; }
+
+/* ---- hero additions ---- */
+.pk-hero__evidence { margin: -8px 0 24px; max-width: 68ch; padding: 14px 18px; border-radius: 16px; background: var(--c-tile); color: var(--c-ink); font-size: 1rem; line-height: 1.55; }
+.pk-hero__evidence b { font-weight: 700; }
+.pk-hero__start { flex-basis: 100%; margin: 4px 0 0; max-width: 68ch; color: var(--c-ink2); font-size: 0.95rem; line-height: 1.5; }
+.pk-hero__start a { color: inherit; text-decoration: underline; text-decoration-color: var(--c-clay); text-underline-offset: 3px; }
+.pk-foot { margin: -14px 0 24px; color: var(--c-mute); font-size: 0.8125rem; line-height: 1.5; max-width: 68ch; }
+
+/* ---- "in 60 seconds" ---- */
+.pk-tldr { margin: 0 0 clamp(40px, 5vw, 72px); padding: clamp(18px, 2.4vw, 28px); border-radius: 26px; background: var(--c-tile); }
+.pk-tldr h2 { margin: 0 0 14px; font: 700 0.8125rem/1.2 var(--font-sans); letter-spacing: 0.14em; text-transform: uppercase; color: var(--c-mute); max-width: none; }
+.pk-tldr ol { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; }
+.pk-tldr li { display: grid; grid-template-columns: 7.5rem 1fr; gap: 4px 16px; padding: 10px 0; border-top: 1px solid var(--c-line); line-height: 1.55; color: var(--c-ink2); }
+.pk-tldr li:first-child { border-top: 0; }
+.pk-tldr li > b { color: var(--c-ink); font-weight: 700; }
+.pk-tldr a { color: var(--c-ink); text-decoration: underline; text-decoration-color: var(--c-clay); text-underline-offset: 3px; display: inline-flex; align-items: center; min-height: 44px; }
+.pk-tldr li span { display: block; }
+@media (max-width: 600px) { .pk-tldr li { grid-template-columns: 1fr; } }
+
+/* ---- axe before/after ---- */
+.pk-audit { margin: 8px 0 32px; padding: clamp(18px, 2.4vw, 28px); border-radius: 26px; background: var(--c-tile); }
+.pk-audit__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px 24px; margin: 0 0 18px; }
+.pk-audit__grid > div { display: flex; flex-direction: column; padding: 14px 0 4px; border-top: 1px solid var(--c-ink); }
+.pk-audit__grid dd { margin: 0; font-family: var(--font-serif); font-size: clamp(1.8rem, 3.2vw, 2.6rem); line-height: 1.05; font-variant-numeric: tabular-nums; color: var(--c-ink); }
+.pk-audit__grid dd small { font-size: 0.6em; color: var(--c-mute); margin-right: 8px; }
+.pk-audit__grid dt { margin-top: 8px; color: var(--c-mute); font-size: 0.875rem; line-height: 1.4; }
+.pk-audit__note { margin: 0 0 10px; color: var(--c-ink2); line-height: 1.65; font-size: 1rem; }
+.pk-audit__meta { margin: 0; color: var(--c-mute); font-size: 0.8125rem; line-height: 1.5; max-width: 68ch; }
+
+/* ---- Storybook "try this" ---- */
+.pk-try { margin: 0 0 28px; padding: clamp(18px, 2.4vw, 26px); border-radius: 26px; background: var(--c-tile); }
+.pk-try h3 { margin: 0 0 8px; font-family: var(--font-display); font-weight: 600; font-size: 1.2rem; }
+.pk-try p { margin: 0 0 14px; max-width: 68ch; color: var(--c-ink2); line-height: 1.6; }
+.pk-try ol { list-style: decimal; margin: 0 0 14px; padding-left: 1.4rem; max-width: 68ch; color: var(--c-ink2); line-height: 1.6; }
+.pk-try ol li { padding: 4px 0; }
+.pk-try__links { display: flex; flex-wrap: wrap; gap: 10px; }
+
+/* ---- Execution: authorship, not-validated, try-this ---- */
+.pk-own { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 0 0 clamp(24px, 3vw, 36px); }
+.pk-own > div { padding: 20px 22px; border-radius: 22px; background: var(--c-tile); }
+.pk-own h3 { margin: 0 0 8px; font: 700 0.8125rem/1.2 var(--font-sans); letter-spacing: 0.12em; text-transform: uppercase; color: var(--c-mute); }
+.pk-own p { margin: 0 0 8px; color: var(--c-ink2); line-height: 1.6; }
+.pk-own ul { list-style: disc; margin: 0; padding-left: 1.1rem; color: var(--c-ink2); line-height: 1.6; max-width: 68ch; }
+@media (max-width: 720px) { .pk-own { grid-template-columns: 1fr; } }
+
+.pk-nv { margin: 0 0 clamp(24px, 3vw, 36px); padding: clamp(18px, 2.4vw, 26px); border-radius: 26px; background: var(--c-tile); border: 2px solid var(--c-ink); }
+.pk-nv h3 { margin: 0 0 6px; font-family: var(--font-display); font-weight: 600; font-size: 1.3rem; }
+.pk-nv > p { margin: 0 0 12px; color: var(--c-ink2); line-height: 1.6; max-width: 68ch; }
+.pk-nv ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 0; }
+.pk-nv li { padding: 10px 0 10px 28px; position: relative; border-top: 1px solid var(--c-line); line-height: 1.55; color: var(--c-ink2); }
+.pk-nv li::before { content: ''; position: absolute; left: 4px; top: 1.05em; width: 12px; height: 2px; background: var(--c-clay-ink, #b4402a); }
+.pk-nv li b { color: var(--c-ink); }
+
+/* ---- screenshots: neutral frame, zoom affordance, dim in dark ---- */
+.pk-panel__frame { border: 1px solid var(--c-line); }
+.pk-panel img.cs-img { max-width: 100%; }
+html[data-theme='dark'] .pk-panel__frame, html[data-theme='dark'] .pk-panel--plain .pk-panel__frame { background: var(--c-tile2, #1b1b1f); border: 1px solid var(--c-line); }
+html[data-theme='dark'] .pk-panel img { filter: brightness(0.86) contrast(0.98); outline: 1px solid var(--c-line); }
+html[data-theme='dark'] .pk-panel figcaption { color: var(--c-ink2); }
+
+/* ---- tables stack at phone width ---- */
+@media (max-width: 600px) {
+  .pk-table table { min-width: 0; }
+  .pk-table thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  .pk-table tr, .pk-table th[scope='row'], .pk-table td { display: block; }
+  .pk-table tr { padding: 12px 0; border-bottom: 1px solid var(--c-line); }
+  .pk-table tr:last-child { border-bottom: 0; }
+  .pk-table th, .pk-table td { border-bottom: 0; padding: 4px 16px; }
+  .pk-table td::before { content: attr(data-label); display: block; font: 700 0.75rem/1.4 var(--font-sans); letter-spacing: 0.1em; text-transform: uppercase; color: var(--c-mute); }
+}
+
+/* ---- hotspot regions are clickable and focusable ---- */
+.hs__r { cursor: pointer; }

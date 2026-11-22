@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import SectionSheet from './SectionSheet';
 import { useIndicator } from './useIndicator';
 import '../../styles/case-v2.css';
+import '../../styles/audit-shared.css';
 
 interface NavItem { id: string; label: string; }
 
@@ -29,6 +30,9 @@ const defaultNavItems: NavItem[] = [
   { id: 'reflection', label: 'Reflection' },
 ];
 
+/** Matches `.cs-section { scroll-margin-top }` in audit-shared.css: keeps a jumped-to heading clear of the site header. */
+const JUMP_OFFSET = 112;
+
 /**
  * Sticky "On this page" index.
  *
@@ -44,19 +48,38 @@ export default function CaseStudyNav({ items }: { items?: NavItem[] }) {
   const listRef = useRef<HTMLDivElement>(null);
   useIndicator(listRef, '.cs-nav__link--active', active);
 
-  // scroll-spy
+  // scroll-spy: the active item is the last section whose top has passed a reading line a little below
+  // the sticky header. Computed from positions on scroll (not from enter/leave events), so a tall
+  // section stays highlighted for as long as it is the one being read and the highlight never lags.
   useEffect(() => {
-    const obs = new IntersectionObserver(
-      entries => {
-        entries.forEach(e => { if (e.isIntersecting) setActive(e.target.id); });
-      },
-      { rootMargin: '-20% 0px -70% 0px' }
-    );
-    navItems.forEach(n => {
-      const el = document.getElementById(n.id);
-      if (el) obs.observe(el);
-    });
-    return () => obs.disconnect();
+    let raf = 0;
+    const update = () => {
+      raf = 0;
+      const line = Math.max(140, window.innerHeight * 0.3);
+      const atEnd = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4;
+      let cur = '';
+      let lastFound = '';
+      navItems.forEach(n => {
+        const el = document.getElementById(n.id);
+        if (!el) return;
+        lastFound = n.id;
+        if (el.getBoundingClientRect().top <= line) cur = n.id;
+      });
+      if (atEnd && lastFound) cur = lastFound;
+      setActive(prev => (prev === cur ? prev : cur));
+    };
+    const on = () => { if (!raf) raf = requestAnimationFrame(update); };
+    update();
+    window.addEventListener('scroll', on, { passive: true });
+    window.addEventListener('resize', on);
+    // sections can render a moment after the nav (lazy images change heights): re-check shortly after load
+    const t = window.setTimeout(update, 600);
+    return () => {
+      window.removeEventListener('scroll', on);
+      window.removeEventListener('resize', on);
+      window.clearTimeout(t);
+      if (raf) cancelAnimationFrame(raf);
+    };
   }, [navItems]);
 
   // progress rail
@@ -116,7 +139,7 @@ export default function CaseStudyNav({ items }: { items?: NavItem[] }) {
     const el = document.getElementById(id);
     if (!el || !window.__lenis) return; // fall back to the native anchor jump
     e.preventDefault();
-    window.__lenis.scrollTo(el, { offset: -88 });
+    window.__lenis.scrollTo(el, { offset: -JUMP_OFFSET });
   };
 
   const skip = (e: React.MouseEvent) => {

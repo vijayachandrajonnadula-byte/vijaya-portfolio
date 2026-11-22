@@ -448,28 +448,29 @@ export const renewlyCaseStudy = {
   ],
 
   responsiveQADescription:
-    'Responsive QA was important because Renewly should not feel like a compressed desktop dashboard on mobile. The mobile experience needs to prioritise core renewal information, next actions, and readable spacing. Finance users reviewing approvals on mobile need the same product clarity as desktop.',
+    'I checked these widths myself while building; no test log or device list is kept, so treat the table as a record of intent. Renewly should not feel like a compressed desktop dashboard on mobile. The mobile experience needs to prioritise core renewal information, next actions, and readable spacing. Finance users reviewing approvals on mobile need the same product clarity as desktop.',
 
   responsiveQA: [
-    { breakpoint: '1440px', label: 'Wide desktop', status: 'Tested' },
-    { breakpoint: '1280px', label: 'Laptop', status: 'Tested' },
-    { breakpoint: '1024px', label: 'Tablet', status: 'Tested' },
-    { breakpoint: '768px', label: 'Tablet / mobile', status: 'Tested' },
-    { breakpoint: '430px', label: 'Mobile L', status: 'Tested' },
-    { breakpoint: '390px', label: 'Mobile M', status: 'Tested' },
-    { breakpoint: '360px', label: 'Small mobile', status: 'Tested' },
+    { breakpoint: '1440px', label: 'Wide desktop', status: 'Self-checked' },
+    { breakpoint: '1280px', label: 'Laptop', status: 'Self-checked' },
+    { breakpoint: '1024px', label: 'Tablet', status: 'Self-checked' },
+    { breakpoint: '768px', label: 'Tablet / mobile', status: 'Self-checked' },
+    { breakpoint: '430px', label: 'Mobile L', status: 'Self-checked' },
+    { breakpoint: '390px', label: 'Mobile M', status: 'Self-checked' },
+    { breakpoint: '360px', label: 'Small mobile', status: 'Self-checked' },
   ],
 
   accessibilityChecklist: [
-    'Clear typography hierarchy: metric values, headings, section labels, and metadata are visually distinguishable',
-    'Sufficient colour contrast: primary text, buttons, and status chips remain readable against light backgrounds',
-    'Readable form labels: filters, settings controls, and form fields use clear labels rather than placeholder-only patterns',
-    'Non-colour-only status communication: risk and approval states include text labels, not only colour cues',
-    'Large mobile tap targets: mobile buttons, tabs, and bottom navigation items are sized for confident tapping',
-    'Readable mobile spacing: cards and actions remain readable without horizontal scrolling at 390px',
-    'Clear active/selected states: active navigation, selected tabs, and approval statuses are clearly distinguished',
-    'Visible focus states planned for production version: keyboard navigation should be supported in a future build',
+    'Built: a clear typography hierarchy, so metric values, headings, section labels, and metadata are visually distinguishable',
+    'Built: risk and approval states carry text labels as well as colour, so status is never colour alone',
+    'Built: filters, settings controls, and form fields use visible labels rather than placeholder-only patterns',
+    'Built: active navigation, selected tabs, and approval statuses are visually distinguished',
+    'Designed, not measured: mobile buttons, tabs, and bottom navigation were drawn large, but tap-target sizes have not been measured',
+    'Designed, not measured: colours were chosen for readability on light backgrounds, but contrast ratios have not been calculated',
+    'Planned, not built: custom focus styles and full keyboard navigation (listed under next steps)',
   ],
+  accessibilityNote:
+    'This is what the prototype does and does not do for accessibility. No automated scan, keyboard test, or screen-reader test is recorded for the Renewly prototype.',
 
   limitations: [
     'Portfolio prototype, not a production SaaS product',
@@ -550,17 +551,17 @@ export const renewlyCaseStudy = {
   ],
 
   finalValidation: [
-    'Dashboard shows spend, risk, approvals, and savings correctly on desktop and mobile',
-    'High-risk subscriptions are identifiable from the dashboard without opening individual detail pages',
-    'Subscription detail page provides enough context to make an approval decision',
-    'Approval queue actions are reachable and clearly labelled on both desktop and mobile',
-    'Savings opportunities include a rationale, not just a number',
-    'Mobile screens use cards instead of tables at 390px with no horizontal overflow',
-    'Status chips include text labels alongside colour, no colour-only communication',
-    'Bottom navigation on mobile provides access to all core sections in one tap',
-    'Renewal calendar shows upcoming deadlines in a readable layout on both screen sizes',
-    'All screens render without console errors or broken layout states',
+    'The dashboard shows spend, risk, approvals, and savings on desktop and on mobile',
+    'High-risk subscriptions can be spotted on the dashboard without opening a detail page',
+    'The subscription detail page puts cost, usage, owner, risk, and the decision actions on one screen',
+    'Approval actions are labelled on both the desktop and the mobile screens',
+    'Savings cards give a reason and a confidence level, not just a number',
+    'The mobile screens use cards instead of tables',
+    'Status chips carry a text label alongside colour',
+    'The mobile screens show a bottom navigation bar',
   ],
+  finalValidationNote:
+    'Each item can be confirmed by looking at the screens above or the live prototype. Console errors, horizontal overflow, and tap-target sizes are not listed because no record of those checks is kept in this repository.',
 
   reflection:
     'Renewly reinforced the importance of building product structure before visual polish. Renewal workflows carry a lot of competing signals: spend, dates, owners, utilisation, risk, approval status, and savings. The interface needed a clear hierarchy before any screen could feel clean. The strongest design direction came from separating overview, comparison, detail, decision, and reporting into distinct screen responsibilities. The dashboard helps users identify priority work, while deeper screens support more confident decisions. The mobile version required a separate layout strategy rather than simply compressing desktop tables. Responsive design means rethinking what information matters most at each screen size, not just resizing components. The next step is to validate the flow with real finance users and extend interaction states: empty states, loading states, errors, confirmations, and owner-review workflows.',

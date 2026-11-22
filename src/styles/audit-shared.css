@@ -1,0 +1,133 @@
+/* ==========================================================================
+   Shared case-study layer: audit fixes (hero brief strip, image zoom + lightbox,
+   nav hit areas and jump offsets, phone overlays, text floor, line length).
+   Imported by the case-study components. Selectors are prefixed with `html` where
+   they have to win over the older global/modern/site layers.
+   ========================================================================== */
+
+/* ---------- hero: "My part / Outcome" strip ---------- */
+html .cs-hero__brief {
+  display: grid; gap: 12px; max-inline-size: 46rem; margin: 0 0 24px; padding: 16px 0 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.16);
+}
+html .cs-hero__brief-row { display: grid; grid-template-columns: 6.25rem minmax(0, 1fr); gap: 4px 16px; align-items: baseline; }
+html .cs-hero__brief-row dt {
+  margin: 0; font: 600 0.75rem/1.4 ui-monospace, 'Cascadia Code', Consolas, monospace; letter-spacing: 0.12em; text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.72);
+}
+html .cs-hero__brief-row dd { margin: 0; font-size: 1.0625rem; line-height: 1.55; color: #fff; overflow-wrap: break-word; }
+@media (max-width: 520px) {
+  html .cs-hero__brief-row { grid-template-columns: minmax(0, 1fr); gap: 2px; }
+  html .cs-hero__brief-row dd { font-size: 1rem; }
+}
+
+/* ---------- text floor: nothing real below 12px ---------- */
+html .cs-hero__read { font-size: 0.75rem; }
+html .cs-hero__meta-item dt { font-size: 0.75rem; color: rgba(255, 255, 255, 0.72); }
+html .cs-nav__num { font-size: 0.75rem; }
+html .cs-nav__title { font-size: 0.75rem; }
+html .tag { font-size: max(0.75rem, var(--text-xs, 0.75rem)); }
+html .cs-pn__k, html .cs-sheet__here { font-size: 0.75rem; }
+html .cs-sheet__chapter { font-size: 0.75rem; }
+html .cs-sheet-chip__txt span { font-size: 0.75rem; }
+html .cs-sheet__n { font-size: 0.75rem; }
+
+/* ---------- jumps: headings clear the site header ---------- */
+html .cs-section, html .pk-sec { scroll-margin-top: 112px; }
+
+/* ---------- on-this-page rail ---------- */
+html .cs-nav {
+  max-height: calc(100vh - 112px); max-height: calc(100dvh - 112px); overflow-y: auto; overscroll-behavior: contain;
+  padding-inline: 4px 6px; scrollbar-width: thin;
+}
+html .cs-nav__link { align-items: center; min-height: 32px; padding-block: 6px; }
+@media (pointer: coarse) {
+  html .cs-nav__link { min-height: 44px; }
+}
+html nav a.cs-skip { min-height: 44px; display: inline-flex; align-items: center; }
+html .cs-nav a:focus-visible, html .pk-side nav a:focus-visible {
+  outline: 3px solid var(--c-accent, #1e3a6e); outline-offset: 2px; box-shadow: 0 0 0 2px #fff; border-radius: 6px;
+}
+
+/* ---------- tap targets at coarse pointers ---------- */
+@media (pointer: coarse) {
+  html .btn, html .btn-c { min-height: 44px; }
+  html .cs-pn__cell { min-height: 64px; }
+  html .cs-sheet-chip { min-height: 48px; }
+}
+
+/* ---------- line length: shared prose stays near 68 characters ---------- */
+:where(.cs-content) :where(p, li, dd, figcaption) { max-inline-size: 36em; } /* about 70 characters in the body font */
+:where(.cs-content) :where(table, figure, .cs-img, img) :where(p, li) { max-inline-size: none; }
+html .pk-sec__intro, html .pk-sec__intro p, html .pk-p, html .pk-dots, html .pk-panel figcaption { max-width: 36em; }
+html .pk-time p { max-width: 36em; }
+/* 68ch is about 95 characters in Instrument Sans (measured), so the cap is set in em: 36em is about 70 characters. Beats the older .af-page 68ch rules. */
+html .cs-content :is(.cs-section__body, .cs-card__body, .renewly-screen-entry__purpose, .wf-activities__item) { max-width: 36em; max-inline-size: 36em; }
+html .cs-cta__sub { max-inline-size: 40em; margin-inline: auto; }
+html .next-project__eyebrow { font-size: 0.75rem; color: rgba(255, 255, 255, 0.78); }
+
+/* ---------- long identifiers in card titles wrap instead of clipping ---------- */
+html :is(.cs-content, .pk-main) :is(h2, h3, h4, h5),
+html :is(.pk-card, .pk-layers, .pk-time, .pk-grid4) h3,
+html .cs-pn__v, html .next-project__title { overflow-wrap: anywhere; }
+
+/* ---------- Img zoom trigger ---------- */
+.cs-zoom {
+  position: relative; display: block; width: 100%; height: 100%; margin: 0; padding: 0; border: 0; background: none;
+  font: inherit; color: inherit; text-align: inherit; cursor: zoom-in; border-radius: inherit; -webkit-tap-highlight-color: transparent;
+}
+.cs-zoom > img { display: block; }
+.cs-zoom__ic {
+  position: absolute; right: 10px; bottom: 10px; display: grid; place-items: center; width: 32px; height: 32px; border-radius: 50%;
+  background: rgba(20, 18, 16, 0.82); color: #fff; box-shadow: 0 0 0 1.5px rgba(255, 255, 255, 0.85); pointer-events: none;
+  transition: transform 160ms ease;
+}
+.cs-zoom:hover .cs-zoom__ic { transform: scale(1.08); }
+.cs-zoom:focus-visible { outline: 3px solid var(--c-accent, #1e3a6e); outline-offset: 2px; box-shadow: 0 0 0 2px #fff; }
+@media (pointer: coarse) {
+  .cs-zoom__ic { width: 44px; height: 44px; right: 8px; bottom: 8px; }
+}
+
+/* ---------- Lightbox ---------- */
+.cs-lb {
+  position: fixed; inset: 0; z-index: 1000; display: flex; flex-direction: column; background: #0c0a08; color: #fff;
+  font-family: var(--font-sans, system-ui);
+}
+.cs-lb__bar { flex: none; display: flex; align-items: center; gap: 10px; padding: 8px 12px 8px 16px; }
+.cs-lb__title {
+  flex: 1; min-width: 0; margin: 0; font-size: 0.875rem; line-height: 1.35; color: #e8e5df; overflow-wrap: anywhere;
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+}
+.cs-lb__btn {
+  display: inline-grid; place-items: center; min-width: 44px; min-height: 44px; padding: 0 16px; border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.45); background: rgba(255, 255, 255, 0.08); color: #fff; font: 600 0.9rem/1 var(--font-sans, system-ui); cursor: pointer;
+}
+.cs-lb__btn:hover { background: rgba(255, 255, 255, 0.2); }
+.cs-lb__close { padding: 0; width: 44px; }
+.cs-lb__btn:focus-visible, .cs-lb__scroll:focus-visible { outline: 3px solid #fff; outline-offset: 2px; box-shadow: 0 0 0 5px #1e3a6e; }
+.cs-lb__scroll { flex: 1; min-height: 0; overflow: auto; overscroll-behavior: contain; padding: 8px 16px 16px; display: grid; }
+.cs-lb__scroll.is-fit { place-items: center; }
+.cs-lb .cs-lb__img { display: block; margin: auto; height: auto; max-width: none; border-radius: 6px; background: #fff; filter: none; opacity: 1; }
+.cs-lb .is-fit .cs-lb__img { width: auto; max-width: 100%; max-height: calc(100vh - 96px); max-height: calc(100dvh - 96px); object-fit: contain; }
+@media (prefers-reduced-motion: no-preference) {
+  .cs-lb { animation: cs-fade 160ms ease-out; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cs-zoom__ic { transition: none; }
+}
+html.cs-lightbox-open .guide, html.cs-lightbox-open .cs-sheet-chip { visibility: hidden; }
+
+/* ---------- phones: floating pills never sit on content or CTAs ---------- */
+html.cs-sheet-open .guide { visibility: hidden; }
+.cs-sheet-chip[data-open='true'] { visibility: hidden; }
+
+@media (max-width: 760px) {
+  /* focused elements scroll clear of the chip, the Ask launcher and the bottom nav pill */
+  html { scroll-padding-bottom: calc(var(--vj-pill-clear, 84px) + 76px + env(safe-area-inset-bottom, 0px)); }
+
+  /* the Ask launcher is compact here and steps away while the page opening is on screen */
+  html .guide .guide__btn.ask2-launch { height: 44px; padding: 0 14px 0 6px; font-size: 0.9375rem; }
+  html .guide[data-case-hero='true'] { opacity: 0; visibility: hidden; pointer-events: none; }
+  html .cs-sheet-chip { min-height: 44px; padding: 4px 14px 4px 6px; gap: 8px; }
+  html .cs-sheet-chip[data-hero='true']:not(:focus-visible) { opacity: 0; visibility: hidden; pointer-events: none; }
+}

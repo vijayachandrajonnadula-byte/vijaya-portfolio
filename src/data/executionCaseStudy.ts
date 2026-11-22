@@ -14,49 +14,49 @@ export const eeImages: Record<string, Slot> = {
   execution: {
     src: `${dir}/execution.jpg`,
     alt: 'The execution screen: left navigation, breadcrumb and status bar, the protocol as a document card, and the Evidence and Activity pane on the right',
-    caption: 'The execution screen. The protocol reads as a document, with the execution panel collapsed to a strip and the evidence pane open beside it.',
+    caption: 'Decision: the protocol stays a document. The execution panel collapses to a strip and the evidence pane sits beside it. Click to enlarge.',
     hint: 'Execution screen, 1440 × 900',
   },
   sign: {
     src: `${dir}/e-sign.jpg`,
     alt: 'The e-signature dialog over the execution screen: signer, reason, user id, password, comments and the accept statement',
-    caption: 'Recording a step opens the e-signature: who signs, the date and time, a reason and an explicit accept.',
+    caption: 'Decision: recording is a signed statement. The dialog shows who signs, the date and time, a reason and an explicit accept. Click to enlarge.',
     hint: 'E-signature dialog, 1440 × 900',
   },
   discrepancy: {
     src: `${dir}/discrepancy.jpg`,
     alt: 'A prompt asking whether to raise a discrepancy after a step was recorded as failed, over the AI agent panel',
-    caption: 'A Fail does not pass quietly: the prompt asks for a discrepancy, and a Fail without one has to be justified.',
+    caption: 'Decision: a Fail never passes quietly. The prompt asks for a discrepancy, and a Fail without one has to be justified. Click to enlarge.',
     hint: 'Discrepancy prompt, 1440 × 900',
   },
   ai: {
     src: `${dir}/ai-agent.jpg`,
     alt: 'The AI agent panel with a banner saying the result is a draft the executor must review and record, the input and scope choices and the run button',
-    caption: 'The assistant proposes. The banner, the draft state and the per-step Record button keep the person responsible.',
+    caption: 'Decision: the assistant proposes, the person records. The banner, the draft state and the per-step Record button keep the person responsible. Click to enlarge.',
     hint: 'AI agent panel, 1440 × 900',
   },
   status: {
     src: `${dir}/status.jpg`,
     alt: 'The execution status panel: recorded and verified progress, counts by verdict, drafts, AI-filled steps, open discrepancies and per-table progress',
-    caption: 'Execution status: where the run stands, by verdict and by table.',
+    caption: 'Decision: the executor sees what a reviewer will. Execution status shows where the run stands, by verdict and by table. Click to enlarge.',
     hint: 'Execution status, 1440 × 900',
   },
   metrics: {
     src: `${dir}/metrics.jpg`,
     alt: 'The metrics panel with two donut charts for step status and verdict split, and a bar for each table coloured by verdict',
-    caption: 'Metrics: step status and verdict split as donuts, one bar per table.',
+    caption: 'Decision: progress as shape, not only numbers. Step status and verdict split as donuts, one bar per table. Click to enlarge.',
     hint: 'Metrics, 1440 × 900',
   },
   audit: {
     src: `${dir}/audit.jpg`,
     alt: 'The details panel with the task and equipment fields and an icon rail for switching to the audit trail',
-    caption: 'Details: the task and equipment on one side, and the audit trail one tab away.',
+    caption: 'Decision: the trail is one tab from the work. Task and equipment on one side, the audit trail one tab away. Click to enlarge.',
     hint: 'Details panel, 1440 × 900',
   },
   split: {
     src: `${dir}/split.jpg`,
     alt: 'The split execution panel, where tables or rows are given to different executors, with the rule that a table taken whole cannot be reused',
-    caption: 'Split execution: give tables or rows to different executors, with the overlap rules enforced.',
+    caption: 'Decision: ownership is explicit. Tables or rows go to different executors, with the overlap rules enforced. Click to enlarge.',
     hint: 'Split execution, 1440 × 900',
   },
 };
@@ -116,15 +116,39 @@ export const componentMap: { need: string; component: string }[] = [
   { need: 'Menus and zoom', component: 'DropdownMenu and ZoomControl' },
 ];
 
-export const limits = [
-  'Nothing here is a validated system. It is a design and working prototype of the interface and its rules, not a compliant product.',
-  'The password is only checked for being present, as in the original prototype. There is no sign-in, no server and no stored record.',
-  'The AI agent is scripted sample output. No file is read and no tab is shared, and the panel says so.',
-  'The prototype’s exception modes, Protocol Error and Re-Execute, its spreadsheet-style document view and live-session timing are not rebuilt. The first two are labels only.',
+/** The one "Not validated" block. Shown before the results. */
+export const notValidated: { lead: string; body: string }[] = [
+  { lead: 'Not validated.', body: 'A design and working prototype of the interface and its rules, not a compliant product or a validated system.' },
+  { lead: 'Not tested with real users.', body: 'It has not been tested with people who execute protocols, and I have not measured time saved.' },
+  { lead: 'Tables are not keyboard-selectable.', body: 'Rows cannot be selected by keyboard yet, and no screen-reader pass has been run.' },
+  { lead: 'The AI output is scripted.', body: 'Sample data: no file is read, no tab is shared and no model runs. The panel says so.' },
+  { lead: 'The password is only checked for being present.', body: 'There is no sign-in, no server and no stored record.' },
+  { lead: 'Exception modes are not rebuilt.', body: 'Protocol Error and Re-Execute exist as labels only. The spreadsheet-style document view and live-session timing are not rebuilt either.' },
+];
+
+/** Smaller limits that are not about validation. */
+export const otherLimits = [
   'Evidence capture is mocked: you can crop, mask, highlight and watermark a generated sample picture, but nothing is read from your screen.',
   'It is built for a workstation. At phone width it works but is cramped, and I have not tuned it.',
-  'It has not been tested with people who execute protocols, and I have not measured time saved.',
 ];
+
+/** The starting point and the work, using only what the repo records. */
+export const startingPoint = 'An existing single-file HTML prototype of the experience, with an AI agent that fills in steps.';
+export const whatIDid = [
+  'Read the prototype end to end and wrote down every function before drawing anything.',
+  'Rebuilt it as a React and TypeScript app from PULSE components, with the rules enforced in the state logic.',
+  'Added the components PULSE lacked (CompactDialog, SideSurface, FullScreenSurface, SlidePanel) and logged each difference.',
+  'Matched the screen to the real product design, region by region, and de-branded it.',
+];
+export const notPorted = 'Not rebuilt: Protocol Error and Re-Execute modes, the spreadsheet-style document view and live-session timing.';
+
+/** A three-step tour of the working app. Each step is something the app does. */
+export const tryThis = [
+  'Open the Execution Panel beside the document, write an actual result, choose Pass and press Record. If something is missing, such as evidence, it is listed in place. When the step is complete, the e-signature opens.',
+  'Do the same on another step and choose Fail: the app asks whether to raise a discrepancy.',
+  'Click the Execution Status chip in the status bar to see the counts and progress change.',
+];
+export const tryNote = 'A toast saying a viewer is now viewing the execution appears shortly after load. That is by design: it shows the read-only spectator role, with a sample spectator.';
 
 export const nextSteps = [
   'Test the record and sign flow with people who execute protocols, and time it against the paper and the earlier prototype.',

@@ -24,7 +24,7 @@ export const workflowCaseStudy = {
   tags: ['Product Workflow', 'AI-assisted Build', 'VS Code', 'GitHub PRs', 'CI/CD', 'React Prototype', 'Documentation', 'Handoff'],
 
   snapshot: {
-    role: 'UX/UI Designer + Product Builder',
+    role: 'UX/UI Designer, product thinker, prototype builder',
     timeline: 'Applied across both portfolio projects',
     platform: 'VS Code, GitHub, Vercel',
     tools: 'Claude, Roo Code, Cline, Codex, GitHub, Vercel, React, TypeScript',
@@ -57,6 +57,24 @@ export const workflowCaseStudy = {
       body: "AGENTS.md covers project conventions so anyone picking up the repo can orient quickly. The case studies themselves are the handoff record.",
     },
   ] as WfDemonstratesItem[],
+
+  catches: [
+    {
+      title: 'Direct links returned a 404',
+      body: 'React Router needs a vercel.json rewrite, or opening a case-study URL directly (or refreshing it) returns a 404. The first preview deploy showed it, and I added the rewrite before promoting to production.',
+      phase: 'Phase 12, Vercel deployment',
+    },
+    {
+      title: 'One type error showed every affected file',
+      body: "TypeScript reported \"Property 'focus' does not exist on type 'Snapshot'\". Adding the optional field to the interface flagged every consumer that needed updating before anything reached the browser.",
+      phase: 'Phase 8, CI validation',
+    },
+    {
+      title: 'A red build blocked a merge',
+      body: "A missing component file and an unused import (noUnusedLocals) each failed the build. The rule was no merge while the build is red, so both were fixed locally and rebuilt before the PR went in.",
+      phase: 'Phase 8, CI validation',
+    },
+  ],
 
   overview: "This is a behind-the-scenes look at how Riverside General and Renewly were built. It covers every stage from the initial problem brief through research, design exploration, repo setup, coding with AI agents, feature branches, PR review, CI, deployment, and sharing. The goal isn't to explain how the tools work. It's to show how the workflow was structured so design decisions stayed mine while AI helped with the parts it's actually useful for.",
 

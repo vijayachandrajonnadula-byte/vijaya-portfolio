@@ -3,6 +3,7 @@ import { animate, motion, useInView, useReducedMotion, useScroll, useTransform }
 import Character from '../studio/Character';
 import type { Slot } from '../../data/pulseImages';
 import SectionSheet from '../case-study/SectionSheet';
+import Img from '../case-study/Img';
 import { useIndicator } from '../case-study/useIndicator';
 import { isJumping } from '../case-study/jump';
 import '../../styles/case-v2.css';
@@ -106,8 +107,8 @@ function Num({ value }: { value: string | number }) {
 }
 
 /* ---------- hero ---------- */
-export function CaseHero({ kicker, minutes, title, summary, meta, actions }: {
-  kicker: string; minutes: number | null; title: string; summary: string; meta: { k: string; v: string }[]; actions?: ReactNode;
+export function CaseHero({ kicker, minutes, title, summary, evidence, meta, actions }: {
+  kicker: string; minutes: number | null; title: string; summary: string; evidence?: ReactNode; meta: { k: string; v: string }[]; actions?: ReactNode;
 }) {
   const reduced = useReducedMotion();
   const fade = (d: number) => ({ initial: reduced ? false : { opacity: 0, y: 20 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.9, ease: EASE, delay: d } });
@@ -120,6 +121,7 @@ export function CaseHero({ kicker, minutes, title, summary, meta, actions }: {
         <motion.p className="pk-hero__top" {...fade(0.05)}><span>{kicker}</span>{minutes && <span>{minutes} min read</span>}</motion.p>
         <h1><Words text={title} immediate delay={0.15} /></h1>
         <motion.p className="pk-hero__sum" {...fade(0.55)}>{summary}</motion.p>
+        {evidence && <motion.p className="pk-hero__evidence" {...fade(0.6)}>{evidence}</motion.p>}
         {actions && <motion.div className="pk-hero__actions" {...fade(0.7)}>{actions}</motion.div>}
         <dl className="pk-hero__meta">
           {meta.map((m, i) => (
@@ -364,7 +366,7 @@ export function Panel({ slot, tone = 'soft' }: { slot: Slot; tone?: 'soft' | 'pl
     >
       <div className="pk-panel__frame">
         {slot.src
-          ? <motion.img src={slot.src} alt={slot.alt} loading="lazy" style={{ y }} />
+          ? <motion.div style={{ y }}><Img src={slot.src} alt={slot.alt} loading="lazy" zoom /></motion.div>
           : <div className="pk-ph" role="img" aria-label={`Image to come: ${slot.alt}`}><span>Image to come</span><small>{slot.hint}</small></div>}
       </div>
       <figcaption>{slot.caption}</figcaption>

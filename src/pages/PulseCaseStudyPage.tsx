@@ -6,10 +6,14 @@ import {
   Bullets, CaseHero, CaseShell, Cards3, Grid4, Layered, Panel, Sec, Stats, Timeline, type Section,
 } from '../components/pulse/PulseKit';
 import {
-  AssistantCompare, AtomicBuilder, CodePanel, ControlsPlayground, FlowDiagram, IntentChooser, LayersDiagram, ScreenHotspots, ScreenShowcase,
-  TabCompare, TokenExplorer,
+  AssistantCompare, AtomicBuilder, CodePanel, FlowDiagram, IntentChooser, LayersDiagram, ScreenHotspots, ScreenShowcase,
+  StorybookTry, TabCompare, TokenExplorer,
 } from '../components/pulse/PulseInteractive';
+import PulseTable from '../components/pulse/PulseTable';
+import { AuditBlock, Tldr } from '../components/pulse/PulseBlocks';
+import '../styles/audit-pulse.css';
 import metrics from '../data/pulse-metrics.json';
+import audit from '../data/pulse-audit.json';
 import { pulseImages as im } from '../data/pulseImages';
 import {
   aiLayers, findings, galleryUrl, guards, intentExample, limits, nextSteps, shellPanels, storybookUrl,
@@ -32,22 +36,7 @@ const sections: Section[] = [
 
 const n = (v: number) => v.toLocaleString('en-US');
 
-/** A small scrollable table in the page's style. */
-function Table({ label, head, rows }: { label: string; head: string[]; rows: ReactNode[][] }) {
-  return (
-    <div className="pk-table" role="region" aria-label={`${label}, scrollable`} tabIndex={0}>
-      <table>
-        <caption className="sr-only">{label}</caption>
-        <thead><tr>{head.map(h => <th key={h} scope="col">{h}</th>)}</tr></thead>
-        <tbody>
-          {rows.map((r, i) => (
-            <tr key={i}>{r.map((c, j) => (j === 0 ? <th key={j} scope="row">{c}</th> : <td key={j}>{c}</td>))}</tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-  );
-}
+const Table = PulseTable;
 
 export default function PulseCaseStudyPage() {
   const { code, ai, figma } = metrics;
@@ -65,18 +54,20 @@ export default function PulseCaseStudyPage() {
         <CaseHero
           kicker="Case study · Design system"
           minutes={minutes}
-          title="PULSE: making a design system an AI can actually use"
-          summary="PULSE is the design system behind enterprise software for life-science teams. It lived in Figma, and nothing a machine could read. After I joined, I made it AI-readable, so product screens can be built faster and stay on-system."
+          title="PULSE: one design system for many product screens, readable by people and by AI"
+          summary="PULSE gives the screens of enterprise life-science software one language: the same components, tokens and rules everywhere. It lived in Figma. I built it into React components and Storybook, and added a layer an AI assistant can read, so screens get assembled on-system."
+          evidence={<><b>One piece of evidence:</b> in an automated axe-core scan of every component demo, colour-contrast failures fell from {audit.before.contrastNodes} to {audit.after.contrastNodes} elements ({audit.before.contrastDemos} demos to {audit.after.contrastDemos}). <a className="pk-link" href="#rules">See the scan</a>.</>}
           meta={[
             { k: 'Role', v: 'Senior UX Designer' },
             { k: 'Year', v: '2026 to now' },
             { k: 'Platform', v: 'Figma, React, MUI, Storybook' },
-            { k: 'Focus', v: 'AI-readable design systems' },
+            { k: 'Focus', v: 'Design system, AI-readable layer' },
           ]}
           actions={
             <>
               <a className="btn-c" href={storybookUrl} target="_blank" rel="noopener noreferrer">Open the Storybook</a>
               <a className="btn-c btn-c--ghost" href={galleryUrl} target="_blank" rel="noopener noreferrer">Component gallery</a>
+              <p className="pk-hero__start">New to it? Start at <a href={`${storybookUrl}?path=/story/actions-button--playground`} target="_blank" rel="noopener noreferrer">Button, the playground story</a>, then open <a href={`${storybookUrl}?path=/story/data-display-datagrid--all-variants`} target="_blank" rel="noopener noreferrer">DataGrid</a>, the biggest component.</p>
             </>
           }
         />
@@ -86,9 +77,17 @@ export default function PulseCaseStudyPage() {
           side={[
             { k: 'Role', v: 'Senior UX Designer, joined 2026' },
             { k: 'Built with', v: 'A developer, on the React components and the AI layer' },
-            { k: 'Status', v: 'Shipped, and used to build product screens' },
+            { k: 'Status', v: 'Built and hosted. One full product screen is built from it in this public copy' },
           ]}
         >
+          <Tldr rows={[
+            { k: 'Problem', body: 'PULSE lived in Figma, and nothing in it a machine could read, so assistants guessed components.', to: 'problem', toLabel: 'The problem' },
+            { k: 'The layers', body: 'Components built from the file, micro templates, intents, written rules and build checks.', to: 'approach', toLabel: 'Approach' },
+            { k: 'Proof', body: `An axe-core scan: contrast failures ${audit.before.contrastNodes} to ${audit.after.contrastNodes} elements; ${audit.after.contrastDemos} demos still flagged, mostly disabled samples.`, to: 'rules', toLabel: 'The scan' },
+            { k: 'Limits', body: 'One full screen built from it here; no controlled AI comparison, no screen reader test, no time saved measured.', to: 'results', toLabel: 'All limits' },
+            { k: 'Look first', body: 'The Button playground in Storybook, then DataGrid.', to: 'storybook', toLabel: 'Storybook' },
+          ]} />
+
           {/* 01 */}
           <Sec
             id="overview" n={1} label="Overview" title="A design system that people and AI assistants can both build with"
@@ -107,14 +106,15 @@ export default function PulseCaseStudyPage() {
             <Cards3 cards={[
               { icon: 'search', title: 'The problem', items: ['A Figma library no program could read', 'No rule for which component fits which job', 'Assistants guessed, and plausible guesses are costly in regulated software'] },
               { icon: 'layers', title: 'What I did', items: ['React components built from the Figma spec', 'Micro templates for repeating page regions', 'Rules in markdown, a decision layer and governance'] },
-              { icon: 'check', title: 'Where it stands', items: ['Screens built this way have shipped', 'The team builds with the library', 'Every difference from Figma is on record'] },
+              { icon: 'check', title: 'Where it stands', items: ['One full product screen is built from it in this public copy', 'Time saved and adoption are not measured', 'Every difference from Figma is on record'] },
             ]} />
             <Stats items={[
               { v: code.components, l: 'components' },
               { v: code.stories, l: 'Storybook stories' },
               { v: ai.intents, l: 'intents mapping a job to a component' },
-              { v: n(figma.variants), l: 'Figma variants behind them' },
+              { v: ai.deviationsLogged, l: 'logged differences from Figma' },
             ]} />
+            <p className="pk-foot">Built from {n(figma.variants)} Figma variants.</p>
           </Sec>
 
           {/* 02 */}
@@ -133,7 +133,7 @@ export default function PulseCaseStudyPage() {
               { title: 'Readable', body: 'Every component, prop and default exists in a form a machine can read, not only in a Figma file.' },
               { title: 'Correct', body: 'What the code does matches what the file says, state by state, and any difference is on record.' },
               { title: 'Governed', body: 'Someone owns the rules, and a change has a path that does not depend on memory.' },
-              { title: 'Used', body: 'Product screens are built from it. A readable system nobody builds with is only a document.' },
+              { title: 'Used', body: 'Screens are built from it. A readable system nobody builds with is only a document, and here only one full screen is built so far.' },
             ]} />
           </Sec>
 
@@ -182,9 +182,7 @@ export default function PulseCaseStudyPage() {
               <><a className="pk-link" href={storybookUrl} target="_blank" rel="noopener noreferrer">Open the Storybook</a>, the real library running.</>,
               <>The lighter <a className="pk-link" href={galleryUrl} target="_blank" rel="noopener noreferrer">component gallery</a> shows one demo at a time.</>,
             ]} />
-            <h3 className="pk-h3">Try the controls</h3>
-            <p className="pk-p">This is the idea behind the Storybook controls, shown with a button.</p>
-            <ControlsPlayground />
+            <StorybookTry storybookUrl={storybookUrl} galleryUrl={galleryUrl} />
             <Panel slot={im.buttonStory} />
             <Panel slot={im.datagrid} />
           </Sec>
@@ -234,6 +232,9 @@ export default function PulseCaseStudyPage() {
               { title: 'Log it', body: 'The difference goes in the deviations log with the Figma value beside it and the reason.' },
               { title: 'Write the rule', body: 'If the mistake could repeat, it becomes a written rule or a check, so it cannot come back.' },
             ]} />
+            <h3 className="pk-h3">Accessibility: an automated scan, before and after</h3>
+            <p className="pk-p">I ran axe-core over every component demo before and after the palette work, so the contrast result is a measurement and not a claim.</p>
+            <AuditBlock />
             <p className="pk-p">Here is one real correction. Drag the handle to compare unselected tabs as the export read them and as the live product draws them.</p>
             <TabCompare />
             <h3 className="pk-h3">What wins when sources disagree</h3>
@@ -246,18 +247,18 @@ export default function PulseCaseStudyPage() {
           </Sec>
 
           {/* 10 */}
-          <Sec id="product" n={10} label="In the product" title="Into the product repo, and into real screens" intro={<p>A readable system earns its place when screens get built from it. After the components were documented, they went into the product repo, and product pages started composing them instead of rebuilding them. The screens built this way have shipped, and the team has adopted it.</p>}>
+          <Sec id="product" n={10} label="In the product" title="Into the product repo, and into real screens" intro={<p>A readable system earns its place when screens get built from it. Pages in the product repo import design-system components and micro templates, not the UI library underneath. This public copy holds one full screen built that way. How the library holds up across a whole product is not shown here, and I have not measured adoption.</p>}>
             <Layered rows={[
               { step: '01', kicker: 'Rule', title: 'Pages use the system, and only the system', body: 'Pages import design-system components and micro templates. They cannot import the underlying UI library.' },
               { step: '02', kicker: 'Rule', title: 'A missing part becomes a component first', body: 'If a page needs something the library lacks, it is built as a component, with a demo, before any page uses it.' },
-              { step: '03', kicker: 'Result', title: 'Screens shipped, and the team adopted it', body: 'Building with the library is now how new screens get made.' },
+              { step: '03', kicker: 'Result', title: 'One full screen built this way; adoption not measured', body: 'The rule is in place and enforced by lint. How widely the team builds with it is not something this page can show.' },
             ]} />
             <CodePanel />
-            <h3 className="pk-h3">Anatomy of one shipped screen</h3>
-            <p className="pk-p">Every region of a list page is a component or a micro template. Hover a region to see which.</p>
+            <h3 className="pk-h3">Anatomy of one screen built from the system</h3>
+            <p className="pk-p">Every region of a list page is a component or a micro template. Pick a region in the list, or hover or tap it in the diagram, to see which.</p>
             <ScreenHotspots />
             <h3 className="pk-h3">More screens built the same way</h3>
-            <p className="pk-p">Public copies of shipped screens, rebuilt from the system with generic names and made-up figures.</p>
+            <p className="pk-p">Public copies of screens, rebuilt from the system with generic names and made-up figures. They show the range of the system, not adoption.</p>
             <ScreenShowcase screens={[
               { name: 'Capability dashboard', slot: im.screenCapability! },
               { name: 'Parameter monitoring', slot: im.screenParameters! },
@@ -270,7 +271,7 @@ export default function PulseCaseStudyPage() {
           </Sec>
 
           {/* 11 */}
-          <Sec id="results" n={11} label="Results and reflection" title="What exists today, what I would change" intro={<p>The system is in use and the screens built from it have shipped. These are the things you can open and count. I have not measured the time saved against the old process, and this page does not claim a number for it.</p>}>
+          <Sec id="results" n={11} label="Results and reflection" title="What exists today, what I would change" intro={<p>These are the things you can open and count. One full product screen is built from the system in this public copy. I have not measured the time saved against the old process or how widely the system is adopted, and this page does not claim a number for either.</p>}>
             <Stats items={[
               { v: code.components, l: 'components' },
               { v: code.stories, l: 'Storybook stories' },

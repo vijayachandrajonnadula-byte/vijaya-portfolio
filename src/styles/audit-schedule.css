@@ -1,0 +1,5 @@
+/* Schedule-specific overrides on top of the shared audit styles. */
+@import './audit-afs.css';
+
+/* Disabled-looking reminder link inside a decorative tile: keep it readable (4.5:1 on #F8FAFC). */
+.aud-sch .aud-sch-disabled { color: #6B7280; font-style: italic; }

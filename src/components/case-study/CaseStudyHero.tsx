@@ -10,6 +10,7 @@ import { fadeUp, staggerParent, EASE, DURATION } from '../motion/motion-presets'
 import { projects } from '../../data/projects';
 import Img from './Img';
 import '../../styles/case-v2.css';
+import '../../styles/audit-shared.css';
 
 interface CaseStudyHeroProps {
   title: string;
@@ -27,6 +28,12 @@ interface CaseStudyHeroProps {
   githubLabel?: string;
   /** Replaces the year / category / format strip when a project has facts worth showing instead. */
   meta?: { k: string; v: string }[];
+  /** One plain line: what the author owned on this project. Shown under the subtitle. */
+  myPart?: string;
+  /** One plain line: the evidenced result or the honest state of the work. Shown with myPart. */
+  outcome?: string;
+  /** Overrides the generic status derived from projects.ts (e.g. 'Prototype', 'Reconstructed from final screens'). */
+  statusLabel?: string;
 }
 
 const WORDS_PER_MINUTE = 220;
@@ -53,6 +60,9 @@ export default function CaseStudyHero({
   prototypeLabel = 'View live prototype ↗',
   githubLabel = 'View GitHub repository ↗',
   meta: metaOverride,
+  myPart,
+  outcome,
+  statusLabel,
 }: CaseStudyHeroProps) {
   const reduced = useReducedMotion();
   const start = reduced ? false : 'hidden';
@@ -66,7 +76,7 @@ export default function CaseStudyHero({
     ? [
         { k: 'Year', v: project.year },
         { k: 'Category', v: project.category },
-        { k: 'Format', v: project.sprint ?? '—' },
+        { k: 'Format', v: project.sprint ?? '–' },
       ]
     : []);
 
@@ -75,13 +85,13 @@ export default function CaseStudyHero({
   const metaHas = (k: string) => meta.some(m => m.k.toLowerCase() === k.toLowerCase());
   const fromMeta = (k: string) => (metaOverride ?? []).find(m => m.k.toLowerCase() === k.toLowerCase())?.v;
   const STATUS: Record<string, string> = {
-    complete: 'Shipped', 'in-progress': 'In progress', 'process-showcase': 'Process study', 'creative-showcase': 'Creative study',
+    complete: 'Complete', 'in-progress': 'In progress', 'process-showcase': 'Process study', 'creative-showcase': 'Creative study',
   };
   const datasheet = [
     { k: 'Role', v: fromMeta('Role') },
     { k: 'Platform', v: fromMeta('Platform') },
     { k: 'Year', v: project?.year },
-    { k: 'Status', v: project ? STATUS[project.status] : undefined },
+    { k: 'Status', v: statusLabel ?? (project ? STATUS[project.status] : undefined) },
   ].filter((d): d is { k: string; v: string } => Boolean(d.v) && !metaHas(d.k));
 
   useEffect(() => {
@@ -103,6 +113,22 @@ export default function CaseStudyHero({
           <BlurReveal immediate delay={0.1} text={title} />
         </h1>
         <motion.p className="cs-hero__subtitle" variants={fadeUp(16)}>{subtitle}</motion.p>
+        {(myPart || outcome) && (
+          <motion.dl className="cs-hero__brief" variants={fadeUp(14)}>
+            {myPart && (
+              <div className="cs-hero__brief-row">
+                <dt>My part</dt>
+                <dd>{myPart}</dd>
+              </div>
+            )}
+            {outcome && (
+              <div className="cs-hero__brief-row">
+                <dt>Outcome</dt>
+                <dd>{outcome}</dd>
+              </div>
+            )}
+          </motion.dl>
+        )}
         <motion.div className="cs-hero__tags" variants={fadeUp(12)}>
           {tags.map(t => <Tag key={t}>{t}</Tag>)}
         </motion.div>

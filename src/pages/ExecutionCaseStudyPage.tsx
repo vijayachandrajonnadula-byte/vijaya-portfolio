@@ -1,4 +1,4 @@
-import { useEffect, useState, type ReactNode } from 'react';
+import { useEffect, useState } from 'react';
 import Header from '../components/layout/Header';
 import Footer from '../components/layout/Footer';
 import NextProject from '../components/case-study/NextProject';
@@ -6,8 +6,11 @@ import {
   Bullets, CaseHero, CaseShell, Cards3, Grid4, Layered, Panel, Sec, Stats, Timeline, type Section,
 } from '../components/pulse/PulseKit';
 import { ScreenShowcase } from '../components/pulse/PulseInteractive';
+import PulseTable from '../components/pulse/PulseTable';
+import '../styles/audit-pulse.css';
 import {
-  appUrl, componentMap, decisions, eeImages as im, executionSteps, galleryUrl, limits, nextSteps, rules, stepStates,
+  appUrl, componentMap, decisions, eeImages as im, executionSteps, galleryUrl, nextSteps, notPorted, notValidated, otherLimits, rules,
+  startingPoint, stepStates, tryNote, tryThis, whatIDid,
 } from '../data/executionCaseStudy';
 
 const sections: Section[] = [
@@ -22,22 +25,7 @@ const sections: Section[] = [
   { id: 'limits', label: 'Limits and next steps' },
 ];
 
-/** A small scrollable table in the page's style. */
-function Table({ label, head, rows }: { label: string; head: string[]; rows: ReactNode[][] }) {
-  return (
-    <div className="pk-table" role="region" aria-label={`${label}, scrollable`} tabIndex={0}>
-      <table>
-        <caption className="sr-only">{label}</caption>
-        <thead><tr>{head.map(h => <th key={h} scope="col">{h}</th>)}</tr></thead>
-        <tbody>
-          {rows.map((r, i) => (
-            <tr key={i}>{r.map((c, j) => (j === 0 ? <th key={j} scope="row">{c}</th> : <td key={j}>{c}</td>))}</tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-  );
-}
+const Table = PulseTable;
 
 export default function ExecutionCaseStudyPage() {
   const [minutes, setMinutes] = useState<number | null>(null);
@@ -54,7 +42,7 @@ export default function ExecutionCaseStudyPage() {
           kicker="Case study · Regulated software"
           minutes={minutes}
           title="Electronic execution: running a validation protocol on screen"
-          summary="In regulated life-science work, a test protocol is carried out step by step, and every step has to be recorded, signed and checked by someone else. I took a prototype of that experience and rebuilt it, with every function working, from the PULSE design system."
+          summary="In regulated life-science work, a test protocol is carried out step by step, and every step has to be recorded, signed and checked by someone else. I took an existing single-file prototype of that experience and rebuilt it as a working app from the PULSE design system. It is a prototype: not validated and not tested with users."
           meta={[
             { k: 'Role', v: 'Senior UX Designer' },
             { k: 'Year', v: '2026' },
@@ -65,6 +53,7 @@ export default function ExecutionCaseStudyPage() {
             <>
               <a className="btn-c" href={appUrl} target="_blank" rel="noopener noreferrer">Open the working app</a>
               <a className="btn-c btn-c--ghost" href={galleryUrl} target="_blank" rel="noopener noreferrer">Component gallery</a>
+              <p className="pk-hero__start">Try it in three steps: record a step, force a Fail, open Execution Status. <a href="#try">The steps</a>.</p>
             </>
           }
         />
@@ -73,7 +62,7 @@ export default function ExecutionCaseStudyPage() {
           sections={sections}
           side={[
             { k: 'Role', v: 'Senior UX Designer' },
-            { k: 'Starting point', v: 'A single-file HTML prototype of the experience' },
+            { k: 'Starting point', v: 'An existing single-file HTML prototype' },
             { k: 'Status', v: 'Working prototype, not a validated system' },
           ]}
         >
@@ -94,6 +83,22 @@ export default function ExecutionCaseStudyPage() {
               </>
             }
           >
+            <div className="pk-own">
+              <div>
+                <h3>Starting point</h3>
+                <p>{startingPoint}</p>
+                <p>{notPorted}</p>
+              </div>
+              <div>
+                <h3>What I designed and built</h3>
+                <ul>{whatIDid.map(x => <li key={x}>{x}</li>)}</ul>
+              </div>
+            </div>
+            <section className="pk-nv" aria-labelledby="nv-h">
+              <h3 id="nv-h">Not validated</h3>
+              <p>Read the results below with these limits in mind.</p>
+              <ul>{notValidated.map(x => <li key={x.lead}><b>{x.lead}</b> {x.body}</li>)}</ul>
+            </section>
             <Cards3 cards={[
               { icon: 'search', title: 'The problem', items: ['Steps, results, evidence and signatures live in different places', 'A mistake caught late means redoing the step', 'Reviewers need the trail, not just the answer'] },
               { icon: 'layers', title: 'What I built', items: ['One screen: the protocol and the step in hand', 'Recording, e-signature, verification and discrepancies', 'Status, metrics, audit trail, split and an AI assistant'] },
@@ -101,6 +106,15 @@ export default function ExecutionCaseStudyPage() {
             ]} />
             <Panel slot={im.execution!} />
           </Sec>
+
+          <section className="pk-try" id="try" aria-labelledby="try-h">
+            <h3 id="try-h">Try the working app in three steps</h3>
+            <ol>{tryThis.map(x => <li key={x}>{x}</li>)}</ol>
+            <p>{tryNote}</p>
+            <div className="pk-try__links">
+              <a className="btn-c" href={appUrl} target="_blank" rel="noopener noreferrer">Open the working app</a>
+            </div>
+          </section>
 
           {/* 02 */}
           <Sec id="work" n={2} label="The work" title="What carrying out a protocol involves" intro={<p>I read the original prototype end to end and wrote down every function before drawing anything. The job reduces to six moments, and each one has a rule behind it.</p>}>
@@ -125,7 +139,7 @@ export default function ExecutionCaseStudyPage() {
               'Moving to another step with unsaved changes opens a guard: discard, save as a draft, or stay.',
             ]} />
             <h3 className="pk-h3">Rules the logic enforces</h3>
-            <p className="pk-p">These live in the state logic, and the app carries a self-check that exercises them. I ran it and every check passed (25 checks).</p>
+            <p className="pk-p">These live in the state logic. The app has its own self-check function that runs 25 checks of them on fresh stores, and I ran it: all 25 passed. It is the prototype checking its own logic, not independent testing and not validation with users.</p>
             <Table label="Rules the app enforces and why" head={['Rule', 'Why']} rows={rules.map(r => [r.rule, r.why])} />
           </Sec>
 
@@ -172,7 +186,7 @@ export default function ExecutionCaseStudyPage() {
               { v: 21, l: 'PULSE components used directly' },
               { v: 57, l: 'files in the app' },
               { v: 52, l: 'store actions and selectors' },
-              { v: 25, l: 'rule checks, all passing' },
+              { v: 25, l: 'self-checks of its own rules, all passing (not user validation)' },
             ]} />
             <Table label="What each need uses" head={['Need', 'Component']} rows={componentMap.map(c => [c.need, c.component])} />
             <h3 className="pk-h3">What the system lacked</h3>
@@ -185,13 +199,10 @@ export default function ExecutionCaseStudyPage() {
           </Sec>
 
           {/* 09 */}
-          <Sec id="limits" n={9} label="Limits and next steps" title="What this is, and what it is not" intro={<p>This is a working prototype of the interface and its rules. It is easy to overstate, so here is what it does not do.</p>}>
-            <Cards3 cards={[
-              { icon: 'cross', title: 'Limits', items: limits.slice(0, 3) },
-              { icon: 'cross', title: 'Not built yet', items: limits.slice(3, 6) },
-              { icon: 'arrow', title: 'What I would do next', items: nextSteps.slice(0, 3) },
-            ]} />
-            <Bullets items={[limits[6] ?? '', nextSteps[3] ?? '']} />
+          <Sec id="limits" n={9} label="Limits and next steps" title="What this is, and what it is not" intro={<p>This is a working prototype of the interface and its rules. The main limits are in the <a className="pk-link" href="#overview">Not validated block</a> in the overview. Two smaller ones, then what I would do next.</p>}>
+            <Bullets items={otherLimits} />
+            <h3 className="pk-h3">What I would do next</h3>
+            <Bullets items={nextSteps} />
           </Sec>
         </CaseShell>
       </main>
