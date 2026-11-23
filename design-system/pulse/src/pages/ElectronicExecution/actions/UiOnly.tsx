@@ -31,7 +31,7 @@ export function AnnotationPanel() {
       width="min(1400px, 75vw)"
       onClose={close}
       backdropOpacity={0.3}
-      headerProps={{ title: 'Annotation Details', metadata: s.protocol.id }}
+      headerProps={{ compact: true, title: 'Annotation Details', metadata: s.protocol.id }}
       footer={<Button size="small" variant="outlined" onClick={close}>Close</Button>}
     >
       <Box component="table" data-spec="annotation-table" sx={wsTable}>
@@ -75,7 +75,7 @@ export function TaskTransferPanel() {
       width={440}
       onClose={close}
       backdropOpacity={0.3}
-      headerProps={{ title: 'Task Transfer', metadata: s.protocol.id }}
+      headerProps={{ compact: true, title: 'Task Transfer', metadata: s.protocol.id }}
       footer={
         <>
           <Button size="small" variant="outlined" onClick={close}>Cancel</Button>
@@ -109,7 +109,7 @@ export function CopyResultPanel() {
       width={620}
       onClose={close}
       backdropOpacity={0.3}
-      headerProps={{ title: 'Copy Result' }}
+      headerProps={{ compact: true, title: 'Copy Result' }}
       disableContentPadding
       footerLeft={<Box sx={tx(12, W.emphasis, ref.muted, 17.4)}>{picked.length} steps selected</Box>}
       footer={

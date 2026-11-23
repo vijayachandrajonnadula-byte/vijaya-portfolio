@@ -106,7 +106,7 @@ export default function AssignDrawer({ mode }: { mode: Mode }) {
         width="calc(100vw - 52px)"
         onClose={close}
         backdropOpacity={0.3}
-        headerProps={{ title: verify ? 'Assign for Verification' : 'Split Execution' }}
+        headerProps={{ compact: true, title: verify ? 'Assign for Verification' : 'Split Execution' }}
         disableContentPadding
         footer={
           <>

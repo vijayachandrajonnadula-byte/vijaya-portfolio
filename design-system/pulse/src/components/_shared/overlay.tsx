@@ -24,6 +24,11 @@ export interface OverlayHeaderProps {
   titleAdornment?: ReactNode;
   /** Leading icon (Modal header icon slot). */
   icon?: ReactNode;
+  /**
+   * Smaller header text for dense screens: title 16/24 SemiBold, metadata 12/16 (default: Figma "Sub Heading 2" title 24/28 Medium,
+   * metadata 14/20). The header stays 48px tall. Not in Figma; logged in docs/figma-deviations.md. @default false
+   */
+  compact?: boolean;
 }
 
 export function CloseButton({ onClick }: { onClick?: () => void }) {
@@ -39,7 +44,7 @@ export function CloseButton({ onClick }: { onClick?: () => void }) {
   );
 }
 
-export function OverlayHeader({ title, metadata, showCloseIcon = true, onClose, onBack, actions, titleAdornment, icon, divider, padding }: OverlayHeaderProps & { divider?: boolean; padding: string }) {
+export function OverlayHeader({ title, metadata, showCloseIcon = true, onClose, onBack, actions, titleAdornment, icon, compact = false, divider, padding }: OverlayHeaderProps & { divider?: boolean; padding: string }) {
   return (
     <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: pt.spacing.m, padding, borderBottom: divider ? `1px solid ${line}` : undefined, background: pt.colors.base.white, flexShrink: 0 }}>
       {onBack && (
@@ -50,14 +55,14 @@ export function OverlayHeader({ title, metadata, showCloseIcon = true, onClose, 
       {icon && <Box sx={{ display: 'inline-flex', alignItems: 'center', height: 32 }}>{icon}</Box>}
       <Box sx={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column', gap: 0 }}>
         <Box sx={{ display: 'flex', alignItems: 'center', gap: pt.spacing.m, minHeight: 32 }}>
-          <Box component="h2" sx={{ m: 0, flex: 1, minWidth: 0, fontFamily: headingFont, fontSize: 24, lineHeight: '28px', fontWeight: fw.medium, color: pt.formElements.headings.defaultTextColor }}>
+          <Box component="h2" sx={{ m: 0, flex: 1, minWidth: 0, fontFamily: headingFont, ...(compact ? { fontSize: 16, lineHeight: '24px', fontWeight: fw.semiBold } : { fontSize: 24, lineHeight: '28px', fontWeight: fw.medium }), color: pt.formElements.headings.defaultTextColor }}>
             {title}
           </Box>
           {titleAdornment}
           {actions}
           {showCloseIcon && <CloseButton onClick={onClose} />}
         </Box>
-        {metadata && <Box sx={{ mt: '-4px', fontFamily: headingFont, fontSize: 14, lineHeight: '20px', color: pt.formElements.content.secondaryTextColor }}>{metadata}</Box>}
+        {metadata && <Box sx={{ mt: compact ? '-2px' : '-4px', fontFamily: headingFont, fontSize: compact ? 12 : 14, lineHeight: compact ? '16px' : '20px', color: pt.formElements.content.secondaryTextColor }}>{metadata}</Box>}
       </Box>
     </Box>
   );

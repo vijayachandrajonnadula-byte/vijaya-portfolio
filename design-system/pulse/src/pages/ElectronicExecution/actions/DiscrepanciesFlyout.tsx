@@ -59,7 +59,7 @@ export default function DiscrepanciesFlyout() {
       open
       width={720}
       onClose={close}
-      headerProps={{ title, metadata, onBack: view.kind === 'list' ? undefined : () => setView({ kind: 'list' }) }}
+      headerProps={{ compact: true, title, metadata, onBack: view.kind === 'list' ? undefined : () => setView({ kind: 'list' }) }}
       tabs={view.kind === 'list' ? TABS.map((t, i) => ({ label: `${t.label} (${count(i)})` })) : undefined}
       activeTab={tab}
       handleChangeTab={setTab}
@@ -193,7 +193,7 @@ function CreatePanel({ initialStepId, onCancel, onClose, onCreated }: { initialS
       width={1240}
       onClose={onClose}
       backdropOpacity={0.3}
-      headerProps={{ title: 'Create Discrepancy' }}
+      headerProps={{ compact: true, title: 'Create Discrepancy' }}
       footer={
         <>
           <Button size="small" variant="outlined" onClick={onCancel}>Cancel</Button>

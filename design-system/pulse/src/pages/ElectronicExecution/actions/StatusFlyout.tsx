@@ -35,7 +35,7 @@ export default function StatusFlyout() {
       width={440}
       onClose={close}
       backdropOpacity={0.3}
-      headerProps={{ title: 'Execution Status', metadata: `${s.protocol.id} · Real-time progress`, icon: <CheckmarkCircle01Icon size={22} /> }}
+      headerProps={{ compact: true, title: 'Execution Status', metadata: `${s.protocol.id} · Real-time progress`, icon: <CheckmarkCircle01Icon size={22} /> }}
       disableContentPadding
     >
       <Box data-spec="status-prog" sx={{ p: '12px 16px', borderBottom: `1px solid ${ref.line}`, background: actRef.statusProg, boxSizing: 'border-box' }}>

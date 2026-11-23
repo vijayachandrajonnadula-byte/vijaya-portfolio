@@ -152,7 +152,7 @@ export default function AiAgentFlyout() {
     <FlyoutPanel
       width="100%"
       onClose={close}
-      headerProps={{ title: 'AI agent', icon: <ChatBotIcon size={22} />, titleAdornment: <Chip label={pill.text} color={pill.color} size="xsmall" /> }}
+      headerProps={{ compact: true, title: 'AI agent', icon: <ChatBotIcon size={22} />, titleAdornment: <Chip label={pill.text} color={pill.color} size="xsmall" /> }}
       disableContentPadding
       footerLeft={<Button size="small" variant="outlined" startIcon={<PlayIcon size={12} />} onClick={run} disabled={!!running || s.mode === 'spectator'}>Run</Button>}
       footer={<Button size="small" color="success" startIcon={<CheckmarkCircle01Icon size={14} />} onClick={recordAll} disabled={waiting === 0}>Record all{waiting > 0 ? ` (${waiting})` : ''}</Button>}

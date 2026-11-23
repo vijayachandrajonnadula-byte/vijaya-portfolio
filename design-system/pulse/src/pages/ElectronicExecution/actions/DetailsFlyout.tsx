@@ -61,7 +61,7 @@ export default function DetailsFlyout() {
       rememberAs="exec-details"
       onClose={close}
       backdropOpacity={0.3}
-      headerProps={{ title: 'Details', metadata: p.id }}
+      headerProps={{ compact: true, title: 'Details', metadata: p.id }}
       footer={<Button size="small" variant="outlined" onClick={close}>Close</Button>}
     >
       <Box sx={{ display: 'flex', gap: '14px', alignItems: 'flex-start' }}>

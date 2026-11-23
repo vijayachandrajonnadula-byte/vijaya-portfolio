@@ -263,7 +263,7 @@ export default function MetricsFlyout() {
   );
 
   return (
-    <Flyout open width={860} onClose={close} backdropOpacity={0.3} headerProps={{ title: 'Metrics' }}>
+    <Flyout open width={860} onClose={close} backdropOpacity={0.3} headerProps={{ compact: true, title: 'Metrics' }}>
       {tabBar}
       <Box sx={{ mb: '12px', ...tx(14, W.strong, ref.blue3, 20.3) }}>{TABS[tab]}</Box>
 

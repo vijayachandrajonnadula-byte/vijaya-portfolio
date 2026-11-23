@@ -21,7 +21,7 @@ export default function UserPicker({ title, users, initial, canPick, onCancel, o
       width={880}
       onClose={onCancel}
       backdropOpacity={0.3}
-      headerProps={{ title }}
+      headerProps={{ compact: true, title }}
       disableContentPadding
       footer={
         <>
