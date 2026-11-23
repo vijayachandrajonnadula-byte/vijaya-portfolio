@@ -13,8 +13,8 @@ const dir = '/images/projects/execution';
 export const eeImages: Record<string, Slot> = {
   execution: {
     src: `${dir}/execution.jpg`,
-    alt: 'The execution screen: left navigation, breadcrumb and status bar, the protocol as a document card, and the Evidence and Activity pane on the right',
-    caption: 'Decision: the protocol stays a document. The execution panel collapses to a strip and the evidence pane sits beside it. Click to enlarge.',
+    alt: 'The execution screen: left navigation, breadcrumb and status bar with icon-only evidence buttons, a document toolbar with compact table and row steppers, the protocol as a document card, and the Evidence and Activity pane on the right',
+    caption: 'Decision: the protocol stays a document. The execution panel collapses to a strip, the evidence pane sits beside it and can be dragged wider, and the toolbar spends little space on navigation. Click to enlarge.',
     hint: 'Execution screen, 1440 × 900',
   },
   sign: {
@@ -31,20 +31,20 @@ export const eeImages: Record<string, Slot> = {
   },
   ai: {
     src: `${dir}/ai-agent.jpg`,
-    alt: 'The AI agent panel with a banner saying the result is a draft the executor must review and record, the input and scope choices and the run button',
+    alt: 'The AI agent panel after a run: a note saying the results are drafts the executor must review and record, one card per step with Pass and an AI-filled draft chip, a Record this step button on each, and Run and Record all in the footer',
     caption: 'Decision: the assistant proposes, the person records. The banner, the draft state and the per-step Record button keep the person responsible. Click to enlarge.',
     hint: 'AI agent panel, 1440 × 900',
   },
   status: {
     src: `${dir}/status.jpg`,
-    alt: 'The execution status panel: recorded and verified progress, counts by verdict, drafts, AI-filled steps, open discrepancies and per-table progress',
+    alt: 'The execution status panel part-way through a run: 40 percent recorded, ten of 25 steps completed, one failed, evidence and AI-proposed counts, one open discrepancy and progress for each table',
     caption: 'Decision: the executor sees what a reviewer will. Execution status shows where the run stands, by verdict and by table. Click to enlarge.',
     hint: 'Execution status, 1440 × 900',
   },
   metrics: {
     src: `${dir}/metrics.jpg`,
-    alt: 'The metrics panel with two donut charts for step status and verdict split, and a bar for each table coloured by verdict',
-    caption: 'Decision: progress as shape, not only numbers. Step status and verdict split as donuts, one bar per table. Click to enlarge.',
+    alt: 'The metrics panel, Overall Metrics tab: four small bar charts for document level, discrepancy level, completed tables and tables still in progress, each with its legend and counts',
+    caption: 'Decision: progress as shape, not only numbers. Document and discrepancy level as bars with their counts beside them, and a toggle for donut charts. Click to enlarge.',
     hint: 'Metrics, 1440 × 900',
   },
   audit: {
@@ -107,13 +107,15 @@ export const componentMap: { need: string; component: string }[] = [
   { need: 'Pass / Fail / N/A and the view toggles', component: 'ToggleButtonGroup' },
   { need: 'Signing and verifying', component: 'ElectronicSignature in a compact mode, with TextField, Select and Checkbox' },
   { need: 'Small confirmations: Fail prompt, unsaved changes, edit reason', component: 'CompactDialog' },
-  { need: 'Side surfaces: status, metrics, details, split, AI, history', component: 'Flyout, SideSurface and SlidePanel' },
+  { need: 'Side panels: Actions, status, metrics, details, split, user picker, history', component: 'Flyout (with a compact header size) and SlidePanel; the floating AI agent uses the inline FlyoutPanel' },
+  { need: 'Resizing the Evidence and Activity pane and the Details panel', component: 'ResizeHandle, an accessible splitter I added' },
+  { need: 'Browsing documents from View: Attachments and Vault', component: 'Popover, ToggleButtonGroup and TreeView' },
   { need: 'Evidence gallery and viewer', component: 'FullScreenSurface' },
   { need: 'State and verdict badges', component: 'Chip and Status' },
   { need: 'Progress and counts', component: 'ProgressBar, KPICard and the Charts donut and bar' },
   { need: 'Warnings, errors and the AI draft banner', component: 'Notification, including the snackbar for toasts' },
   { need: 'People on the run', component: 'Avatar and Tooltip' },
-  { need: 'Menus and zoom', component: 'DropdownMenu and ZoomControl' },
+  { need: 'Menus, table and row stepping, and zoom', component: 'DropdownMenu, Tooltip and small stepper groups built from the chrome components' },
 ];
 
 /** The one "Not validated" block. Shown before the results. */
@@ -137,16 +139,18 @@ export const startingPoint = 'An existing single-file HTML prototype of the expe
 export const whatIDid = [
   'Read the prototype end to end and wrote down every function before drawing anything.',
   'Rebuilt it as a React and TypeScript app from PULSE components, with the rules enforced in the state logic.',
-  'Added the components PULSE lacked (CompactDialog, SideSurface, FullScreenSurface, SlidePanel) and logged each difference.',
+  'Added the components PULSE lacked (CompactDialog, FullScreenSurface, SlidePanel, ResizeHandle) and logged each difference.',
   'Matched the screen to the real product design, region by region, and de-branded it.',
+  'Then tightened it for a dense screen: one bordered stepper each for tables and rows instead of fourteen small buttons, icon-only evidence buttons with tooltips, a compact flyout header, and every side panel on the design system’s own Flyout.',
 ];
 export const notPorted = 'Not rebuilt: Protocol Error and Re-Execute modes, the spreadsheet-style document view and live-session timing.';
 
-/** A three-step tour of the working app. Each step is something the app does. */
+/** A four-step tour of the working app. Each step is something the app does. */
 export const tryThis = [
   'Open the Execution Panel beside the document, write an actual result, choose Pass and press Record. If something is missing, such as evidence, it is listed in place. When the step is complete, the e-signature opens.',
   'Do the same on another step and choose Fail: the app asks whether to raise a discrepancy.',
   'Click the Execution Status chip in the status bar to see the counts and progress change.',
+  'Drag the left edge of the Evidence and Activity pane to make it wider, then open View to browse the Attachments and Vault documents.',
 ];
 export const tryNote = 'A toast saying a viewer is now viewing the execution appears shortly after load. That is by design: it shows the read-only spectator role, with a sample spectator.';
 
