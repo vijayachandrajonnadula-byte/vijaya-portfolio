@@ -12,7 +12,7 @@ import Overlays from './Overlays';
 import { docRef, fonts, ref, size } from './refTheme';
 import { EXECUTION_MENUS } from './shell/navMenus';
 import { executionStore, useExecution } from './store';
-import { ui, useUi } from './ui';
+import { isQuietSelect, ui, useUi } from './ui';
 
 /**
  * "Electronic Execution" page. NOT FROM FIGMA (composed from design-system components, sized from the real Pulse application screenshot).
@@ -36,10 +36,11 @@ export default function ElectronicExecutionPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // Selecting another step (document row, table navigator ...) expands the collapsed panel so the flow keeps working.
+  // Picking another step (a document row or cell) expands the collapsed panel so the flow keeps working. Stepping through
+  // tables and rows with the toolbar steppers does not: those select quietly (see quietSelect in ui.ts).
   const prevStep = useRef(s.selectedStepId);
   useEffect(() => {
-    if (s.selectedStepId && s.selectedStepId !== prevStep.current && ui.getState().panelCollapsed && ui.getState().layout === 'panel') ui.set({ panelCollapsed: false });
+    if (s.selectedStepId && s.selectedStepId !== prevStep.current && !isQuietSelect() && ui.getState().panelCollapsed && ui.getState().layout === 'panel') ui.set({ panelCollapsed: false });
     prevStep.current = s.selectedStepId;
   }, [s.selectedStepId]);
 
