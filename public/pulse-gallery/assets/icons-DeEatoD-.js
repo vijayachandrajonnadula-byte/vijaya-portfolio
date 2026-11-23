@@ -1,1 +1,0 @@
-import"./figmaExtra-3_9EONUX.js";

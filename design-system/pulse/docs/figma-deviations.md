@@ -151,3 +151,10 @@ The first rebuild followed an old HTML prototype; the user supplied a screenshot
 
 - The media bar's **Attach, Screenshot, Snapshot and Video** buttons show only their coloured icon (28px square); the name moved to the accessible name and the tooltip, which now leads with it ("Screenshot (sample capture) for the selected step"). The evidence-count button got a tooltip too.
 - **Tooltips in the Evidence & Activity pane**: `ChromeIconButton`, `ChromeButton` and the icon-only `SegmentedToggle` segments in `ExecutionChrome` now show the design-system **Tooltip** (the Pulse bubble) for their `title` / `ariaLabel`, instead of the browser's plain `title` hint. So the pane's Open gallery, Pane layout, Close, Expand, List view and Grid view controls, and the filter funnel, all have one. Every other screen that uses these chrome controls gets the same tooltip.
+
+
+## Electronic Execution: compact table and row navigation (user-directed)
+
+- The document toolbar's navigators were two rows of small buttons (first, previous, picker, next, last; first, previous, "Row", field, "/ n", Go, next, last) and took about 700px. Each is now **one bordered group** (a stepper): `‹ | Table picker | ›` and `‹ | Row [n] / total | ›`. The groups end about 150px earlier than before.
+- Removed: the First / Last (double chevron) buttons on both navigators and the navy **Go** button. The table picker lists every table, so jumping to the first or last is one click there; the row field takes a typed number on **Enter** or when you leave the field (out-of-range numbers are clamped to 1..total), so Go was redundant. Previous / Next are disabled at the ends.
+- Every button has a tooltip (design-system Tooltip), including disabled ones; the row field's tooltip says how to type a row. The picker's menu and the row/table behaviour are unchanged.
