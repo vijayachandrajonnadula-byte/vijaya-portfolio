@@ -145,8 +145,8 @@ export default function ExecutionHeader() {
           Actions
         </ChromeButton>
       </Box>
-      <Flyout open={actionsOpen} onClose={() => setActionsOpen(false)} width={400} headerProps={{ title: 'Actions' }}>
-        <ActionList ariaLabel="Actions" groups={LIST_GROUPS} onSelect={(it) => choose(it.value)} autoFocus />
+      <Flyout open={actionsOpen} onClose={() => setActionsOpen(false)} width={360} headerProps={{ compact: true, title: 'Actions' }}>
+        <ActionList ariaLabel="Actions" groups={LIST_GROUPS} onSelect={(it) => choose(it.value)} autoFocus compact />
       </Flyout>
     </>
   );

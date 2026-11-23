@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import { Box } from '../../../components/mui';
-import { SideSurface } from '../../../components/feedback/SideSurface/SideSurface';
-import { actRef, fonts, ref } from '../refTheme';
+import { Flyout } from '../../../components/feedback/Flyout/Flyout';
+import { Button } from '../../../components/actions/Button/Button';
+import { actRef, ref } from '../refTheme';
 import type { User } from '../model';
-import { Av, Closer, W, tx } from './parts';
-import { RefButton, focusRing } from '../shell/RefControls';
+import { Av, W, tx } from './parts';
+import { focusRing } from '../shell/RefControls';
 
 /**
  * User picker slider (880px) opened from the Assigned To / Verifier select. Users appear as roles. One user is chosen:
@@ -15,25 +16,18 @@ export default function UserPicker({ title, users, initial, canPick, onCancel, o
   const th = { p: '11px 14px', borderBottom: `1px solid ${ref.line}`, background: ref.tint2, position: 'sticky', top: 0, textAlign: 'left', letterSpacing: '0.4px', ...tx(11, W.strong, ref.muted, 15.95) } as const;
   const td = { p: '10px 14px', borderBottom: `1px solid ${ref.tint2}`, ...tx(12.5, W.regular, ref.ink, 18.125) } as const;
   return (
-    <SideSurface
-      ariaLabel={title}
+    <Flyout
+      open
       width={880}
       onClose={onCancel}
-      duration={0}
-      scrim={actRef.scrimPicker}
-      shadow={actRef.shadowPicker}
-      fontFamily={fonts.shell}
-      header={
-        <Box data-spec="picker-head" sx={{ display: 'flex', alignItems: 'center', gap: '12px', p: '0 18px', height: 56, borderBottom: `1px solid ${ref.line}`, boxSizing: 'border-box', flexShrink: 0 }}>
-          <Box sx={{ flex: 1, ...tx(16, W.strong, ref.ink, 23.2) }}>{title}</Box>
-          <Closer onClose={onCancel} box={32} size={20} />
-        </Box>
-      }
+      backdropOpacity={0.3}
+      headerProps={{ compact: true, title }}
+      disableContentPadding
       footer={
-        <Box data-spec="picker-foot" sx={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: '10px', p: '0 18px', height: 56, borderTop: `1px solid ${ref.line}`, boxSizing: 'border-box', flexShrink: 0 }}>
-          <RefButton onClick={onCancel} sx={{ height: 29, p: '6px 14px', boxSizing: 'border-box', border: `1px solid ${actRef.cancelLine}`, borderRadius: '7px', background: ref.white, ...tx(12, W.emphasis, ref.ink), '&:hover': { background: ref.tint2 } }}>Cancel</RefButton>
-          <RefButton disabled={!sel} onClick={() => onSelect(sel)} sx={{ height: 27, p: '6px 16px', borderRadius: '7px', background: ref.navy2, ...tx(12, W.strong, ref.white), '&:hover:not(:disabled)': { background: actRef.submitHover } }}>Select</RefButton>
-        </Box>
+        <>
+          <Button size="small" variant="outlined" onClick={onCancel}>Cancel</Button>
+          <Button size="small" disabled={!sel} onClick={() => onSelect(sel)}>Select</Button>
+        </>
       }
     >
       <Box component="table" data-spec="picker-table" sx={{ width: '100%', borderCollapse: 'separate', borderSpacing: 0 }}>
@@ -66,6 +60,6 @@ export default function UserPicker({ title, users, initial, canPick, onCancel, o
           })}
         </tbody>
       </Box>
-    </SideSurface>
+    </Flyout>
   );
 }

@@ -1,11 +1,6 @@
 import { useState } from 'react';
 import { Box, Typography } from '../../../components/mui';
 import { Flyout } from '../../../components/feedback/Flyout/Flyout';
-import { SideSurface } from '../../../components/feedback/SideSurface/SideSurface';
-import { Cancel01Icon } from '../../../icons';
-import { actRef, fonts, ref } from '../refTheme';
-import { RefButton, focusRing } from '../shell/RefControls';
-import { W, tx } from './parts';
 import { Table } from '../../../components/data-display/DataGrid/DataGrid';
 import { Chip } from '../../../components/data-display/Chip/Chip';
 import { EmptyState } from '../../../components/data-display/EmptyState/EmptyState';
@@ -64,7 +59,7 @@ export default function DiscrepanciesFlyout() {
       open
       width={720}
       onClose={close}
-      headerProps={{ title, metadata, onBack: view.kind === 'list' ? undefined : () => setView({ kind: 'list' }) }}
+      headerProps={{ compact: true, title, metadata, onBack: view.kind === 'list' ? undefined : () => setView({ kind: 'list' }) }}
       tabs={view.kind === 'list' ? TABS.map((t, i) => ({ label: `${t.label} (${count(i)})` })) : undefined}
       activeTab={tab}
       handleChangeTab={setTab}
@@ -193,28 +188,18 @@ function CreatePanel({ initialStepId, onCancel, onClose, onCreated }: { initialS
   };
 
   return (
-    <SideSurface
-      ariaLabel="Create Discrepancy"
+    <Flyout
+      open
       width={1240}
-      duration={0}
       onClose={onClose}
-      scrim={actRef.createScrim}
-      fontFamily={fonts.shell}
-      header={
-        <Box data-spec="create-head" sx={{ display: 'flex', alignItems: 'center', gap: '12px', p: '0 18px', height: 52, borderBottom: `1px solid ${actRef.createLine}`, boxSizing: 'border-box', flexShrink: 0 }}>
-          <Box data-spec="create-title" sx={{ flex: 1, ...tx(16, W.emphasis, actRef.createInk, 23.2) }}>Create Discrepancy</Box>
-          <RefButton aria-label="Close" onClick={onClose} sx={{ width: 34, height: 34, justifyContent: 'center', boxSizing: 'border-box', border: `1px solid ${actRef.createLine}`, borderRadius: '8px', background: ref.white, color: ref.ink, '&:hover': { background: ref.bg }, ...focusRing }}>
-            <Cancel01Icon size={16} />
-          </RefButton>
-        </Box>
-      }
+      backdropOpacity={0.3}
+      headerProps={{ compact: true, title: 'Create Discrepancy' }}
       footer={
-        <Box sx={{ display: 'flex', justifyContent: 'flex-end', gap: '8px', p: '10px 18px', borderTop: `1px solid ${actRef.createLine}`, flexShrink: 0 }}>
+        <>
           <Button size="small" variant="outlined" onClick={onCancel}>Cancel</Button>
           <Button size="small" onClick={submit}>Raise discrepancy</Button>
-        </Box>
+        </>
       }
-      bodyPadding="20px 24px"
     >
       <Box sx={{ maxWidth: 640 }}>
         <RuleErrors title="Discrepancy not raised" errors={errors} />
@@ -224,6 +209,6 @@ function CreatePanel({ initialStepId, onCancel, onClose, onCreated }: { initialS
           <TextArea label="Description" required rows={4} value={description} onChange={(e) => setDescription(e.target.value)} placeholder="What was observed, and how it differs from the expected result" fullWidth />
         </Box>
       </Box>
-    </SideSurface>
+    </Flyout>
   );
 }

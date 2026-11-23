@@ -80,3 +80,12 @@ export const ui = {
 };
 
 export const useUi = (): UiState => useSyncExternalStore(ui.subscribe, ui.getState, ui.getState);
+
+/**
+ * A step chosen by stepping through the document (the table and row steppers) is not a request to work on it, so it must not
+ * open the collapsed execution panel. The navigator calls `quietSelect()` just before it selects; the page's "a new step opens
+ * the panel" rule skips a selection made inside that short window. Picking a step directly (a row, a cell) still opens it.
+ */
+let quietSelectUntil = 0;
+export const quietSelect = (ms = 400): void => { quietSelectUntil = Date.now() + ms; };
+export const isQuietSelect = (): boolean => Date.now() < quietSelectUntil;

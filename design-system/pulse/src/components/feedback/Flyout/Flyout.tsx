@@ -2,9 +2,11 @@
 // 480 wide, header pad 8/16 (48px, 64 with one metadata line, 84 with two) with a 1px #e2e8f0 bottom border; body = row of
 // [Body Content pad 16 (grows), optional docked-right NavigationRail 48px]; footer 48px pad 8/16 with a top border.
 // `FlyoutPanel` is the panel itself (no portal) so it can be shown inline; `Flyout` wraps it in a MUI Drawer.
+import { useEffect, useState } from 'react';
 import type { ReactNode, SyntheticEvent } from 'react';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
+import { ResizeHandle } from '../../containers/ResizeHandle/ResizeHandle';
 import { Tab, Tabs } from '../../navigation/Tabs/Tabs';
 import { pt } from '../../../theme/pulseTokens';
 import { OverlayHeader, backdrop, line } from '../../_shared/overlay';
@@ -34,10 +36,17 @@ export interface FlyoutProps {
   disableContentPadding?: boolean;
   /** 0.3 or 0.5 (Backdrop page). @default 0.5 */
   backdropOpacity?: 0.3 | 0.5;
+  /** Let the visitor drag the inner edge to change the width (ARIA window splitter: arrow keys, Home / End, double click resets). Needs a numeric `width`, which is the starting width. Not in Figma. @default false */
+  resizable?: boolean;
+  /** Narrowest and widest width in px when `resizable`. The widest is also capped to the window. @default 360 and 1200 */
+  minWidth?: number;
+  maxWidth?: number;
+  /** Key under which the dragged width is remembered for the session, so reopening the flyout keeps it. */
+  rememberAs?: string;
   children?: ReactNode;
 }
 
-export type FlyoutPanelProps = Omit<FlyoutProps, 'open' | 'anchor' | 'backdropOpacity'>;
+export type FlyoutPanelProps = Omit<FlyoutProps, 'open' | 'anchor' | 'backdropOpacity' | 'resizable' | 'minWidth' | 'maxWidth' | 'rememberAs'>;
 
 /** The flyout surface without the Drawer (header, tabs, body, footer). */
 export function FlyoutPanel({ onClose, width = 480, headerProps, tabs, activeTab = 0, handleChangeTab, footer, footerLeft, rail, disableContentPadding, children }: FlyoutPanelProps) {
@@ -65,8 +74,26 @@ export function FlyoutPanel({ onClose, width = 480, headerProps, tabs, activeTab
   );
 }
 
+/** Widths the visitor dragged flyouts to, kept for the session by `rememberAs`. */
+const remembered = new Map<string, number>();
+
 /** Side panel for detail and create/edit forms. Built on MUI Drawer. */
-export function Flyout({ open, onClose, anchor = 'right', width = 480, backdropOpacity = 0.5, ...panel }: FlyoutProps) {
+export function Flyout({ open, onClose, anchor = 'right', width = 480, backdropOpacity = 0.5, resizable = false, minWidth = 360, maxWidth = 1200, rememberAs, ...panel }: FlyoutProps) {
+  const base = typeof width === 'number' ? width : 480;
+  const canResize = resizable && typeof width === 'number';
+  const [drag, setDrag] = useState<number>(() => (rememberAs ? remembered.get(rememberAs) : undefined) ?? base);
+  const [win, setWin] = useState(() => (typeof window === 'undefined' ? 1440 : window.innerWidth));
+  useEffect(() => {
+    if (!canResize) return undefined;
+    const on = () => setWin(window.innerWidth);
+    window.addEventListener('resize', on);
+    return () => window.removeEventListener('resize', on);
+  }, [canResize]);
+  const hi = Math.max(minWidth, Math.min(maxWidth, win - 24));
+  const lo = Math.min(minWidth, hi);
+  const current = Math.min(hi, Math.max(lo, drag));
+  const setWidth = (px: number) => { setDrag(px); if (rememberAs) remembered.set(rememberAs, px); };
+
   return (
     <Drawer
       open={open}
@@ -74,10 +101,13 @@ export function Flyout({ open, onClose, anchor = 'right', width = 480, backdropO
       onClose={onClose}
       slotProps={{
         backdrop: { sx: backdrop(backdropOpacity) },
-        paper: { sx: { width, background: pt.colors.base.white, borderRadius: 0 } },
+        paper: { sx: { width: canResize ? current : width, background: pt.colors.base.white, borderRadius: 0, overflow: 'visible' } },
       }}
     >
-      <FlyoutPanel width="100%" onClose={onClose} {...panel} />
+      <Box sx={{ position: 'relative', height: '100%', minWidth: 0 }}>
+        {canResize && <ResizeHandle value={current} min={lo} max={hi} onChange={setWidth} onReset={() => setWidth(base)} edge={anchor === 'right' ? 'start' : 'end'} inset label={`Resize the ${typeof panel.headerProps.title === 'string' ? panel.headerProps.title : 'flyout'} panel`} />}
+        <FlyoutPanel width="100%" onClose={onClose} {...panel} />
+      </Box>
     </Drawer>
   );
 }

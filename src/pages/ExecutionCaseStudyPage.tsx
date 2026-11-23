@@ -53,7 +53,7 @@ export default function ExecutionCaseStudyPage() {
             <>
               <a className="btn-c" href={appUrl} target="_blank" rel="noopener noreferrer">Open the working app</a>
               <a className="btn-c btn-c--ghost" href={galleryUrl} target="_blank" rel="noopener noreferrer">Component gallery</a>
-              <p className="pk-hero__start">Try it in three steps: record a step, force a Fail, open Execution Status. <a href="#try">The steps</a>.</p>
+              <p className="pk-hero__start">Try it in four steps: record a step, force a Fail, open Execution Status, resize the evidence pane. <a href="#try">The steps</a>.</p>
             </>
           }
         />
@@ -108,7 +108,7 @@ export default function ExecutionCaseStudyPage() {
           </Sec>
 
           <section className="pk-try" id="try" aria-labelledby="try-h">
-            <h3 id="try-h">Try the working app in three steps</h3>
+            <h3 id="try-h">Try the working app in four steps</h3>
             <ol>{tryThis.map(x => <li key={x}>{x}</li>)}</ol>
             <p>{tryNote}</p>
             <div className="pk-try__links">

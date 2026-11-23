@@ -41,6 +41,21 @@ export const SAMPLE_ROWS: SampleRow[] = [
   { id: 's12', kind: 'snapshot', name: 'Equipment Log Sheet EL-118', table: 3, row: 3, by: 'Executor', when: W, tile: 'screen' },
 ];
 
+/**
+ * Display-only suggestions for a step or table that none of the 12 rows above belongs to, so a step-scoped pane is never empty:
+ * the kinds of evidence this step would normally carry (a reading, a set-up photo, a supporting file, a short run recording).
+ */
+export function suggestedRows(table: number, row = 1): SampleRow[] {
+  const id = `sg-${table}-${row}`;
+  const at = `Table ${table} / Row ${row}`;
+  return [
+    { id: `${id}-a`, kind: 'screenshot', name: `Instrument reading · ${at}`, table, row, by: 'Executor', when: W, tile: 'screen', ai: true },
+    { id: `${id}-b`, kind: 'snapshot', name: `Set-up photo · ${at}`, table, row, by: 'Executor', when: W, tile: 'screen' },
+    { id: `${id}-c`, kind: 'file', name: `Supporting record · ${at}`, ext: 'pdf', table, row, by: 'Executor', when: W, tile: 'pdf' },
+    { id: `${id}-d`, kind: 'video', name: 'Run recording · 0:12', table, row, by: 'Executor', when: W, tile: 'play' },
+  ];
+}
+
 /** Same rule as the store items: the AI Captured tab lists AI rows, the other tabs follow the kind. */
 export const sampleMatches = (r: SampleRow, k: EvKindFilter): boolean => (k === 'all' ? true : k === 'ai' ? !!r.ai : r.kind === k);
 

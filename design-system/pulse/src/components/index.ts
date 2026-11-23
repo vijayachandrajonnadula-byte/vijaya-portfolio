@@ -13,6 +13,8 @@ export { Accordion, AccordionGroup } from './containers/Accordion/Accordion';
 export type { AccordionGroupItem, AccordionGroupProps, AccordionProps } from './containers/Accordion/Accordion';
 export { Region } from './containers/Region/Region';
 export type { RegionProps } from './containers/Region/Region';
+export { ResizeHandle } from './containers/ResizeHandle/ResizeHandle';
+export type { ResizeHandleProps } from './containers/ResizeHandle/ResizeHandle';
 export { Section } from './containers/Section/Section';
 export type { SectionProps } from './containers/Section/Section';
 export { AdvancedGridDropdown } from './data-display/AdvancedGridDropdown/AdvancedGridDropdown';

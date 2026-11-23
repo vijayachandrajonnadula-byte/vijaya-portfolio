@@ -1,14 +1,13 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
 import type { ReactNode } from 'react';
 import { Box } from '../../components/mui';
 import { ref, docRef } from './refTheme';
-import type { FitMode } from './refTheme';
 import type { ExecState, ProtocolTable } from './model';
 import { DocToolbar } from './document/DocToolbar';
 import { WordPage } from './document/WordPage';
 import { selectStepGuarded } from './ExecutionPanel';
 import { executionStatus, isTableVerified, stepsInTable, useExecution } from './store';
-import { ui, useUi } from './ui';
+import { quietSelect, ui, useUi } from './ui';
 
 const isGated = (s: ExecState, t: ProtocolTable): boolean => s.options.gateTable2 && t.n >= 3 && !isTableVerified(s, 2);
 
@@ -23,7 +22,6 @@ export default function DocumentView({ side }: { side?: ReactNode }) {
   const spectator = s.mode === 'spectator';
   const inline = u.layout === 'inline';
   const status = executionStatus(s);
-  const [fit, setFit] = useState<FitMode>('auto');
 
   const tableView = typeof u.tableFilter === 'number' ? u.tableFilter : null;
   const selected = s.selectedStepId;
@@ -48,16 +46,20 @@ export default function DocumentView({ side }: { side?: ReactNode }) {
     document.getElementById(`ee-step-${selected}`)?.scrollIntoView({ block: 'nearest' });
   }, [selected, u.tableFilter, s.protocol.steps]);
 
-  const select = (id: string) => {
-    // selecting a step expands the collapsed execution panel so the record flow stays reachable
-    if (ui.getState().layout === 'panel' && ui.getState().panelCollapsed) ui.set({ panelCollapsed: false });
+  /**
+   * Choose a step. Picking one directly (a row, a cell) expands the collapsed execution panel so the record flow stays reachable.
+   * Stepping through tables and rows (`quiet`) changes the selection and keeps the panel as it is.
+   */
+  const select = (id: string, quiet = false) => {
+    if (quiet) quietSelect();
+    else if (ui.getState().layout === 'panel' && ui.getState().panelCollapsed) ui.set({ panelCollapsed: false });
     if (s.selectedStepId !== id) selectStepGuarded(id);
   };
 
   const pickTable = (n: number) => {
     const first = stepsInTable(s, n)[0];
     if (tableView !== null) ui.set({ tableFilter: n });
-    if (first) select(first.id);
+    if (first) select(first.id, true);
     if (tableView === null) requestAnimationFrame(() => document.getElementById(`sec-${n}`)?.scrollIntoView({ block: 'start' }));
   };
 
@@ -72,15 +74,6 @@ export default function DocumentView({ side }: { side?: ReactNode }) {
       }
     }
   };
-
-  const references = useMemo(() => {
-    const seen = new Map<string, string>();
-    for (const t of s.protocol.tables) for (const id of t.stepIds) {
-      const st = s.protocol.steps[id];
-      if (st && !seen.has(st.reference)) seen.set(st.reference, t.title);
-    }
-    return Array.from(seen, ([id, title]) => ({ id, title }));
-  }, [s.protocol]);
 
   const z = u.zoom / 100;
 
@@ -101,13 +94,10 @@ export default function DocumentView({ side }: { side?: ReactNode }) {
         rowMax={Math.max(1, rows.length)}
         onRow={(r) => {
           const st = rows[r - 1];
-          if (st) select(st.id);
+          if (st) select(st.id, true);
         }}
         onNextTable={nextTable}
-        references={references}
-        onReference={(id) => ui.toast('warn', `${id}: reference documents are not attached in this sample.`)}
-        fit={fit}
-        onFit={setFit}
+        onOpenDocument={(title) => ui.open('evidence', { sop: title })}
         zoom={u.zoom}
         onZoom={(v) => ui.set({ zoom: v })}
       />
@@ -127,7 +117,7 @@ export default function DocumentView({ side }: { side?: ReactNode }) {
         <Box sx={{ zoom: z, width: '100%' }}>
           <WordPage
             s={s}
-            fit={fit}
+            fit="auto"
             tableView={tableView}
             sections={sections}
             gated={(t) => isGated(s, t)}
@@ -135,7 +125,7 @@ export default function DocumentView({ side }: { side?: ReactNode }) {
             spectator={spectator}
             percentRecorded={status.percentRecorded}
             recorded={status.recorded}
-            onSelect={select}
+            onSelect={(id) => select(id)}
           />
         </Box>
       </Box>
