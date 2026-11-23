@@ -1,8 +1,7 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
 import type { ReactNode } from 'react';
 import { Box } from '../../components/mui';
 import { ref, docRef } from './refTheme';
-import type { FitMode } from './refTheme';
 import type { ExecState, ProtocolTable } from './model';
 import { DocToolbar } from './document/DocToolbar';
 import { WordPage } from './document/WordPage';
@@ -23,7 +22,6 @@ export default function DocumentView({ side }: { side?: ReactNode }) {
   const spectator = s.mode === 'spectator';
   const inline = u.layout === 'inline';
   const status = executionStatus(s);
-  const [fit, setFit] = useState<FitMode>('auto');
 
   const tableView = typeof u.tableFilter === 'number' ? u.tableFilter : null;
   const selected = s.selectedStepId;
@@ -96,8 +94,6 @@ export default function DocumentView({ side }: { side?: ReactNode }) {
         }}
         onNextTable={nextTable}
         onOpenDocument={(title) => ui.open('evidence', { sop: title })}
-        fit={fit}
-        onFit={setFit}
         zoom={u.zoom}
         onZoom={(v) => ui.set({ zoom: v })}
       />
@@ -117,7 +113,7 @@ export default function DocumentView({ side }: { side?: ReactNode }) {
         <Box sx={{ zoom: z, width: '100%' }}>
           <WordPage
             s={s}
-            fit={fit}
+            fit="auto"
             tableView={tableView}
             sections={sections}
             gated={(t) => isGated(s, t)}

@@ -6,7 +6,6 @@ import { ViewPanel } from './ViewPanel';
 import { ChromeButton, ChromeIconButton, SegmentedToggle } from '../../../components/navigation/ExecutionChrome/ExecutionChrome';
 import { ArrowDown01Icon, ArrowLeft01Icon, ArrowLeftDoubleIcon, ArrowRight01Icon, ArrowRightDoubleIcon, LayoutLeftIcon, Menu01Icon, MinusSignIcon, PlusSignIcon } from '../../../icons';
 import { fw } from '../../../theme/typography';
-import type { FitMode } from '../refTheme';
 import { barRef } from '../refTheme';
 
 export const ZOOM_MIN = 50;
@@ -45,8 +44,6 @@ export interface DocToolbarProps {
   onNextTable: () => void;
   /** A document chosen in the View panel (Attachments or Vault): show it. */
   onOpenDocument: (title: string) => void;
-  fit: FitMode;
-  onFit: (f: FitMode) => void;
   zoom: number;
   onZoom: (z: number) => void;
 }
@@ -163,7 +160,7 @@ export function DocToolbar(p: DocToolbarProps) {
       <ChromeButton ariaHasPopup="dialog" ariaExpanded={!!viewEl} onClick={(e) => setViewEl(e.currentTarget)} startIcon={<LayoutLeftIcon size={16} />} endIcon={<ArrowDown01Icon size={16} />} sx={{ gap: '6px', px: '10px' }}>
         View
       </ChromeButton>
-      <ViewPanel anchorEl={viewEl} onClose={() => setViewEl(null)} fit={p.fit} onFit={p.onFit} onOpenDocument={p.onOpenDocument} />
+      <ViewPanel anchorEl={viewEl} onClose={() => setViewEl(null)} onOpenDocument={p.onOpenDocument} />
       <Box aria-hidden sx={{ width: '1px', height: 24, background: barRef.line, flexShrink: 0, mx: '8px' }} />
 
       {/* zoom */}

@@ -1,6 +1,6 @@
 /**
- * NOT FROM FIGMA. The panel the document toolbar's View button opens: a two-way toggle (Attachments | Vault) over a list, then the
- * page width. Attachments lists the documents this execution refers to (a document id with the part of the protocol it belongs
+ * NOT FROM FIGMA. The panel the document toolbar's View button opens: a two-way toggle (Attachments | Vault) over a list.
+ * (Page size is the zoom control's job; there are no page-width settings.) Attachments lists the documents this execution refers to (a document id with the part of the protocol it belongs
  * to under it); Vault shows a sample folder tree of controlled documents. Both lists are generic sample data. Choosing a document opens it in the Evidence & Activity pane as a
  * sample page (no file is stored; the vault tree is generic sample data). Built only from design-system components:
  * Popover, ToggleButtonGroup and TreeView.
@@ -11,7 +11,6 @@ import { Popover } from '../../../components/feedback/Popover/Popover';
 import { ToggleButtonGroup } from '../../../components/form/ToggleButtonGroup/ToggleButtonGroup';
 import { TreeView } from '../../../components/data-display/TreeView/TreeView';
 import type { TreeViewItem } from '../../../components/data-display/TreeView/TreeView';
-import type { FitMode } from '../refTheme';
 import { thinScroll } from '../evidence/EvControls';
 
 interface VaultNode { name: string; children?: VaultNode[] }
@@ -41,24 +40,16 @@ const ATTACHMENTS: { id: string; title: string }[] = [
   { id: 'QA-001', title: 'OQ Sign-off' },
 ];
 
-const FIT_OPTIONS: { value: FitMode; label: string }[] = [
-  { value: 'auto', label: 'Fit width' },
-  { value: 'compact', label: 'Compact' },
-  { value: 'full', label: 'Full width' },
-];
-
 type Tab = 'attachments' | 'vault';
 
 export interface ViewPanelProps {
   anchorEl: HTMLElement | null;
   onClose: () => void;
-  fit: FitMode;
-  onFit: (f: FitMode) => void;
   /** A document was chosen: open it (title shown in the pane). */
   onOpenDocument: (title: string) => void;
 }
 
-export function ViewPanel({ anchorEl, onClose, fit, onFit, onOpenDocument }: ViewPanelProps) {
+export function ViewPanel({ anchorEl, onClose, onOpenDocument }: ViewPanelProps) {
   const [tab, setTab] = useState<Tab>('attachments');
 
   const attachments = useMemo<TreeViewItem[]>(() => ATTACHMENTS.map((r) => ({ id: `a:${r.id}`, label: r.id, metadata: r.title })), []);
@@ -117,16 +108,6 @@ export function ViewPanel({ anchorEl, onClose, fit, onFit, onOpenDocument }: Vie
             <TreeView key="vault" items={vault} width="100%" selectedItems={[]} handleSelection={pick} defaultExpandedItems={vaultOpen} />
           )}
         </Box>
-        <ToggleButtonGroup
-          ariaLabel="Page width"
-          label="Page width"
-          exclusive
-          fullWidth
-          size="small"
-          value={fit}
-          onChange={(_, v) => v && onFit(v as FitMode)}
-          buttonList={FIT_OPTIONS.map((f) => ({ value: f.value, label: f.label }))}
-        />
       </Box>
     </Popover>
   );

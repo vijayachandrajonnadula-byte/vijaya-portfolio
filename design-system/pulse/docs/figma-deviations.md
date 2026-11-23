@@ -140,7 +140,8 @@ The first rebuild followed an old HTML prototype; the user supplied a screenshot
 
 ## Electronic Execution: View panel with Attachments | Vault (user-directed)
 
-- The document toolbar's **View** button no longer opens a flat menu. It opens a panel built only from design-system components (`Popover`, `ToggleButtonGroup`, `TreeView`): a full-width **Attachments | Vault** toggle over a list, then the **Page width** choice (Fit width / Compact / Full width). Page: `src/pages/ElectronicExecution/document/ViewPanel.tsx`.
+- The document toolbar's **View** button no longer opens a flat menu. It opens a panel built only from design-system components (`Popover`, `ToggleButtonGroup`, `TreeView`): a full-width **Attachments | Vault** toggle over a list. Page: `src/pages/ElectronicExecution/document/ViewPanel.tsx`.
+- **Page-width settings removed (user-directed)**: the Fit width / Compact / Full width buttons that used to be in the View menu are gone. The document page is always laid out at the default fit width, and the zoom control (50% to 200%) is the only size control. The `fit` modes remain in `wordPageSx` / `refTheme` (the page passes "auto"); they are just no longer reachable from the UI.
 - **Attachments** lists the documents the execution refers to (a document id with the part of the protocol under it); **Vault** is a folder tree (site, equipment group, document) with dotted guides. Both are generic sample lists, NOT FROM FIGMA, with no company names or people. Choosing a document opens a sample page for it in the Evidence & Activity pane (no file is stored) and closes the panel.
 - The old reference list of the View menu (all step references) and its "not attached in this sample" toast are gone.
-- **Popover** gains an optional `width` prop (default unchanged at Figma's 320px) so a panel with a tree can be wider. The View panel itself stays at the default 320px, with the small toggle, and its list scrolls inside 240px.
+- **Popover** gains an optional `width` prop (default unchanged at Figma's 320px) so a panel with a tree can be wider. The View panel stays at 320px, with the small toggle, and its list scrolls inside 240px.
