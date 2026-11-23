@@ -95,22 +95,22 @@ export function ViewPanel({ anchorEl, onClose, fit, onFit, onOpenDocument }: Vie
       open={!!anchorEl}
       anchorEl={anchorEl}
       onClose={onClose}
-      width={420}
+      width={320}
       anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
       transformOrigin={{ vertical: 'top', horizontal: 'right' }}
       slotProps={{ paper: { 'aria-label': 'View' } as never }}
     >
-      <Box data-spec="view-panel" sx={{ display: 'flex', flexDirection: 'column', gap: '12px', minWidth: 0 }}>
+      <Box data-spec="view-panel" sx={{ display: 'flex', flexDirection: 'column', gap: '8px', minWidth: 0 }}>
         <ToggleButtonGroup
           ariaLabel="Document source"
           exclusive
           fullWidth
-          size="medium"
+          size="small"
           value={tab}
           onChange={(_, v) => v && setTab(v as Tab)}
           buttonList={[{ value: 'attachments', label: 'Attachments' }, { value: 'vault', label: 'Vault' }]}
         />
-        <Box sx={{ maxHeight: 'min(60vh, 380px)', overflowY: 'auto', minWidth: 0, ...thinScroll }}>
+        <Box sx={{ maxHeight: 'min(50vh, 240px)', overflowY: 'auto', minWidth: 0, ...thinScroll }}>
           {tab === 'attachments' ? (
             <TreeView key="attachments" items={attachments} width="100%" selectedItems={[]} handleSelection={pick} />
           ) : (
