@@ -1,1 +1,0 @@
-import{n as e}from"./rolldown-runtime-sJBDdmOt.js";import{wt as t}from"./iframe-CFPYGgD7.js";import{n,t as r}from"./createSvgIcon-B-7J7txB.js";var i,a;function o(){return(o=e((()=>{n(),i=t(),a=r((0,i.jsx)(`path`,{d:`M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8zM6 20V4h7v5h5v11z`}),`InsertDriveFileOutlined`)})))()}export{o as n,a as t};

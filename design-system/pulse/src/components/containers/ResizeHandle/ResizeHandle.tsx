@@ -3,7 +3,8 @@
 // It is the ARIA "window splitter" pattern: role="separator" with aria-valuenow/min/max, focusable, arrow keys change the size,
 // Home/End jump to the limits, Enter or a double click resets. Pointer dragging uses pointer capture, so it works with mouse,
 // pen and touch and keeps tracking when the pointer leaves the thin handle. The handle only reports a new size in px;
-// the parent owns the number and applies it (controlled, like an input).
+// the parent owns the number and applies it (controlled, like an input). The handle draws nothing (no line, grip or hover
+// colour): it is an invisible strip with a col-resize cursor, and a focus outline for keyboard users.
 import { useRef, useState } from 'react';
 import type { KeyboardEvent, PointerEvent } from 'react';
 import Box from '@mui/material/Box';
@@ -74,7 +75,6 @@ export function ResizeHandle({ value, min, max, onChange, onReset, edge = 'start
       aria-valuemax={max}
       tabIndex={0}
       data-spec="resize-handle"
-      data-dragging={dragging}
       title={onReset ? 'Drag to resize. Double click to reset.' : 'Drag to resize.'}
       onPointerDown={down}
       onPointerMove={move}
@@ -85,14 +85,9 @@ export function ResizeHandle({ value, min, max, onChange, onReset, edge = 'start
       sx={{
         position: 'absolute', top: 0, bottom: 0, width: 10, zIndex: 20, cursor: 'col-resize', touchAction: 'none', outline: 'none', userSelect: 'none',
         [edge === 'start' ? 'left' : 'right']: inset ? 0 : -5,
-        // the line: thin at rest, brand colour on hover, focus and while dragging
-        '&::before': { content: '""', position: 'absolute', top: 0, bottom: 0, left: '50%', width: 2, ml: '-1px', bgcolor: 'transparent', transition: 'background-color .15s ease' },
-        // the grip: a short pill in the middle
-        '&::after': { content: '""', position: 'absolute', top: '50%', left: '50%', width: 4, height: 36, mt: '-18px', ml: '-2px', borderRadius: '4px', bgcolor: '#cbd5e1', transition: 'background-color .15s ease, height .15s ease, margin .15s ease' },
-        '&:hover::before, &:focus-visible::before, &[data-dragging="true"]::before': { bgcolor: (t) => t.palette.primary.main },
-        '&:hover::after, &:focus-visible::after, &[data-dragging="true"]::after': { bgcolor: (t) => t.palette.primary.main, height: 48, mt: '-24px' },
+        // Nothing is drawn: no line, no grip, no hover colour. Only the col-resize cursor says "drag here".
+        // Keyboard focus still gets an outline, so the handle can be found without a mouse.
         '&:focus-visible': { outline: (t) => `2px solid ${t.palette.primary.main}`, outlineOffset: -2, borderRadius: '4px' },
-        '@media (prefers-reduced-motion: reduce)': { '&::before, &::after': { transition: 'none' } },
       }}
     />
   );
