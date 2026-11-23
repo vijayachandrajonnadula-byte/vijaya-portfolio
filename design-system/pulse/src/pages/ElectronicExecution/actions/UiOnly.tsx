@@ -4,7 +4,8 @@
  */
 import { useState } from 'react';
 import { Box } from '../../../components/mui';
-import { SideSurface } from '../../../components/feedback/SideSurface/SideSurface';
+import { Flyout } from '../../../components/feedback/Flyout/Flyout';
+import { Button } from '../../../components/actions/Button/Button';
 import { CompactDialog } from '../../../components/feedback/CompactDialog/CompactDialog';
 import { Notification } from '../../../components/feedback/Notification/Notification';
 import { Select } from '../../../components/form/Select/Select';
@@ -14,7 +15,7 @@ import { Edit02Icon } from '../../../icons';
 import { actRef, fonts, ref } from '../refTheme';
 import { useExecution } from '../store';
 import { ui } from '../ui';
-import { Closer, FootBtn, PanelFooter, PanelHeader, W, focusRing, tx, wsTable } from './parts';
+import { W, focusRing, tx, wsTable } from './parts';
 import { RefButton } from '../shell/RefControls';
 import { stepLabel } from './shared';
 import { RefSelect } from './RefSelect';
@@ -25,18 +26,13 @@ export function AnnotationPanel() {
   const close = () => ui.close('annotations');
   const heads = ['Executed Version', 'Reply To', 'Annotation Type', 'Annotated Content - Text', 'Annotated Date', 'Author', 'Author Comments', 'Page No', 'State', 'Document Owner'];
   return (
-    <SideSurface
-      ariaLabel="Annotation Details"
+    <Flyout
+      open
       width="min(1400px, 75vw)"
       onClose={close}
-      duration={0}
-      scrim={actRef.scrimPanel}
-      scrimBlur={actRef.blur}
-      shadow={actRef.shadowPanel}
-      fontFamily={fonts.shell}
-      header={<PanelHeader dark title="Annotation Details" subtitle={s.protocol.id} onClose={close} />}
-      footer={<PanelFooter><FootBtn onClick={close}>Close</FootBtn></PanelFooter>}
-      bodyPadding="18px 22px"
+      backdropOpacity={0.3}
+      headerProps={{ title: 'Annotation Details', metadata: s.protocol.id }}
+      footer={<Button size="small" variant="outlined" onClick={close}>Close</Button>}
     >
       <Box component="table" data-spec="annotation-table" sx={wsTable}>
         <thead><tr>{heads.map((h) => <th key={h}>{h}</th>)}</tr></thead>
@@ -44,7 +40,7 @@ export function AnnotationPanel() {
           <tr><Box component="td" colSpan={heads.length} sx={{ p: '18px 10px', color: ref.muted }}>No annotations. Sample only: this prototype does not store document annotations, so the report is always empty.</Box></tr>
         </tbody>
       </Box>
-    </SideSurface>
+    </Flyout>
   );
 }
 
@@ -74,30 +70,25 @@ export function TaskTransferPanel() {
   const [comment, setComment] = useState('');
   const close = () => ui.close('taskTransfer');
   return (
-    <SideSurface
-      ariaLabel="Task Transfer"
+    <Flyout
+      open
       width={440}
       onClose={close}
-      duration={0}
-      scrim={actRef.scrimPanel}
-      scrimBlur={actRef.blur}
-      shadow={actRef.shadowPanel}
-      fontFamily={fonts.shell}
-      header={<PanelHeader title="Task Transfer" subtitle={s.protocol.id} onClose={close} />}
+      backdropOpacity={0.3}
+      headerProps={{ title: 'Task Transfer', metadata: s.protocol.id }}
       footer={
-        <PanelFooter>
-          <FootBtn onClick={close}>Cancel</FootBtn>
-          <FootBtn primary disabled={!to} onClick={() => { ui.toast('warn', 'Task transfer is a sample action: nothing was transferred.'); close(); }}>Transfer</FootBtn>
-        </PanelFooter>
+        <>
+          <Button size="small" variant="outlined" onClick={close}>Cancel</Button>
+          <Button size="small" disabled={!to} onClick={() => { ui.toast('warn', 'Task transfer is a sample action: nothing was transferred.'); close(); }}>Transfer</Button>
+        </>
       }
-      bodyPadding="18px 22px"
     >
       <Box sx={{ display: 'grid', gap: 2 }}>
         <Notification color="blue" title="Sample only" body="This prototype does not transfer tasks. Choosing Transfer only shows a message." />
         <Select label="User" required placeholder="Choose a user" options={s.users.filter((u) => u.canExecute && u.id !== s.currentUserId).map((u) => ({ value: u.id, label: u.name }))} value={to} onChange={(v) => setTo(String(v))} fullWidth />
         <TextArea label="Comment" rows={3} value={comment} onChange={(e) => setComment(e.target.value)} placeholder="Why is the task being transferred?" fullWidth />
       </Box>
-    </SideSurface>
+    </Flyout>
   );
 }
 
@@ -113,26 +104,19 @@ export function CopyResultPanel() {
   const ready = !!entity && !!doc;
   const lbl = { width: 90, textAlign: 'right', ...tx(12.5, W.emphasis, ref.ink, 18.125) } as const;
   return (
-    <SideSurface
-      ariaLabel="Copy Result"
+    <Flyout
+      open
       width={620}
       onClose={close}
-      duration={280}
-      scrim="rgba(10,20,60,.35)"
-      shadow="-8px 0 32px rgba(10,30,80,.18)"
-      fontFamily={fonts.shell}
-      header={
-        <Box data-spec="copy-head" sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', p: '0 22px', height: 52, background: ref.navy, boxSizing: 'border-box', flexShrink: 0 }}>
-          <Box sx={{ letterSpacing: '0.2px', ...tx(15, W.strong, ref.white, 21.75) }}>Copy Result</Box>
-          <Box sx={{ m: '0 -7px' }}><Closer onClose={close} tone="dark" size={16} box={32} /></Box>
-        </Box>
-      }
+      backdropOpacity={0.3}
+      headerProps={{ title: 'Copy Result' }}
+      disableContentPadding
+      footerLeft={<Box sx={tx(12, W.emphasis, ref.muted, 17.4)}>{picked.length} steps selected</Box>}
       footer={
-        <Box data-spec="copy-foot" sx={{ display: 'flex', alignItems: 'center', gap: '10px', p: '12px 20px', height: 56, borderTop: `1px solid ${ref.line}`, background: actRef.panelFootBg, boxSizing: 'border-box', flexShrink: 0 }}>
-          <Box sx={{ flex: 1, ...tx(12, W.emphasis, ref.muted, 17.4) }}>{picked.length} steps selected</Box>
-          <RefButton onClick={close} sx={{ height: 31, p: '7px 18px', boxSizing: 'border-box', border: `1px solid ${actRef.viewBtnLine}`, borderRadius: '7px', background: ref.white, ...tx(12.5, W.emphasis, ref.ink), '&:hover': { background: ref.tint2 } }}>Cancel</RefButton>
-          <RefButton disabled={picked.length === 0} onClick={() => { ui.toast('warn', 'Copy Result is a sample action: nothing was copied.'); close(); }} sx={{ height: 31, p: '7px 18px', boxSizing: 'border-box', border: `1px solid ${ref.navy2}`, borderRadius: '7px', background: ref.navy2, ...tx(12.5, W.emphasis, ref.white), '&:disabled': { opacity: 0.4, cursor: 'default' }, '&:hover:not(:disabled)': { background: actRef.submitHover } }}>Copy Result</RefButton>
-        </Box>
+        <>
+          <Button size="small" variant="outlined" onClick={close}>Cancel</Button>
+          <Button size="small" disabled={picked.length === 0} onClick={() => { ui.toast('warn', 'Copy Result is a sample action: nothing was copied.'); close(); }}>Copy Result</Button>
+        </>
       }
     >
       <Box data-spec="copy-filter" sx={{ p: '16px 22px 12px', borderBottom: `1px solid ${ref.line}` }}>
@@ -156,7 +140,7 @@ export function CopyResultPanel() {
           ))}
         </Box>
       )}
-    </SideSurface>
+    </Flyout>
   );
 }
 

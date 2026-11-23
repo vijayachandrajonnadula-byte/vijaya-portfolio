@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import type { ReactNode } from 'react';
 import { Box } from '../../../components/mui';
-import { SideSurface } from '../../../components/feedback/SideSurface/SideSurface';
+import { Flyout } from '../../../components/feedback/Flyout/Flyout';
 
 import { Select } from '../../../components/form/Select/Select';
 import { ChartColumnIcon } from '../../../icons';
@@ -9,7 +9,7 @@ import { actRef, fonts, ref } from '../refTheme';
 import { stepsInTable, useExecution } from '../store';
 import type { ExecState, Step } from '../model';
 import { ui } from '../ui';
-import { PanelHeader, W, focusRing, tx, wsTable } from './parts';
+import { W, focusRing, tx, wsTable } from './parts';
 import { RefButton } from '../shell/RefControls';
 
 const OPEN = new Set(['underAssessment', 'pendingReview']);
@@ -263,19 +263,7 @@ export default function MetricsFlyout() {
   );
 
   return (
-    <SideSurface
-      ariaLabel="Metrics"
-      width={860}
-      onClose={close}
-      duration={0}
-      scrim={actRef.scrimPanel}
-      scrimBlur={actRef.blur}
-      shadow={actRef.shadowPanel}
-      borderRight={`1px solid ${ref.line}`}
-      fontFamily={fonts.shell}
-      header={<PanelHeader title="Metrics" onClose={close} />}
-      bodyPadding="18px 22px"
-    >
+    <Flyout open width={860} onClose={close} backdropOpacity={0.3} headerProps={{ title: 'Metrics' }}>
       {tabBar}
       <Box sx={{ mb: '12px', ...tx(14, W.strong, ref.blue3, 20.3) }}>{TABS[tab]}</Box>
 
@@ -360,6 +348,6 @@ export default function MetricsFlyout() {
           </Box>
         </>
       )}
-    </SideSurface>
+    </Flyout>
   );
 }

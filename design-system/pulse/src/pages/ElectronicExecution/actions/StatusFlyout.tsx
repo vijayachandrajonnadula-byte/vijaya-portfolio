@@ -1,11 +1,11 @@
 import type { ReactNode } from 'react';
 import { Box } from '../../../components/mui';
-import { SideSurface } from '../../../components/feedback/SideSurface/SideSurface';
+import { Flyout } from '../../../components/feedback/Flyout/Flyout';
 import { ChatBotIcon, CheckmarkCircle01Icon, CircleIcon, Menu06Icon, TickDouble02Icon, TriangleIcon, Upload03Icon } from '../../../icons';
-import { actRef, fonts, ref } from '../refTheme';
+import { actRef, ref } from '../refTheme';
 import { executionStatus, useExecution } from '../store';
 import { ui } from '../ui';
-import { Closer, W, tx } from './parts';
+import { W, tx } from './parts';
 import { RefButton, focusRing } from '../shell/RefControls';
 
 function Card({ label, value, color, icon, sub }: { label: string; value: number; color: string; icon: ReactNode; sub?: string }) {
@@ -30,26 +30,13 @@ export default function StatusFlyout() {
   const g = 14;
 
   return (
-    <SideSurface
-      ariaLabel="Execution status"
+    <Flyout
+      open
       width={440}
       onClose={close}
-      scrim={actRef.scrimStatus}
-      shadow={actRef.shadowSlide}
-      fontFamily={fonts.shell}
-      header={
-        <Box data-spec="status-head" sx={{ display: 'flex', alignItems: 'center', gap: '9px', p: '12px 16px', background: actRef.statusHead, flexShrink: 0, boxSizing: 'border-box' }}>
-          <Box aria-hidden sx={{ width: 32, height: 32, borderRadius: '9px', background: 'rgba(255,255,255,.15)', color: ref.white, display: 'grid', placeItems: 'center', flexShrink: 0 }}>
-            <CheckmarkCircle01Icon size={18} />
-          </Box>
-          <Box sx={{ flex: 1, minWidth: 0 }}>
-            <Box data-spec="status-title" sx={tx(13.5, W.strong, ref.white, 19.575)}>Execution Status</Box>
-            <Box data-spec="status-sub" sx={{ mt: '1px', ...tx(10.5, W.regular, ref.tint, 15.225) }}>{s.protocol.id} · Real-time progress</Box>
-          </Box>
-          <Closer onClose={close} tone="dark" size={16} box={28} />
-        </Box>
-      }
-      bodyPadding="0"
+      backdropOpacity={0.3}
+      headerProps={{ title: 'Execution Status', metadata: `${s.protocol.id} · Real-time progress`, icon: <CheckmarkCircle01Icon size={22} /> }}
+      disableContentPadding
     >
       <Box data-spec="status-prog" sx={{ p: '12px 16px', borderBottom: `1px solid ${ref.line}`, background: actRef.statusProg, boxSizing: 'border-box' }}>
         <Box sx={{ mb: '5px', ...tx(10, W.emphasis, ref.muted, 14.5) }}>Overall Progress</Box>
@@ -96,6 +83,6 @@ export default function StatusFlyout() {
           </Box>
         </Box>
       </Box>
-    </SideSurface>
+    </Flyout>
   );
 }

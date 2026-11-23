@@ -1,1 +1,0 @@
-import{n as e}from"./rolldown-runtime-sJBDdmOt.js";import{wt as t}from"./iframe-Bn17Xg98.js";import{n,t as r}from"./createSvgIcon-Cf_DPGIR.js";var i,a;function o(){return(o=e((()=>{n(),i=t(),a=r((0,i.jsx)(`path`,{d:`M2 4v16h20V4zm18 4.67h-2.5V6H20zm-2.5 2H20v2.67h-2.5zM4 6h11.5v12H4zm13.5 12v-2.67H20V18z`}),`ViewSidebarOutlined`)})))()}export{o as n,a as t};

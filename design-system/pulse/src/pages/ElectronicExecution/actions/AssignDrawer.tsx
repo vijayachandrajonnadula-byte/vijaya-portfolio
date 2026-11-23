@@ -1,13 +1,14 @@
 import { useState } from 'react';
 import { Box } from '../../../components/mui';
-import { SideSurface } from '../../../components/feedback/SideSurface/SideSurface';
+import { Flyout } from '../../../components/feedback/Flyout/Flyout';
+import { Button } from '../../../components/actions/Button/Button';
 import { Notification } from '../../../components/feedback/Notification/Notification';
 import { Calendar01Icon, Cancel01Icon, PlusSignIcon, UserIcon } from '../../../icons';
-import { actRef, fonts, ref } from '../refTheme';
+import { actRef, ref } from '../refTheme';
 import { executionActions, stepsInTable, useExecution } from '../store';
 import type { SplitAssignment, SplitScope, User } from '../model';
 import { ui } from '../ui';
-import { Closer, W, tx } from './parts';
+import { W, tx } from './parts';
 import { RefSelect } from './RefSelect';
 import UserPicker from './UserPicker';
 import { RuleErrors } from './shared';
@@ -100,25 +101,18 @@ export default function AssignDrawer({ mode }: { mode: Mode }) {
 
   return (
     <>
-      <SideSurface
-        ariaLabel={verify ? 'Assign for Verification' : 'Split Execution'}
+      <Flyout
+        open
         width="calc(100vw - 52px)"
         onClose={close}
-        duration={0}
-        scrim={actRef.scrimDrawer}
-        scrimBlur={actRef.blur}
-        fontFamily={fonts.shell}
-        header={
-          <Box data-spec="drawer-head" sx={{ display: 'flex', alignItems: 'center', gap: '12px', p: '0 24px', height: 64, borderBottom: `1px solid ${ref.line}`, boxSizing: 'border-box', flexShrink: 0 }}>
-            <Box data-spec="drawer-title" sx={{ flex: 1, ...tx(18, W.strong, ref.ink, 26.1) }}>{verify ? 'Assign for Verification' : 'Split Execution'}</Box>
-            <Box sx={{ m: '0 -7px' }}><Closer onClose={close} size={14} box={28} /></Box>
-          </Box>
-        }
+        backdropOpacity={0.3}
+        headerProps={{ title: verify ? 'Assign for Verification' : 'Split Execution' }}
+        disableContentPadding
         footer={
-          <Box data-spec="drawer-foot" sx={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: '8px', p: '0 20px', height: 54, borderTop: `1px solid ${ref.line}`, boxSizing: 'border-box', flexShrink: 0 }}>
-            <RefButton onClick={() => ui.open('details')} sx={{ height: 34, p: '8px 18px', boxSizing: 'border-box', border: `1px solid ${actRef.viewBtnLine}`, borderRadius: '8px', background: ref.white, ...tx(13, W.emphasis, ref.ink), '&:hover': { background: actRef.viewBtnHoverBg, borderColor: actRef.viewBtnHoverLine }, ...focusRing }}>View Details</RefButton>
-            <RefButton onClick={submit} sx={{ height: 32, p: '8px 24px', borderRadius: '8px', background: ref.navy2, ...tx(13, W.strong, ref.white), '&:hover': { background: actRef.submitHover }, ...focusRing }}>Submit</RefButton>
-          </Box>
+          <>
+            <Button size="small" variant="outlined" onClick={() => ui.open('details')}>View Details</Button>
+            <Button size="small" onClick={submit}>Submit</Button>
+          </>
         }
       >
         {!verify && (
@@ -214,7 +208,7 @@ export default function AssignDrawer({ mode }: { mode: Mode }) {
         >
           <PlusSignIcon size={14} /> Add Table
         </RefButton>
-      </SideSurface>
+      </Flyout>
       {picking && (
         <UserPicker
           title={verify ? 'Verifiers' : 'Executors'}

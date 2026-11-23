@@ -1,12 +1,13 @@
 import { useMemo, useState } from 'react';
 import { Box } from '../../../components/mui';
-import { SideSurface } from '../../../components/feedback/SideSurface/SideSurface';
+import { Flyout } from '../../../components/feedback/Flyout/Flyout';
+import { Button } from '../../../components/actions/Button/Button';
 import { File01Icon, InformationCircleIcon, ArrowUpDownIcon, Layers01Icon } from '../../../icons';
-import { actRef, fonts, ref } from '../refTheme';
+import { ref } from '../refTheme';
 import { useExecution } from '../store';
 import { ui } from '../ui';
 import { fmtWhen, userName } from './shared';
-import { FootBtn, KV, PanelFooter, PanelHeader, SecHead, W, focusRing, tx, wsTable } from './parts';
+import { KV, SecHead, W, focusRing, tx, wsTable } from './parts';
 import { RefButton } from '../shell/RefControls';
 
 type Tab = 'view' | 'audit';
@@ -52,22 +53,16 @@ export default function DetailsFlyout() {
   );
 
   return (
-    <SideSurface
-      ariaLabel="Details"
+    <Flyout
+      open
       width={640}
       resizable
       minWidth={420}
       rememberAs="exec-details"
       onClose={close}
-      duration={0}
-      scrim={actRef.scrimPanel}
-      scrimBlur={actRef.blur}
-      shadow={actRef.shadowPanel}
-      borderRight={`1px solid ${ref.line}`}
-      fontFamily={fonts.shell}
-      header={<PanelHeader title="Details" subtitle={p.id} onClose={close} />}
-      footer={<PanelFooter><FootBtn onClick={close}>Close</FootBtn></PanelFooter>}
-      bodyPadding="18px 22px"
+      backdropOpacity={0.3}
+      headerProps={{ title: 'Details', metadata: p.id }}
+      footer={<Button size="small" variant="outlined" onClick={close}>Close</Button>}
     >
       <Box sx={{ display: 'flex', gap: '14px', alignItems: 'flex-start' }}>
         <Box role="group" aria-label="Details view" sx={{ display: 'flex', flexDirection: 'column', gap: '6px', p: '6px', border: `1px solid ${ref.line}`, borderRadius: '10px', background: ref.bg, flexShrink: 0, boxSizing: 'border-box' }}>
@@ -130,6 +125,6 @@ export default function DetailsFlyout() {
           )}
         </Box>
       </Box>
-    </SideSurface>
+    </Flyout>
   );
 }

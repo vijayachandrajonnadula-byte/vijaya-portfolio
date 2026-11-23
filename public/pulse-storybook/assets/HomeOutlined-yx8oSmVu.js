@@ -1,1 +1,0 @@
-import{n as e}from"./rolldown-runtime-sJBDdmOt.js";import{wt as t}from"./iframe-Bn17Xg98.js";import{n,t as r}from"./createSvgIcon-Cf_DPGIR.js";var i,a;function o(){return(o=e((()=>{n(),i=t(),a=r((0,i.jsx)(`path`,{d:`m12 5.69 5 4.5V18h-2v-6H9v6H7v-7.81zM12 3 2 12h3v8h6v-6h2v6h6v-8h3z`}),`HomeOutlined`)})))()}export{o as n,a as t};

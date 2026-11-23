@@ -1,12 +1,14 @@
 import { useEffect, useRef, useState } from 'react';
 import type { ReactNode } from 'react';
 import { Box } from '../../../components/mui';
-import { SideSurface } from '../../../components/feedback/SideSurface/SideSurface';
+import { FlyoutPanel } from '../../../components/feedback/Flyout/Flyout';
+import { Chip } from '../../../components/data-display/Chip/Chip';
+import { Button } from '../../../components/actions/Button/Button';
 import { Attachment01Icon, CheckmarkCircle01Icon, ChatBotIcon, Folder01Icon, PlayIcon, VideoReplayIcon, Cancel01Icon } from '../../../icons';
-import { actRef, fonts, panelRef, ref } from '../refTheme';
+import { actRef, panelRef, ref } from '../refTheme';
 import { executionActions, executionStore, useExecution } from '../store';
 import { ui } from '../ui';
-import { Closer, FootBtn, W, tx } from './parts';
+import { W, tx } from './parts';
 import { RefButton, focusRing } from '../shell/RefControls';
 import { StateChip, VerdictChip, stepLabel } from './shared';
 
@@ -139,59 +141,31 @@ export default function AiAgentFlyout() {
 
   const status = running ? 'running' : waiting > 0 ? 'done' : 'ready';
   const pill = {
-    ready: { text: 'Ready', color: ref.white, bg: 'rgba(255,255,255,.2)', line: 'rgba(255,255,255,.35)' },
-    running: { text: 'Running', color: actRef.aiRunningText, bg: actRef.aiRunningBg, line: actRef.aiRunningBorder },
-    done: { text: `${waiting} AI`, color: ref.pass, bg: ref.passBg, line: actRef.aiPassRing },
-  }[status];
+    ready: { text: 'Ready', color: 'gray' },
+    running: { text: 'Running', color: 'blue' },
+    done: { text: `${waiting} AI`, color: 'green' },
+  }[status] as { text: string; color: 'gray' | 'blue' | 'green' };
 
   return (
-    <SideSurface
-      ariaLabel="AI agent"
-      width={320}
-      modal={false}
+    // A floating panel that leaves the page usable (no scrim), so it uses the design system's inline FlyoutPanel in a fixed slot.
+    <Box role="complementary" aria-label="AI agent" data-spec="sidepanel" sx={{ position: 'fixed', top: 0, right: 0, height: '100vh', width: 320, maxWidth: '100vw', zIndex: 1150, boxShadow: actRef.shadowSlide }}>
+    <FlyoutPanel
+      width="100%"
       onClose={close}
-      shadow={actRef.shadowSlide}
-      fontFamily={fonts.shell}
-      header={
-        <Box data-spec="ai-head" sx={{ display: 'flex', alignItems: 'center', gap: '9px', p: '11px 14px', background: actRef.aiHead, flexShrink: 0, boxSizing: 'border-box' }}>
-          <Box aria-hidden sx={{ display: 'flex', color: ref.white, width: 24.7, height: 26.1, alignItems: 'center', justifyContent: 'center' }}><ChatBotIcon size={22} /></Box>
-          <Box data-spec="ai-title" sx={{ flex: 1, minWidth: 0, ...tx(13.5, W.strong, ref.white, 19.575) }}>AI agent</Box>
-          <Box data-spec="ai-stat" role="status" sx={{ p: '2px 10px', border: `1px solid ${pill.line}`, borderRadius: '10px', background: pill.bg, ...tx(10, W.strong, pill.color, 14.5) }}>{pill.text}</Box>
-          <Closer onClose={close} tone="dark" size={15} box={23} h={28.3} />
-        </Box>
-      }
-      footer={
-        <>
-          {running && (
-            <Box data-spec="ai-prog" sx={{ p: '9px 12px', borderTop: `1px solid ${ref.line}`, boxSizing: 'border-box' }}>
-              <Box sx={tx(10, W.emphasis, ref.blue3, 14.5)}>Analysing steps</Box>
-              <Box sx={{ mt: '2px', height: 5, background: ref.tint2, borderRadius: '3px', overflow: 'hidden' }}>
-                <Box sx={{ width: `${Math.round((running.done / running.total) * 100)}%`, height: 5, background: ref.blue3, transition: 'width .2s ease' }} />
-              </Box>
-              <Box sx={{ mt: '2px', ...tx(10, W.regular, ref.muted, 14.5) }}>Step {Math.min(running.done + 1, running.total)} of {running.total}</Box>
-            </Box>
-          )}
-          <Box data-spec="ai-actions" sx={{ p: '10px', borderTop: `1px solid ${ref.line}`, boxSizing: 'border-box', flexShrink: 0 }}>
-            <RefButton
-              onClick={run}
-              disabled={!!running || s.mode === 'spectator'}
-              sx={{ width: '100%', height: 33, gap: '5px', justifyContent: 'center', boxSizing: 'border-box', border: `1px solid ${actRef.aiRunBorder}`, borderRadius: '6px', background: actRef.aiRunBg, ...tx(11, W.strong, actRef.aiRunText), '&:hover': { background: actRef.aiRunHover } }}
-            >
-              <PlayIcon size={11} /> Run
-            </RefButton>
-          </Box>
-          <Box sx={{ p: '0 10px 10px', flexShrink: 0 }}>
-            <RefButton
-              onClick={recordAll}
-              disabled={waiting === 0}
-              sx={{ width: '100%', height: 31, gap: '5px', justifyContent: 'center', borderRadius: '6px', background: `linear-gradient(135deg, ${actRef.bulkFrom}, ${actRef.bulkTo})`, boxShadow: actRef.bulkShadow, ...tx(11, W.strong, ref.white), '&:hover:not(:disabled)': { background: actRef.bulkHover }, '&:disabled': { opacity: 0.4, cursor: 'not-allowed' } }}
-            >
-              <CheckmarkCircle01Icon size={12} /> Record All AI Results{waiting > 0 ? ` (${waiting})` : ''}
-            </RefButton>
-          </Box>
-        </>
-      }
+      headerProps={{ title: 'AI agent', icon: <ChatBotIcon size={22} />, titleAdornment: <Chip label={pill.text} color={pill.color} size="xsmall" /> }}
+      disableContentPadding
+      footerLeft={<Button size="small" variant="outlined" startIcon={<PlayIcon size={12} />} onClick={run} disabled={!!running || s.mode === 'spectator'}>Run</Button>}
+      footer={<Button size="small" color="success" startIcon={<CheckmarkCircle01Icon size={14} />} onClick={recordAll} disabled={waiting === 0}>Record all{waiting > 0 ? ` (${waiting})` : ''}</Button>}
     >
+      {running && (
+        <Box data-spec="ai-prog" role="status" sx={{ p: '9px 12px', borderBottom: `1px solid ${ref.line}`, boxSizing: 'border-box' }}>
+          <Box sx={tx(10, W.emphasis, ref.blue3, 14.5)}>Analysing steps</Box>
+          <Box sx={{ mt: '2px', height: 5, background: ref.tint2, borderRadius: '3px', overflow: 'hidden' }}>
+            <Box sx={{ width: `${Math.round((running.done / running.total) * 100)}%`, height: 5, background: ref.blue3, transition: 'width .2s ease' }} />
+          </Box>
+          <Box sx={{ mt: '2px', ...tx(10, W.regular, ref.muted, 14.5) }}>Step {Math.min(running.done + 1, running.total)} of {running.total}</Box>
+        </Box>
+      )}
       {stepHead(1, 'Select tables & steps for the agent')}
       <Box data-spec="ai-tblcard" sx={{ m: '10px', border: `1px solid ${ref.blue3}`, borderRadius: '9px', overflow: 'hidden' }}>
         <Box sx={{ p: '10px 12px' }}>
@@ -298,13 +272,14 @@ export default function AiAgentFlyout() {
                   <Box sx={tx(10, W.regular, ref.muted, 14.5)}>Expected: {st.expected}</Box>
                   <Box sx={tx(10.5, W.regular, ref.ink, 15.225)}>Proposed: {st.actual}</Box>
                   {st.aiMismatch && <Box sx={{ p: '4px 6px', borderRadius: '5px', background: panelRef.failBg, ...tx(10, W.regular, ref.failFg, 14.5) }}>{st.aiMismatch}</Box>}
-                  {st.state === 'aiFilled' && <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}><FootBtn primary onClick={() => record(id)}>Record this step</FootBtn></Box>}
+                  {st.state === 'aiFilled' && <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}><Button size="small" onClick={() => record(id)}>Record this step</Button></Box>}
                 </Box>
               );
             })}
           </Box>
         </>
       )}
-    </SideSurface>
+    </FlyoutPanel>
+    </Box>
   );
 }

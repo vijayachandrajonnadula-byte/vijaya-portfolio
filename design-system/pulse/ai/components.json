@@ -3698,6 +3698,31 @@
       "default": "0.5"
      },
      {
+      "name": "resizable",
+      "required": false,
+      "type": "boolean",
+      "doc": "Let the visitor drag the inner edge to change the width (ARIA window splitter: arrow keys, Home / End, double click resets). Needs a numeric `width`, which is the starting width. Not in Figma.",
+      "default": "false"
+     },
+     {
+      "name": "minWidth",
+      "required": false,
+      "type": "number",
+      "doc": "Narrowest and widest width in px when `resizable`. The widest is also capped to the window.",
+      "default": "360 and 1200"
+     },
+     {
+      "name": "maxWidth",
+      "required": false,
+      "type": "number"
+     },
+     {
+      "name": "rememberAs",
+      "required": false,
+      "type": "string",
+      "doc": "Key under which the dragged width is remembered for the session, so reopening the flyout keeps it."
+     },
+     {
       "name": "children",
       "required": false,
       "type": "ReactNode"
