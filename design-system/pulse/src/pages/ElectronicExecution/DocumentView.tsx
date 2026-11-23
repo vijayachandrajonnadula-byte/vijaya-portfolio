@@ -73,15 +73,6 @@ export default function DocumentView({ side }: { side?: ReactNode }) {
     }
   };
 
-  const references = useMemo(() => {
-    const seen = new Map<string, string>();
-    for (const t of s.protocol.tables) for (const id of t.stepIds) {
-      const st = s.protocol.steps[id];
-      if (st && !seen.has(st.reference)) seen.set(st.reference, t.title);
-    }
-    return Array.from(seen, ([id, title]) => ({ id, title }));
-  }, [s.protocol]);
-
   const z = u.zoom / 100;
 
   return (
@@ -104,8 +95,7 @@ export default function DocumentView({ side }: { side?: ReactNode }) {
           if (st) select(st.id);
         }}
         onNextTable={nextTable}
-        references={references}
-        onReference={(id) => ui.toast('warn', `${id}: reference documents are not attached in this sample.`)}
+        onOpenDocument={(title) => ui.open('evidence', { sop: title })}
         fit={fit}
         onFit={setFit}
         zoom={u.zoom}

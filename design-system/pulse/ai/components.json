@@ -4072,6 +4072,13 @@
       "required": false,
       "type": "boolean",
       "doc": "Adds the close button; defaults to `onClose` when true."
+     },
+     {
+      "name": "width",
+      "required": false,
+      "type": "number | string",
+      "doc": "Panel width (px or CSS length). Figma fixes it at 320; wider content (a tree, a table) passes its own.",
+      "default": "320"
      }
     ]
    },

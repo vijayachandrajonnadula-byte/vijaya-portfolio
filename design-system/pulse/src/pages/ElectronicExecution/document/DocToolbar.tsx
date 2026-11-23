@@ -2,6 +2,7 @@ import { useRef, useState } from 'react';
 import type { ReactNode } from 'react';
 import { Box } from '../../../components/mui';
 import { DropdownMenu } from '../../../components/form/DropdownMenu/DropdownMenu';
+import { ViewPanel } from './ViewPanel';
 import { ChromeButton, ChromeIconButton, SegmentedToggle } from '../../../components/navigation/ExecutionChrome/ExecutionChrome';
 import { ArrowDown01Icon, ArrowLeft01Icon, ArrowLeftDoubleIcon, ArrowRight01Icon, ArrowRightDoubleIcon, LayoutLeftIcon, Menu01Icon, MinusSignIcon, PlusSignIcon } from '../../../icons';
 import { fw } from '../../../theme/typography';
@@ -11,12 +12,6 @@ import { barRef } from '../refTheme';
 export const ZOOM_MIN = 50;
 export const ZOOM_MAX = 200;
 export const ZOOM_STEP = 10;
-
-const FIT_OPTIONS: { value: FitMode; label: string }[] = [
-  { value: 'auto', label: 'Fit width' },
-  { value: 'compact', label: 'Compact' },
-  { value: 'full', label: 'Full width' },
-];
 
 const divider = <Box aria-hidden sx={{ width: '1px', height: 24, background: barRef.line, flexShrink: 0, mx: '4px' }} />;
 
@@ -48,8 +43,8 @@ export interface DocToolbarProps {
   rowMax: number;
   onRow: (row: number) => void;
   onNextTable: () => void;
-  references: { id: string; title: string }[];
-  onReference: (id: string) => void;
+  /** A document chosen in the View panel (Attachments or Vault): show it. */
+  onOpenDocument: (title: string) => void;
   fit: FitMode;
   onFit: (f: FitMode) => void;
   zoom: number;
@@ -69,12 +64,6 @@ export function DocToolbar(p: DocToolbarProps) {
     if (Number.isFinite(n)) p.onRow(Math.min(p.rowMax, Math.max(1, Math.round(n))));
   };
   const clampZoom = (z: number) => Math.min(ZOOM_MAX, Math.max(ZOOM_MIN, z));
-  const viewOptions = [
-    ...(p.references.length ? [{ label: 'Reference documents', value: 'h:ref', disabled: true }] : []),
-    ...p.references.map((r) => ({ label: `${r.id}  ${r.title}`, value: `ref:${r.id}` })),
-    { label: 'Page width', value: 'h:fit', disabled: true },
-    ...FIT_OPTIONS.map((f) => ({ label: f.label, value: `fit:${f.value}` })),
-  ];
 
   return (
     <Box
@@ -170,24 +159,11 @@ export function DocToolbar(p: DocToolbarProps) {
 
       <Box sx={{ flex: 1, minWidth: 8 }} />
 
-      {/* View menu: reference documents and the page width */}
-      <ChromeButton ariaHasPopup="menu" ariaExpanded={!!viewEl} onClick={(e) => setViewEl(e.currentTarget)} startIcon={<LayoutLeftIcon size={16} />} endIcon={<ArrowDown01Icon size={16} />} sx={{ gap: '6px', px: '10px' }}>
+      {/* View panel: Attachments | Vault documents, and the page width */}
+      <ChromeButton ariaHasPopup="dialog" ariaExpanded={!!viewEl} onClick={(e) => setViewEl(e.currentTarget)} startIcon={<LayoutLeftIcon size={16} />} endIcon={<ArrowDown01Icon size={16} />} sx={{ gap: '6px', px: '10px' }}>
         View
       </ChromeButton>
-      <DropdownMenu
-        anchorEl={viewEl}
-        open={!!viewEl}
-        onClose={() => setViewEl(null)}
-        align="right"
-        ariaLabel="View"
-        selected={`fit:${p.fit}`}
-        options={viewOptions}
-        onSelect={(o) => {
-          const v = String(o.value);
-          if (v.startsWith('fit:')) p.onFit(v.slice(4) as FitMode);
-          else if (v.startsWith('ref:')) p.onReference(v.slice(4));
-        }}
-      />
+      <ViewPanel anchorEl={viewEl} onClose={() => setViewEl(null)} fit={p.fit} onFit={p.onFit} onOpenDocument={p.onOpenDocument} />
       <Box aria-hidden sx={{ width: '1px', height: 24, background: barRef.line, flexShrink: 0, mx: '8px' }} />
 
       {/* zoom */}

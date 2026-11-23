@@ -136,3 +136,11 @@ The first rebuild followed an old HTML prototype; the user supplied a screenshot
 - **Evidence & Activity pane**: still 712px by default, now draggable from its left edge (360px up to the page width minus 560px, reset to 712px; the width is kept for the session). Resizing applies only where the pane sits beside the document (1200px and up); the stacked layouts have no width to change. The open and close animation is unchanged; dragging does not animate.
 - **Never empty**: the pane's display-only sample rows now follow the step and table filters (the rows that belong to that table / row). When a step or table has nothing for the chosen tab and there is no search text, display-only suggestions for that step are shown (an instrument reading, a set-up photo, a supporting record, a short run recording). Grouped views and searches that match nothing still say "No evidence".
 - **Audit trail** (Details panel): when it has no real activity it no longer says only "No activity yet". It shows a note and seven display-only sample rows under a "Sample activity (display only, not stored)" heading, in the muted colour, with roles instead of people. Real activity is listed first once there is any. The sample rows are not in the store.
+
+
+## Electronic Execution: View panel with Attachments | Vault (user-directed)
+
+- The document toolbar's **View** button no longer opens a flat menu. It opens a panel built only from design-system components (`Popover`, `ToggleButtonGroup`, `TreeView`): a full-width **Attachments | Vault** toggle over a list, then the **Page width** choice (Fit width / Compact / Full width). Page: `src/pages/ElectronicExecution/document/ViewPanel.tsx`.
+- **Attachments** lists the documents the execution refers to (a document id with the part of the protocol under it); **Vault** is a folder tree (site, equipment group, document) with dotted guides. Both are generic sample lists, NOT FROM FIGMA, with no company names or people. Choosing a document opens a sample page for it in the Evidence & Activity pane (no file is stored) and closes the panel.
+- The old reference list of the View menu (all step references) and its "not attached in this sample" toast are gone.
+- **Popover** gains an optional `width` prop (default unchanged at Figma's 320px) so a panel with a tree can be wider (420px here).

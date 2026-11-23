@@ -77,11 +77,13 @@ export interface PopoverProps extends Omit<MuiPopoverProps, 'children' | 'title'
   actions?: ReactNode;
   /** Adds the close button; defaults to `onClose` when true. */
   showClose?: boolean;
+  /** Panel width (px or CSS length). Figma fixes it at 320; wider content (a tree, a table) passes its own. @default 320 */
+  width?: number | string;
 }
 
 /** Popover: MUI Popover (positioning, focus, dismissal) with the Pulse panel inside. */
 export const Popover = forwardRef<HTMLDivElement, PopoverProps>(function Popover(
-  { variant = 'outline', title, children, actions, showClose, onClose, slotProps, ...rest },
+  { variant = 'outline', title, children, actions, showClose, width, onClose, slotProps, ...rest },
   ref,
 ) {
   return (
@@ -91,7 +93,7 @@ export const Popover = forwardRef<HTMLDivElement, PopoverProps>(function Popover
       slotProps={{ ...slotProps, paper: { sx: { background: 'transparent', boxShadow: 'none', overflow: 'visible', mt: '8px' } } }}
       {...rest}
     >
-      <PopoverContent variant={variant} title={title} actions={actions} onClose={showClose ? () => onClose?.({}, 'backdropClick') : undefined}>
+      <PopoverContent variant={variant} title={title} actions={actions} onClose={showClose ? () => onClose?.({}, 'backdropClick') : undefined} sx={width === undefined ? undefined : { width }}>
         {children}
       </PopoverContent>
     </MuiPopover>
