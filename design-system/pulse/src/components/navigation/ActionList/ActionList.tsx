@@ -31,9 +31,11 @@ export interface ActionListProps {
   ariaLabel?: string;
   /** Focus the first available row on mount. @default false */
   autoFocus?: boolean;
+  /** Denser rows for a screen with small text: 32px rows, 13/18 labels, 16px icons (default: 40px rows, 14/20, 20px icons). @default false */
+  compact?: boolean;
 }
 
-export function ActionList({ groups, onSelect, ariaLabel = 'Actions', autoFocus = false }: ActionListProps) {
+export function ActionList({ groups, onSelect, ariaLabel = 'Actions', autoFocus = false, compact = false }: ActionListProps) {
   const root = useRef<HTMLDivElement>(null);
   const rows = () => Array.from(root.current?.querySelectorAll<HTMLButtonElement>('button[data-action-row]:not(:disabled)') ?? []);
 
@@ -69,17 +71,17 @@ export function ActionList({ groups, onSelect, ariaLabel = 'Actions', autoFocus 
               disabled={it.disabled}
               onClick={() => onSelect(it)}
               sx={{
-                width: '100%', minHeight: 40, boxSizing: 'border-box', justifyContent: 'flex-start', textAlign: 'left', gap: '12px', px: '8px', borderRadius: 0,
-                ...textStyle('textM', 'medium'), fontSize: 14, lineHeight: '20px', fontWeight: fw.medium, color: '#0f172a',
+                width: '100%', minHeight: compact ? 32 : 40, boxSizing: 'border-box', justifyContent: 'flex-start', textAlign: 'left', gap: compact ? '10px' : '12px', px: '8px', borderRadius: 0,
+                ...textStyle('textM', 'medium'), fontSize: compact ? 13 : 14, lineHeight: compact ? '18px' : '20px', fontWeight: fw.medium, color: '#0f172a',
                 '& svg': { flexShrink: 0, color: '#566680' },
                 '&:hover:not(.Mui-disabled)': { background: '#eef3fb' },
                 '&.Mui-focusVisible': { boxShadow: focusRing, background: '#eef3fb' },
                 '&.Mui-disabled': { color: '#94a3b8', '& svg': { color: '#cbd5e1' } },
               }}
             >
-              {it.icon && <Box component="span" aria-hidden sx={{ display: 'inline-flex', width: 20, height: 20, alignItems: 'center', justifyContent: 'center' }}>{it.icon}</Box>}
+              {it.icon && <Box component="span" aria-hidden sx={{ display: 'inline-flex', width: compact ? 18 : 20, height: compact ? 18 : 20, alignItems: 'center', justifyContent: 'center', '& svg': compact ? { width: 16, height: 16 } : undefined }}>{it.icon}</Box>}
               <Box component="span" sx={{ flex: 1, minWidth: 0 }}>{it.label}</Box>
-              {it.reason && <Box component="span" sx={{ ...textStyle('textS', 'regular'), fontSize: 12, lineHeight: '16px', color: '#64748b', whiteSpace: 'nowrap' }}>{it.reason}</Box>}
+              {it.reason && <Box component="span" sx={{ ...textStyle('textS', 'regular'), fontSize: compact ? 11 : 12, lineHeight: '16px', color: '#64748b', whiteSpace: 'nowrap' }}>{it.reason}</Box>}
             </ButtonBase>
           ))}
         </Box>
