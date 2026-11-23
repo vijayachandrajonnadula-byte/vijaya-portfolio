@@ -5,10 +5,12 @@
  * and the list (48 x 36 thumbnail, title, meta line). The store's items come first, then generic display-only sample rows.
  * Clicking a store item opens it in the file slider; the expand button opens the full-viewport gallery.
  * The same pane shows a sample SOP page when opened with { sop: title } (reference "sop-split"). The pane grows and
- * shrinks with a flex-basis / max-width 0.26s transition.
+ * shrinks with a flex-basis / max-width 0.26s transition. Drag the pane's left edge to resize it (ResizeHandle: 360px up to the page
+ * width minus 560px; arrow keys, Home / End, double click or Enter resets to 712px); the width is kept for the session.
  */
 import { useEffect, useMemo, useState } from 'react';
 import { Box } from '../../../components/mui';
+import { ResizeHandle } from '../../../components/containers/ResizeHandle/ResizeHandle';
 import { DropdownMenu } from '../../../components/form/DropdownMenu/DropdownMenu';
 import { EmptyState } from '../../../components/data-display/EmptyState/EmptyState';
 import { ChromeButton, ChromeIconButton, PillTabs, SegmentedToggle } from '../../../components/navigation/ExecutionChrome/ExecutionChrome';
@@ -22,13 +24,17 @@ import { ui, useUi } from '../ui';
 import { thinScroll } from './EvControls';
 import { EvFilterButton } from './EvFilter';
 import SopPage from './SopPage';
-import { SAMPLE_ROWS, SampleTile, sampleMatches, sampleMeta } from './sampleRows';
+import { SAMPLE_ROWS, SampleTile, sampleMatches, sampleMeta, suggestedRows } from './sampleRows';
 import type { SampleRow } from './sampleRows';
 import { EV_FILTERS, EV_FILTER_DEFAULT, EV_KIND, applyFilter, itemSub } from './evidenceMeta';
 import type { EvFilter } from './evidenceMeta';
 import { ev } from './evRef';
 
 const PANE_PX = 712;
+const PANE_MIN = 360;
+/** The width the visitor dragged the pane to, kept for the session so closing and reopening the pane keeps it. */
+let dragged: number | null = null;
+const paneMax = () => Math.max(PANE_MIN, Math.min(1000, (typeof window === 'undefined' ? 1440 : window.innerWidth) - 560));
 const GROUP_LABEL = (s: ReturnType<typeof useExecution>, e: EvidenceItem, g: EvFilter['group']): string => {
   if (g === 'type') return EV_KIND[e.kind];
   const t = e.stepIds.map((id) => s.protocol.steps[id]?.table).find((x) => x !== undefined);
@@ -49,9 +55,20 @@ function PaneBody({ stepId }: { stepId?: string }) {
   const shown = useMemo(() => applyFilter(s, s.evidence, filter), [s, filter]);
   const ids = shown.map((e) => e.id);
   const open = (e: EvidenceItem) => ui.open('fileSlider', { evidenceId: e.id, ids });
-  // sample rows only join the unfiltered view of the whole execution (not a table / step / group filter)
-  const sampleOn = !filter.step && !filter.table && filter.group === 'none';
-  const samples = useMemo(() => (sampleOn ? SAMPLE_ROWS.filter((r) => sampleMatches(r, filter.kind) && (!filter.query.trim() || `${r.name} ${sampleMeta(r)}`.toLowerCase().includes(filter.query.trim().toLowerCase()))) : []), [sampleOn, filter.kind, filter.query]);
+  // Sample rows keep the pane from being empty. They follow the step and table filters (the rows that belong to that table / row);
+  // when none do, suggestions for that step are shown instead. Grouped views list the real items only.
+  const stepInfo = filter.step ? s.protocol.steps[filter.step] : undefined;
+  const sampleOn = filter.group === 'none';
+  const samples = useMemo(() => {
+    if (!sampleOn) return [];
+    const q = filter.query.trim().toLowerCase();
+    const pick = (rows: SampleRow[]) => rows.filter((r) => sampleMatches(r, filter.kind) && (!q || `${r.name} ${sampleMeta(r)}`.toLowerCase().includes(q)));
+    const base = SAMPLE_ROWS.filter((r) => (!stepInfo || (r.table === stepInfo.table && r.row === stepInfo.row)) && (!filter.table || r.table === filter.table));
+    const out = pick(base);
+    // a step or table with nothing for this tab (and no search text): suggest what it would normally carry, so the tab is not empty
+    if (out.length === 0 && !q && (stepInfo || filter.table)) return pick(suggestedRows(stepInfo?.table ?? filter.table, stepInfo?.row));
+    return out;
+  }, [sampleOn, stepInfo, filter.table, filter.kind, filter.query]);
   const total = shown.length + samples.length;
 
   const groups = useMemo(() => {
@@ -220,7 +237,16 @@ export function EvidencePaneSlot() {
   const wanted = !!entry;
   const [mounted, setMounted] = useState(wanted);
   const [grown, setGrown] = useState(false);
+  const [settled, setSettled] = useState(false); // after the open animation: width changes from dragging must not animate
+  const [width, setWidthState] = useState(dragged ?? PANE_PX);
   const [last, setLast] = useState(entry?.payload);
+  const setWidth = (px: number) => { dragged = px; setWidthState(px); };
+
+  useEffect(() => {
+    if (!grown) { setSettled(false); return undefined; }
+    const t = window.setTimeout(() => setSettled(true), 320);
+    return () => window.clearTimeout(t);
+  }, [grown]);
 
   useEffect(() => {
     if (entry) setLast(entry.payload);
@@ -239,15 +265,24 @@ export function EvidencePaneSlot() {
 
   if (!mounted) return null;
   const payload = (entry?.payload ?? last ?? {}) as { stepId?: string; sop?: string };
-  const basis = grown ? `${PANE_PX}px` : '0px';
+  const max = paneMax();
+  const shownWidth = Math.min(max, Math.max(PANE_MIN, width));
+  const basis = grown ? `${shownWidth}px` : '0px';
   return (
     <Box
       sx={{
+        position: 'relative',
         flex: { xs: '0 0 auto', md: grown ? '0 0 42%' : '0 0 0%', lg: `0 1 ${basis}` }, maxWidth: { xs: 'none', lg: basis }, minWidth: { xs: 0, lg: grown ? 320 : 0 }, minHeight: 0, overflow: 'hidden',
-        height: { xs: '70vh', md: 'auto' }, transition: 'flex-basis .26s cubic-bezier(.4,0,.2,1), max-width .26s cubic-bezier(.4,0,.2,1)',
+        height: { xs: '70vh', md: 'auto' }, transition: settled ? 'none' : 'flex-basis .26s cubic-bezier(.4,0,.2,1), max-width .26s cubic-bezier(.4,0,.2,1)',
         '@media (prefers-reduced-motion: reduce)': { transition: 'none' },
       }}
     >
+      {/* a draggable left edge; only where the pane sits beside the document (the stacked layouts have no width to change) */}
+      {grown && (
+        <Box sx={{ display: { xs: 'none', lg: 'contents' } }}>
+          <ResizeHandle value={shownWidth} min={PANE_MIN} max={max} onChange={setWidth} onReset={() => setWidth(PANE_PX)} inset label="Resize the Evidence and Activity pane" />
+        </Box>
+      )}
       <EvidencePane key={`${payload.sop ?? ''}|${payload.stepId ?? ''}`} stepId={payload.stepId} sop={payload.sop} />
     </Box>
   );

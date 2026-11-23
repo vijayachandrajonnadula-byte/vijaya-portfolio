@@ -11,7 +11,18 @@ import { RefButton } from '../shell/RefControls';
 
 type Tab = 'view' | 'audit';
 
-/** Details panel (640px): a two-button rail switches between the document facts and the audit trail table. */
+/** NOT FROM FIGMA. Display-only sample rows for the audit trail, so it never opens empty. Roles, not people; not in the store. */
+const SAMPLE_AUDIT: { activity: string; who: string; when: string; note: string }[] = [
+  { activity: 'Draft saved: T1-S1', who: 'Executor', when: '10-May-2026 09:12', note: '' },
+  { activity: 'Recorded step edited: T1-S2', who: 'Executor', when: '10-May-2026 09:31', note: 'Corrected the reading after a recount' },
+  { activity: 'Evidence added: EV-001', who: 'Executor', when: '10-May-2026 09:34', note: 'Cal.pdf' },
+  { activity: 'Table verified: Table 1', who: 'Verifier', when: '10-May-2026 10:05', note: 'All steps within range' },
+  { activity: 'Discrepancy raised: D-001', who: 'Executor', when: '10-May-2026 10:41', note: 'Speed outside the limit' },
+  { activity: 'Discrepancy status changed: T3-S2', who: 'QA Lead', when: '10-May-2026 11:20', note: 'Under investigation' },
+  { activity: 'Verifier assigned: Table 3', who: 'QA Lead', when: '10-May-2026 11:48', note: '' },
+];
+
+/** Details panel (640px, drag its left edge to resize): a two-button rail switches between the document facts and the audit trail table. */
 export default function DetailsFlyout() {
   const s = useExecution();
   const [tab, setTab] = useState<Tab>('view');
@@ -44,6 +55,9 @@ export default function DetailsFlyout() {
     <SideSurface
       ariaLabel="Details"
       width={640}
+      resizable
+      minWidth={420}
+      rememberAs="exec-details"
       onClose={close}
       duration={0}
       scrim={actRef.scrimPanel}
@@ -81,25 +95,38 @@ export default function DetailsFlyout() {
                 <KV k="Working as" v={userName(s, s.currentUserId)} />
               </Box>
             </>
-          ) : rows.length === 0 ? (
-            <Box sx={{ ...tx(11.5, W.regular, ref.muted, 16.675), p: '20px 0' }}>No activity yet. Record, edit or verify a step and it appears here.</Box>
           ) : (
-            <Box component="table" data-spec="audit-table" sx={wsTable}>
-              <thead>
-                <tr>{['Activity', 'Completed By', 'Functional Role', 'Completed On', 'Comments'].map((h) => <th key={h}>{h}</th>)}</tr>
-              </thead>
-              <tbody>
-                {rows.map((r) => (
-                  <tr key={r.id}>
-                    <td>{r.activity}</td>
-                    <td>{r.who}</td>
-                    <td>{r.role}</td>
-                    <td>{r.when}</td>
-                    <td>{r.note || '—'}</td>
+            <>
+              {rows.length === 0 && <Box sx={{ ...tx(11.5, W.regular, ref.muted, 16.675), pb: '12px' }}>No activity of yours yet. Record, edit or verify a step and it is listed first. Until then, the rows below show what an audit trail looks like.</Box>}
+              <Box component="table" data-spec="audit-table" sx={wsTable}>
+                <thead>
+                  <tr>{['Activity', 'Completed By', 'Functional Role', 'Completed On', 'Comments'].map((h) => <th key={h}>{h}</th>)}</tr>
+                </thead>
+                <tbody>
+                  {rows.map((r) => (
+                    <tr key={r.id}>
+                      <td>{r.activity}</td>
+                      <td>{r.who}</td>
+                      <td>{r.role}</td>
+                      <td>{r.when}</td>
+                      <td>{r.note || '—'}</td>
+                    </tr>
+                  ))}
+                  <tr data-spec="audit-sample-head">
+                    <Box component="td" colSpan={5} sx={{ background: `${ref.tint2} !important`, ...tx(9.5, W.heavy, ref.muted, 13.775) }}>Sample activity (display only, not stored)</Box>
                   </tr>
-                ))}
-              </tbody>
-            </Box>
+                  {SAMPLE_AUDIT.map((r) => (
+                    <Box component="tr" key={r.activity} data-spec="audit-sample" title="Sample row (display only)" sx={{ '& td': { color: `${ref.muted} !important` } }}>
+                      <td>{r.activity}</td>
+                      <td>{r.who}</td>
+                      <td>{r.who}</td>
+                      <td>{r.when}</td>
+                      <td>{r.note || '—'}</td>
+                    </Box>
+                  ))}
+                </tbody>
+              </Box>
+            </>
           )}
         </Box>
       </Box>

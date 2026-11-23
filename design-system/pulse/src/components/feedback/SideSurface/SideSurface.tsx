@@ -8,12 +8,23 @@ import { useEffect, useState } from 'react';
 import type { ReactNode } from 'react';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
+import { ResizeHandle } from '../../containers/ResizeHandle/ResizeHandle';
+
+/** Widths the visitor dragged to, kept for the session by `rememberAs`, so a reopened panel keeps its size. */
+const remembered = new Map<string, number>();
 
 export interface SideSurfaceProps {
   /** Close request (Escape, scrim click on a modal panel). */
   onClose: () => void;
-  /** px number or CSS length, for example "calc(100vw - 52px)". */
+  /** px number or CSS length, for example "calc(100vw - 52px)". With `resizable` it must be a number: it is the starting width. */
   width: number | string;
+  /** Let the visitor drag the left edge to change the width (ARIA window splitter: arrow keys, Home / End, double click resets). Needs a numeric `width`. @default false */
+  resizable?: boolean;
+  /** Narrowest and widest width in px when `resizable`. The widest is also capped to the window. @default 360 and 1200 */
+  minWidth?: number;
+  maxWidth?: number;
+  /** Key under which the dragged width is remembered for the session, so reopening the panel keeps it. */
+  rememberAs?: string;
   /** Scrim + focus trap. Pass false for a floating panel that leaves the page usable. @default true */
   modal?: boolean;
   /** Scrim colour (any CSS colour, with its own alpha). Modal panels only. */
@@ -47,8 +58,24 @@ export interface SideSurfaceProps {
 
 const surface = (fontFamily?: string) => ({ display: 'flex', flexDirection: 'column', boxSizing: 'border-box', background: '#fff', overflow: 'hidden', fontFamily, lineHeight: 1.45 }) as const;
 
-export function SideSurface({ onClose, width, modal = true, scrim = 'rgba(15,30,80,.45)', scrimBlur = 0, duration = 250, shadow, borderLeft, borderRight, zIndex, ariaLabel, header, footer, bodyPadding = '0', bodyBackground, fontFamily, children }: SideSurfaceProps) {
+export function SideSurface({ onClose, width, resizable = false, minWidth = 360, maxWidth = 1200, rememberAs, modal = true, scrim = 'rgba(15,30,80,.45)', scrimBlur = 0, duration = 250, shadow, borderLeft, borderRight, zIndex, ariaLabel, header, footer, bodyPadding = '0', bodyBackground, fontFamily, children }: SideSurfaceProps) {
   const [shown, setShown] = useState(false);
+  const base = typeof width === 'number' ? width : 640;
+  const canResize = resizable && typeof width === 'number';
+  const [drag, setDrag] = useState<number>(() => (rememberAs ? remembered.get(rememberAs) : undefined) ?? base);
+  const [win, setWin] = useState(() => (typeof window === 'undefined' ? 1440 : window.innerWidth));
+  useEffect(() => {
+    if (!canResize) return undefined;
+    const on = () => setWin(window.innerWidth);
+    window.addEventListener('resize', on);
+    return () => window.removeEventListener('resize', on);
+  }, [canResize]);
+  const hi = Math.max(minWidth, Math.min(maxWidth, win - 24));
+  const lo = Math.min(minWidth, hi);
+  const current = Math.min(hi, Math.max(lo, drag));
+  const setWidth = (px: number) => { setDrag(px); if (rememberAs) remembered.set(rememberAs, px); };
+  const effectiveWidth: number | string = canResize ? current : width;
+  const handle = canResize ? <ResizeHandle value={current} min={lo} max={hi} onChange={setWidth} onReset={() => setWidth(base)} inset label={`Resize the ${ariaLabel} panel`} /> : null;
   useEffect(() => {
     if (modal) return undefined;
     const id = requestAnimationFrame(() => setShown(true));
@@ -57,6 +84,7 @@ export function SideSurface({ onClose, width, modal = true, scrim = 'rgba(15,30,
 
   const content = (
     <>
+      {handle}
       {header}
       <Box data-spec="sidepanel-body" sx={{ flex: 1, minHeight: 0, overflow: 'auto', p: bodyPadding, background: bodyBackground }}>{children}</Box>
       {footer}
@@ -73,7 +101,7 @@ export function SideSurface({ onClose, width, modal = true, scrim = 'rgba(15,30,
         sx={zIndex ? { zIndex } : undefined}
         slotProps={{
           backdrop: { sx: { backgroundColor: scrim, backdropFilter: scrimBlur ? `blur(${scrimBlur}px)` : undefined } },
-          paper: { role: 'dialog', 'aria-modal': true, 'aria-label': ariaLabel, 'data-spec': 'sidepanel', sx: { ...surface(fontFamily), width, maxWidth: '100vw', height: '100%', borderRadius: 0, boxShadow: shadow, borderLeft, borderRight } } as never,
+          paper: { role: 'dialog', 'aria-modal': true, 'aria-label': ariaLabel, 'data-spec': 'sidepanel', sx: { ...surface(fontFamily), position: 'fixed', width: effectiveWidth, maxWidth: '100vw', height: '100%', borderRadius: 0, boxShadow: shadow, borderLeft, borderRight } } as never,
           transition: { easing: 'ease' },
         }}
       >
@@ -93,7 +121,7 @@ export function SideSurface({ onClose, width, modal = true, scrim = 'rgba(15,30,
         top: 0,
         right: 0,
         height: '100vh',
-        width,
+        width: effectiveWidth,
         maxWidth: '100vw',
         zIndex: zIndex ?? 1150,
         boxShadow: shadow,
