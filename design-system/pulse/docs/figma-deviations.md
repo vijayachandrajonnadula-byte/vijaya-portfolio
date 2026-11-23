@@ -145,3 +145,9 @@ The first rebuild followed an old HTML prototype; the user supplied a screenshot
 - **Attachments** lists the documents the execution refers to (a document id with the part of the protocol under it); **Vault** is a folder tree (site, equipment group, document) with dotted guides. Both are generic sample lists, NOT FROM FIGMA, with no company names or people. Choosing a document opens a sample page for it in the Evidence & Activity pane (no file is stored) and closes the panel.
 - The old reference list of the View menu (all step references) and its "not attached in this sample" toast are gone.
 - **Popover** gains an optional `width` prop (default unchanged at Figma's 320px) so a panel with a tree can be wider. The View panel stays at 320px, with the small toggle, and its list scrolls inside 240px.
+
+
+## Electronic Execution: icon-only media buttons and real tooltips (user-directed)
+
+- The media bar's **Attach, Screenshot, Snapshot and Video** buttons show only their coloured icon (28px square); the name moved to the accessible name and the tooltip, which now leads with it ("Screenshot (sample capture) for the selected step"). The evidence-count button got a tooltip too.
+- **Tooltips in the Evidence & Activity pane**: `ChromeIconButton`, `ChromeButton` and the icon-only `SegmentedToggle` segments in `ExecutionChrome` now show the design-system **Tooltip** (the Pulse bubble) for their `title` / `ariaLabel`, instead of the browser's plain `title` hint. So the pane's Open gallery, Pane layout, Close, Expand, List view and Grid view controls, and the filter funnel, all have one. Every other screen that uses these chrome controls gets the same tooltip.

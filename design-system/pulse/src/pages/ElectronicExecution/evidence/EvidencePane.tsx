@@ -197,7 +197,7 @@ export function EvidencePane({ stepId, sop }: { stepId?: string; sop?: string })
             <ChromeIconButton ariaLabel="Open the evidence gallery" title="Open the evidence gallery" onClick={() => ui.open('evidenceGallery')}>
               <SquareArrowUpRightIcon size={16} />
             </ChromeIconButton>
-            <ChromeButton ariaLabel="Pane layout" ariaHasPopup="menu" ariaExpanded={!!layoutEl} onClick={(e) => setLayoutEl(e.currentTarget)} startIcon={<LayoutLeftIcon size={16} />} endIcon={<ArrowDown01Icon size={16} />} sx={{ px: '10px', gap: '6px' }} />
+            <ChromeButton ariaLabel="Pane layout" title="Pane layout" ariaHasPopup="menu" ariaExpanded={!!layoutEl} onClick={(e) => setLayoutEl(e.currentTarget)} startIcon={<LayoutLeftIcon size={16} />} endIcon={<ArrowDown01Icon size={16} />} sx={{ px: '10px', gap: '6px' }} />
             <DropdownMenu
               anchorEl={layoutEl}
               open={!!layoutEl}

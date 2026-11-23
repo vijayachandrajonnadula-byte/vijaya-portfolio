@@ -7,6 +7,7 @@
 import { useEffect, useRef, useState } from 'react';
 import type { ReactNode } from 'react';
 import { Box } from '../../../components/mui';
+import { Tooltip } from '../../../components/feedback/Tooltip/Tooltip';
 import { FilterIcon } from '../../../icons';
 import { panelRole } from '../../../theme/typography';
 import type { ExecState } from '../model';
@@ -67,20 +68,24 @@ export function EvFilterButton({ s, filter, onChange, bare, size = 28 }: { s: Ex
   );
   return (
     <Box ref={pop.ref} sx={{ position: 'relative', width: size, height: size, flexShrink: 0 }}>
-      <EvSq
-        size={size}
-        radius={bare ? 6 : 7}
-        bare={bare}
-        active={active}
-        aria-label="Filter evidence"
-        aria-haspopup="dialog"
-        aria-expanded={pop.open}
-        onClick={() => pop.setOpen(!pop.open)}
-        sx={{ color: active ? ref.navy2 : ref.ink, '&:hover:not(:disabled)': { color: ref.navy2 } }}
-      >
-        <FilterIcon size={14} />
-        {active && <Box aria-hidden sx={{ position: 'absolute', top: -3, right: -3, width: 8, height: 8, borderRadius: '50%', background: ev.alert, border: `1.5px solid ${ref.white}` }} />}
-      </EvSq>
+      <Tooltip title={active ? 'Filter evidence (a filter is on)' : 'Filter evidence'}>
+        <span style={{ display: 'inline-flex' }}>
+          <EvSq
+            size={size}
+            radius={bare ? 6 : 7}
+            bare={bare}
+            active={active}
+            aria-label="Filter evidence"
+            aria-haspopup="dialog"
+            aria-expanded={pop.open}
+            onClick={() => pop.setOpen(!pop.open)}
+            sx={{ color: active ? ref.navy2 : ref.ink, '&:hover:not(:disabled)': { color: ref.navy2 } }}
+          >
+            <FilterIcon size={14} />
+            {active && <Box aria-hidden sx={{ position: 'absolute', top: -3, right: -3, width: 8, height: 8, borderRadius: '50%', background: ev.alert, border: `1.5px solid ${ref.white}` }} />}
+          </EvSq>
+        </span>
+      </Tooltip>
       {pop.open && (
         <Box
           role="dialog"

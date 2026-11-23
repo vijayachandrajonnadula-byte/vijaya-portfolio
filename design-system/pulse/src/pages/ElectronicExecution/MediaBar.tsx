@@ -19,7 +19,7 @@ const kindIcon = { file: Attachment01Icon, screenshot: Image01Icon, snapshot: Ca
 const kindColor: Record<EvidenceKind, string> = { file: barRef.attach, screenshot: barRef.screenshot, snapshot: barRef.snapshot, video: barRef.video };
 const kindText: Record<EvidenceKind, string> = { file: 'Attach', screenshot: 'Screenshot', snapshot: 'Snapshot', video: 'Video' };
 
-/** Text button of the media pill: 16px coloured icon and a 13px label. */
+/** Icon button of the media pill: a 16px coloured icon in a 28px square. The name is the accessible name and the tooltip, not a label. */
 function PillButton({ kind, disabled, onClick }: { kind: EvidenceKind; disabled: boolean; onClick: () => void }) {
   const Icon = kindIcon[kind];
   return (
@@ -28,14 +28,13 @@ function PillButton({ kind, disabled, onClick }: { kind: EvidenceKind; disabled:
       type="button"
       disabled={disabled}
       onClick={onClick}
-      aria-label={EVIDENCE_KINDS.find((k) => k.kind === kind)?.label}
+      aria-label={kindText[kind]}
       sx={{
-        display: 'inline-flex', alignItems: 'center', gap: '4px', height: 28, px: '8px', m: 0, border: 0, borderRadius: '6px', background: 'transparent', cursor: 'pointer', fontFamily: 'inherit', fontSize: 12, lineHeight: '16px', fontWeight: fw.semiBold,
-        color: barRef.ink, whiteSpace: 'nowrap', '&:hover:not(:disabled)': { background: barRef.soft }, '&:disabled': { cursor: 'not-allowed', opacity: 0.55 }, '&:focus-visible': { outline: `2px solid ${barRef.focus}`, outlineOffset: 1 },
+        display: 'inline-grid', placeItems: 'center', width: 28, height: 28, p: 0, m: 0, border: 0, borderRadius: '6px', background: 'transparent', cursor: 'pointer',
+        color: barRef.ink, '&:hover:not(:disabled)': { background: barRef.soft }, '&:disabled': { cursor: 'not-allowed', opacity: 0.55 }, '&:focus-visible': { outline: `2px solid ${barRef.focus}`, outlineOffset: 1 },
       }}
     >
       <Icon size={16} color={kindColor[kind]} />
-      {kindText[kind]}
     </Box>
   );
 }
@@ -139,25 +138,27 @@ export default function MediaBar({ onRecord }: { onRecord?: (stepId: string) => 
           <DragDropVerticalIcon size={16} />
         </Box>
         {EVIDENCE_KINDS.map(({ kind, label }) => (
-          <Tooltip key={kind} title={noEvidence ? 'Select an unrecorded step that needs evidence' : `${label} (sample capture) for the selected step`}>
+          <Tooltip key={kind} title={noEvidence ? `${label}: select an unrecorded step that needs evidence` : `${label} (sample capture) for the selected step`}>
             <span style={{ display: 'flex' }}>
               <PillButton kind={kind} disabled={spectator || noEvidence} onClick={() => captureEvidence(kind)} />
             </span>
           </Tooltip>
         ))}
         <Box aria-hidden sx={{ width: '1px', height: 16, background: barRef.line, mx: '6px' }} />
-        <Box
-          component="button"
-          type="button"
-          aria-label={`Evidence, ${status.evidenceCount} items`}
-          onClick={() => ui.open('evidence', step ? { stepId: step.id } : undefined)}
-          sx={{ display: 'inline-flex', alignItems: 'center', gap: '6px', height: 28, px: '8px', m: 0, border: 0, borderRadius: '6px', background: 'transparent', cursor: 'pointer', color: barRef.grip, '&:hover': { background: barRef.soft }, '&:focus-visible': { outline: `2px solid ${barRef.focus}`, outlineOffset: 1 } }}
-        >
-          <Chat01Icon size={16} />
-          <Box component="span" sx={{ minWidth: 16, height: 16, boxSizing: 'border-box', px: '4px', borderRadius: '8px', display: 'grid', placeItems: 'center', background: barRef.navy, color: '#fff', fontSize: 10, lineHeight: '16px', fontWeight: fw.semiBold }}>
-            {status.evidenceCount}
+        <Tooltip title={step ? 'Evidence & Activity for the selected step' : 'Open Evidence & Activity'}>
+          <Box
+            component="button"
+            type="button"
+            aria-label={`Evidence, ${status.evidenceCount} items`}
+            onClick={() => ui.open('evidence', step ? { stepId: step.id } : undefined)}
+            sx={{ display: 'inline-flex', alignItems: 'center', gap: '6px', height: 28, px: '8px', m: 0, border: 0, borderRadius: '6px', background: 'transparent', cursor: 'pointer', color: barRef.grip, '&:hover': { background: barRef.soft }, '&:focus-visible': { outline: `2px solid ${barRef.focus}`, outlineOffset: 1 } }}
+          >
+            <Chat01Icon size={16} />
+            <Box component="span" sx={{ minWidth: 16, height: 16, boxSizing: 'border-box', px: '4px', borderRadius: '8px', display: 'grid', placeItems: 'center', background: barRef.navy, color: '#fff', fontSize: 10, lineHeight: '16px', fontWeight: fw.semiBold }}>
+              {status.evidenceCount}
+            </Box>
           </Box>
-        </Box>
+        </Tooltip>
       </BarGroup>
 
       {/* inline layout only */}

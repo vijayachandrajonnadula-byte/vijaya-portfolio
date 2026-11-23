@@ -5,12 +5,14 @@
  * #0f172a text, #566680 muted. Pulse Button / ToggleButtonGroup / Tabs do not have these exact shapes (32px bordered buttons with a
  * navy "on" half, 40x32 soft-blue tab pills, 34px white bar groups). Logged in docs/figma-deviations.md.
  */
+import { Fragment } from 'react';
 import type { MouseEvent, ReactNode } from 'react';
 import Box from '@mui/material/Box';
 import ButtonBase from '@mui/material/ButtonBase';
 import type { SxProps, Theme } from '@mui/material/styles';
 import { focusRing, textStyle } from '../../../theme/pulseTokens';
 import { fw } from '../../../theme/typography';
+import { Tooltip } from '../../feedback/Tooltip/Tooltip';
 
 const NAVY = '#1e3a6e';
 const FIELD = '#d3e0f2';
@@ -22,6 +24,19 @@ const MUTED = '#566680';
 
 const label13 = { ...textStyle('textM', 'semiBold'), fontSize: 12, lineHeight: '16px', fontWeight: fw.semiBold } as const;
 const arr = (sx?: SxProps<Theme>) => (Array.isArray(sx) ? sx : sx ? [sx] : []);
+
+/**
+ * The Pulse Tooltip around a bar control (instead of the browser's plain title hint). The span keeps a disabled button hoverable
+ * and keeps the control's place in a flex row. Without a tip the control is returned as it is.
+ */
+function withTip(tip: string | undefined, control: ReactNode): ReactNode {
+  if (!tip) return control;
+  return (
+    <Tooltip title={tip}>
+      <span style={{ display: 'inline-flex', flexShrink: 0 }}>{control}</span>
+    </Tooltip>
+  );
+}
 
 export interface ChromeButtonProps {
   children?: ReactNode;
@@ -45,13 +60,12 @@ export interface ChromeButtonProps {
 export function ChromeButton({ children, startIcon, endIcon, tone = 'outline', weight = 'semiBold', ariaLabel, ariaHasPopup, ariaExpanded, ariaPressed, title, disabled, onClick, sx }: ChromeButtonProps) {
   const navy = tone === 'navy';
   const field = tone === 'field';
-  return (
+  return withTip(title, (
     <ButtonBase
       aria-label={ariaLabel}
       aria-haspopup={ariaHasPopup}
       aria-expanded={ariaExpanded}
       aria-pressed={ariaPressed}
-      title={title}
       disabled={disabled}
       onClick={onClick}
       data-spec="chrome button"
@@ -74,7 +88,7 @@ export function ChromeButton({ children, startIcon, endIcon, tone = 'outline', w
       {children}
       {endIcon}
     </ButtonBase>
-  );
+  ));
 }
 
 export interface ChromeIconButtonProps {
@@ -90,10 +104,9 @@ export interface ChromeIconButtonProps {
 
 /** 32x32 icon button (AI sparkle, open in new, close). */
 export function ChromeIconButton({ ariaLabel, children, bordered = true, title, disabled, onClick, sx }: ChromeIconButtonProps) {
-  return (
+  return withTip(title, (
     <ButtonBase
       aria-label={ariaLabel}
-      title={title}
       disabled={disabled}
       onClick={onClick}
       data-spec="chrome icon button"
@@ -107,7 +120,7 @@ export function ChromeIconButton({ ariaLabel, children, bordered = true, title, 
     >
       {children}
     </ButtonBase>
-  );
+  ));
 }
 
 export interface SegmentedOption<V extends string> {
@@ -133,9 +146,11 @@ export function SegmentedToggle<V extends string>({ value, options, onChange, ar
     <Box role="group" aria-label={ariaLabel} data-spec="segmented toggle" sx={[{ display: 'inline-flex', flexShrink: 0, height: 32, borderRadius: '6px', overflow: 'hidden', boxSizing: 'border-box', border: `1.5px solid ${FIELD}`, background: SOFT }, ...arr(sx)]}>
       {options.map((o) => {
         const on = o.value === value;
+        // icon-only segments (List view / Grid view) show their name as a tooltip
         return (
+          <Fragment key={o.value}>
+          {withTip(kind === 'icon' ? o.ariaLabel : undefined, (
           <ButtonBase
-            key={o.value}
             aria-pressed={on}
             aria-label={o.ariaLabel}
             onClick={() => onChange(o.value)}
@@ -147,6 +162,8 @@ export function SegmentedToggle<V extends string>({ value, options, onChange, ar
             {o.icon}
             {o.label}
           </ButtonBase>
+          ))}
+          </Fragment>
         );
       })}
     </Box>
